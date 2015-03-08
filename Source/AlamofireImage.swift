@@ -21,5 +21,4 @@
 // THE SOFTWARE.
 
 import Foundation
-
-
+import Alamofire
