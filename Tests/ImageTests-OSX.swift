@@ -25,7 +25,7 @@ import Alamofire
 import AlamofireImage
 import Cocoa
 
-class ResponseImageTestCase: BaseImageTestCase {
+class ResponseImageTestCase : BaseImageTestCase {
     
     func testThatResponseImageSerializerHandlesPNGResponseData() {
         

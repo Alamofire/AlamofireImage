@@ -24,7 +24,7 @@ import XCTest
 import Alamofire
 import AlamofireImage
 
-class BaseImageTestCase: XCTestCase {
+class BaseImageTestCase : XCTestCase {
     
     // MARK: - Properties
     

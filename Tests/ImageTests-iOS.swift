@@ -25,7 +25,7 @@ import Alamofire
 import AlamofireImage
 import UIKit
 
-class ResponseImageWithInflationTestCase: BaseImageTestCase {
+class ResponseImageWithInflationTestCase : BaseImageTestCase {
     
     func testPNGResponseDataWithInflation() {
         
@@ -86,7 +86,7 @@ class ResponseImageWithInflationTestCase: BaseImageTestCase {
 
 // MARK: -
 
-class ResponseImageWithoutInflationTestCase: BaseImageTestCase {
+class ResponseImageWithoutInflationTestCase : BaseImageTestCase {
     
     func testPNGResponseDataWithoutInflation() {
         
