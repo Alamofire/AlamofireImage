@@ -1,4 +1,4 @@
-// AlamofireImageTests.h
+// BaseImageTestCase.swift
 //
 // Copyright (c) 2014–2015 Alamofire (http://alamofire.org)
 //
@@ -21,28 +21,33 @@
 // THE SOFTWARE.
 
 import XCTest
+import Alamofire
+import AlamofireImage
 
-class AlamofireImageTests: XCTestCase {
+class BaseImageTestCase: XCTestCase {
+    
+    // MARK: - Properties
+    
+    let defaultTimeoutDuration = 5.0
+    var manager: Manager!
+    
+    // MARK: - Set Up & Tear Down Methods
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
+        
+        var defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
+        configuration.HTTPAdditionalHeaders = defaultHeaders
+        
+        self.manager = Manager(configuration: configuration)
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
+        
+        self.manager.session.finishTasksAndInvalidate()
+        self.manager = nil
     }
 }
