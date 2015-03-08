@@ -28,6 +28,7 @@ class ImagesViewController: UIViewController {
     
     // MARK: Properties
     
+    lazy var placeholderImage = UIImage(named: "Placeholder Image")!
     lazy var imageURLStrings = [String]()
     var collectionView: UICollectionView!
     
@@ -140,7 +141,7 @@ extension ImagesViewController : UICollectionViewDataSource {
         cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCell.identifier(), forIndexPath: indexPath) as ImageCell
-        cell.configureCellWithURLString(self.imageURLStrings[indexPath.row])
+        cell.configureCellWithURLString(self.imageURLStrings[indexPath.row], placeholderImage: self.placeholderImage)
         
         return cell
     }

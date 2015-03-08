@@ -60,8 +60,8 @@ class ImageCell : UICollectionViewCell {
     
     // MARK: - Cell Lifecycle Methods
     
-    func configureCellWithURLString(URLString: String) {
-        self.imageView.setImage(URL: NSURL(string: URLString)!)
+    func configureCellWithURLString(URLString: String, placeholderImage: UIImage) {
+        self.imageView.setImage(URL: NSURL(string: URLString)!, placeHolderImage: placeholderImage)
     }
     
     override func prepareForReuse() {
