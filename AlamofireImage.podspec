@@ -12,4 +12,6 @@ Pod::Spec.new do |s|
   
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.10'
+  
+  s.dependency 'Alamofire', '~> 1.1.4'
 end
