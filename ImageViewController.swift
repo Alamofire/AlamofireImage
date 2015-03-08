@@ -1,4 +1,4 @@
-// AppDelegate.swift
+// ImageViewController.swift
 //
 // Copyright (c) 2014–2015 Alamofire (http://alamofire.org)
 //
@@ -20,25 +20,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Foundation
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class ImageViewController : UIViewController {
     
     // MARK: - Properties
     
-    var window: UIWindow?
+    var image: UIImage!
+    var imageView: UIImageView!
 
-    // MARK: - Application State Methods
+    // MARK: - Initialization Methods
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        let navController = UINavigationController(rootViewController: ImagesViewController())
+    convenience init(image: UIImage) {
+        self.init()
+        self.image = image
+    }
+
+    // MARK: - View Lifecycle Methods
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpDisplayProperties()
+        setUpImageView()
+    }
+
+    // MARK: - Private - Set Up Methods
+    
+    private func setUpDisplayProperties() {
+        self.edgesForExtendedLayout = UIRectEdge.None
+        self.view.backgroundColor = UIColor.whiteColor()
+    }
+    
+    private func setUpImageView() {
+        self.imageView = UIImageView(image: self.image)
+        self.imageView.contentMode = .ScaleAspectFit
         
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = navController
-        self.window?.backgroundColor = UIColor.whiteColor()
-        self.window?.makeKeyAndVisible()
+        self.view.addSubview(self.imageView)
         
-        return true
+        self.imageView.frame = self.view.bounds
+        self.imageView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
     }
 }
