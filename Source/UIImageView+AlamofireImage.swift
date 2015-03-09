@@ -1,4 +1,4 @@
-// UIImageView.swift
+// UIImageView+AlamofireImage.swift
 //
 // Copyright (c) 2014–2015 Alamofire (http://alamofire.org)
 //
