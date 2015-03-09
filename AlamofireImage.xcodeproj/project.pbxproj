@@ -16,8 +16,8 @@
 		4C7D62E81AABCD1300BADE24 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE611611AABCA7600D35044 /* Alamofire.framework */; };
 		4CE611241AABC0FF00D35044 /* ImageTests-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C54EE951AABC08B00CD894C /* ImageTests-iOS.swift */; };
 		4CE6112C1AABC24E00D35044 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4CE611551AABC8D900D35044 /* AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* AlamofireImage.swift */; };
-		4CE611561AABC8D900D35044 /* AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* AlamofireImage.swift */; };
+		4CE611551AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
+		4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,7 +91,7 @@
 		4C9043821AABBFC5001B4E60 /* AlamofireImage iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE611321AABC24E00D35044 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE611471AABC5C900D35044 /* AlamofireImage OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CE611541AABC8D900D35044 /* AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImage.swift; sourceTree = "<group>"; };
+		4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4CE611571AABCA7600D35044 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,9 +133,9 @@
 			isa = PBXGroup;
 			children = (
 				4C54EE8F1AABC04900CD894C /* AlamofireImage.h */,
-				4CE611541AABC8D900D35044 /* AlamofireImage.swift */,
-				4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */,
+				4CF6CC601AAD289E007A38CB /* Alamofire Extensions */,
 				4C54EE931AABC05100CD894C /* Supporting Files */,
+				4CF6CC5D1AAD2822007A38CB /* UIKit Extensions */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -197,6 +197,22 @@
 				4CE611651AABCA7600D35044 /* Alamofire OSX Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4CF6CC5D1AAD2822007A38CB /* UIKit Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */,
+			);
+			name = "UIKit Extensions";
+			sourceTree = "<group>";
+		};
+		4CF6CC601AAD289E007A38CB /* Alamofire Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */,
+			);
+			name = "Alamofire Extensions";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,7 +425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C78EA721AACD28C002C0569 /* UIImageView+AlamofireImage.swift in Sources */,
-				4CE611551AABC8D900D35044 /* AlamofireImage.swift in Sources */,
+				4CE611551AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,7 +442,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CE611561AABC8D900D35044 /* AlamofireImage.swift in Sources */,
+				4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
