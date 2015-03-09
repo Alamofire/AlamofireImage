@@ -88,6 +88,61 @@ public class ImageViewCache : NSCache, ImageCache {
 
 public extension UIImageView {
     
+    // MARK: Image Transition Enum
+    
+    public enum ImageTransition {
+        case None
+        case CrossDissolve(NSTimeInterval)
+        case CurlDown(NSTimeInterval)
+        case CurlUp(NSTimeInterval)
+        case FlipFromBottom(NSTimeInterval)
+        case FlipFromLeft(NSTimeInterval)
+        case FlipFromRight(NSTimeInterval)
+        case FlipFromTop(NSTimeInterval)
+        
+        var duration: NSTimeInterval {
+            switch self {
+            case None:
+                return 0.0
+            case CrossDissolve(let duration):
+                return duration
+            case CurlDown(let duration):
+                return duration
+            case CurlUp(let duration):
+                return duration
+            case FlipFromBottom(let duration):
+                return duration
+            case FlipFromLeft(let duration):
+                return duration
+            case FlipFromRight(let duration):
+                return duration
+            case FlipFromTop(let duration):
+                return duration
+            }
+        }
+        
+        var animationOptions: UIViewAnimationOptions {
+            switch self {
+            case None:
+                return UIViewAnimationOptions.TransitionNone
+            case CrossDissolve:
+                return UIViewAnimationOptions.TransitionCrossDissolve
+            case CurlDown:
+                return UIViewAnimationOptions.TransitionCurlDown
+            case CurlUp:
+                return UIViewAnimationOptions.TransitionCurlUp
+            case FlipFromBottom:
+                return UIViewAnimationOptions.TransitionFlipFromBottom
+            case FlipFromLeft:
+                return UIViewAnimationOptions.TransitionFlipFromLeft
+            case FlipFromRight:
+                return UIViewAnimationOptions.TransitionFlipFromRight
+            case FlipFromTop:
+                return UIViewAnimationOptions.TransitionFlipFromTop
+            }
+        }
+    }
+    
     // MARK: Private - Properties
     
     private var activeTask: NSURLSessionTask? {
@@ -120,21 +175,32 @@ public extension UIImageView {
     // MARK: Remote Image Methods
     
     public func setImage(#URL: NSURL) {
-        setImage(URL: URL, placeHolderImage: nil)
+        setImage(URL: URL, placeholderImage: nil)
     }
     
-    public func setImage(#URL: NSURL, placeHolderImage: UIImage?) {
+    public func setImage(#URL: NSURL, placeholderImage: UIImage?) {
+        setImage(URL: URL, placeholderImage: placeholderImage, imageTransition: ImageTransition.None)
+    }
+    
+    public func setImage(#URL: NSURL, placeholderImage: UIImage?, imageTransition: ImageTransition) {
         let mutableURLRequest = NSMutableURLRequest(URL: URL)
         mutableURLRequest.addValue("image/*", forHTTPHeaderField: "Accept")
         
         let URLRequest = mutableURLRequest.copy() as NSURLRequest
         
-        setImage(URLRequest: URLRequest, placeholderImage: placeHolderImage, success: nil, failure: nil)
+        setImage(
+            URLRequest: URLRequest,
+            placeholderImage: placeholderImage,
+            imageTransition: imageTransition,
+            success: nil,
+            failure: nil
+        )
     }
     
     public func setImage(
         #URLRequest: NSURLRequest,
         placeholderImage: UIImage?,
+        imageTransition: ImageTransition,
         success: ((NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void)?,
         failure: ((NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void)?)
     {
@@ -161,7 +227,20 @@ public extension UIImageView {
                         if let success = success {
                             success(request, response, image)
                         } else {
-                            strongSelf.image = image
+                            switch imageTransition {
+                            case .None:
+                                strongSelf.image = image
+                            default:
+                                UIView.transitionWithView(
+                                    strongSelf,
+                                    duration: imageTransition.duration,
+                                    options: imageTransition.animationOptions,
+                                    animations: {
+                                        strongSelf.image = image
+                                    },
+                                    completion: nil
+                                )
+                            }
                         }
                         
                         UIImageView.sharedImageCache().cacheImage(image, forRequest: request)
