@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		4C3006D31AACEBC20029EA50 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C3006CE1AACEBC20029EA50 /* Images.xcassets */; };
 		4C3006D41AACEBC20029EA50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3006CF1AACEBC20029EA50 /* AppDelegate.swift */; };
-		4C3006D51AACEBC20029EA50 /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3006D01AACEBC20029EA50 /* ImagesViewController.swift */; };
 		4C5AD6921AACEDDC006EB75F /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5AD68B1AACED65006EB75F /* AlamofireImage.framework */; };
 		4C5AD6931AACEDDC006EB75F /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5AD68B1AACED65006EB75F /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4C5AD6C71AACEE7C006EB75F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C5AD6C51AACEE7C006EB75F /* LaunchScreen.xib */; };
-		4C5AD6C91AAD00A8006EB75F /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AD6C81AAD00A8006EB75F /* ImageCell.swift */; };
-		4C5AD6CB1AAD0A78006EB75F /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AD6CA1AAD0A78006EB75F /* ImageViewController.swift */; };
+		4CF743C11AAD756500C2C725 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF743BE1AAD756500C2C725 /* ImageCell.swift */; };
+		4CF743C21AAD756500C2C725 /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF743BF1AAD756500C2C725 /* ImagesViewController.swift */; };
+		4CF743C31AAD756500C2C725 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF743C01AAD756500C2C725 /* ImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,12 +73,12 @@
 		4C3006C71AACEBB60029EA50 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Example/Info.plist; sourceTree = SOURCE_ROOT; };
 		4C3006CE1AACEBC20029EA50 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Example/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		4C3006CF1AACEBC20029EA50 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Example/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
-		4C3006D01AACEBC20029EA50 /* ImagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImagesViewController.swift; path = Example/ImagesViewController.swift; sourceTree = SOURCE_ROOT; };
 		4C5AD6821AACED64006EB75F /* AlamofireImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = AlamofireImage.xcodeproj; sourceTree = "<group>"; };
 		4C5AD6C61AACEE7C006EB75F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Example/Base.lproj/LaunchScreen.xib; sourceTree = SOURCE_ROOT; };
-		4C5AD6C81AAD00A8006EB75F /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = SOURCE_ROOT; };
-		4C5AD6CA1AAD0A78006EB75F /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = SOURCE_ROOT; };
 		4CDA9E5C1AACEB740077861B /* iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CF743BE1AAD756500C2C725 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCell.swift; path = Example/ImageCell.swift; sourceTree = SOURCE_ROOT; };
+		4CF743BF1AAD756500C2C725 /* ImagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImagesViewController.swift; path = Example/ImagesViewController.swift; sourceTree = SOURCE_ROOT; };
+		4CF743C01AAD756500C2C725 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageViewController.swift; path = Example/ImageViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,9 +125,9 @@
 			isa = PBXGroup;
 			children = (
 				4C3006CF1AACEBC20029EA50 /* AppDelegate.swift */,
-				4C5AD6C81AAD00A8006EB75F /* ImageCell.swift */,
-				4C5AD6CA1AAD0A78006EB75F /* ImageViewController.swift */,
-				4C3006D01AACEBC20029EA50 /* ImagesViewController.swift */,
+				4CF743BE1AAD756500C2C725 /* ImageCell.swift */,
+				4CF743C01AAD756500C2C725 /* ImageViewController.swift */,
+				4CF743BF1AAD756500C2C725 /* ImagesViewController.swift */,
 				4CDA9E5F1AACEB740077861B /* Supporting Files */,
 			);
 			name = Source;
@@ -252,10 +252,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CF743C21AAD756500C2C725 /* ImagesViewController.swift in Sources */,
 				4C3006D41AACEBC20029EA50 /* AppDelegate.swift in Sources */,
-				4C3006D51AACEBC20029EA50 /* ImagesViewController.swift in Sources */,
-				4C5AD6CB1AAD0A78006EB75F /* ImageViewController.swift in Sources */,
-				4C5AD6C91AAD00A8006EB75F /* ImageCell.swift in Sources */,
+				4CF743C31AAD756500C2C725 /* ImageViewController.swift in Sources */,
+				4CF743C11AAD756500C2C725 /* ImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
