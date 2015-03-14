@@ -34,7 +34,7 @@ public class ImageDownloader {
     
     // MARK: - Properties
     
-    let sessionManager: Alamofire.Manager
+    private let sessionManager: Alamofire.Manager
     
     private var queuedRequests: [Request]
     private let synchronizationQueue: dispatch_queue_t
@@ -47,27 +47,25 @@ public class ImageDownloader {
     
     public class var defaultInstance: ImageDownloader {
         struct Singleton {
-            static let instance: ImageDownloader = {
-                let configuration: NSURLSessionConfiguration = {
-                    let defaultConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
-                    
-                    defaultConfiguration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders()
-                    defaultConfiguration.HTTPShouldSetCookies = true // true by default
-                    defaultConfiguration.HTTPShouldUsePipelining = true // risky change...
-//                    defaultConfiguration.HTTPMaximumConnectionsPerHost = 4 on iOS or 6 on OSX
-                    
-                    defaultConfiguration.requestCachePolicy = .UseProtocolCachePolicy // Let server decide
-                    defaultConfiguration.allowsCellularAccess = true
-                    defaultConfiguration.timeoutIntervalForRequest = 30 // default is 60
-                    
-                    return defaultConfiguration
-                }()
-                
-                return ImageDownloader(configuration: configuration)
-            }()
+            static let instance = ImageDownloader(configuration: ImageDownloader.defaultSessionConfiguration)
         }
         
         return Singleton.instance
+    }
+    
+    public class var defaultSessionConfiguration: NSURLSessionConfiguration {
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        
+        configuration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders()
+        configuration.HTTPShouldSetCookies = true // true by default
+        configuration.HTTPShouldUsePipelining = true // risky change...
+//        configuration.HTTPMaximumConnectionsPerHost = 4 on iOS or 6 on OSX
+        
+        configuration.requestCachePolicy = .UseProtocolCachePolicy // Let server decide
+        configuration.allowsCellularAccess = true
+        configuration.timeoutIntervalForRequest = 30 // default is 60
+        
+        return configuration
     }
     
     public init(
@@ -102,13 +100,13 @@ public class ImageDownloader {
         request.validate()
         request.responseImage { [weak self] URLRequest, response, image, error in
             if let strongSelf = self {
-                if let image = image as? UIImage {
-                    success?(URLRequest, response, image)
+                let image = image as? UIImage
+                
+                if image != nil && error == nil {
+                    success?(URLRequest, response, image!)
                 } else {
                     failure?(URLRequest, response, error)
                 }
-                
-                println("Finished Request: \(request.request.URLString)")
                 
                 strongSelf.safelyDecrementActiveRequestCount()
                 strongSelf.safelyStartNextRequestIfNecessary()
@@ -134,9 +132,16 @@ public class ImageDownloader {
     
     private func safelyStartNextRequestIfNecessary() {
         dispatch_sync(self.synchronizationQueue) {
-            if self.isActiveRequestCountBelowMaximumLimit() {
+            if !self.isActiveRequestCountBelowMaximumLimit() {
+                return
+            }
+            
+            while (!self.queuedRequests.isEmpty) {
                 if let request = self.dequeueRequest() {
-                    self.startRequest(request)
+                    if request.task.state == .Suspended {
+                        self.startRequest(request)
+                        break
+                    }
                 }
             }
         }
@@ -146,7 +151,6 @@ public class ImageDownloader {
         dispatch_sync(self.synchronizationQueue) {
             if self.activeRequestCount > 0 {
                 self.activeRequestCount -= 1
-                println("Decremented Active Request Count: \(self.activeRequestCount)")
             }
         }
     }
@@ -154,10 +158,8 @@ public class ImageDownloader {
     // MARK: - Private - Non Thread-Safe Request Methods
     
     private func startRequest(request: Request) {
-        println("Starting Request: \(request.request.URLString)")
         request.resume()
         ++self.activeRequestCount
-        println("Active Request Count: \(self.activeRequestCount)")
     }
     
     private func enqueueRequest(request: Request) {
@@ -167,24 +169,13 @@ public class ImageDownloader {
         case .LIFO:
             self.queuedRequests.insert(request, atIndex: 0)
         }
-        
-        println("Enqueued Request: \(request.request.URLString)")
     }
     
     private func dequeueRequest() -> Request? {
         var request: Request?
         
         if !self.queuedRequests.isEmpty {
-            switch self.downloadPrioritization {
-            case .FIFO:
-                request = self.queuedRequests.removeAtIndex(0)
-            case .LIFO:
-                request = self.queuedRequests.removeLast()
-            }
-        }
-        
-        if let request = request {
-            println("Dequeued Request: \(request.request.URLString)")
+            request = self.queuedRequests.removeAtIndex(0)
         }
         
         return request

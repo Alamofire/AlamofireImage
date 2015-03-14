@@ -172,6 +172,22 @@ public extension UIImageView {
         objc_setAssociatedObject(self, &sharedImageCacheKey, imageCache, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
     }
     
+    // MARK: Image Downloader Methods
+    
+    public class func sharedImageDownloader() -> ImageDownloader {
+        let userDefinedImageDownloader: AnyObject! = objc_getAssociatedObject(self, &sharedImageDownloaderKey)
+        
+        if let userDefinedImageDownloader = userDefinedImageDownloader as? ImageDownloader {
+            return userDefinedImageDownloader
+        } else {
+            return ImageDownloader.defaultInstance
+        }
+    }
+    
+    public class func setSharedImageDownloader(imageDownloader: ImageDownloader) {
+        objc_setAssociatedObject(self, &sharedImageDownloaderKey, imageDownloader, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+    }
+    
     // MARK: Remote Image Methods
     
     public func setImage(#URL: NSURL) {
@@ -217,13 +233,10 @@ public extension UIImageView {
                 self.image = placeholderImage
             }
             
-            let request = Alamofire.request(URLRequest)
-            request.validate()
-            request.responseImage { [weak self] request, response, image, error in
-                if let strongSelf = self {
-                    if error == nil && image is UIImage {
-                        let image = image! as UIImage
-                        
+            let request = UIImageView.sharedImageDownloader().downloadImage(
+                URLRequest: URLRequest,
+                success: { [weak self] request, response, image in
+                    if let strongSelf = self {
                         if let success = success {
                             success(request, response, image)
                         } else {
@@ -243,14 +256,16 @@ public extension UIImageView {
                             }
                         }
                         
-                        UIImageView.sharedImageCache().cacheImage(image, forRequest: request)
-                    } else {
-                        failure?(request, response, error)
+                        UIImageView.sharedImageCache().cacheImage(image, forRequest: URLRequest)
                     }
-                    
-                    strongSelf.activeTask = nil
+                },
+                failure: { [weak self] request, response, error in
+                    if let strongSelf = self {
+                        failure?(request, response, error)
+                        strongSelf.activeTask = nil
+                    }
                 }
-            }
+            )
             
             self.activeTask = request.task
         }
@@ -261,5 +276,6 @@ public extension UIImageView {
     }
 }
 
+private var sharedImageDownloaderKey = "UIImageView.SharedImageDownloader"
 private var sharedImageCacheKey = "UIImageView.SharedImageCache"
 private var activeTaskKey = "UIImageView.ActiveTask"
