@@ -143,49 +143,44 @@ public extension UIImageView {
         }
     }
     
+    // MARK: Shared Class Properties
+    
+    public class var sharedImageCache: ImageCache {
+        get {
+            if let cache = objc_getAssociatedObject(self, &sharedImageCacheKey) as? ImageCache {
+                return cache
+            } else {
+                struct Static { static let imageCache = ImageViewCache() }
+                return Static.imageCache
+            }
+        }
+        set(cache) {
+            objc_setAssociatedObject(self, &sharedImageCacheKey, cache, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        }
+    }
+    
+    public class var sharedImageDownloader: ImageDownloader {
+        get {
+            if let downloader = objc_getAssociatedObject(self, &sharedImageDownloaderKey) as? ImageDownloader {
+                return downloader
+            } else {
+                return ImageDownloader.defaultInstance
+            }
+        }
+        set(downloader) {
+            objc_setAssociatedObject(self, &sharedImageDownloaderKey, downloader, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        }
+    }
+    
     // MARK: Private - Properties
     
-    private var activeTask: NSURLSessionTask? {
+    private var activeRequest: Request? {
         get {
-            let userDefinedTask: AnyObject! = objc_getAssociatedObject(self, &activeTaskKey)
-            return userDefinedTask as? NSURLSessionTask
+            return objc_getAssociatedObject(self, &activeRequestKey) as? Request
         }
-        set(newTask) {
-            objc_setAssociatedObject(self, &activeTaskKey, newTask, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        set(request) {
+            objc_setAssociatedObject(self, &activeRequestKey, request, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
-    }
-    
-    // MARK: Image Cache Methods
-    
-    public class func sharedImageCache() -> ImageCache {
-        let userDefinedCache: AnyObject! = objc_getAssociatedObject(self, &sharedImageCacheKey)
-        
-        if let userDefinedCache = userDefinedCache as? ImageCache {
-            return userDefinedCache
-        } else {
-            struct Static { static let imageCache = ImageViewCache() }
-            return Static.imageCache
-        }
-    }
-    
-    public class func setSharedImageCache(imageCache: ImageCache) {
-        objc_setAssociatedObject(self, &sharedImageCacheKey, imageCache, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
-    }
-    
-    // MARK: Image Downloader Methods
-    
-    public class func sharedImageDownloader() -> ImageDownloader {
-        let userDefinedImageDownloader: AnyObject! = objc_getAssociatedObject(self, &sharedImageDownloaderKey)
-        
-        if let userDefinedImageDownloader = userDefinedImageDownloader as? ImageDownloader {
-            return userDefinedImageDownloader
-        } else {
-            return ImageDownloader.defaultInstance
-        }
-    }
-    
-    public class func setSharedImageDownloader(imageDownloader: ImageDownloader) {
-        objc_setAssociatedObject(self, &sharedImageDownloaderKey, imageDownloader, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
     }
     
     // MARK: Remote Image Methods
@@ -222,7 +217,7 @@ public extension UIImageView {
     {
         cancelImageRequest()
         
-        if let image = UIImageView.sharedImageCache().cachedImageForRequest(URLRequest) {
+        if let image = UIImageView.sharedImageCache.cachedImageForRequest(URLRequest) {
             if let success = success {
                 success(URLRequest, nil, image)
             } else {
@@ -233,7 +228,7 @@ public extension UIImageView {
                 self.image = placeholderImage
             }
             
-            let request = UIImageView.sharedImageDownloader().downloadImage(
+            let request = UIImageView.sharedImageDownloader.downloadImage(
                 URLRequest: URLRequest,
                 success: { [weak self] request, response, image in
                     if let strongSelf = self {
@@ -256,26 +251,26 @@ public extension UIImageView {
                             }
                         }
                         
-                        UIImageView.sharedImageCache().cacheImage(image, forRequest: URLRequest)
+                        UIImageView.sharedImageCache.cacheImage(image, forRequest: URLRequest)
                     }
                 },
                 failure: { [weak self] request, response, error in
                     if let strongSelf = self {
                         failure?(request, response, error)
-                        strongSelf.activeTask = nil
+                        strongSelf.activeRequest = nil
                     }
                 }
             )
             
-            self.activeTask = request.task
+            self.activeRequest = request
         }
     }
     
     public func cancelImageRequest() {
-        self.activeTask?.cancel()
+        self.activeRequest?.cancel()
     }
 }
 
 private var sharedImageDownloaderKey = "UIImageView.SharedImageDownloader"
 private var sharedImageCacheKey = "UIImageView.SharedImageCache"
-private var activeTaskKey = "UIImageView.ActiveTask"
+private var activeRequestKey = "UIImageView.ActiveRequest"
