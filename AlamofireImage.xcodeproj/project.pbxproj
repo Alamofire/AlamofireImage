@@ -14,6 +14,8 @@
 		4C5D84281AAD8B9100A42375 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5D84271AAD8B9100A42375 /* Alamofire.framework */; };
 		4C5D842A1AAD8B9800A42375 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5D84291AAD8B9800A42375 /* Alamofire.framework */; };
 		4C78EA721AACD28C002C0569 /* UIImageView+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */; };
+		4C96A4781AAE9488008AE0B6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
+		4C96A4791AAE9488008AE0B6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
 		4CE611241AABC0FF00D35044 /* ImageTests-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C54EE951AABC08B00CD894C /* ImageTests-iOS.swift */; };
 		4CE6112C1AABC24E00D35044 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CE611551AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
@@ -49,6 +51,7 @@
 		4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4C9043771AABBFC5001B4E60 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9043821AABBFC5001B4E60 /* AlamofireImage iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		4CE611321AABC24E00D35044 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE611471AABC5C900D35044 /* AlamofireImage OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+AlamofireImage.swift"; sourceTree = "<group>"; };
@@ -92,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				4C54EE8F1AABC04900CD894C /* AlamofireImage.h */,
+				4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */,
 				4C5D84571AAD958A00A42375 /* Extensions */,
 				4C54EE931AABC05100CD894C /* Supporting Files */,
 			);
@@ -366,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C96A4781AAE9488008AE0B6 /* ImageDownloader.swift in Sources */,
 				4C78EA721AACD28C002C0569 /* UIImageView+AlamofireImage.swift in Sources */,
 				4CE611551AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */,
 			);
@@ -385,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */,
+				4C96A4791AAE9488008AE0B6 /* ImageDownloader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
