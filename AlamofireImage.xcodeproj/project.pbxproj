@@ -100,7 +100,6 @@
 		4C54EE8E1AABC04900CD894C /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				4C54EE8F1AABC04900CD894C /* AlamofireImage.h */,
 				4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */,
 				4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */,
 				4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */,
@@ -113,6 +112,7 @@
 		4C54EE931AABC05100CD894C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4C54EE8F1AABC04900CD894C /* AlamofireImage.h */,
 				4C54EE901AABC04900CD894C /* Info.plist */,
 			);
 			name = "Supporting Files";

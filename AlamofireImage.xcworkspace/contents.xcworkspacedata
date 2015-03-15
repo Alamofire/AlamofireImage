@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:iOS Example.xcodeproj">
+      location = "group:AlamofireImage.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:AlamofireImage.xcodeproj">
+      location = "group:iOS Example.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Carthage/Checkouts/Alamofire/Alamofire.xcodeproj">
