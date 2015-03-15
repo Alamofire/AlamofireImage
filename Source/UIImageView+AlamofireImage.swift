@@ -80,21 +80,7 @@ public extension UIImageView {
         }
     }
     
-    // MARK: - Shared Class Properties
-    
-    public class var sharedImageCache: ImageCache {
-        get {
-            if let cache = objc_getAssociatedObject(self, &sharedImageCacheKey) as? ImageCache {
-                return cache
-            } else {
-                struct Static { static let imageCache = AutoPurgingImageCache() }
-                return Static.imageCache
-            }
-        }
-        set(cache) {
-            objc_setAssociatedObject(self, &sharedImageCacheKey, cache, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
-        }
-    }
+    // MARK: - Properties
     
     public class var sharedImageDownloader: ImageDownloader {
         get {
@@ -108,8 +94,6 @@ public extension UIImageView {
             objc_setAssociatedObject(self, &sharedImageDownloaderKey, downloader, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
-    
-    // MARK: - Private - Properties
     
     private var activeRequest: Request? {
         get {
@@ -154,55 +138,61 @@ public extension UIImageView {
     {
         cancelImageRequest()
         
-        if let image = UIImageView.sharedImageCache.cachedImageForRequest(URLRequest, withFilterName: nil) {
+        let imageDownloader = UIImageView.sharedImageDownloader
+        let imageCache = imageDownloader.imageCache
+        
+        // Use the image from the image cache if it exists
+        if let image = imageCache.cachedImageForRequest(URLRequest, withFilterName: nil) {
             if let success = success {
                 success(URLRequest, nil, image)
             } else {
                 self.image = image
             }
-        } else {
-            if let placeholderImage = placeholderImage {
-                self.image = placeholderImage
-            }
             
-            let request = UIImageView.sharedImageDownloader.downloadImage(
-                URLRequest: URLRequest,
-                success: { [weak self] request, response, image in
-                    if let strongSelf = self {
-                        if let success = success {
-                            success(request, response, image)
-                        } else {
-                            switch imageTransition {
-                            case .None:
-                                strongSelf.image = image
-                            default:
-                                UIView.transitionWithView(
-                                    strongSelf,
-                                    duration: imageTransition.duration,
-                                    options: imageTransition.animationOptions,
-                                    animations: {
-                                        strongSelf.image = image
-                                    },
-                                    completion: nil
-                                )
-                            }
+            return
+        }
+        
+        // Set the placeholder since we're going to have to download
+        if let placeholderImage = placeholderImage {
+            self.image = placeholderImage
+        }
+        
+        // Download the image, then run the image transition, success closure or failure closure
+        let request = UIImageView.sharedImageDownloader.downloadImage(
+            URLRequest: URLRequest,
+            success: { [weak self] request, response, image in
+                if let strongSelf = self {
+                    if let success = success {
+                        success(request, response, image)
+                    } else {
+                        switch imageTransition {
+                        case .None:
+                            strongSelf.image = image
+                        default:
+                            UIView.transitionWithView(
+                                strongSelf,
+                                duration: imageTransition.duration,
+                                options: imageTransition.animationOptions,
+                                animations: {
+                                    strongSelf.image = image
+                                },
+                                completion: nil
+                            )
                         }
-                        
-                        UIImageView.sharedImageCache.cacheImage(image, forRequest: URLRequest, withFilterName: nil)
-                    }
-                },
-                failure: { [weak self] request, response, error in
-                    if let strongSelf = self {
-                        failure?(request, response, error)
-                        strongSelf.activeRequest = nil
                     }
                 }
-            )
-            
-            self.activeRequest = request
-        }
+            },
+            failure: { [weak self] request, response, error in
+                if let strongSelf = self {
+                    failure?(request, response, error)
+                    strongSelf.activeRequest = nil
+                }
+            }
+        )
+        
+        self.activeRequest = request
     }
-
+    
     // MARK: - Image Download Cancellation Methods
     
     public func cancelImageRequest() {
@@ -211,5 +201,4 @@ public extension UIImageView {
 }
 
 private var sharedImageDownloaderKey = "UIImageView.SharedImageDownloader"
-private var sharedImageCacheKey = "UIImageView.SharedImageCache"
 private var activeRequestKey = "UIImageView.ActiveRequest"

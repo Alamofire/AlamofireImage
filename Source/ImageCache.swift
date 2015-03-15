@@ -15,7 +15,7 @@ import Swift
 
 // MARK: ImageCache
 
-@objc public protocol ImageCache {
+public protocol ImageCache {
     func cachedImageForRequest(request: NSURLRequest, withFilterName filterName: String?) -> UIImage?
     func cacheImage(image: UIImage, forRequest request: NSURLRequest, withFilterName filterName: String?)
     func removeAllCachedImages()

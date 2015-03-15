@@ -33,11 +33,14 @@ public class ImageDownloader {
     }
     
     // MARK: - Properties
+
+    public let imageCache: ImageCache
     
     private let sessionManager: Alamofire.Manager
     
     private var queuedRequests: [Request]
     private let synchronizationQueue: dispatch_queue_t
+    private let responseQueue: dispatch_queue_t
     private let downloadPrioritization: DownloadPrioritization
     
     private var activeRequestCount: Int
@@ -71,20 +74,27 @@ public class ImageDownloader {
     public init(
         configuration: NSURLSessionConfiguration? = nil,
         downloadPrioritization: DownloadPrioritization = .FIFO,
-        maximumActiveDownloads: Int = 4)
+        maximumActiveDownloads: Int = 4,
+        imageCache: ImageCache = AutoPurgingImageCache())
     {
         self.sessionManager = Alamofire.Manager(configuration: configuration)
         self.sessionManager.startRequestsImmediately = false
         
         self.downloadPrioritization = downloadPrioritization
         self.maximumActiveDownloads = maximumActiveDownloads
+        self.imageCache = imageCache
         
         self.queuedRequests = []
         self.activeRequestCount = 0
         
         self.synchronizationQueue = {
-            let name = String(format: "com.alamofire.alamofireimage.imagedownloader-%08%08", arc4random(), arc4random())
+            let name = String(format: "com.alamofire.imagedownloader.synchronizationqueue-%08%08", arc4random(), arc4random())
             return dispatch_queue_create(name, DISPATCH_QUEUE_SERIAL)
+        }()
+
+        self.responseQueue = {
+            let name = String(format: "com.alamofire.imagedownloader.responsequeue-%08%08", arc4random(), arc4random())
+            return dispatch_queue_create(name, DISPATCH_QUEUE_CONCURRENT)
         }()
     }
     
@@ -94,24 +104,63 @@ public class ImageDownloader {
         #URLRequest: URLRequestConvertible,
         success: ImageDownloadSuccessHandler?,
         failure: ImageDownloadFailureHandler?)
-        -> Request
+        -> Request?
     {
-        let request = self.sessionManager.request(URLRequest)
-        request.validate()
-        request.responseImage { [weak self] URLRequest, response, image, error in
-            if let strongSelf = self {
-                let image = image as? UIImage
-                
-                if image != nil && error == nil {
-                    success?(URLRequest, response, image!)
-                } else {
-                    failure?(URLRequest, response, error)
+        return downloadImage(URLRequest: URLRequest, filters: nil, filterName: nil, success: success, failure: failure)
+    }
+    
+    public func downloadImage(
+        #URLRequest: URLRequestConvertible,
+        filters: [ImageFilter]?,
+        filterName: String?,
+        success: ImageDownloadSuccessHandler?,
+        failure: ImageDownloadFailureHandler?)
+        -> Request?
+    {
+        // Attempt to load the image from the image cache if the cache policy allows it
+        switch URLRequest.URLRequest.cachePolicy {
+        case .ReturnCacheDataElseLoad, .ReturnCacheDataDontLoad:
+            if let image = self.imageCache.cachedImageForRequest(URLRequest.URLRequest, withFilterName: filterName) {
+                dispatch_async(dispatch_get_main_queue()) {
+                    success?(URLRequest.URLRequest, nil, image)
+                    return
                 }
                 
-                strongSelf.safelyDecrementActiveRequestCount()
-                strongSelf.safelyStartNextRequestIfNecessary()
+                return nil
             }
+        default:
+            break
         }
+        
+        // Download the image
+        let request = self.sessionManager.request(URLRequest)
+        request.validate()
+        request.response(
+            queue: self.responseQueue,
+            serializer: Request.imageResponseSerializer(),
+            completionHandler: { [weak self] request, response, image, error in
+                if let strongSelf = self {
+                    let image = image as? UIImage
+                    
+                    if image != nil && error == nil {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            success?(request, response, image!)
+                            return
+                        }
+                        
+                        strongSelf.imageCache.cacheImage(image!, forRequest: request, withFilterName: filterName)
+                    } else {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            failure?(request, response, error)
+                            return
+                        }
+                    }
+                    
+                    strongSelf.safelyDecrementActiveRequestCount()
+                    strongSelf.safelyStartNextRequestIfNecessary()
+                }
+            }
+        )
         
         safelyStartRequestIfPossible(request)
         

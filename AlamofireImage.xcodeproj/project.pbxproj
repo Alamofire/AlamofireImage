@@ -22,6 +22,8 @@
 		4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
 		4CFC0A061AB4FEC90004D0B8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
 		4CFC0A071AB4FEC90004D0B8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
+		4CFC0A091AB52BD90004D0B8 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; };
+		4CFC0A0A1AB52BD90004D0B8 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,7 @@
 		4CE611471AABC5C900D35044 /* AlamofireImage OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +103,7 @@
 				4C54EE8F1AABC04900CD894C /* AlamofireImage.h */,
 				4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */,
 				4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */,
+				4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */,
 				4C5D84571AAD958A00A42375 /* Extensions */,
 				4C54EE931AABC05100CD894C /* Supporting Files */,
 			);
@@ -375,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C96A4781AAE9488008AE0B6 /* ImageDownloader.swift in Sources */,
+				4CFC0A091AB52BD90004D0B8 /* ImageFilter.swift in Sources */,
 				4C78EA721AACD28C002C0569 /* UIImageView+AlamofireImage.swift in Sources */,
 				4CFC0A061AB4FEC90004D0B8 /* ImageCache.swift in Sources */,
 				4CE611551AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */,
@@ -395,6 +400,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CFC0A071AB4FEC90004D0B8 /* ImageCache.swift in Sources */,
+				4CFC0A0A1AB52BD90004D0B8 /* ImageFilter.swift in Sources */,
 				4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */,
 				4C96A4791AAE9488008AE0B6 /* ImageDownloader.swift in Sources */,
 			);
