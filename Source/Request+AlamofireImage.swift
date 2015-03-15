@@ -56,7 +56,7 @@ public extension Request {
         automaticallyInflateResponseImage: Bool = true)
         -> Serializer
     {
-        return { (request, response, data) in
+        return { request, response, data in
             if data == nil {
                 return (nil, Request.imageDataError())
             }
@@ -65,8 +65,8 @@ public extension Request {
                 return (nil, Request.contentTypeValidationError())
             }
             
-            var image: UIImage? = nil
-            var error: NSError? = nil
+            var image: UIImage?
+            var error: NSError?
             
             (image, error) = Request.imageFromResponseData(data!, imageScale: imageScale)
             
@@ -122,7 +122,7 @@ public extension Request {
                 imageScale: imageScale,
                 automaticallyInflateResponseImage: automaticallyInflateResponseImage
             ),
-            completionHandler: { (request, response, data, error) in
+            completionHandler: { request, response, data, error in
                 completionHandler(request, response, data, error)
             }
         )
@@ -218,7 +218,7 @@ public extension Request {
         :returns: An image response serializer.
     */
     public class func imageResponseSerializer() -> Serializer {
-        return { (request, response, data) in
+        return { request, response, data in
             if data == nil {
                 return (nil, Request.imageDataError())
             }
@@ -227,8 +227,8 @@ public extension Request {
                 return (nil, Request.contentTypeValidationError())
             }
             
-            var image: NSImage? = nil
-            var error: NSError? = nil
+            var image: NSImage?
+            var error: NSError?
             
             if let bitmapImage = NSBitmapImageRep(data: data!) {
                 image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
@@ -253,7 +253,7 @@ public extension Request {
     public func responseImage(completionHandler: CompletionHandler) -> Self {
         return response(
             serializer: Request.imageResponseSerializer(),
-            completionHandler: { (request, response, data, error) in
+            completionHandler: { request, response, data, error in
                 completionHandler(request, response, data, error)
             }
         )
