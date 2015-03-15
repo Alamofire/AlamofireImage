@@ -20,10 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import UIKit
 import Alamofire
 import AlamofireImage
+import UIKit
 
 class ImageCell : UICollectionViewCell {
 
@@ -36,7 +35,7 @@ class ImageCell : UICollectionViewCell {
     override init(frame: CGRect) {
         self.imageView = UIImageView(frame: frame)
         self.imageView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        self.imageView.contentMode = .ScaleAspectFill
+        self.imageView.contentMode = .Center
         self.imageView.clipsToBounds = true
         
         super.init(frame: frame)
@@ -44,8 +43,6 @@ class ImageCell : UICollectionViewCell {
         self.contentView.addSubview(self.imageView)
         
         self.imageView.frame = self.contentView.bounds
-        
-        self.contentView.backgroundColor = UIColor.darkGrayColor()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -61,9 +58,12 @@ class ImageCell : UICollectionViewCell {
     // MARK: - Cell Lifecycle Methods
     
     func configureCellWithURLString(URLString: String, placeholderImage: UIImage) {
-        self.imageView.setImage(
-            URL: NSURL(string: URLString)!,
+        let size = self.imageView.frame.size
+        
+        self.imageView.ai_setImage(
+            URLString: URLString,
             placeholderImage: placeholderImage,
+            filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
             imageTransition: .CrossDissolve(0.2)
         )
     }
@@ -71,7 +71,7 @@ class ImageCell : UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        self.imageView.cancelImageRequest()
+        self.imageView.ai_cancelImageRequest()
         self.imageView.layer.removeAllAnimations()
         self.imageView.image = nil
     }

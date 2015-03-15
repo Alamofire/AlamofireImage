@@ -27,16 +27,9 @@ class ImageViewController : UIViewController {
     
     // MARK: - Properties
     
-    var image: UIImage!
+    var URLString: String!
     var imageView: UIImageView!
-
-    // MARK: - Initialization Methods
     
-    convenience init(image: UIImage) {
-        self.init()
-        self.image = image
-    }
-
     // MARK: - View Lifecycle Methods
     
     override func viewDidLoad() {
@@ -53,8 +46,9 @@ class ImageViewController : UIViewController {
     }
     
     private func setUpImageView() {
-        self.imageView = UIImageView(image: self.image)
+        self.imageView = UIImageView()
         self.imageView.contentMode = .ScaleAspectFit
+        self.imageView.ai_setImage(URLString: self.URLString, placeholderImage: nil)
         
         self.view.addSubview(self.imageView)
         

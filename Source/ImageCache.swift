@@ -16,8 +16,8 @@ import Swift
 // MARK: ImageCache
 
 public protocol ImageCache {
-    func cachedImageForRequest(request: NSURLRequest, withFilterName filterName: String?) -> UIImage?
-    func cacheImage(image: UIImage, forRequest request: NSURLRequest, withFilterName filterName: String?)
+    func cachedImageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> UIImage?
+    func cacheImage(image: UIImage, forRequest request: NSURLRequest, withIdentifier identifier: String?)
     func removeAllCachedImages()
 }
 
@@ -99,11 +99,11 @@ public class AutoPurgingImageCache: ImageCache {
     
     // MARK: Cache Methods
     
-    public func cachedImageForRequest(request: NSURLRequest, withFilterName filterName: String? = nil) -> UIImage? {
+    public func cachedImageForRequest(request: NSURLRequest, withIdentifier identifier: String? = nil) -> UIImage? {
         var image: UIImage?
         
         dispatch_sync(self.synchronizationQueue) {
-            let key = self.imageCacheKeyFromURLRequest(request, withFilterName: filterName)
+            let key = self.imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
             if var cachedImage = self.cachedImages[key] {
                 image = cachedImage.accessImage()
             }
@@ -112,9 +112,9 @@ public class AutoPurgingImageCache: ImageCache {
         return image
     }
     
-    public func cacheImage(image: UIImage, forRequest request: NSURLRequest, withFilterName filterName: String? = nil) {
+    public func cacheImage(image: UIImage, forRequest request: NSURLRequest, withIdentifier identifier: String? = nil) {
         dispatch_barrier_async(self.synchronizationQueue) {
-            let key = self.imageCacheKeyFromURLRequest(request, withFilterName: filterName)
+            let key = self.imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
             let cachedImage = CachedImage(image, URLString: key)
             
             if let previousCachedImage = self.cachedImages[key] {
@@ -174,11 +174,11 @@ public class AutoPurgingImageCache: ImageCache {
     
     // MARK: Private - Helper Methods
     
-    private func imageCacheKeyFromURLRequest(request: NSURLRequest, withFilterName filterName: String?) -> String {
+    private func imageCacheKeyFromURLRequest(request: NSURLRequest, withIdentifier identifier: String?) -> String {
         var key = request.URLString
         
-        if let filterName = filterName {
-            key += "-\(filterName)"
+        if let identifier = identifier {
+            key += "-\(identifier)"
         }
         
         return key

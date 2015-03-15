@@ -52,7 +52,7 @@ public extension Request {
         :returns: An image response serializer.
     */
     public class func imageResponseSerializer(
-        #imageScale: CGFloat = UIScreen.mainScreen().scale,
+        imageScale: CGFloat = UIScreen.mainScreen().scale,
         automaticallyInflateResponseImage: Bool = true)
         -> Serializer
     {

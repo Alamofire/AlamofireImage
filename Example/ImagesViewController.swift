@@ -192,10 +192,10 @@ extension ImagesViewController : UICollectionViewDelegateFlowLayout {
 extension ImagesViewController : UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as ImageCell
-        let image = cell.imageView.image!
+        let URLString = self.imageURLStrings[indexPath.row]
         
-        let imageViewController = ImageViewController(image: image)
+        let imageViewController = ImageViewController()
+        imageViewController.URLString = URLString
         
         self.navigationController?.pushViewController(imageViewController, animated: true)
     }

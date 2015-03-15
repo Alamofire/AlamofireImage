@@ -82,7 +82,7 @@ public extension UIImageView {
     
     // MARK: - Properties
     
-    public class var sharedImageDownloader: ImageDownloader {
+    public class var ai_sharedImageDownloader: ImageDownloader {
         get {
             if let downloader = objc_getAssociatedObject(self, &sharedImageDownloaderKey) as? ImageDownloader {
                 return downloader
@@ -95,7 +95,7 @@ public extension UIImageView {
         }
     }
     
-    private var activeRequest: Request? {
+    private var ai_activeRequest: Request? {
         get {
             return objc_getAssociatedObject(self, &activeRequestKey) as? Request
         }
@@ -106,43 +106,25 @@ public extension UIImageView {
     
     // MARK: - Image Download Methods
     
-    public func setImage(#URL: NSURL) {
-        setImage(URL: URL, placeholderImage: nil)
-    }
-    
-    public func setImage(#URL: NSURL, placeholderImage: UIImage?) {
-        setImage(URL: URL, placeholderImage: placeholderImage, imageTransition: ImageTransition.None)
-    }
-    
-    public func setImage(#URL: NSURL, placeholderImage: UIImage?, imageTransition: ImageTransition) {
-        let mutableURLRequest = NSMutableURLRequest(URL: URL)
+    public func ai_setImage(
+        #URLString: String,
+        placeholderImage: UIImage? = nil,
+        filter: ImageFilter? = nil,
+        imageTransition: ImageTransition = .None,
+        success: ((NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void)? = nil,
+        failure: ((NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void)? = nil)
+    {
+        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URLString)!)
         mutableURLRequest.addValue("image/*", forHTTPHeaderField: "Accept")
-        
         let URLRequest = mutableURLRequest.copy() as NSURLRequest
         
-        setImage(
-            URLRequest: URLRequest,
-            placeholderImage: placeholderImage,
-            imageTransition: imageTransition,
-            success: nil,
-            failure: nil
-        )
-    }
-    
-    public func setImage(
-        #URLRequest: NSURLRequest,
-        placeholderImage: UIImage?,
-        imageTransition: ImageTransition,
-        success: ((NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void)?,
-        failure: ((NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void)?)
-    {
-        cancelImageRequest()
+        ai_cancelImageRequest()
         
-        let imageDownloader = UIImageView.sharedImageDownloader
+        let imageDownloader = UIImageView.ai_sharedImageDownloader
         let imageCache = imageDownloader.imageCache
         
         // Use the image from the image cache if it exists
-        if let image = imageCache.cachedImageForRequest(URLRequest, withFilterName: nil) {
+        if let image = imageCache.cachedImageForRequest(URLRequest, withIdentifier: filter?.identifier) {
             if let success = success {
                 success(URLRequest, nil, image)
             } else {
@@ -158,8 +140,9 @@ public extension UIImageView {
         }
         
         // Download the image, then run the image transition, success closure or failure closure
-        let request = UIImageView.sharedImageDownloader.downloadImage(
+        let request = UIImageView.ai_sharedImageDownloader.downloadImage(
             URLRequest: URLRequest,
+            filter: filter,
             success: { [weak self] request, response, image in
                 if let strongSelf = self {
                     if let success = success {
@@ -185,18 +168,18 @@ public extension UIImageView {
             failure: { [weak self] request, response, error in
                 if let strongSelf = self {
                     failure?(request, response, error)
-                    strongSelf.activeRequest = nil
+                    strongSelf.ai_activeRequest = nil
                 }
             }
         )
         
-        self.activeRequest = request
+        self.ai_activeRequest = request
     }
     
     // MARK: - Image Download Cancellation Methods
     
-    public func cancelImageRequest() {
-        self.activeRequest?.cancel()
+    public func ai_cancelImageRequest() {
+        self.ai_activeRequest?.cancel()
     }
 }
 

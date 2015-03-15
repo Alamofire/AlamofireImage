@@ -106,13 +106,12 @@ public class ImageDownloader {
         failure: ImageDownloadFailureHandler?)
         -> Request?
     {
-        return downloadImage(URLRequest: URLRequest, filters: nil, filterName: nil, success: success, failure: failure)
+        return downloadImage(URLRequest: URLRequest, filter: nil, success: success, failure: failure)
     }
     
     public func downloadImage(
         #URLRequest: URLRequestConvertible,
-        filters: [ImageFilter]?,
-        filterName: String?,
+        filter: ImageFilter?,
         success: ImageDownloadSuccessHandler?,
         failure: ImageDownloadFailureHandler?)
         -> Request?
@@ -120,7 +119,7 @@ public class ImageDownloader {
         // Attempt to load the image from the image cache if the cache policy allows it
         switch URLRequest.URLRequest.cachePolicy {
         case .ReturnCacheDataElseLoad, .ReturnCacheDataDontLoad:
-            if let image = self.imageCache.cachedImageForRequest(URLRequest.URLRequest, withFilterName: filterName) {
+            if let image = self.imageCache.cachedImageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
                 dispatch_async(dispatch_get_main_queue()) {
                     success?(URLRequest.URLRequest, nil, image)
                     return
@@ -140,15 +139,19 @@ public class ImageDownloader {
             serializer: Request.imageResponseSerializer(),
             completionHandler: { [weak self] request, response, image, error in
                 if let strongSelf = self {
-                    let image = image as? UIImage
+                    var image = image as? UIImage
                     
                     if image != nil && error == nil {
+                        if let filter = filter {
+                            image = filter.filter(image!)
+                        }
+                        
                         dispatch_async(dispatch_get_main_queue()) {
                             success?(request, response, image!)
                             return
                         }
                         
-                        strongSelf.imageCache.cacheImage(image!, forRequest: request, withFilterName: filterName)
+                        strongSelf.imageCache.cacheImage(image!, forRequest: request, withIdentifier: filter?.identifier)
                     } else {
                         dispatch_async(dispatch_get_main_queue()) {
                             failure?(request, response, error)
