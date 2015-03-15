@@ -154,7 +154,7 @@ public extension UIImageView {
     {
         cancelImageRequest()
         
-        if let image = UIImageView.sharedImageCache.cachedImageForRequest(URLRequest) {
+        if let image = UIImageView.sharedImageCache.cachedImageForRequest(URLRequest, withFilterName: nil) {
             if let success = success {
                 success(URLRequest, nil, image)
             } else {
@@ -188,7 +188,7 @@ public extension UIImageView {
                             }
                         }
                         
-                        UIImageView.sharedImageCache.cacheImage(image, forRequest: URLRequest)
+                        UIImageView.sharedImageCache.cacheImage(image, forRequest: URLRequest, withFilterName: nil)
                     }
                 },
                 failure: { [weak self] request, response, error in

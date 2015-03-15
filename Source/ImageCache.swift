@@ -16,8 +16,8 @@ import Swift
 // MARK: ImageCache
 
 @objc public protocol ImageCache {
-    func cachedImageForRequest(request: NSURLRequest) -> UIImage?
-    func cacheImage(image: UIImage, forRequest request: NSURLRequest)
+    func cachedImageForRequest(request: NSURLRequest, withFilterName filterName: String?) -> UIImage?
+    func cacheImage(image: UIImage, forRequest request: NSURLRequest, withFilterName filterName: String?)
     func removeAllCachedImages()
 }
 
@@ -99,11 +99,11 @@ public class AutoPurgingImageCache: ImageCache {
     
     // MARK: Cache Methods
     
-    public func cachedImageForRequest(request: NSURLRequest) -> UIImage? {
+    public func cachedImageForRequest(request: NSURLRequest, withFilterName filterName: String? = nil) -> UIImage? {
         var image: UIImage?
         
         dispatch_sync(self.synchronizationQueue) {
-            let key = self.imageCacheKeyFromURLRequest(request)
+            let key = self.imageCacheKeyFromURLRequest(request, withFilterName: filterName)
             if var cachedImage = self.cachedImages[key] {
                 image = cachedImage.accessImage()
             }
@@ -112,9 +112,9 @@ public class AutoPurgingImageCache: ImageCache {
         return image
     }
     
-    public func cacheImage(image: UIImage, forRequest request: NSURLRequest) {
+    public func cacheImage(image: UIImage, forRequest request: NSURLRequest, withFilterName filterName: String? = nil) {
         dispatch_barrier_async(self.synchronizationQueue) {
-            let key = self.imageCacheKeyFromURLRequest(request)
+            let key = self.imageCacheKeyFromURLRequest(request, withFilterName: filterName)
             let cachedImage = CachedImage(image, URLString: key)
             
             if let previousCachedImage = self.cachedImages[key] {
@@ -174,7 +174,13 @@ public class AutoPurgingImageCache: ImageCache {
     
     // MARK: Private - Helper Methods
     
-    private func imageCacheKeyFromURLRequest(request: NSURLRequest) -> String {
-        return request.URLString
+    private func imageCacheKeyFromURLRequest(request: NSURLRequest, withFilterName filterName: String?) -> String {
+        var key = request.URLString
+        
+        if let filterName = filterName {
+            key += "-\(filterName)"
+        }
+        
+        return key
     }
 }
