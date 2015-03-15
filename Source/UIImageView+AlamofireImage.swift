@@ -20,75 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import UIKit
 import Alamofire
-
-// MARK: ImageCache
-
-@objc public protocol ImageCache : NSObjectProtocol {
-    func cachedImageForRequest(request: NSURLRequest) -> UIImage?
-    func cacheImage(image: UIImage, forRequest request: NSURLRequest)
-    func removeAllCachedImages()
-}
-
-// MARK: -
-
-public class ImageViewCache : NSCache, ImageCache {
-    
-    // MARK: Lifecycle Methods
-    
-    override init() {
-        super.init()
-        
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidReceiveMemoryWarningNotification,
-            object: nil,
-            queue: NSOperationQueue.mainQueue(),
-            usingBlock: { [weak self] notification in
-                if let strongSelf = self {
-                    strongSelf.removeAllObjects()
-                }
-            }
-        )
-    }
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    // MARK: Cache Methods
-    
-    public func cachedImageForRequest(request: NSURLRequest) -> UIImage? {
-        switch request.cachePolicy {
-        case .ReloadIgnoringLocalCacheData, .ReloadIgnoringLocalAndRemoteCacheData:
-            return nil
-        default:
-            let key = ImageViewCache.imageCacheKeyFromURLRequest(request)
-            return objectForKey(key) as? UIImage
-        }
-    }
-    
-    public func cacheImage(image: UIImage, forRequest request: NSURLRequest) {
-        let key = ImageViewCache.imageCacheKeyFromURLRequest(request)
-        setObject(image, forKey: key)
-    }
-    
-    public func removeAllCachedImages() {
-        removeAllObjects()
-    }
-    
-    // MARK: Private - Helper Methods
-    
-    private class func imageCacheKeyFromURLRequest(request: NSURLRequest) -> String {
-        return request.URL.absoluteString!
-    }
-}
-
-// MARK: -
+import UIKit
 
 public extension UIImageView {
     
-    // MARK: Image Transition Enum
+    // MARK: - Image Transition Enum
     
     public enum ImageTransition {
         case None
@@ -143,14 +80,14 @@ public extension UIImageView {
         }
     }
     
-    // MARK: Shared Class Properties
+    // MARK: - Shared Class Properties
     
     public class var sharedImageCache: ImageCache {
         get {
             if let cache = objc_getAssociatedObject(self, &sharedImageCacheKey) as? ImageCache {
                 return cache
             } else {
-                struct Static { static let imageCache = ImageViewCache() }
+                struct Static { static let imageCache = AutoPurgingImageCache() }
                 return Static.imageCache
             }
         }
@@ -172,7 +109,7 @@ public extension UIImageView {
         }
     }
     
-    // MARK: Private - Properties
+    // MARK: - Private - Properties
     
     private var activeRequest: Request? {
         get {
@@ -183,7 +120,7 @@ public extension UIImageView {
         }
     }
     
-    // MARK: Remote Image Methods
+    // MARK: - Image Download Methods
     
     public func setImage(#URL: NSURL) {
         setImage(URL: URL, placeholderImage: nil)
@@ -265,6 +202,8 @@ public extension UIImageView {
             self.activeRequest = request
         }
     }
+
+    // MARK: - Image Download Cancellation Methods
     
     public func cancelImageRequest() {
         self.activeRequest?.cancel()
