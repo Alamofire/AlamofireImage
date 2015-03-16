@@ -65,23 +65,24 @@ public class AutoPurgingImageCache: ImageCache {
         }
     }
     
+    public private(set) var currentMemoryUsage: UInt64
+    public let memoryCapacity: UInt64
+    public let preferredMemoryUsageAfterPurge: UInt64
+    
     private var cachedImages: [String: CachedImage]
-    private let maximumBytesAllowed: UInt64
-    private var totalBytes: UInt64
-    private let percentageRemainingAfterAutoPurge: Float
     private let synchronizationQueue: dispatch_queue_t
     
     // MARK: Lifecycle Methods
     
-    init(maximumBytesAllowed: UInt64 = 150_000_000, percentageRemainingAfterAutoPurge: Float = 0.6) {
-        self.maximumBytesAllowed = maximumBytesAllowed
-        self.percentageRemainingAfterAutoPurge = percentageRemainingAfterAutoPurge
+    init(memoryCapacity: UInt64 = 100 * 1024 * 1024, preferredMemoryUsageAfterPurge: UInt64 = 60 * 1024 * 1024) {
+        self.memoryCapacity = memoryCapacity
+        self.preferredMemoryUsageAfterPurge = preferredMemoryUsageAfterPurge
         
         self.cachedImages = [:]
-        self.totalBytes = 0
+        self.currentMemoryUsage = 0
         
         self.synchronizationQueue = {
-            let name = String(format: "com.alamofire.alamofireimage.autopurgingimagecache-%08%08", arc4random(), arc4random())
+            let name = String(format: "com.alamofire.autopurgingimagecache-%08%08", arc4random(), arc4random())
             return dispatch_queue_create(name, DISPATCH_QUEUE_CONCURRENT)
         }()
         
@@ -118,21 +119,21 @@ public class AutoPurgingImageCache: ImageCache {
             let cachedImage = CachedImage(image, URLString: key)
             
             if let previousCachedImage = self.cachedImages[key] {
-                self.totalBytes -= previousCachedImage.totalBytes
+                self.currentMemoryUsage -= previousCachedImage.totalBytes
             }
             
             self.cachedImages[key] = cachedImage
-            self.totalBytes += cachedImage.totalBytes
-            println("Cached image: \(key) total bytes: \(self.totalBytes)")
+            self.currentMemoryUsage += cachedImage.totalBytes
+            println("Cached image: \(key) total bytes: \(self.currentMemoryUsage)")
         }
         
         dispatch_barrier_async(self.synchronizationQueue) {
-            if self.totalBytes > self.maximumBytesAllowed {
+            if self.currentMemoryUsage > self.memoryCapacity {
                 // purge me some bytes!!!
-                let bytesOverMaximumAllowed = self.totalBytes - self.maximumBytesAllowed
+                let bytesOverMaximumAllowed = self.currentMemoryUsage - self.memoryCapacity
                 println("Bytes over maximum allowed: \(bytesOverMaximumAllowed)")
                 
-                let bytesToPurge = self.totalBytes - UInt64((Float(self.maximumBytesAllowed) * self.percentageRemainingAfterAutoPurge))
+                let bytesToPurge = self.currentMemoryUsage - self.preferredMemoryUsageAfterPurge
                 
                 var sortedImages = [CachedImage](self.cachedImages.values)
                 sortedImages.sort {
@@ -144,7 +145,7 @@ public class AutoPurgingImageCache: ImageCache {
                 
                 var bytesPurged = UInt64(0)
                 
-                println("================== STARTING PURGE \(self.totalBytes) ==========================")
+                println("================== STARTING PURGE \(self.currentMemoryUsage) ==========================")
                 
                 for cachedImage in sortedImages {
                     println("Purging Cached Image: \(cachedImage.lastAccessDate) \(cachedImage.totalBytes) \(cachedImage.URLString)")
@@ -157,9 +158,9 @@ public class AutoPurgingImageCache: ImageCache {
                     }
                 }
                 
-                self.totalBytes -= bytesPurged
-
-                println("================== FINISHED PURGE \(self.totalBytes) ==========================")
+                self.currentMemoryUsage -= bytesPurged
+                
+                println("================== FINISHED PURGE \(self.currentMemoryUsage) ==========================")
             }
         }
     }
@@ -168,7 +169,7 @@ public class AutoPurgingImageCache: ImageCache {
         dispatch_barrier_async(self.synchronizationQueue) {
             println("Removed all cached images!!!")
             self.cachedImages.removeAll()
-            self.totalBytes = 0
+            self.currentMemoryUsage = 0
         }
     }
     
