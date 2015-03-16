@@ -35,6 +35,7 @@ public class ImageDownloader {
     // MARK: - Properties
 
     public let imageCache: ImageCache
+    public private(set) var credential: NSURLCredential?
     
     private let sessionManager: Alamofire.Manager
     
@@ -110,6 +111,17 @@ public class ImageDownloader {
         }()
     }
     
+    // MARK: - Authentication Methods
+    
+    public func addAuthentication(#username: String, password: String) {
+        let credential = NSURLCredential(user: username, password: password, persistence: NSURLCredentialPersistence.ForSession)
+        addAuthentication(usingCredential: credential)
+    }
+    
+    public func addAuthentication(usingCredential credential: NSURLCredential) {
+        self.credential = credential
+    }
+    
     // MARK: - Download Methods
     
     public func downloadImage(
@@ -143,8 +155,12 @@ public class ImageDownloader {
             break
         }
         
-        // Download the image
         let request = self.sessionManager.request(URLRequest)
+        
+        if let credential = self.credential {
+            request.authenticate(usingCredential: credential)
+        }
+        
         request.validate()
         request.response(
             queue: self.responseQueue,
