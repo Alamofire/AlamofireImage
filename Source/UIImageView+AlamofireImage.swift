@@ -106,27 +106,83 @@ public extension UIImageView {
     
     // MARK: - Image Download Methods
     
+    public func ai_setImage(#URLString: String) {
+        ai_setImage(
+            URLRequest: ai_URLRequestWithURLString(URLString),
+            placeholderImage: nil,
+            filter: nil,
+            imageTransition: .None,
+            success: nil,
+            failure: nil
+        )
+    }
+    
+    public func ai_setImage(#URLString: String, placeholderImage: UIImage) {
+        ai_setImage(
+            URLRequest: ai_URLRequestWithURLString(URLString),
+            placeholderImage: placeholderImage,
+            filter: nil,
+            imageTransition: .None,
+            success: nil,
+            failure: nil
+        )
+    }
+    
+    public func ai_setImage(#URLString: String, placeholderImage: UIImage?, filter: ImageFilter) {
+        ai_setImage(
+            URLRequest: ai_URLRequestWithURLString(URLString),
+            placeholderImage: placeholderImage,
+            filter: filter,
+            imageTransition: .None,
+            success: nil,
+            failure: nil
+        )
+    }
+    
+    public func ai_setImage(#URLString: String, placeholderImage: UIImage?, imageTransition: ImageTransition) {
+        ai_setImage(
+            URLRequest: ai_URLRequestWithURLString(URLString),
+            placeholderImage: placeholderImage,
+            filter: nil,
+            imageTransition: imageTransition,
+            success: nil,
+            failure: nil
+        )
+    }
+    
     public func ai_setImage(
         #URLString: String,
-        placeholderImage: UIImage? = nil,
-        filter: ImageFilter? = nil,
-        imageTransition: ImageTransition = .None,
-        success: ((NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void)? = nil,
-        failure: ((NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void)? = nil)
+        placeholderImage: UIImage?,
+        filter: ImageFilter,
+        imageTransition: ImageTransition)
     {
-        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URLString)!)
-        mutableURLRequest.addValue("image/*", forHTTPHeaderField: "Accept")
-        let URLRequest = mutableURLRequest.copy() as NSURLRequest
-        
+        ai_setImage(
+            URLRequest: ai_URLRequestWithURLString(URLString),
+            placeholderImage: placeholderImage,
+            filter: filter,
+            imageTransition: imageTransition,
+            success: nil,
+            failure: nil
+        )
+    }
+    
+    public func ai_setImage(
+        #URLRequest: URLRequestConvertible,
+        placeholderImage: UIImage?,
+        filter: ImageFilter?,
+        imageTransition: ImageTransition,
+        success: ((NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void)?,
+        failure: ((NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void)?)
+    {
         ai_cancelImageRequest()
         
         let imageDownloader = UIImageView.ai_sharedImageDownloader
         let imageCache = imageDownloader.imageCache
         
         // Use the image from the image cache if it exists
-        if let image = imageCache.cachedImageForRequest(URLRequest, withIdentifier: filter?.identifier) {
+        if let image = imageCache.cachedImageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
             if let success = success {
-                success(URLRequest, nil, image)
+                success(URLRequest.URLRequest, nil, image)
             } else {
                 self.image = image
             }
@@ -180,6 +236,16 @@ public extension UIImageView {
     
     public func ai_cancelImageRequest() {
         self.ai_activeRequest?.cancel()
+    }
+    
+    // MARK: - Private - URL Request Helper Methods
+    
+    private func ai_URLRequestWithURLString(URLString: String) -> NSURLRequest {
+        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URLString)!)
+        mutableURLRequest.addValue("image/*", forHTTPHeaderField: "Accept")
+        let URLRequest = mutableURLRequest.copy() as NSURLRequest
+        
+        return URLRequest
     }
 }
 

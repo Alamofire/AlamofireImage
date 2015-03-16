@@ -48,7 +48,7 @@ class ImageViewController : UIViewController {
     private func setUpImageView() {
         self.imageView = UIImageView()
         self.imageView.contentMode = .ScaleAspectFit
-        self.imageView.ai_setImage(URLString: self.URLString, placeholderImage: nil)
+        self.imageView.ai_setImage(URLString: self.URLString)
         
         self.view.addSubview(self.imageView)
         
