@@ -50,13 +50,13 @@ public class ImageDownloader {
     
     public class var defaultInstance: ImageDownloader {
         struct Singleton {
-            static let instance = ImageDownloader(configuration: ImageDownloader.defaultSessionConfiguration)
+            static let instance = ImageDownloader(configuration: ImageDownloader.defaultURLSessionConfiguration())
         }
         
         return Singleton.instance
     }
     
-    public class var defaultSessionConfiguration: NSURLSessionConfiguration {
+    public class func defaultURLSessionConfiguration() -> NSURLSessionConfiguration {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         
         configuration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders()
@@ -64,11 +64,23 @@ public class ImageDownloader {
         configuration.HTTPShouldUsePipelining = true // risky change...
 //        configuration.HTTPMaximumConnectionsPerHost = 4 on iOS or 6 on OSX
         
-        configuration.requestCachePolicy = .UseProtocolCachePolicy // Let server decide
+        configuration.requestCachePolicy = .UseProtocolCachePolicy // Let server decide (should handle `willCache`)
         configuration.allowsCellularAccess = true
         configuration.timeoutIntervalForRequest = 30 // default is 60
         
+        configuration.URLCache = ImageDownloader.defaultURLCache()
+        
         return configuration
+    }
+    
+    public class func defaultURLCache() -> NSURLCache {
+        let URLCache = NSURLCache(
+            memoryCapacity: 50 * 1024 * 1024, // 50 MB
+            diskCapacity: 100 * 1024 * 1024, // 100 MB
+            diskPath: "com.alamofire.imagedownloader"
+        )
+        
+        return URLCache
     }
     
     public init(
