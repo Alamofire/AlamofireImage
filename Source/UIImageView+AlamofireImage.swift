@@ -25,6 +25,13 @@ import UIKit
 
 public extension UIImageView {
     
+    // MARK: - Private - Associated Keys Struct
+    
+    private struct AssociatedKeys {
+        static var sharedImageDownloaderKey = "ai_UIImageView.SharedImageDownloader"
+        static var activeRequestKey = "ai_UIImageView.ActiveRequest"
+    }
+    
     // MARK: - Image Transition Enum
     
     public enum ImageTransition {
@@ -84,23 +91,23 @@ public extension UIImageView {
     
     public class var ai_sharedImageDownloader: ImageDownloader {
         get {
-            if let downloader = objc_getAssociatedObject(self, &sharedImageDownloaderKey) as? ImageDownloader {
+            if let downloader = objc_getAssociatedObject(self, &AssociatedKeys.sharedImageDownloaderKey) as? ImageDownloader {
                 return downloader
             } else {
                 return ImageDownloader.defaultInstance
             }
         }
         set(downloader) {
-            objc_setAssociatedObject(self, &sharedImageDownloaderKey, downloader, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &AssociatedKeys.sharedImageDownloaderKey, downloader, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
     private var ai_activeRequest: Request? {
         get {
-            return objc_getAssociatedObject(self, &activeRequestKey) as? Request
+            return objc_getAssociatedObject(self, &AssociatedKeys.activeRequestKey) as? Request
         }
         set(request) {
-            objc_setAssociatedObject(self, &activeRequestKey, request, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &AssociatedKeys.activeRequestKey, request, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
@@ -248,6 +255,3 @@ public extension UIImageView {
         return URLRequest
     }
 }
-
-private var sharedImageDownloaderKey = "UIImageView.SharedImageDownloader"
-private var activeRequestKey = "UIImageView.ActiveRequest"
