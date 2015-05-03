@@ -140,7 +140,7 @@ extension ImagesViewController : UICollectionViewDataSource {
         collectionView: UICollectionView,
         cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCell.identifier(), forIndexPath: indexPath) as ImageCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCell.identifier(), forIndexPath: indexPath) as! ImageCell
         cell.configureCellWithURLString(self.imageURLStrings[indexPath.row], placeholderImage: self.placeholderImage)
         
         return cell
