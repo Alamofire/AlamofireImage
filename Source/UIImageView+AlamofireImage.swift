@@ -250,8 +250,7 @@ public extension UIImageView {
     private func ai_URLRequestWithURLString(URLString: String) -> NSURLRequest {
         let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URLString)!)
         mutableURLRequest.addValue("image/*", forHTTPHeaderField: "Accept")
-        let URLRequest = mutableURLRequest.copy() as NSURLRequest
         
-        return URLRequest
+        return mutableURLRequest
     }
 }

@@ -60,7 +60,7 @@ public class ImageDownloader {
     public class func defaultURLSessionConfiguration() -> NSURLSessionConfiguration {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         
-        configuration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders()
+        configuration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders
         configuration.HTTPShouldSetCookies = true // true by default
         configuration.HTTPShouldUsePipelining = true // risky change...
 //        configuration.HTTPMaximumConnectionsPerHost = 4 on iOS or 6 on OSX

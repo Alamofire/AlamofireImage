@@ -85,19 +85,6 @@ public extension Request {
     /**
         Adds a handler to be called once the request has finished.
     
-        :param: completionHandler A closure to be executed once the request has finished. The closure takes 4 
-            arguments: the URL request, the URL response, if one was received, the image, if one could be created 
-            from the URL response and data, and any error produced while creating the image.
-    
-        :returns: The request.
-    */
-    public func responseImage(completionHandler: CompletionHandler) -> Self {
-        return responseImage(completionHandler: completionHandler)
-    }
-    
-    /**
-        Adds a handler to be called once the request has finished.
-    
         :param: imageScale The scale factor used when interpreting the image data to construct `responseImage`. 
             Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of 
             the image. Applying a different scale factor changes the size of the image as reported by the size 
@@ -169,7 +156,7 @@ public extension Request {
             return compressedImage
         }
         
-        var bytesPerRow: UInt = 0
+        var bytesPerRow: Int = 0
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let colorSpaceModel = CGColorSpaceGetModel(colorSpace)
         var bitmapInfo = CGImageGetBitmapInfo(imageRef)
