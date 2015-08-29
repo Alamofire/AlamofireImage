@@ -29,9 +29,44 @@ public protocol ImageFilter {
     var identifier: String { get }
 }
 
-// MARK: - Single Pass Image Filters
+extension ImageFilter {
+    public var identifier: String { return "\(self.dynamicType)" }
+}
 
-public struct ScaledToSizeFilter: ImageFilter {
+// MARK: - Sizable
+
+public protocol Sizable {
+    var size: CGSize { get }
+}
+
+extension ImageFilter where Self: Sizable {
+    public var identifier: String {
+        let width = Int64(round(size.width))
+        let height = Int64(round(size.height))
+
+        return "\(self.dynamicType)-\(width)x\(height)"
+    }
+}
+
+// MARK: - Roundable
+
+public protocol Roundable {
+    var radius: CGFloat { get }
+}
+
+extension ImageFilter where Self: Sizable, Self: Roundable {
+    public var identifier: String {
+        let width = Int64(round(size.width))
+        let height = Int64(round(size.height))
+        let radius = Int64(round(self.radius))
+
+        return "\(self.dynamicType)-\(width)x\(height)x\(radius)"
+    }
+}
+
+// MARK: - Single Pass Image Filters -
+
+public struct ScaledToSizeFilter: ImageFilter, Sizable {
     public let size: CGSize
 
     public init(size: CGSize) {
@@ -43,11 +78,11 @@ public struct ScaledToSizeFilter: ImageFilter {
             return image.ai_imageScaledToSize(self.size)
         }
     }
-
-    public var identifier: String { return "\(self.self)-\(UInt(self.size.width))x\(UInt(self.size.height))" }
 }
 
-public struct AspectScaledToFitSizeFilter: ImageFilter {
+// MARK: -
+
+public struct AspectScaledToFitSizeFilter: ImageFilter, Sizable {
     public let size: CGSize
 
     public init(size: CGSize) {
@@ -59,11 +94,11 @@ public struct AspectScaledToFitSizeFilter: ImageFilter {
             return image.ai_imageAspectScaledToFitSize(self.size)
         }
     }
-
-    public var identifier: String { return "\(self.self)-\(UInt(self.size.width))x\(UInt(self.size.height))" }
 }
 
-public struct AspectScaledToFillSizeFilter: ImageFilter {
+// MARK: -
+
+public struct AspectScaledToFillSizeFilter: ImageFilter, Sizable {
     public let size: CGSize
 
     public init(size: CGSize) {
@@ -75,13 +110,11 @@ public struct AspectScaledToFillSizeFilter: ImageFilter {
             return image.ai_imageAspectScaledToFillSize(self.size)
         }
     }
-
-    public var identifier: String { return "\(self.self)-\(UInt(self.size.width))x\(UInt(self.size.height))" }
 }
 
-// MARK: - Multi-Pass Image Filters
+// MARK: - Multi-Pass Image Filters -
 
-public struct ScaledToSizeWithRoundedCornersFilter: ImageFilter {
+public struct ScaledToSizeWithRoundedCornersFilter: ImageFilter, Sizable, Roundable {
     public let size: CGSize
     public let radius: CGFloat
 
@@ -98,11 +131,11 @@ public struct ScaledToSizeWithRoundedCornersFilter: ImageFilter {
             return roundedAndScaledImage
         }
     }
-
-    public var identifier: String { return "\(self.self)-\(UInt(self.size.width))x\(UInt(self.size.height))" }
 }
 
-public struct AspectScaledToFitSizeWithRoundedCornersFilter: ImageFilter {
+// MARK: -
+
+public struct AspectScaledToFitSizeWithRoundedCornersFilter: ImageFilter, Sizable, Roundable {
     public let size: CGSize
     public let radius: CGFloat
 
@@ -119,11 +152,11 @@ public struct AspectScaledToFitSizeWithRoundedCornersFilter: ImageFilter {
             return roundedAndScaledImage
         }
     }
-
-    public var identifier: String { return "\(self.self)-\(UInt(self.size.width))x\(UInt(self.size.height))" }
 }
 
-public struct AspectScaledToFillSizeWithRoundedCornersFilter: ImageFilter {
+// MARK: -
+
+public struct AspectScaledToFillSizeWithRoundedCornersFilter: ImageFilter, Sizable, Roundable {
     public let size: CGSize
     public let radius: CGFloat
 
@@ -140,6 +173,4 @@ public struct AspectScaledToFillSizeWithRoundedCornersFilter: ImageFilter {
             return roundedAndScaledImage
         }
     }
-
-    public var identifier: String { return "\(self.self)-\(UInt(self.size.width))x\(UInt(self.size.height))" }
 }
