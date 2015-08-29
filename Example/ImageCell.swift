@@ -27,39 +27,39 @@ import UIKit
 class ImageCell : UICollectionViewCell {
 
     // MARK: - Properties
-    
+
     let imageView: UIImageView
-    
+
     // MARK: - Initialization Methods
-    
+
     override init(frame: CGRect) {
         self.imageView = UIImageView(frame: frame)
         self.imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.imageView.contentMode = .Center
         self.imageView.clipsToBounds = true
-        
+
         super.init(frame: frame)
-        
+
         self.contentView.addSubview(self.imageView)
-        
+
         self.imageView.frame = self.contentView.bounds
     }
-    
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Identification Methods
-    
+
     class func identifier() -> String {
         return "ImageCellIdentifier"
     }
-    
+
     // MARK: - Cell Lifecycle Methods
-    
+
     func configureCellWithURLString(URLString: String, placeholderImage: UIImage) {
         let size = self.imageView.frame.size
-        
+
         self.imageView.ai_setImage(
             URLString: URLString,
             placeholderImage: placeholderImage,
@@ -67,10 +67,10 @@ class ImageCell : UICollectionViewCell {
             imageTransition: .CrossDissolve(0.2)
         )
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
         self.imageView.ai_cancelImageRequest()
         self.imageView.layer.removeAllAnimations()
         self.imageView.image = nil

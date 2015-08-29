@@ -24,16 +24,16 @@ import Alamofire
 import UIKit
 
 public extension UIImageView {
-    
+
     // MARK: - Private - Associated Keys Struct
-    
+
     private struct AssociatedKeys {
         static var sharedImageDownloaderKey = "ai_UIImageView.SharedImageDownloader"
         static var activeRequestKey = "ai_UIImageView.ActiveRequest"
     }
-    
+
     // MARK: - Image Transition Enum
-    
+
     public enum ImageTransition {
         case None
         case CrossDissolve(NSTimeInterval)
@@ -43,7 +43,7 @@ public extension UIImageView {
         case FlipFromLeft(NSTimeInterval)
         case FlipFromRight(NSTimeInterval)
         case FlipFromTop(NSTimeInterval)
-        
+
         var duration: NSTimeInterval {
             switch self {
             case None:
@@ -64,7 +64,7 @@ public extension UIImageView {
                 return duration
             }
         }
-        
+
         var animationOptions: UIViewAnimationOptions {
             switch self {
             case None:
@@ -86,9 +86,9 @@ public extension UIImageView {
             }
         }
     }
-    
+
     // MARK: - Properties
-    
+
     public class var ai_sharedImageDownloader: ImageDownloader {
         get {
             if let downloader = objc_getAssociatedObject(self, &AssociatedKeys.sharedImageDownloaderKey) as? ImageDownloader {
@@ -101,7 +101,7 @@ public extension UIImageView {
             objc_setAssociatedObject(self, &AssociatedKeys.sharedImageDownloaderKey, downloader, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    
+
     private var ai_activeRequest: Request? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.activeRequestKey) as? Request
@@ -110,9 +110,9 @@ public extension UIImageView {
             objc_setAssociatedObject(self, &AssociatedKeys.activeRequestKey, request, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    
+
     // MARK: - Image Download Methods
-    
+
     public func ai_setImage(URLString URLString: String) {
         ai_setImage(
             URLRequest: ai_URLRequestWithURLString(URLString),
@@ -123,7 +123,7 @@ public extension UIImageView {
             failure: nil
         )
     }
-    
+
     public func ai_setImage(URLString URLString: String, placeholderImage: UIImage) {
         ai_setImage(
             URLRequest: ai_URLRequestWithURLString(URLString),
@@ -134,7 +134,7 @@ public extension UIImageView {
             failure: nil
         )
     }
-    
+
     public func ai_setImage(URLString URLString: String, placeholderImage: UIImage?, filter: ImageFilter) {
         ai_setImage(
             URLRequest: ai_URLRequestWithURLString(URLString),
@@ -145,7 +145,7 @@ public extension UIImageView {
             failure: nil
         )
     }
-    
+
     public func ai_setImage(URLString URLString: String, placeholderImage: UIImage?, imageTransition: ImageTransition) {
         ai_setImage(
             URLRequest: ai_URLRequestWithURLString(URLString),
@@ -156,7 +156,7 @@ public extension UIImageView {
             failure: nil
         )
     }
-    
+
     public func ai_setImage(
         URLString URLString: String,
         placeholderImage: UIImage?,
@@ -172,7 +172,7 @@ public extension UIImageView {
             failure: nil
         )
     }
-    
+
     public func ai_setImage(
         URLRequest URLRequest: URLRequestConvertible,
         placeholderImage: UIImage?,
@@ -182,10 +182,10 @@ public extension UIImageView {
         failure: ((NSURLRequest?, NSHTTPURLResponse?, NSData?, ErrorType) -> Void)?)
     {
         ai_cancelImageRequest()
-        
+
         let imageDownloader = UIImageView.ai_sharedImageDownloader
         let imageCache = imageDownloader.imageCache
-        
+
         // Use the image from the image cache if it exists
         if let image = imageCache.cachedImageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
             if let success = success {
@@ -193,15 +193,15 @@ public extension UIImageView {
             } else {
                 self.image = image
             }
-            
+
             return
         }
-        
+
         // Set the placeholder since we're going to have to download
         if let placeholderImage = placeholderImage {
             self.image = placeholderImage
         }
-        
+
         // Download the image, then run the image transition, success closure or failure closure
         let request = UIImageView.ai_sharedImageDownloader.downloadImage(
             URLRequest: URLRequest,
@@ -235,22 +235,22 @@ public extension UIImageView {
                 strongSelf.ai_activeRequest = nil
             }
         )
-        
+
         self.ai_activeRequest = request
     }
-    
+
     // MARK: - Image Download Cancellation Methods
-    
+
     public func ai_cancelImageRequest() {
         self.ai_activeRequest?.cancel()
     }
-    
+
     // MARK: - Private - URL Request Helper Methods
-    
+
     private func ai_URLRequestWithURLString(URLString: String) -> NSURLRequest {
         let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URLString)!)
         mutableURLRequest.addValue("image/*", forHTTPHeaderField: "Accept")
-        
+
         return mutableURLRequest
     }
 }

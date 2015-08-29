@@ -24,14 +24,14 @@ import Foundation
 import UIKit
 
 class ImageViewController : UIViewController {
-    
+
     // MARK: - Properties
-    
+
     var URLString: String!
     var imageView: UIImageView!
-    
+
     // MARK: - View Lifecycle Methods
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpDisplayProperties()
@@ -39,19 +39,19 @@ class ImageViewController : UIViewController {
     }
 
     // MARK: - Private - Set Up Methods
-    
+
     private func setUpDisplayProperties() {
         self.edgesForExtendedLayout = UIRectEdge.None
         self.view.backgroundColor = UIColor.whiteColor()
     }
-    
+
     private func setUpImageView() {
         self.imageView = UIImageView()
         self.imageView.contentMode = .ScaleAspectFit
         self.imageView.ai_setImage(URLString: self.URLString)
-        
+
         self.view.addSubview(self.imageView)
-        
+
         self.imageView.frame = self.view.bounds
         self.imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     }

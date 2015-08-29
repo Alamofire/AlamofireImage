@@ -34,7 +34,7 @@ class ResponseImageWithInflationTestCase : BaseImageTestCase {
         var request: NSURLRequest?
         var response: NSHTTPURLResponse?
         var result: Result<UIImage>?
-        
+
         // When
         manager.request(.GET, URLString)
             .responseImage { responseRequest, responseResponse, responseResult in
@@ -140,7 +140,7 @@ class ResponseImageWithoutInflationTestCase : BaseImageTestCase {
             XCTFail("result image should not be nil")
         }
     }
-    
+
     func testJPGResponseDataWithoutInflation() {
         // Given
         let URLString = "http://httpbin.org/image/jpeg"

@@ -24,21 +24,21 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     // MARK: - Properties
-    
+
     var window: UIWindow?
 
     // MARK: - Application State Methods
-    
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let navController = UINavigationController(rootViewController: ImagesViewController())
-        
+
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.rootViewController = navController
         self.window?.backgroundColor = UIColor.whiteColor()
         self.window?.makeKeyAndVisible()
-        
+
         return true
     }
 }

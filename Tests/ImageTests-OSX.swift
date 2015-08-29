@@ -59,7 +59,7 @@ class ResponseImageTestCase : BaseImageTestCase {
             XCTFail("result image should not be nil")
         }
     }
-    
+
     func testThatResponseImageSerializerHandlesJPGResponseData() {
         // Given
         let URLString = "http://httpbin.org/image/jpeg"

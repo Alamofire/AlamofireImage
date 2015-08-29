@@ -25,28 +25,28 @@ import Alamofire
 import AlamofireImage
 
 class BaseImageTestCase : XCTestCase {
-    
+
     // MARK: - Properties
-    
+
     let defaultTimeoutDuration = 5.0
     var manager: Manager!
-    
+
     // MARK: - Set Up & Tear Down Methods
-    
+
     override func setUp() {
         super.setUp()
-        
+
         let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
-        
+
         let defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
         configuration.HTTPAdditionalHeaders = defaultHeaders
-        
+
         self.manager = Manager(configuration: configuration)
     }
-    
+
     override func tearDown() {
         super.tearDown()
-        
+
         self.manager.session.finishTasksAndInvalidate()
         self.manager = nil
     }

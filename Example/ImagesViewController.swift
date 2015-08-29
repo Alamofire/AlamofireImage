@@ -25,7 +25,7 @@ import Alamofire
 import AlamofireImage
 
 class ImagesViewController: UIViewController {
-    
+
     // MARK: Properties
 
     lazy var placeholderImage: UIImage = {
@@ -35,24 +35,24 @@ class ImagesViewController: UIViewController {
 
     lazy var imageURLStrings = [String]()
     var collectionView: UICollectionView!
-    
+
     // MARK: View Lifecycle Methods
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setUpInstanceProperties()
         setUpCollectionView()
     }
 
     // MARK: Private - Set Up Methods
-    
+
     private func setUpInstanceProperties() {
         self.title = "Random Images"
-        
+
         let imdbBase = "http://ia.media-imdb.com/images/M/"
         let appleBase = "https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/"
-        
+
         self.imageURLStrings = [
             "\(imdbBase)MV5BMjExMjkwNTQ0Nl5BMl5BanBnXkFtZTcwNTY0OTk1Mw@@._V1__SX1610_SY1303_.jpg",
             "\(imdbBase)MV5BMjIyNjk1OTgzNV5BMl5BanBnXkFtZTcwOTU0OTk1Mw@@._V1__SX1457_SY1141_.jpg",
@@ -115,20 +115,20 @@ class ImagesViewController: UIViewController {
             "\(appleBase)WatchHumanInterfaceGuidelines/Art/sliders_settings_brightness_2x.png"
         ]
     }
-    
+
     private func setUpCollectionView() {
         print(imageURLStrings)
 
         self.collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
         self.collectionView.backgroundColor = UIColor.whiteColor()
-        
+
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        
+
         self.collectionView.registerClass(ImageCell.classForCoder(), forCellWithReuseIdentifier: ImageCell.identifier())
-        
+
         self.view.addSubview(self.collectionView)
-        
+
         self.collectionView.frame = self.view.bounds
         self.collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     }
@@ -137,18 +137,18 @@ class ImagesViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 
 extension ImagesViewController : UICollectionViewDataSource {
-    
+
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.imageURLStrings.count
     }
-    
+
     func collectionView(
         collectionView: UICollectionView,
         cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCell.identifier(), forIndexPath: indexPath) as! ImageCell
         cell.configureCellWithURLString(self.imageURLStrings[indexPath.row], placeholderImage: self.placeholderImage)
-        
+
         return cell
     }
 }
@@ -156,7 +156,7 @@ extension ImagesViewController : UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension ImagesViewController : UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(
         collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -164,10 +164,10 @@ extension ImagesViewController : UICollectionViewDelegateFlowLayout {
     {
         let viewWidth = self.view.bounds.size.width
         let cellWidth = (viewWidth - 4 * 8) / 3.0
-        
+
         return CGSize(width: cellWidth, height: cellWidth)
     }
-    
+
     func collectionView(
         collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -175,7 +175,7 @@ extension ImagesViewController : UICollectionViewDelegateFlowLayout {
     {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
-    
+
     func collectionView(
         collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -183,7 +183,7 @@ extension ImagesViewController : UICollectionViewDelegateFlowLayout {
     {
         return 8.0
     }
-    
+
     func collectionView(
         collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -196,13 +196,13 @@ extension ImagesViewController : UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionViewDelegate
 
 extension ImagesViewController : UICollectionViewDelegate {
-    
+
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let URLString = self.imageURLStrings[indexPath.row]
-        
+
         let imageViewController = ImageViewController()
         imageViewController.URLString = URLString
-        
+
         self.navigationController?.pushViewController(imageViewController, animated: true)
     }
 }

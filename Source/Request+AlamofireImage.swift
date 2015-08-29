@@ -32,7 +32,7 @@ import Cocoa
 public extension Request {
 
     // MARK: - iOS Methods
-    
+
 #if os(iOS)
 
     public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<UIImage>) -> Void
@@ -41,13 +41,13 @@ public extension Request {
         Creates a response serializer that returns an image initialized from the response data using the specified
         image options.
 
-        - parameter imageScale: The scale factor used when interpreting the image data to construct `responseImage`. 
-            Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the 
-            image. Applying a different scale factor changes the size of the image as reported by the size property. 
+        - parameter imageScale: The scale factor used when interpreting the image data to construct `responseImage`.
+            Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the
+            image. Applying a different scale factor changes the size of the image as reported by the size property.
             `UIScreen.mainScreen().scale` by default.
-        - parameter automaticallyInflateResponseImage: Whether to automatically inflate response image data for 
-            compressed formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance as it 
-            allows a bitmap representation to be constructed in the background rather than on the main thread. `true` 
+        - parameter automaticallyInflateResponseImage: Whether to automatically inflate response image data for
+            compressed formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance as it
+            allows a bitmap representation to be constructed in the background rather than on the main thread. `true`
             by default.
 
         - returns: An image response serializer.
@@ -83,17 +83,17 @@ public extension Request {
     /**
         Adds a handler to be called once the request has finished.
 
-        - parameter imageScale: The scale factor used when interpreting the image data to construct `responseImage`. 
-            Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the 
-            image. Applying a different scale factor changes the size of the image as reported by the size property. 
-            This is set to the value of scale of the main screen by default, which automatically scales images for 
+        - parameter imageScale: The scale factor used when interpreting the image data to construct `responseImage`.
+            Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the
+            image. Applying a different scale factor changes the size of the image as reported by the size property.
+            This is set to the value of scale of the main screen by default, which automatically scales images for
             retina displays, for instance. `UIScreen.mainScreen().scale` by default.
-        - parameter automaticallyInflateResponseImage: Whether to automatically inflate response image data for 
-            compressed formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance as it 
-            allows a bitmap representation to be constructed in the background rather than on the main thread. `true` 
+        - parameter automaticallyInflateResponseImage: Whether to automatically inflate response image data for
+            compressed formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance as it
+            allows a bitmap representation to be constructed in the background rather than on the main thread. `true`
             by default.
-        - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4 
-            arguments: the URL request, the URL response, if one was received, the image, if one could be created from 
+        - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4
+            arguments: the URL request, the URL response, if one was received, the image, if one could be created from
             the URL response and data, and any error produced while creating the image.
 
         - returns: The request.
@@ -112,7 +112,7 @@ public extension Request {
             completionHandler: completionHandler
         )
     }
-    
+
     private class func imageFromResponseData(data: NSData, imageScale: CGFloat) throws -> UIImage {
         // TODO: Figure out why we need this extra step here...
         if let image = UIImage(data: data) {
@@ -163,13 +163,13 @@ public extension Request {
             orientation: compressedImage.imageOrientation
         )
     }
-    
+
 #elseif os(OSX)
 
     public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<NSImage>) -> Void
 
     // MARK: - OSX Methods
-    
+
     /**
         Creates a response serializer that returns an image initialized from the response data.
 
@@ -195,12 +195,12 @@ public extension Request {
             return .Success(image)
         }
     }
-    
+
     /**
         Adds a handler to be called once the request has finished.
 
-        - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4 
-            arguments: the URL request, the URL response, if one was received, the image, if one could be created from 
+        - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4
+            arguments: the URL request, the URL response, if one was received, the image, if one could be created from
             the URL response and data, and any error produced while creating the image.
 
         - returns: The request.
@@ -211,11 +211,11 @@ public extension Request {
             completionHandler: completionHandler
         )
     }
-    
+
 #endif
-    
+
     // MARK: - Private - Shared Helper Methods
-    
+
     private class func validateResponse(response: NSHTTPURLResponse?) -> Bool {
         let acceptableContentTypes: Set<String> = [
             "image/tiff",
@@ -236,12 +236,12 @@ public extension Request {
 
         return false
     }
-    
+
     private class func contentTypeValidationError() -> NSError {
         let failureReason = "Failed to validate response due to unacceptable content type"
         return Error.errorWithCode(NSURLErrorCannotDecodeContentData, failureReason: failureReason)
     }
-    
+
     private class func imageDataError() -> NSError {
         let failureReason = "Failed to create a valid Image from the response data"
         return Error.errorWithCode(NSURLErrorCannotDecodeContentData, failureReason: failureReason)
