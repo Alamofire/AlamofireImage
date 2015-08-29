@@ -206,33 +206,33 @@ public extension UIImageView {
         let request = UIImageView.ai_sharedImageDownloader.downloadImage(
             URLRequest: URLRequest,
             filter: filter,
-            success: { [weak self] request, response, image in
+            completion: { [weak self] request, response, result in
                 guard let strongSelf = self else { return }
 
-                if let success = success {
-                    success(request, response, image)
-                } else {
-                    switch imageTransition {
-                    case .None:
-                        strongSelf.image = image
-                    default:
-                        UIView.transitionWithView(
-                            strongSelf,
-                            duration: imageTransition.duration,
-                            options: imageTransition.animationOptions,
-                            animations: {
-                                strongSelf.image = image
-                            },
-                            completion: nil
-                        )
+                switch result {
+                case .Success(let image):
+                    if let success = success {
+                        success(request, response, image)
+                    } else {
+                        switch imageTransition {
+                        case .None:
+                            strongSelf.image = image
+                        default:
+                            UIView.transitionWithView(
+                                strongSelf,
+                                duration: imageTransition.duration,
+                                options: imageTransition.animationOptions,
+                                animations: {
+                                    strongSelf.image = image
+                                },
+                                completion: nil
+                            )
+                        }
                     }
+                case .Failure(let data, let error):
+                    failure?(request, response, data, error)
+                    strongSelf.ai_activeRequest = nil
                 }
-            },
-            failure: { [weak self] request, response, data, error in
-                guard let strongSelf = self else { return }
-
-                failure?(request, response, data, error)
-                strongSelf.ai_activeRequest = nil
             }
         )
 
