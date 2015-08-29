@@ -22,19 +22,26 @@
 
 import Alamofire
 import Foundation
+
+#if os(iOS)
 import UIKit
+public typealias Image = UIImage
+#elseif os(OSX)
+import Cocoa
+public typealias Image = NSImage
+#endif
 
 // MARK: ImageCache
 
 public protocol ImageCache {
-    func cachedImageWithIdentifier(identifier: String) -> UIImage?
-    func cacheImage(image: UIImage, withIdentifier identifier: String)
+    func cachedImageWithIdentifier(identifier: String) -> Image?
+    func cacheImage(image: Image, withIdentifier identifier: String)
     func removeAllCachedImages()
 }
 
 public protocol ImageRequestCache: ImageCache {
-    func cachedImageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> UIImage?
-    func cacheImage(image: UIImage, forRequest request: NSURLRequest, withIdentifier identifier: String?)
+    func cachedImageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> Image?
+    func cacheImage(image: Image, forRequest request: NSURLRequest, withIdentifier identifier: String?)
 }
 
 // MARK: -
@@ -44,26 +51,32 @@ public class AutoPurgingImageCache: ImageRequestCache {
     // MARK: CachedImage
 
     class CachedImage {
-        private let image: UIImage
+        private let image: Image
         let identifier: String
         let totalBytes: UInt64
         var lastAccessDate: NSDate
 
-        init(_ image: UIImage, identifier: String) {
+        init(_ image: Image, identifier: String) {
             self.image = image
             self.identifier = identifier
             self.lastAccessDate = NSDate()
 
             self.totalBytes = {
-                let cgImage = image.CGImage
-                let bytesPerRow = CGImageGetBytesPerRow(cgImage)
-                let height = CGImageGetHeight(cgImage)
+                #if os(iOS)
+                let size = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
+                #elseif os(OSX)
+                let size = CGSize(width: image.size.width, height: image.size.height)
+                #endif
 
-                return UInt64(bytesPerRow) * UInt64(height)
+                let bytesPerPixel: CGFloat = 4.0
+                let bytesPerRow = size.width * bytesPerPixel
+                let totalBytes = UInt64(bytesPerRow) * UInt64(size.height)
+
+                return totalBytes
             }()
         }
 
-        func accessImage() -> UIImage {
+        func accessImage() -> Image {
             lastAccessDate = NSDate()
             return image
         }
@@ -94,12 +107,14 @@ public class AutoPurgingImageCache: ImageRequestCache {
             return dispatch_queue_create(name, attributes)
         }()
 
+        #if os(iOS)
         NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: "removeAllCachedImages",
             name: UIApplicationDidReceiveMemoryWarningNotification,
             object: nil
         )
+        #endif
     }
 
     deinit {
@@ -108,13 +123,13 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
     // MARK: Cache Methods
 
-    public func cachedImageForRequest(request: NSURLRequest, withIdentifier identifier: String? = nil) -> UIImage? {
+    public func cachedImageForRequest(request: NSURLRequest, withIdentifier identifier: String? = nil) -> Image? {
         let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
         return cachedImageWithIdentifier(requestIdentifier)
     }
 
-    public func cachedImageWithIdentifier(identifier: String) -> UIImage? {
-        var image: UIImage?
+    public func cachedImageWithIdentifier(identifier: String) -> Image? {
+        var image: Image?
 
         dispatch_sync(synchronizationQueue) {
             if let cachedImage = self.cachedImages[identifier] {
@@ -125,12 +140,12 @@ public class AutoPurgingImageCache: ImageRequestCache {
         return image
     }
 
-    public func cacheImage(image: UIImage, forRequest request: NSURLRequest, withIdentifier identifier: String? = nil) {
+    public func cacheImage(image: Image, forRequest request: NSURLRequest, withIdentifier identifier: String? = nil) {
         let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
         cacheImage(image, withIdentifier: requestIdentifier)
     }
 
-    public func cacheImage(image: UIImage, withIdentifier identifier: String) {
+    public func cacheImage(image: Image, withIdentifier identifier: String) {
         dispatch_barrier_async(self.synchronizationQueue) {
             let cachedImage = CachedImage(image, identifier: identifier)
 
