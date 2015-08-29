@@ -26,7 +26,7 @@ import UIKit
 public class ImageDownloader {
     
     public typealias ImageDownloadSuccessHandler = (NSURLRequest?, NSHTTPURLResponse?, UIImage) -> Void
-    public typealias ImageDownloadFailureHandler = (NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void
+    public typealias ImageDownloadFailureHandler = (NSURLRequest?, NSHTTPURLResponse?, NSData?, ErrorType) -> Void
     
     public enum DownloadPrioritization {
         case FIFO, LIFO
@@ -85,7 +85,7 @@ public class ImageDownloader {
     }
     
     public init(
-        configuration: NSURLSessionConfiguration? = nil,
+        configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(),
         downloadPrioritization: DownloadPrioritization = .FIFO,
         maximumActiveDownloads: Int = 4,
         imageCache: ImageCache = AutoPurgingImageCache())
@@ -113,7 +113,7 @@ public class ImageDownloader {
     
     // MARK: - Authentication Methods
     
-    public func addAuthentication(#username: String, password: String) {
+    public func addAuthentication(username username: String, password: String) {
         let credential = NSURLCredential(user: username, password: password, persistence: NSURLCredentialPersistence.ForSession)
         addAuthentication(usingCredential: credential)
     }
@@ -125,7 +125,7 @@ public class ImageDownloader {
     // MARK: - Download Methods
     
     public func downloadImage(
-        #URLRequest: URLRequestConvertible,
+        URLRequest URLRequest: URLRequestConvertible,
         success: ImageDownloadSuccessHandler?,
         failure: ImageDownloadFailureHandler?)
         -> Request?
@@ -134,7 +134,7 @@ public class ImageDownloader {
     }
     
     public func downloadImage(
-        #URLRequest: URLRequestConvertible,
+        URLRequest URLRequest: URLRequestConvertible,
         filter: ImageFilter?,
         success: ImageDownloadSuccessHandler?,
         failure: ImageDownloadFailureHandler?)
@@ -143,10 +143,9 @@ public class ImageDownloader {
         // Attempt to load the image from the image cache if the cache policy allows it
         switch URLRequest.URLRequest.cachePolicy {
         case .ReturnCacheDataElseLoad, .ReturnCacheDataDontLoad:
-            if let image = self.imageCache.cachedImageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
+            if let image = imageCache.cachedImageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
                 dispatch_async(dispatch_get_main_queue()) {
                     success?(URLRequest.URLRequest, nil, image)
-                    return
                 }
                 
                 return nil
@@ -164,37 +163,34 @@ public class ImageDownloader {
         request.validate()
         request.response(
             queue: self.responseQueue,
-            serializer: Request.imageResponseSerializer(),
-            completionHandler: { [weak self] request, response, image, error in
-                if let strongSelf = self {
-                    var image = image as? UIImage
-                    
-                    if image != nil && error == nil {
-                        if let filter = filter {
-                            image = filter.filter(image!)
-                        }
-                        
-                        dispatch_async(dispatch_get_main_queue()) {
-                            success?(request, response, image!)
-                            return
-                        }
-                        
-                        strongSelf.imageCache.cacheImage(image!, forRequest: request, withIdentifier: filter?.identifier)
-                    } else {
-                        dispatch_async(dispatch_get_main_queue()) {
-                            failure?(request, response, error)
-                            return
-                        }
+            responseSerializer: Request.imageResponseSerializer(),
+            completionHandler: { [weak self] request, response, result in
+                guard let strongSelf = self, let request = request else { return }
+
+                switch result {
+                case .Success(var image):
+                    if let filter = filter {
+                        image = filter.filter(image)
                     }
-                    
-                    strongSelf.safelyDecrementActiveRequestCount()
-                    strongSelf.safelyStartNextRequestIfNecessary()
+
+                    dispatch_async(dispatch_get_main_queue()) {
+                        success?(request, response, image)
+                    }
+
+                    strongSelf.imageCache.cacheImage(image, forRequest: request, withIdentifier: filter?.identifier)
+                case .Failure(let data, let error):
+                    dispatch_async(dispatch_get_main_queue()) {
+                        failure?(request, response, data, error)
+                    }
                 }
+
+                strongSelf.safelyDecrementActiveRequestCount()
+                strongSelf.safelyStartNextRequestIfNecessary()
             }
         )
-        
+
         safelyStartRequestIfPossible(request)
-        
+
         return request
     }
     

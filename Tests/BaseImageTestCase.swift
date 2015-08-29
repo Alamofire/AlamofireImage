@@ -38,7 +38,7 @@ class BaseImageTestCase : XCTestCase {
         
         let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
         
-        var defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
+        let defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
         configuration.HTTPAdditionalHeaders = defaultHeaders
         
         self.manager = Manager(configuration: configuration)

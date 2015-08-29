@@ -27,8 +27,12 @@ import AlamofireImage
 class ImagesViewController: UIViewController {
     
     // MARK: Properties
-    
-    lazy var placeholderImage = UIImage(named: "Placeholder Image")!
+
+    lazy var placeholderImage: UIImage = {
+        let image = UIImage(named: "Placeholder Image")!
+        return image
+    }()
+
     lazy var imageURLStrings = [String]()
     var collectionView: UICollectionView!
     
@@ -113,6 +117,8 @@ class ImagesViewController: UIViewController {
     }
     
     private func setUpCollectionView() {
+        print(imageURLStrings)
+
         self.collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
         self.collectionView.backgroundColor = UIColor.whiteColor()
         
@@ -124,7 +130,7 @@ class ImagesViewController: UIViewController {
         self.view.addSubview(self.collectionView)
         
         self.collectionView.frame = self.view.bounds
-        self.collectionView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        self.collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     }
 }
 

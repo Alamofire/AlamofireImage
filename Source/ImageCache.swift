@@ -11,8 +11,6 @@ import CoreGraphics
 import Foundation
 import UIKit
 
-import Swift
-
 // MARK: ImageCache
 
 public protocol ImageCache {
@@ -105,7 +103,7 @@ public class AutoPurgingImageCache: ImageCache {
         
         dispatch_sync(self.synchronizationQueue) {
             let key = self.imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
-            if var cachedImage = self.cachedImages[key] {
+            if let cachedImage = self.cachedImages[key] {
                 image = cachedImage.accessImage()
             }
         }
@@ -124,19 +122,19 @@ public class AutoPurgingImageCache: ImageCache {
             
             self.cachedImages[key] = cachedImage
             self.currentMemoryUsage += cachedImage.totalBytes
-            println("Cached image: \(key) total bytes: \(self.currentMemoryUsage)")
+            print("Cached image: \(key) total bytes: \(self.currentMemoryUsage)")
         }
         
         dispatch_barrier_async(self.synchronizationQueue) {
             if self.currentMemoryUsage > self.memoryCapacity {
                 // purge me some bytes!!!
                 let bytesOverMaximumAllowed = self.currentMemoryUsage - self.memoryCapacity
-                println("Bytes over maximum allowed: \(bytesOverMaximumAllowed)")
+                print("Bytes over maximum allowed: \(bytesOverMaximumAllowed)")
                 
                 let bytesToPurge = self.currentMemoryUsage - self.preferredMemoryUsageAfterPurge
                 
                 var sortedImages = [CachedImage](self.cachedImages.values)
-                sortedImages.sort {
+                sortedImages.sortInPlace {
                     let date1 = $0.lastAccessDate
                     let date2 = $1.lastAccessDate
                     
@@ -145,10 +143,10 @@ public class AutoPurgingImageCache: ImageCache {
                 
                 var bytesPurged = UInt64(0)
                 
-                println("================== STARTING PURGE \(self.currentMemoryUsage) ==========================")
+                print("================== STARTING PURGE \(self.currentMemoryUsage) ==========================")
                 
                 for cachedImage in sortedImages {
-                    println("Purging Cached Image: \(cachedImage.lastAccessDate) \(cachedImage.totalBytes) \(cachedImage.URLString)")
+                    print("Purging Cached Image: \(cachedImage.lastAccessDate) \(cachedImage.totalBytes) \(cachedImage.URLString)")
                     
                     self.cachedImages.removeValueForKey(cachedImage.URLString)
                     bytesPurged += cachedImage.totalBytes
@@ -160,14 +158,14 @@ public class AutoPurgingImageCache: ImageCache {
                 
                 self.currentMemoryUsage -= bytesPurged
                 
-                println("================== FINISHED PURGE \(self.currentMemoryUsage) ==========================")
+                print("================== FINISHED PURGE \(self.currentMemoryUsage) ==========================")
             }
         }
     }
     
     public func removeAllCachedImages() {
         dispatch_barrier_async(self.synchronizationQueue) {
-            println("Removed all cached images!!!")
+            print("Removed all cached images!!!")
             self.cachedImages.removeAll()
             self.currentMemoryUsage = 0
         }

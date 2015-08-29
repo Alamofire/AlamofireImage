@@ -53,6 +53,6 @@ class ImageViewController : UIViewController {
         self.view.addSubview(self.imageView)
         
         self.imageView.frame = self.view.bounds
-        self.imageView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        self.imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     }
 }

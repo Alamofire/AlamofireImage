@@ -20,60 +20,77 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import XCTest
 import Alamofire
 import AlamofireImage
 import Cocoa
+import XCTest
 
 class ResponseImageTestCase : BaseImageTestCase {
-    
     func testThatResponseImageSerializerHandlesPNGResponseData() {
-        
         // Given
         let URLString = "http://httpbin.org/image/png"
         let expectation = expectationWithDescription("Request should return PNG response image")
-        var responseImage: NSImage?
-        
+
+        var request: NSURLRequest?
+        var response: NSHTTPURLResponse?
+        var result: Result<NSImage>?
+
         // When
-        let request = self.manager.request(.GET, URLString)
-        request.responseImage { request, response, image, error in
-            responseImage = image as? NSImage
-            expectation.fulfill()
-        }
-        
-        // Then
-        waitForExpectationsWithTimeout(self.defaultTimeoutDuration) { _ in
-            XCTAssertNotNil(responseImage, "The response image should NOT be nil")
-            
-            if let responseImage = responseImage {
-                let expectedSize = CGSize(width: 100.0, height: 100.0)
-                XCTAssertEqual(expectedSize, responseImage.size, "Response image size should match the expected size")
+        manager.request(.GET, URLString)
+            .responseImage { responseRequest, responseResponse, responseResult in
+                request = responseRequest
+                response = responseResponse
+                result = responseResult
+
+                expectation.fulfill()
             }
+
+        waitForExpectationsWithTimeout(defaultTimeoutDuration, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request, "request should not be nil")
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertTrue(result?.isSuccess ?? false, "result should be success")
+
+        if let result = result, let image = result.value {
+            let expectedSize = CGSize(width: 100.0, height: 100.0)
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+        } else {
+            XCTFail("result image should not be nil")
         }
     }
     
     func testThatResponseImageSerializerHandlesJPGResponseData() {
-        
         // Given
         let URLString = "http://httpbin.org/image/jpeg"
         let expectation = expectationWithDescription("Request should return JPG response image")
-        var responseImage: NSImage?
-        
+
+        var request: NSURLRequest?
+        var response: NSHTTPURLResponse?
+        var result: Result<NSImage>?
+
         // When
-        let request = self.manager.request(.GET, URLString)
-        request.responseImage { request, response, image, error in
-            responseImage = image as? NSImage
-            expectation.fulfill()
-        }
-        
-        // Then
-        waitForExpectationsWithTimeout(self.defaultTimeoutDuration) { _ in
-            XCTAssertNotNil(responseImage, "The response image should NOT be nil")
-            
-            if let responseImage = responseImage {
-                let expectedSize = CGSize(width: 239.0, height: 178.0)
-                XCTAssertEqual(expectedSize, responseImage.size, "Response image size should match the expected size")
+        manager.request(.GET, URLString)
+            .responseImage { responseRequest, responseResponse, responseResult in
+                request = responseRequest
+                response = responseResponse
+                result = responseResult
+
+                expectation.fulfill()
             }
+
+        waitForExpectationsWithTimeout(defaultTimeoutDuration, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request, "request should not be nil")
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertTrue(result?.isSuccess ?? false, "result should be success")
+
+        if let result = result, let image = result.value {
+            let expectedSize = CGSize(width: 239.0, height: 178.0)
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+        } else {
+            XCTFail("result image should not be nil")
         }
     }
 }

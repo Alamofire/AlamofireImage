@@ -98,7 +98,7 @@ public extension UIImageView {
             }
         }
         set(downloader) {
-            objc_setAssociatedObject(self, &AssociatedKeys.sharedImageDownloaderKey, downloader, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &AssociatedKeys.sharedImageDownloaderKey, downloader, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -107,13 +107,13 @@ public extension UIImageView {
             return objc_getAssociatedObject(self, &AssociatedKeys.activeRequestKey) as? Request
         }
         set(request) {
-            objc_setAssociatedObject(self, &AssociatedKeys.activeRequestKey, request, UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self, &AssociatedKeys.activeRequestKey, request, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
     // MARK: - Image Download Methods
     
-    public func ai_setImage(#URLString: String) {
+    public func ai_setImage(URLString URLString: String) {
         ai_setImage(
             URLRequest: ai_URLRequestWithURLString(URLString),
             placeholderImage: nil,
@@ -124,7 +124,7 @@ public extension UIImageView {
         )
     }
     
-    public func ai_setImage(#URLString: String, placeholderImage: UIImage) {
+    public func ai_setImage(URLString URLString: String, placeholderImage: UIImage) {
         ai_setImage(
             URLRequest: ai_URLRequestWithURLString(URLString),
             placeholderImage: placeholderImage,
@@ -135,7 +135,7 @@ public extension UIImageView {
         )
     }
     
-    public func ai_setImage(#URLString: String, placeholderImage: UIImage?, filter: ImageFilter) {
+    public func ai_setImage(URLString URLString: String, placeholderImage: UIImage?, filter: ImageFilter) {
         ai_setImage(
             URLRequest: ai_URLRequestWithURLString(URLString),
             placeholderImage: placeholderImage,
@@ -146,7 +146,7 @@ public extension UIImageView {
         )
     }
     
-    public func ai_setImage(#URLString: String, placeholderImage: UIImage?, imageTransition: ImageTransition) {
+    public func ai_setImage(URLString URLString: String, placeholderImage: UIImage?, imageTransition: ImageTransition) {
         ai_setImage(
             URLRequest: ai_URLRequestWithURLString(URLString),
             placeholderImage: placeholderImage,
@@ -158,7 +158,7 @@ public extension UIImageView {
     }
     
     public func ai_setImage(
-        #URLString: String,
+        URLString URLString: String,
         placeholderImage: UIImage?,
         filter: ImageFilter,
         imageTransition: ImageTransition)
@@ -174,12 +174,12 @@ public extension UIImageView {
     }
     
     public func ai_setImage(
-        #URLRequest: URLRequestConvertible,
+        URLRequest URLRequest: URLRequestConvertible,
         placeholderImage: UIImage?,
         filter: ImageFilter?,
         imageTransition: ImageTransition,
         success: ((NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void)?,
-        failure: ((NSURLRequest?, NSHTTPURLResponse?, NSError?) -> Void)?)
+        failure: ((NSURLRequest?, NSHTTPURLResponse?, NSData?, ErrorType) -> Void)?)
     {
         ai_cancelImageRequest()
         
@@ -207,32 +207,32 @@ public extension UIImageView {
             URLRequest: URLRequest,
             filter: filter,
             success: { [weak self] request, response, image in
-                if let strongSelf = self {
-                    if let success = success {
-                        success(request, response, image)
-                    } else {
-                        switch imageTransition {
-                        case .None:
-                            strongSelf.image = image
-                        default:
-                            UIView.transitionWithView(
-                                strongSelf,
-                                duration: imageTransition.duration,
-                                options: imageTransition.animationOptions,
-                                animations: {
-                                    strongSelf.image = image
-                                },
-                                completion: nil
-                            )
-                        }
+                guard let strongSelf = self else { return }
+
+                if let success = success {
+                    success(request, response, image)
+                } else {
+                    switch imageTransition {
+                    case .None:
+                        strongSelf.image = image
+                    default:
+                        UIView.transitionWithView(
+                            strongSelf,
+                            duration: imageTransition.duration,
+                            options: imageTransition.animationOptions,
+                            animations: {
+                                strongSelf.image = image
+                            },
+                            completion: nil
+                        )
                     }
                 }
             },
-            failure: { [weak self] request, response, error in
-                if let strongSelf = self {
-                    failure?(request, response, error)
-                    strongSelf.ai_activeRequest = nil
-                }
+            failure: { [weak self] request, response, data, error in
+                guard let strongSelf = self else { return }
+
+                failure?(request, response, data, error)
+                strongSelf.ai_activeRequest = nil
             }
         )
         

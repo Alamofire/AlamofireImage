@@ -34,7 +34,7 @@ class ImageCell : UICollectionViewCell {
     
     override init(frame: CGRect) {
         self.imageView = UIImageView(frame: frame)
-        self.imageView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        self.imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.imageView.contentMode = .Center
         self.imageView.clipsToBounds = true
         

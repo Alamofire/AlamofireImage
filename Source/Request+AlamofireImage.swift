@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
 import Alamofire
+import Foundation
 
 #if os(iOS)
 import UIKit
@@ -31,218 +31,184 @@ import Cocoa
 
 public extension Request {
 
-    public typealias CompletionHandler = (NSURLRequest, NSHTTPURLResponse?, AnyObject?, NSError?) -> Void
-    
     // MARK: - iOS Methods
     
 #if os(iOS)
-    
+
+    public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<UIImage>) -> Void
+
     /**
         Creates a response serializer that returns an image initialized from the response data using the specified
         image options.
-    
-        :param: imageScale The scale factor used when interpreting the image data to construct `responseImage`. 
-            Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of 
-            the image. Applying a different scale factor changes the size of the image as reported by the size 
-            property. `UIScreen.mainScreen().scale` by default.
-        :param: automaticallyInflateResponseImage Whether to automatically inflate response image data for compressed 
-            formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance as it allows a 
-            bitmap representation to be constructed in the background rather than on the main thread. `true` by default.
-    
-        :returns: An image response serializer.
+
+        - parameter imageScale: The scale factor used when interpreting the image data to construct `responseImage`. 
+            Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the 
+            image. Applying a different scale factor changes the size of the image as reported by the size property. 
+            `UIScreen.mainScreen().scale` by default.
+        - parameter automaticallyInflateResponseImage: Whether to automatically inflate response image data for 
+            compressed formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance as it 
+            allows a bitmap representation to be constructed in the background rather than on the main thread. `true` 
+            by default.
+
+        - returns: An image response serializer.
     */
     public class func imageResponseSerializer(
-        imageScale: CGFloat = UIScreen.mainScreen().scale,
+        imageScale imageScale: CGFloat = UIScreen.mainScreen().scale,
         automaticallyInflateResponseImage: Bool = true)
-        -> Serializer
+        -> GenericResponseSerializer<UIImage>
     {
-        return { request, response, data in
-            if data == nil {
-                return (nil, Request.imageDataError())
+        return GenericResponseSerializer { request, response, data in
+            guard let validData = data else {
+                return .Failure(data, Request.imageDataError())
             }
-            
-            if !Request.validateResponse(response) {
-                return (nil, Request.contentTypeValidationError())
+
+            guard Request.validateResponse(response) else {
+                return .Failure(data, Request.contentTypeValidationError())
             }
-            
-            var image: UIImage?
-            var error: NSError?
-            
-            (image, error) = Request.imageFromResponseData(data!, imageScale: imageScale)
-            
-            if var image = image {
-                if automaticallyInflateResponseImage {
-                    if let inflatedImage = Request.inflateImage(image) {
-                        image = inflatedImage
-                    }
+
+            do {
+                var image = try Request.imageFromResponseData(validData, imageScale: imageScale)
+
+                if automaticallyInflateResponseImage, let inflatedImage = Request.inflateImage(image) {
+                    image = inflatedImage
                 }
+
+                return .Success(image)
+            } catch {
+                return .Failure(data, error)
             }
-            
-            return (image, error)
         }
     }
-    
+
     /**
         Adds a handler to be called once the request has finished.
-    
-        :param: imageScale The scale factor used when interpreting the image data to construct `responseImage`. 
-            Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of 
-            the image. Applying a different scale factor changes the size of the image as reported by the size 
-            property. This is set to the value of scale of the main screen by default, which automatically scales 
-            images for retina displays, for instance. `UIScreen.mainScreen().scale` by default.
-        :param: automaticallyInflateResponseImage Whether to automatically inflate response image data for compressed 
-            formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance as it allows a 
-            bitmap representation to be constructed in the background rather than on the main thread. `true` by default.
-        :param: completionHandler A closure to be executed once the request has finished. The closure takes 4 
+
+        - parameter imageScale: The scale factor used when interpreting the image data to construct `responseImage`. 
+            Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the 
+            image. Applying a different scale factor changes the size of the image as reported by the size property. 
+            This is set to the value of scale of the main screen by default, which automatically scales images for 
+            retina displays, for instance. `UIScreen.mainScreen().scale` by default.
+        - parameter automaticallyInflateResponseImage: Whether to automatically inflate response image data for 
+            compressed formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance as it 
+            allows a bitmap representation to be constructed in the background rather than on the main thread. `true` 
+            by default.
+        - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4 
             arguments: the URL request, the URL response, if one was received, the image, if one could be created from 
             the URL response and data, and any error produced while creating the image.
-    
-        :returns: The request.
+
+        - returns: The request.
     */
     public func responseImage(
         imageScale: CGFloat = UIScreen.mainScreen().scale,
         automaticallyInflateResponseImage: Bool = true,
-        completionHandler: CompletionHandler) -> Self
+        completionHandler: CompletionHandler)
+        -> Self
     {
         return response(
-            serializer: Request.imageResponseSerializer(
+            responseSerializer: Request.imageResponseSerializer(
                 imageScale: imageScale,
                 automaticallyInflateResponseImage: automaticallyInflateResponseImage
             ),
-            completionHandler: { request, response, data, error in
-                completionHandler(request, response, data, error)
-            }
+            completionHandler: completionHandler
         )
     }
     
-    private class func imageFromResponseData(data: NSData, imageScale: CGFloat) -> (UIImage?, NSError?) {
-        var resultImage: UIImage? = nil
-        var error: NSError? = nil
-        
-        if var image = UIImage(data: data) {
-            let adjustedImage = UIImage(
-                CGImage: image.CGImage,
-                scale: imageScale,
-                orientation: image.imageOrientation
-            )
-            
-            if let adjustedImage = adjustedImage {
-                resultImage = adjustedImage
-            }
+    private class func imageFromResponseData(data: NSData, imageScale: CGFloat) throws -> UIImage {
+        // TODO: Figure out why we need this extra step here...
+        if let image = UIImage(data: data) {
+            return UIImage(CGImage: image.CGImage!, scale: imageScale, orientation: image.imageOrientation)
         }
-        
-        if let resultImage = resultImage {
-            return (resultImage, nil)
-        } else {
-            return (nil, imageDataError())
-        }
+
+        throw imageDataError()
     }
-    
+
     private class func inflateImage(compressedImage: UIImage) -> UIImage? {
-        
         // Do not attempt to inflate animated images
-        if let images = compressedImage.images {
-            return nil
-        }
-        
+        guard compressedImage.images == nil else { return nil }
+
         let imageRef = CGImageCreateCopy(compressedImage.CGImage)
-        
+
         let width = CGImageGetWidth(imageRef)
         let height = CGImageGetHeight(imageRef)
         let bitsPerComponent = CGImageGetBitsPerComponent(imageRef)
-        
+
         // Do not inflate images that are too large or have more than 8-bit components
         if width * height > 1024 * 1024 || bitsPerComponent > 8 {
             return compressedImage
         }
-        
-        var bytesPerRow: Int = 0
+
+        let bytesPerRow: Int = 0
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let colorSpaceModel = CGColorSpaceGetModel(colorSpace)
         var bitmapInfo = CGImageGetBitmapInfo(imageRef)
-        
+
         // Fix alpha channel issues if necessary
-        if colorSpaceModel.value == kCGColorSpaceModelRGB.value {
-            let alpha: UInt32 = (bitmapInfo.rawValue & CGBitmapInfo.AlphaInfoMask.rawValue)
-            
-            if alpha == CGImageAlphaInfo.None.rawValue {
-                bitmapInfo &= ~CGBitmapInfo.AlphaInfoMask
-                bitmapInfo = CGBitmapInfo(bitmapInfo.rawValue | CGImageAlphaInfo.NoneSkipFirst.rawValue)
-            } else if !(alpha == CGImageAlphaInfo.NoneSkipFirst.rawValue || alpha == CGImageAlphaInfo.NoneSkipLast.rawValue) {
-                bitmapInfo &= ~CGBitmapInfo.AlphaInfoMask
-                bitmapInfo = CGBitmapInfo(bitmapInfo.rawValue | CGImageAlphaInfo.PremultipliedFirst.rawValue)
-            }
+        let alpha = (bitmapInfo.rawValue & CGBitmapInfo.AlphaInfoMask.rawValue)
+
+        if alpha == CGImageAlphaInfo.None.rawValue {
+            bitmapInfo.remove(.AlphaInfoMask)
+            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.NoneSkipFirst.rawValue)
+        } else if !(alpha == CGImageAlphaInfo.NoneSkipFirst.rawValue) || !(alpha == CGImageAlphaInfo.NoneSkipLast.rawValue) {
+            bitmapInfo.remove(.AlphaInfoMask)
+            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.PremultipliedFirst.rawValue)
         }
-        
-        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo)
-        
-        // Return the original image if the context creation failed
-        if context == nil {
-            return nil
-        }
-        
+
+        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
         CGContextDrawImage(context, CGRectMake(0.0, 0.0, CGFloat(width), CGFloat(height)), imageRef)
-        let inflatedImageRef = CGBitmapContextCreateImage(context)
-        
-        if let inflatedImage = UIImage(
+
+        guard let inflatedImageRef = CGBitmapContextCreateImage(context) else { return nil }
+
+        return UIImage(
             CGImage: inflatedImageRef,
             scale: compressedImage.scale,
-            orientation: compressedImage.imageOrientation)
-        {
-            return inflatedImage
-        }
-        
-        return nil
+            orientation: compressedImage.imageOrientation
+        )
     }
     
 #elseif os(OSX)
-    
+
+    public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<NSImage>) -> Void
+
     // MARK: - OSX Methods
     
     /**
         Creates a response serializer that returns an image initialized from the response data.
-    
-        :returns: An image response serializer.
+
+        - returns: An image response serializer.
     */
-    public class func imageResponseSerializer() -> Serializer {
-        return { request, response, data in
-            if data == nil {
-                return (nil, Request.imageDataError())
+    public class func imageResponseSerializer() -> GenericResponseSerializer<NSImage> {
+        return GenericResponseSerializer { request, response, data in
+            guard let validData = data else {
+                return .Failure(data, Request.imageDataError())
             }
-        
-            if !Request.validateResponse(response) {
-                return (nil, Request.contentTypeValidationError())
+
+            guard Request.validateResponse(response) else {
+                return .Failure(data, Request.contentTypeValidationError())
             }
-            
-            var image: NSImage?
-            var error: NSError?
-            
-            if let bitmapImage = NSBitmapImageRep(data: data!) {
-                image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
-                image!.addRepresentation(bitmapImage)
-            } else {
-                error = Request.imageDataError()
+
+            guard let bitmapImage = NSBitmapImageRep(data: validData) else {
+                return .Failure(data, Request.imageDataError())
             }
-            
-            return (image, error)
+
+            let image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
+            image.addRepresentation(bitmapImage)
+
+            return .Success(image)
         }
     }
     
     /**
         Adds a handler to be called once the request has finished.
-    
-        :param: completionHandler A closure to be executed once the request has finished. The closure takes 4 
-            arguments: the URL request, the URL response, if one was received, the image, if one could be created 
-            from the URL response and data, and any error produced while creating the image.
-    
-        :returns: The request.
+
+        - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4 
+            arguments: the URL request, the URL response, if one was received, the image, if one could be created from 
+            the URL response and data, and any error produced while creating the image.
+
+        - returns: The request.
     */
     public func responseImage(completionHandler: CompletionHandler) -> Self {
         return response(
-            serializer: Request.imageResponseSerializer(),
-            completionHandler: { request, response, data, error in
-                completionHandler(request, response, data, error)
-            }
+            responseSerializer: Request.imageResponseSerializer(),
+            completionHandler: completionHandler
         )
     }
     
@@ -251,7 +217,7 @@ public extension Request {
     // MARK: - Private - Shared Helper Methods
     
     private class func validateResponse(response: NSHTTPURLResponse?) -> Bool {
-        let acceptableContentTypes = NSSet(objects:
+        let acceptableContentTypes: Set<String> = [
             "image/tiff",
             "image/jpeg",
             "image/gif",
@@ -262,28 +228,22 @@ public extension Request {
             "image/x-bmp",
             "image/x-xbitmap",
             "image/x-win-bitmap"
-        )
-        
-        if let mimeType = response?.MIMEType {
-            if acceptableContentTypes.containsObject(mimeType) {
-                return true
-            }
+        ]
+
+        if let mimeType = response?.MIMEType where acceptableContentTypes.contains(mimeType) {
+            return true
         }
-        
+
         return false
     }
     
     private class func contentTypeValidationError() -> NSError {
         let failureReason = "Failed to validate response due to unacceptable content type"
-        let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
-        
-        return NSError(domain: AlamofireErrorDomain, code: NSURLErrorCannotDecodeContentData, userInfo: userInfo)
+        return Error.errorWithCode(NSURLErrorCannotDecodeContentData, failureReason: failureReason)
     }
     
     private class func imageDataError() -> NSError {
-        let failureReason = "Failed to create a valid UIImage from the response data"
-        let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
-        
-        return NSError(domain: AlamofireErrorDomain, code: NSURLErrorCannotDecodeContentData, userInfo: userInfo)
+        let failureReason = "Failed to create a valid Image from the response data"
+        return Error.errorWithCode(NSURLErrorCannotDecodeContentData, failureReason: failureReason)
     }
 }
