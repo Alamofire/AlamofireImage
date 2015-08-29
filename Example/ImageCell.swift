@@ -25,42 +25,39 @@ import AlamofireImage
 import UIKit
 
 class ImageCell : UICollectionViewCell {
-
-    // MARK: - Properties
-
+    class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
     let imageView: UIImageView
 
-    // MARK: - Initialization Methods
+    // MARK: - Initialization
 
     override init(frame: CGRect) {
-        self.imageView = UIImageView(frame: frame)
-        self.imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        self.imageView.contentMode = .Center
-        self.imageView.clipsToBounds = true
+        imageView = {
+            let imageView = UIImageView(frame: frame)
+
+            imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            imageView.contentMode = .Center
+            imageView.clipsToBounds = true
+
+            return imageView
+        }()
 
         super.init(frame: frame)
 
-        self.contentView.addSubview(self.imageView)
+        contentView.addSubview(imageView)
 
-        self.imageView.frame = self.contentView.bounds
+        imageView.frame = contentView.bounds
     }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Identification Methods
-
-    class func identifier() -> String {
-        return "ImageCellIdentifier"
-    }
-
-    // MARK: - Cell Lifecycle Methods
+    // MARK: - Lifecycle Methods
 
     func configureCellWithURLString(URLString: String, placeholderImage: UIImage) {
-        let size = self.imageView.frame.size
+        let size = imageView.frame.size
 
-        self.imageView.ai_setImage(
+        imageView.ai_setImage(
             URLString: URLString,
             placeholderImage: placeholderImage,
             filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
@@ -71,8 +68,8 @@ class ImageCell : UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        self.imageView.ai_cancelImageRequest()
-        self.imageView.layer.removeAllAnimations()
-        self.imageView.image = nil
+        imageView.ai_cancelImageRequest()
+        imageView.layer.removeAllAnimations()
+        imageView.image = nil
     }
 }

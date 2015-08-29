@@ -14,6 +14,7 @@
 		4C5D84521AAD923200A42375 /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5D84501AAD923200A42375 /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4C5D84541AAD923200A42375 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5D84531AAD923200A42375 /* Alamofire.framework */; };
 		4C5D84551AAD923200A42375 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5D84531AAD923200A42375 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4C8290761B925826005E24C8 /* Gravatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290751B925826005E24C8 /* Gravatar.swift */; settings = {ASSET_TAGS = (); }; };
 		4CF743C11AAD756500C2C725 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF743BE1AAD756500C2C725 /* ImageCell.swift */; };
 		4CF743C21AAD756500C2C725 /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF743BF1AAD756500C2C725 /* ImagesViewController.swift */; };
 		4CF743C31AAD756500C2C725 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF743C01AAD756500C2C725 /* ImageViewController.swift */; };
@@ -41,6 +42,8 @@
 		4C5AD6C61AACEE7C006EB75F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Example/Base.lproj/LaunchScreen.xib; sourceTree = SOURCE_ROOT; };
 		4C5D84501AAD923200A42375 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5D84531AAD923200A42375 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C8290751B925826005E24C8 /* Gravatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Gravatar.swift; path = Example/Gravatar.swift; sourceTree = SOURCE_ROOT; };
+		4C8290771B92582E005E24C8 /* iOS-Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "iOS-Example-Bridging-Header.h"; path = "Example/iOS-Example-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		4CDA9E5C1AACEB740077861B /* iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF743BE1AAD756500C2C725 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCell.swift; path = Example/ImageCell.swift; sourceTree = SOURCE_ROOT; };
 		4CF743BF1AAD756500C2C725 /* ImagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImagesViewController.swift; path = Example/ImagesViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -90,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				4C3006CF1AACEBC20029EA50 /* AppDelegate.swift */,
+				4C8290751B925826005E24C8 /* Gravatar.swift */,
 				4CF743BE1AAD756500C2C725 /* ImageCell.swift */,
 				4CF743C01AAD756500C2C725 /* ImageViewController.swift */,
 				4CF743BF1AAD756500C2C725 /* ImagesViewController.swift */,
@@ -102,6 +106,7 @@
 		4CDA9E5F1AACEB740077861B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4C8290771B92582E005E24C8 /* iOS-Example-Bridging-Header.h */,
 				4C5AD6C51AACEE7C006EB75F /* LaunchScreen.xib */,
 				4C3006CE1AACEBC20029EA50 /* Images.xcassets */,
 				4C3006C71AACEBB60029EA50 /* Info.plist */,
@@ -182,6 +187,7 @@
 			files = (
 				4CF743C21AAD756500C2C725 /* ImagesViewController.swift in Sources */,
 				4C3006D41AACEBC20029EA50 /* AppDelegate.swift in Sources */,
+				4C8290761B925826005E24C8 /* Gravatar.swift in Sources */,
 				4CF743C31AAD756500C2C725 /* ImageViewController.swift in Sources */,
 				4CF743C11AAD756500C2C725 /* ImageCell.swift in Sources */,
 			);
@@ -240,6 +246,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Example/iOS-Example-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -275,6 +282,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Example/iOS-Example-Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

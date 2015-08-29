@@ -24,35 +24,41 @@ import Foundation
 import UIKit
 
 class ImageViewController : UIViewController {
-
-    // MARK: - Properties
-
-    var URLString: String!
+    var gravatar: Gravatar!
     var imageView: UIImageView!
 
-    // MARK: - View Lifecycle Methods
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpDisplayProperties()
+
+        setUpInstanceProperties()
         setUpImageView()
     }
 
     // MARK: - Private - Set Up Methods
 
-    private func setUpDisplayProperties() {
-        self.edgesForExtendedLayout = UIRectEdge.None
-        self.view.backgroundColor = UIColor.whiteColor()
+    private func setUpInstanceProperties() {
+        title = gravatar.email
+        edgesForExtendedLayout = UIRectEdge.None
+        view.backgroundColor = UIColor.whiteColor()
     }
 
     private func setUpImageView() {
-        self.imageView = UIImageView()
-        self.imageView.contentMode = .ScaleAspectFit
-        self.imageView.ai_setImage(URLString: self.URLString)
+        imageView = UIImageView()
+        imageView.contentMode = .ScaleAspectFit
 
-        self.view.addSubview(self.imageView)
+        let URL = gravatar.URL(size: CGRectGetWidth(view.bounds))
 
-        self.imageView.frame = self.view.bounds
-        self.imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        imageView.ai_setImage(
+            URLString: URL.URLString,
+            placeholderImage: nil,
+            imageTransition: UIImageView.ImageTransition.FlipFromBottom(0.5)
+        )
+
+        view.addSubview(imageView)
+
+        imageView.frame = view.bounds
+        imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     }
 }
