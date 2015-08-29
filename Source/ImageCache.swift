@@ -25,10 +25,8 @@ import Foundation
 
 #if os(iOS)
 import UIKit
-public typealias Image = UIImage
 #elseif os(OSX)
 import Cocoa
-public typealias Image = NSImage
 #endif
 
 // MARK: ImageCache

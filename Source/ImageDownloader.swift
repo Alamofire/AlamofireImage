@@ -22,10 +22,15 @@
 
 import Alamofire
 import Foundation
+
+#if os(iOS)
 import UIKit
+#elseif os(OSX)
+import Cocoa
+#endif
 
 public class ImageDownloader {
-    public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<UIImage>) -> Void
+    public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<Image>) -> Void
 
     public enum DownloadPrioritization {
         case FIFO, LIFO

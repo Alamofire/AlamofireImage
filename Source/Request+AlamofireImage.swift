@@ -30,12 +30,11 @@ import Cocoa
 #endif
 
 public extension Request {
+    public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<Image>) -> Void
 
     // MARK: - iOS Methods
 
 #if os(iOS)
-
-    public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<UIImage>) -> Void
 
     /**
         Creates a response serializer that returns an image initialized from the response data using the specified
@@ -165,8 +164,6 @@ public extension Request {
     }
 
 #elseif os(OSX)
-
-    public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<NSImage>) -> Void
 
     // MARK: - OSX Methods
 
