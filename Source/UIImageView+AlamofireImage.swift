@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 import Alamofire
+import Foundation
 import UIKit
 
 public extension UIImageView {

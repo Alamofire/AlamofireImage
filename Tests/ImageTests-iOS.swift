@@ -22,6 +22,7 @@
 
 import Alamofire
 import AlamofireImage
+import Foundation
 import UIKit
 import XCTest
 

@@ -23,6 +23,7 @@
 import Alamofire
 import AlamofireImage
 import Cocoa
+import Foundation
 import XCTest
 
 class ResponseImageTestCase : BaseImageTestCase {

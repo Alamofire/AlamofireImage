@@ -20,9 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import XCTest
 import Alamofire
 import AlamofireImage
+import Foundation
+import XCTest
 
 class BaseImageTestCase : XCTestCase {
 
