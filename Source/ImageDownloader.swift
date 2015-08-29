@@ -34,7 +34,7 @@ public class ImageDownloader {
 
     // MARK: - Properties
 
-    public let imageCache: ImageCache
+    public let imageCache: ImageRequestCache
     public private(set) var credential: NSURLCredential?
 
     private let sessionManager: Alamofire.Manager
@@ -88,7 +88,7 @@ public class ImageDownloader {
         configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(),
         downloadPrioritization: DownloadPrioritization = .FIFO,
         maximumActiveDownloads: Int = 4,
-        imageCache: ImageCache = AutoPurgingImageCache())
+        imageCache: ImageRequestCache = AutoPurgingImageCache())
     {
         self.sessionManager = Alamofire.Manager(configuration: configuration)
         self.sessionManager.startRequestsImmediately = false

@@ -21,45 +21,37 @@
 // THE SOFTWARE.
 
 import Alamofire
-import CoreGraphics
 import Foundation
 import UIKit
 
 // MARK: ImageCache
 
 public protocol ImageCache {
+    func cachedImageWithIdentifier(identifier: String) -> UIImage?
+    func cacheImage(image: UIImage, withIdentifier identifier: String)
+    func removeAllCachedImages()
+}
+
+public protocol ImageRequestCache: ImageCache {
     func cachedImageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> UIImage?
     func cacheImage(image: UIImage, forRequest request: NSURLRequest, withIdentifier identifier: String?)
-    func removeAllCachedImages()
 }
 
 // MARK: -
 
-// TODO: Land on a final name for the auto purging image cache
-// AutomaticImageCache
-// PurgableImageCache
-// MonitoringImageCache
-// SizableImageCache
-// ConfigurableImageCache
-// SmartImageCache
-// RationalImageCache
-// TrackableImageCache
-// DynamicImageCache
-// FlexibleImageCache
-// AutoPurgingImageCache
-// AutoSizingImageCache
+public class AutoPurgingImageCache: ImageRequestCache {
 
-public class AutoPurgingImageCache: ImageCache {
+    // MARK: CachedImage
 
     class CachedImage {
         private let image: UIImage
-        let URLString: String
+        let identifier: String
         let totalBytes: UInt64
         var lastAccessDate: NSDate
 
-        init(_ image: UIImage, URLString: String) {
+        init(_ image: UIImage, identifier: String) {
             self.image = image
-            self.URLString = URLString
+            self.identifier = identifier
             self.lastAccessDate = NSDate()
 
             self.totalBytes = {
@@ -72,10 +64,12 @@ public class AutoPurgingImageCache: ImageCache {
         }
 
         func accessImage() -> UIImage {
-            self.lastAccessDate = NSDate()
-            return self.image
+            lastAccessDate = NSDate()
+            return image
         }
     }
+
+    // MARK: Properties
 
     public private(set) var currentMemoryUsage: UInt64
     public let memoryCapacity: UInt64
@@ -84,7 +78,7 @@ public class AutoPurgingImageCache: ImageCache {
     private var cachedImages: [String: CachedImage]
     private let synchronizationQueue: dispatch_queue_t
 
-    // MARK: Lifecycle Methods
+    // MARK: Initialization
 
     init(memoryCapacity: UInt64 = 100 * 1024 * 1024, preferredMemoryUsageAfterPurge: UInt64 = 60 * 1024 * 1024) {
         self.memoryCapacity = memoryCapacity
@@ -95,7 +89,9 @@ public class AutoPurgingImageCache: ImageCache {
 
         self.synchronizationQueue = {
             let name = String(format: "com.alamofire.autopurgingimagecache-%08%08", arc4random(), arc4random())
-            return dispatch_queue_create(name, DISPATCH_QUEUE_CONCURRENT)
+            let attributes = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_CONCURRENT, QOS_CLASS_UTILITY, 0)
+
+            return dispatch_queue_create(name, attributes)
         }()
 
         NSNotificationCenter.defaultCenter().addObserver(
@@ -113,11 +109,15 @@ public class AutoPurgingImageCache: ImageCache {
     // MARK: Cache Methods
 
     public func cachedImageForRequest(request: NSURLRequest, withIdentifier identifier: String? = nil) -> UIImage? {
+        let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
+        return cachedImageWithIdentifier(requestIdentifier)
+    }
+
+    public func cachedImageWithIdentifier(identifier: String) -> UIImage? {
         var image: UIImage?
 
-        dispatch_sync(self.synchronizationQueue) {
-            let key = self.imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
-            if let cachedImage = self.cachedImages[key] {
+        dispatch_sync(synchronizationQueue) {
+            if let cachedImage = self.cachedImages[identifier] {
                 image = cachedImage.accessImage()
             }
         }
@@ -126,17 +126,21 @@ public class AutoPurgingImageCache: ImageCache {
     }
 
     public func cacheImage(image: UIImage, forRequest request: NSURLRequest, withIdentifier identifier: String? = nil) {
-        dispatch_barrier_async(self.synchronizationQueue) {
-            let key = self.imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
-            let cachedImage = CachedImage(image, URLString: key)
+        let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
+        cacheImage(image, withIdentifier: requestIdentifier)
+    }
 
-            if let previousCachedImage = self.cachedImages[key] {
+    public func cacheImage(image: UIImage, withIdentifier identifier: String) {
+        dispatch_barrier_async(self.synchronizationQueue) {
+            let cachedImage = CachedImage(image, identifier: identifier)
+
+            if let previousCachedImage = self.cachedImages[identifier] {
                 self.currentMemoryUsage -= previousCachedImage.totalBytes
             }
 
-            self.cachedImages[key] = cachedImage
+            self.cachedImages[identifier] = cachedImage
             self.currentMemoryUsage += cachedImage.totalBytes
-            print("Cached image: \(key) total bytes: \(self.currentMemoryUsage)")
+            print("Cached image: \(identifier) total bytes: \(self.currentMemoryUsage)")
         }
 
         dispatch_barrier_async(self.synchronizationQueue) {
@@ -160,9 +164,9 @@ public class AutoPurgingImageCache: ImageCache {
                 print("================== STARTING PURGE \(self.currentMemoryUsage) ==========================")
 
                 for cachedImage in sortedImages {
-                    print("Purging Cached Image: \(cachedImage.lastAccessDate) \(cachedImage.totalBytes) \(cachedImage.URLString)")
+                    print("Purging Cached Image: \(cachedImage.lastAccessDate) \(cachedImage.totalBytes) \(cachedImage.identifier)")
 
-                    self.cachedImages.removeValueForKey(cachedImage.URLString)
+                    self.cachedImages.removeValueForKey(cachedImage.identifier)
                     bytesPurged += cachedImage.totalBytes
 
                     if bytesPurged >= bytesToPurge {
