@@ -116,9 +116,8 @@ public extension Request {
     }
 
     private class func imageFromResponseData(data: NSData, imageScale: CGFloat) throws -> UIImage {
-        // TODO: Figure out why we need this extra step here...
-        if let image = UIImage(data: data) {
-            return UIImage(CGImage: image.CGImage!, scale: imageScale, orientation: image.imageOrientation)
+        if let image = UIImage.af_threadSafeImageWithData(data, scale: imageScale) {
+            return image
         }
 
         throw imageDataError()

@@ -25,7 +25,29 @@ import CoreImage
 import Foundation
 import UIKit
 
-// MARK: Inflation
+// MARK: Initialization
+
+private let lock = NSLock()
+
+extension UIImage {
+    public static func af_threadSafeImageWithData(data: NSData) -> UIImage? {
+        lock.lock()
+        let image = UIImage(data: data)
+        lock.unlock()
+
+        return image
+    }
+
+    public static func af_threadSafeImageWithData(data: NSData, scale: CGFloat) -> UIImage? {
+        lock.lock()
+        let image = UIImage(data: data, scale: scale)
+        lock.unlock()
+
+        return image
+    }
+}
+
+// MARK: - Inflation
 
 extension UIImage {
     private struct AssociatedKeys {
