@@ -45,6 +45,9 @@ extension UIImage {
     }
 
     public func af_inflatedImage() -> UIImage? {
+        // Do not re-inflate if already inflated
+        guard !af_inflated else { return self }
+
         // Do not attempt to inflate animated images
         guard images == nil else { return nil }
 
