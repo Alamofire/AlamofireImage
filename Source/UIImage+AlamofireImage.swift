@@ -20,8 +20,54 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import CoreGraphics
 import Foundation
 import UIKit
+
+// MARK: Inflation
+
+extension UIImage {
+    public func af_inflatedImage() -> UIImage? {
+        // Do not attempt to inflate animated images
+        guard images == nil else { return nil }
+
+        // Do not attempt to inflate if not backed by a CGImage
+        guard let imageRef = CGImageCreateCopy(CGImage) else { return nil }
+
+        let width = CGImageGetWidth(imageRef)
+        let height = CGImageGetHeight(imageRef)
+        let bitsPerComponent = CGImageGetBitsPerComponent(imageRef)
+
+        // Do not attempt to inflate if too large or has more than 8-bit components
+        guard width * height <= 4096 * 4096 && bitsPerComponent <= 8 else { return nil }
+
+        let bytesPerRow: Int = 0
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        var bitmapInfo = CGImageGetBitmapInfo(imageRef)
+
+        // Fix alpha channel issues if necessary
+        let alpha = (bitmapInfo.rawValue & CGBitmapInfo.AlphaInfoMask.rawValue)
+
+        if alpha == CGImageAlphaInfo.None.rawValue {
+            bitmapInfo.remove(.AlphaInfoMask)
+            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.NoneSkipFirst.rawValue)
+        } else if !(alpha == CGImageAlphaInfo.NoneSkipFirst.rawValue) || !(alpha == CGImageAlphaInfo.NoneSkipLast.rawValue) {
+            bitmapInfo.remove(.AlphaInfoMask)
+            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.PremultipliedFirst.rawValue)
+        }
+
+        // Render the image
+        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
+        CGContextDrawImage(context, CGRectMake(0.0, 0.0, CGFloat(width), CGFloat(height)), imageRef)
+
+        // Make sure the inflation was successful
+        guard let inflatedImageRef = CGBitmapContextCreateImage(context) else { return nil }
+
+        return UIImage(CGImage: inflatedImageRef, scale: scale, orientation: imageOrientation)
+    }
+}
+
+// MARK: - Scaling
 
 extension UIImage {
     public func af_imageScaledToSize(size: CGSize) -> UIImage {
@@ -81,7 +127,11 @@ extension UIImage {
 
         return scaledImage
     }
+}
 
+// MARK: - Rounded Corners
+
+extension UIImage {
     public func af_imageWithRoundedCornerRadius(radius: CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, 0.0)
 

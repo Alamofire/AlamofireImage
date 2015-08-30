@@ -68,7 +68,7 @@ public extension Request {
             do {
                 var image = try Request.imageFromResponseData(validData, imageScale: imageScale)
 
-                if automaticallyInflateResponseImage, let inflatedImage = Request.inflateImage(image) {
+                if automaticallyInflateResponseImage, let inflatedImage = image.af_inflatedImage() {
                     image = inflatedImage
                 }
 
@@ -119,48 +119,6 @@ public extension Request {
         }
 
         throw imageDataError()
-    }
-
-    private class func inflateImage(compressedImage: UIImage) -> UIImage? {
-        // Do not attempt to inflate animated images
-        guard compressedImage.images == nil else { return nil }
-
-        let imageRef = CGImageCreateCopy(compressedImage.CGImage)
-
-        let width = CGImageGetWidth(imageRef)
-        let height = CGImageGetHeight(imageRef)
-        let bitsPerComponent = CGImageGetBitsPerComponent(imageRef)
-
-        // Do not inflate images that are too large or have more than 8-bit components
-        if width * height > 1024 * 1024 || bitsPerComponent > 8 {
-            return compressedImage
-        }
-
-        let bytesPerRow: Int = 0
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        var bitmapInfo = CGImageGetBitmapInfo(imageRef)
-
-        // Fix alpha channel issues if necessary
-        let alpha = (bitmapInfo.rawValue & CGBitmapInfo.AlphaInfoMask.rawValue)
-
-        if alpha == CGImageAlphaInfo.None.rawValue {
-            bitmapInfo.remove(.AlphaInfoMask)
-            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.NoneSkipFirst.rawValue)
-        } else if !(alpha == CGImageAlphaInfo.NoneSkipFirst.rawValue) || !(alpha == CGImageAlphaInfo.NoneSkipLast.rawValue) {
-            bitmapInfo.remove(.AlphaInfoMask)
-            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.PremultipliedFirst.rawValue)
-        }
-
-        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
-        CGContextDrawImage(context, CGRectMake(0.0, 0.0, CGFloat(width), CGFloat(height)), imageRef)
-
-        guard let inflatedImageRef = CGBitmapContextCreateImage(context) else { return nil }
-
-        return UIImage(
-            CGImage: inflatedImageRef,
-            scale: compressedImage.scale,
-            orientation: compressedImage.imageOrientation
-        )
     }
 
 #elseif os(OSX)
