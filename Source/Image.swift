@@ -22,7 +22,7 @@
 
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(watchOS)
 import UIKit
 public typealias Image = UIImage
 #elseif os(OSX)

@@ -23,7 +23,7 @@
 import Alamofire
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(watchOS)
 import UIKit
 #elseif os(OSX)
 import Cocoa
@@ -60,10 +60,10 @@ public class AutoPurgingImageCache: ImageRequestCache {
             self.lastAccessDate = NSDate()
 
             self.totalBytes = {
-                #if os(iOS)
-                let size = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
+                #if os(iOS) || os(watchOS)
+                    let size = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
                 #elseif os(OSX)
-                let size = CGSize(width: image.size.width, height: image.size.height)
+                    let size = CGSize(width: image.size.width, height: image.size.height)
                 #endif
 
                 let bytesPerPixel: CGFloat = 4.0
@@ -100,18 +100,16 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
         self.synchronizationQueue = {
             let name = String(format: "com.alamofire.autopurgingimagecache-%08%08", arc4random(), arc4random())
-            let attributes = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_CONCURRENT, QOS_CLASS_UTILITY, 0)
-
-            return dispatch_queue_create(name, attributes)
+            return dispatch_queue_create(name, DISPATCH_QUEUE_CONCURRENT)
         }()
 
         #if os(iOS)
-        NSNotificationCenter.defaultCenter().addObserver(
-            self,
-            selector: "removeAllCachedImages",
-            name: UIApplicationDidReceiveMemoryWarningNotification,
-            object: nil
-        )
+            NSNotificationCenter.defaultCenter().addObserver(
+                self,
+                selector: "removeAllCachedImages",
+                name: UIApplicationDidReceiveMemoryWarningNotification,
+                object: nil
+            )
         #endif
     }
 

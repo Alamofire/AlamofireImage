@@ -23,7 +23,7 @@
 import Alamofire
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(watchOS)
 import UIKit
 #elseif os(OSX)
 import Cocoa
@@ -98,16 +98,12 @@ public class ImageDownloader {
 
         self.synchronizationQueue = {
             let name = String(format: "com.alamofire.imagedownloader.synchronizationqueue-%08%08", arc4random(), arc4random())
-            let attributes = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_UTILITY, 0)
-
-            return dispatch_queue_create(name, attributes)
+            return dispatch_queue_create(name, DISPATCH_QUEUE_SERIAL)
         }()
 
         self.responseQueue = {
             let name = String(format: "com.alamofire.imagedownloader.responsequeue-%08%08", arc4random(), arc4random())
-            let attributes = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_CONCURRENT, QOS_CLASS_UTILITY, 0)
-
-            return dispatch_queue_create(name, attributes)
+            return dispatch_queue_create(name, DISPATCH_QUEUE_CONCURRENT)
         }()
     }
 

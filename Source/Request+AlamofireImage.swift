@@ -25,6 +25,9 @@ import Foundation
 
 #if os(iOS)
 import UIKit
+#elseif os(watchOS)
+import UIKit
+import WatchKit
 #elseif os(OSX)
 import Cocoa
 #endif
@@ -32,9 +35,9 @@ import Cocoa
 public extension Request {
     public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<Image>) -> Void
 
-    // MARK: - iOS Methods
+    // MARK: - iOS and watchOS
 
-#if os(iOS)
+#if os(iOS) || os(watchOS)
 
     /**
         Creates a response serializer that returns an image initialized from the response data using the specified
@@ -52,7 +55,7 @@ public extension Request {
         - returns: An image response serializer.
     */
     public class func imageResponseSerializer(
-        imageScale imageScale: CGFloat = UIScreen.mainScreen().scale,
+        imageScale imageScale: CGFloat = Request.imageScale,
         automaticallyInflateResponseImage: Bool = true)
         -> GenericResponseSerializer<UIImage>
     {
@@ -98,7 +101,7 @@ public extension Request {
         - returns: The request.
     */
     public func responseImage(
-        imageScale: CGFloat = UIScreen.mainScreen().scale,
+        imageScale: CGFloat = Request.imageScale,
         automaticallyInflateResponseImage: Bool = true,
         completionHandler: CompletionHandler)
         -> Self
@@ -121,9 +124,17 @@ public extension Request {
         throw imageDataError()
     }
 
+    private class var imageScale: CGFloat {
+        #if os(iOS)
+            return UIScreen.mainScreen().scale
+        #elseif os(watchOS)
+            return WKInterfaceDevice.currentDevice().screenScale
+        #endif
+    }
+
 #elseif os(OSX)
 
-    // MARK: - OSX Methods
+    // MARK: - OSX
 
     /**
         Creates a response serializer that returns an image initialized from the response data.
