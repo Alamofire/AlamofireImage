@@ -62,7 +62,7 @@ class UIImageBaseTestCase: BaseTestCase {
 
 class UIImageScalingTestCase: UIImageBaseTestCase {
 
-    // MARK: Image Scaled to Size
+    // MARK: Scaled to Size
 
     func testThatImageIsScaledToSquareSize() {
         executeImageScaledToSizeTest(squareSize)
@@ -104,7 +104,7 @@ class UIImageScalingTestCase: UIImageBaseTestCase {
         XCTAssertEqual(scaledUnicornImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
     }
 
-    // MARK: Image Aspect Scaled to Fit
+    // MARK: Aspect Scaled to Fit
 
     func testThatImageIsAspectScaledToFitSquareSize() {
         executeImageAspectScaledToFitSizeTest(squareSize)
@@ -146,7 +146,7 @@ class UIImageScalingTestCase: UIImageBaseTestCase {
         XCTAssertEqual(scaledUnicornImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
     }
 
-    // MARK: Image Aspect Scaled to Fill
+    // MARK: Aspect Scaled to Fill
 
     func testThatImageIsAspectScaledToFillSquareSize() {
         executeImageAspectScaledToFillSizeTest(squareSize)
@@ -193,7 +193,7 @@ class UIImageScalingTestCase: UIImageBaseTestCase {
 
 class UIImageRoundedCornersTestCase: UIImageBaseTestCase {
 
-    // MARK: Image with Rounded Corners
+    // MARK: Rounded Corners
 
     func testThatImageCornersAreRoundedToRadius() {
         // Given
@@ -223,7 +223,7 @@ class UIImageRoundedCornersTestCase: UIImageBaseTestCase {
         XCTAssertEqual(roundedUnicornImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
     }
 
-    // MARK: Image into Circle
+    // MARK: Circle
 
     func testThatImageIsRoundedIntoCircle() {
         // Given, When
