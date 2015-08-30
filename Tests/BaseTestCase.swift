@@ -57,13 +57,13 @@ class BaseTestCase : XCTestCase {
 
     // MARK: - Resources
 
-    static func URLForResource(fileName: String, withExtension: String) -> NSURL {
+    func URLForResource(fileName: String, withExtension: String) -> NSURL {
         let bundle = NSBundle(forClass: BaseTestCase.self)
         return bundle.URLForResource(fileName, withExtension: withExtension)!
     }
 
-    static func imageForResource(fileName: String, withExtension ext: String) -> UIImage {
-        let URL = BaseTestCase.URLForResource(fileName, withExtension: ext)
+    func imageForResource(fileName: String, withExtension ext: String) -> UIImage {
+        let URL = URLForResource(fileName, withExtension: ext)
         let data = NSData(contentsOfURL: URL)!
         let image = UIImage.af_threadSafeImageWithData(data, scale: UIScreen.mainScreen().scale)!
 
