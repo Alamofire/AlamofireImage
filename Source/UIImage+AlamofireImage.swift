@@ -27,6 +27,23 @@ import UIKit
 // MARK: Inflation
 
 extension UIImage {
+    private struct AssociatedKeys {
+        static var InflatedKey = "af_UIImage.Inflated"
+    }
+
+    public var af_inflated: Bool {
+        get {
+            if let inflated = objc_getAssociatedObject(self, &AssociatedKeys.InflatedKey) as? Bool {
+                return inflated
+            } else {
+                return false
+            }
+        }
+        set(inflated) {
+            objc_setAssociatedObject(self, &AssociatedKeys.InflatedKey, inflated, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
     public func af_inflatedImage() -> UIImage? {
         // Do not attempt to inflate animated images
         guard images == nil else { return nil }
@@ -63,7 +80,10 @@ extension UIImage {
         // Make sure the inflation was successful
         guard let inflatedImageRef = CGBitmapContextCreateImage(context) else { return nil }
 
-        return UIImage(CGImage: inflatedImageRef, scale: scale, orientation: imageOrientation)
+        let inflatedImage = UIImage(CGImage: inflatedImageRef, scale: scale, orientation: imageOrientation)
+        inflatedImage.af_inflated = true
+
+        return inflatedImage
     }
 }
 
