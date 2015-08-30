@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import AlamofireImage
 import Foundation
 import UIKit
 
@@ -48,11 +49,12 @@ class ImageViewController : UIViewController {
         imageView = UIImageView()
         imageView.contentMode = .ScaleAspectFit
 
-        let URL = gravatar.URL(size: CGRectGetWidth(view.bounds))
+        let URL = gravatar.URL(size: view.bounds.size.width)
 
         imageView.af_setImage(
             URLString: URL.URLString,
             placeholderImage: nil,
+            filter: CircleFilter(),
             imageTransition: .FlipFromBottom(0.5)
         )
 

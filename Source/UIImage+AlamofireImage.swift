@@ -165,4 +165,31 @@ extension UIImage {
 
         return roundedImage
     }
+
+    public func af_imageRoundedIntoCircle() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+
+        let radius = min(size.width, size.height) / 2.0
+        var squareImage = self
+
+        if size.width != size.height {
+            let squareDimension = min(size.width, size.height) / 2.0
+            let squareSize = CGSize(width: squareDimension, height: squareDimension)
+            squareImage = af_imageAspectScaledToFillSize(squareSize)
+        }
+
+        let clippingPath = UIBezierPath(
+            roundedRect: CGRect(origin: CGPointZero, size: squareImage.size),
+            cornerRadius: radius
+        )
+
+        clippingPath.addClip()
+
+        drawInRect(CGRect(origin: CGPointZero, size: squareImage.size))
+
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return roundedImage
+    }
 }

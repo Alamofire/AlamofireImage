@@ -50,7 +50,7 @@ extension ImageFilter where Self: Sizable {
         let width = Int64(round(size.width))
         let height = Int64(round(size.height))
 
-        return "\(self.dynamicType)-\(width)x\(height)"
+        return "\(self.dynamicType)-size:(\(width)x\(height))"
     }
 }
 
@@ -60,13 +60,20 @@ public protocol Roundable {
     var radius: CGFloat { get }
 }
 
+extension ImageFilter where Self: Roundable {
+    public var identifier: String {
+        let radius = Int64(round(self.radius))
+        return "\(self.dynamicType)-radius:(\(radius))"
+    }
+}
+
 extension ImageFilter where Self: Sizable, Self: Roundable {
     public var identifier: String {
         let width = Int64(round(size.width))
         let height = Int64(round(size.height))
         let radius = Int64(round(self.radius))
 
-        return "\(self.dynamicType)-\(width)x\(height)x\(radius)"
+        return "\(self.dynamicType)-size:(\(width)x\(height))-radius:(\(radius))"
     }
 }
 
@@ -116,6 +123,34 @@ public struct AspectScaledToFillSizeFilter: ImageFilter, Sizable {
     public var filter: Image -> Image {
         return { image in
             return image.af_imageAspectScaledToFillSize(self.size)
+        }
+    }
+}
+
+// MARK: -
+
+public struct RoundedCornersFilter: ImageFilter, Roundable {
+    public let radius: CGFloat
+
+    public init(radius: CGFloat) {
+        self.radius = radius
+    }
+
+    public var filter: Image -> Image {
+        return { image in
+            return image.af_imageWithRoundedCornerRadius(self.radius)
+        }
+    }
+}
+
+// MARK: -
+
+public struct CircleFilter: ImageFilter {
+    public init() {}
+
+    public var filter: Image -> Image {
+        return { image in
+            return image.af_imageRoundedIntoCircle()
         }
     }
 }
@@ -179,6 +214,69 @@ public struct AspectScaledToFillSizeWithRoundedCornersFilter: ImageFilter, Sizab
             let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius)
 
             return roundedAndScaledImage
+        }
+    }
+}
+
+// MARK: -
+
+public struct ScaledToSizeCircleFilter: ImageFilter, Sizable, Roundable {
+    public let size: CGSize
+    public let radius: CGFloat
+
+    public init(size: CGSize, radius: CGFloat) {
+        self.size = size
+        self.radius = min(size.width, size.height) / 2.0
+    }
+
+    public var filter: Image -> Image {
+        return { image in
+            let scaledImage = image.af_imageScaledToSize(self.size)
+            let scaledCircleImage = scaledImage.af_imageRoundedIntoCircle()
+            
+            return scaledCircleImage
+        }
+    }
+}
+
+// MARK: -
+
+public struct AspectScaledToFitSizeCircleFilter: ImageFilter, Sizable, Roundable {
+    public let size: CGSize
+    public let radius: CGFloat
+
+    public init(size: CGSize, radius: CGFloat) {
+        self.size = size
+        self.radius = min(size.width, size.height) / 2.0
+    }
+
+    public var filter: Image -> Image {
+        return { image in
+            let scaledImage = image.af_imageAspectScaledToFitSize(self.size)
+            let scaledCircleImage = scaledImage.af_imageRoundedIntoCircle()
+
+            return scaledCircleImage
+        }
+    }
+}
+
+// MARK: -
+
+public struct AspectScaledToFillSizeCircleFilter: ImageFilter, Sizable, Roundable {
+    public let size: CGSize
+    public let radius: CGFloat
+
+    public init(size: CGSize, radius: CGFloat) {
+        self.size = size
+        self.radius = min(size.width, size.height) / 2.0
+    }
+
+    public var filter: Image -> Image {
+        return { image in
+            let scaledImage = image.af_imageAspectScaledToFillSize(self.size)
+            let scaledCircleImage = scaledImage.af_imageRoundedIntoCircle()
+            
+            return scaledCircleImage
         }
     }
 }
