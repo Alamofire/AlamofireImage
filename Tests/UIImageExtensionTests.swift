@@ -60,6 +60,78 @@ class UIImageBaseTestCase: BaseTestCase {
 
 // MARK: -
 
+class UIImageInitializationTestCase: UIImageBaseTestCase {
+    func testThatHundredsOfLargeImagesCanBeInitializedAcrossMultipleThreads() {
+        // Given
+        let URL = URLForResource("huge_map", withExtension: "jpg")
+        let data = NSData(contentsOfURL: URL)!
+
+        let lock = NSLock()
+        var images: [UIImage?] = []
+        let totalIterations = 1_500
+
+        // When
+        for _ in 0..<totalIterations {
+            let expectation = expectationWithDescription("image should be created successfully")
+
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                let image = UIImage(data: data)
+                let imageWithScale = UIImage(data: data, scale: CGFloat(self.scale))
+
+                lock.lock()
+                images.append(image)
+                images.append(imageWithScale)
+                lock.unlock()
+
+                expectation.fulfill()
+            }
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        images.forEach {
+            XCTAssertNotNil($0, "image should not be nil")
+        }
+    }
+
+    func testThatHundredsOfLargeImagesCanBeInitializedAcrossMultipleThreadsWithThreadSafeInitializers() {
+        // Given
+        let URL = URLForResource("huge_map", withExtension: "jpg")
+        let data = NSData(contentsOfURL: URL)!
+
+        let lock = NSLock()
+        var images: [UIImage?] = []
+        let totalIterations = 1_500
+
+        // When
+        for _ in 0..<totalIterations {
+            let expectation = expectationWithDescription("image should be created successfully")
+
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                let image = UIImage.af_threadSafeImageWithData(data)
+                let imageWithScale = UIImage.af_threadSafeImageWithData(data, scale: CGFloat(self.scale))
+
+                lock.lock()
+                images.append(image)
+                images.append(imageWithScale)
+                lock.unlock()
+
+                expectation.fulfill()
+            }
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        images.forEach {
+            XCTAssertNotNil($0, "image should not be nil")
+        }
+    }
+}
+
+// MARK: -
+
 class UIImageScalingTestCase: UIImageBaseTestCase {
 
     // MARK: Scaled to Size

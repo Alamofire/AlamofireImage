@@ -181,6 +181,8 @@
 		4C0897E41B93A877005125D9 /* unicorn-blurred-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E11B93A877005125D9 /* unicorn-blurred-8.png */; settings = {ASSET_TAGS = (); }; };
 		4C0897E51B93A877005125D9 /* unicorn-sepia.tone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E21B93A877005125D9 /* unicorn-sepia.tone.png */; settings = {ASSET_TAGS = (); }; };
 		4C0897E61B93A877005125D9 /* unicorn-sepia.tone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E21B93A877005125D9 /* unicorn-sepia.tone.png */; settings = {ASSET_TAGS = (); }; };
+		4C0897E81B93B0FB005125D9 /* huge_map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E71B93B0FB005125D9 /* huge_map.jpg */; settings = {ASSET_TAGS = (); }; };
+		4C0897E91B93B0FB005125D9 /* huge_map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E71B93B0FB005125D9 /* huge_map.jpg */; settings = {ASSET_TAGS = (); }; };
 		4C1624851AABE8E600A0385D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
 		4C1624861AABE8E600A0385D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
 		4C1624881AABE99300A0385D /* ImageTests-OSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624871AABE99300A0385D /* ImageTests-OSX.swift */; };
@@ -317,6 +319,7 @@
 		4C0897CF1B93A37C005125D9 /* unicorn-radius-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-radius-20.png"; sourceTree = "<group>"; };
 		4C0897E11B93A877005125D9 /* unicorn-blurred-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8.png"; sourceTree = "<group>"; };
 		4C0897E21B93A877005125D9 /* unicorn-sepia.tone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-sepia.tone.png"; sourceTree = "<group>"; };
+		4C0897E71B93B0FB005125D9 /* huge_map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = huge_map.jpg; sourceTree = "<group>"; };
 		4C1624841AABE8E600A0385D /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		4C1624871AABE99300A0385D /* ImageTests-OSX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageTests-OSX.swift"; sourceTree = "<group>"; };
 		4C4D4EC11B92976900C96855 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -401,6 +404,7 @@
 			isa = PBXGroup;
 			children = (
 				4C0894501B9382EB005125D9 /* apple.jpg */,
+				4C0897E71B93B0FB005125D9 /* huge_map.jpg */,
 				4C0894511B9382EB005125D9 /* pirate.jpg */,
 				4C0894521B9382EB005125D9 /* rainbow.jpg */,
 				4C0894531B9382EB005125D9 /* unicorn.png */,
@@ -837,6 +841,7 @@
 				4C0897AA1B9393DC005125D9 /* pirate-scaled-60x30-@2x.png in Resources */,
 				4C0894E41B9382EB005125D9 /* apple.jpg in Resources */,
 				4C0897521B9393DC005125D9 /* rainbow-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
+				4C0897E81B93B0FB005125D9 /* huge_map.jpg in Resources */,
 				4C0897701B9393DC005125D9 /* apple-aspect.scaled.to.fit-60x30-@3x.png in Resources */,
 				4C0897721B9393DC005125D9 /* pirate-aspect.scaled.to.fit-30x60-@2x.png in Resources */,
 				4C0897661B9393DC005125D9 /* apple-aspect.scaled.to.fit-30x60-@2x.png in Resources */,
@@ -937,6 +942,7 @@
 				4C0897AB1B9393DC005125D9 /* pirate-scaled-60x30-@2x.png in Resources */,
 				4C0894E51B9382EB005125D9 /* apple.jpg in Resources */,
 				4C0897531B9393DC005125D9 /* rainbow-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
+				4C0897E91B93B0FB005125D9 /* huge_map.jpg in Resources */,
 				4C0897711B9393DC005125D9 /* apple-aspect.scaled.to.fit-60x30-@3x.png in Resources */,
 				4C0897731B9393DC005125D9 /* pirate-aspect.scaled.to.fit-30x60-@2x.png in Resources */,
 				4C0897671B9393DC005125D9 /* apple-aspect.scaled.to.fit-30x60-@2x.png in Resources */,
