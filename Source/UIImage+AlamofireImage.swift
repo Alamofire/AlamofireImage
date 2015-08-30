@@ -179,12 +179,14 @@ extension UIImage {
 
 extension UIImage {
     public func af_imageWithRoundedCornerRadius(radius: CGFloat) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(self.size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
 
-        let clippingPath = UIBezierPath(roundedRect: CGRect(origin: CGPointZero, size: self.size), cornerRadius: radius)
+        let scaledRadius = radius / scale
+
+        let clippingPath = UIBezierPath(roundedRect: CGRect(origin: CGPointZero, size: size), cornerRadius: scaledRadius)
         clippingPath.addClip()
 
-        drawInRect(CGRect(origin: CGPointZero, size: self.size))
+        drawInRect(CGRect(origin: CGPointZero, size: size))
 
         let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -193,16 +195,16 @@ extension UIImage {
     }
 
     public func af_imageRoundedIntoCircle() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-
         let radius = min(size.width, size.height) / 2.0
         var squareImage = self
 
         if size.width != size.height {
-            let squareDimension = min(size.width, size.height) / 2.0
+            let squareDimension = min(size.width, size.height)
             let squareSize = CGSize(width: squareDimension, height: squareDimension)
             squareImage = af_imageAspectScaledToFillSize(squareSize)
         }
+
+        UIGraphicsBeginImageContextWithOptions(squareImage.size, false, 0.0)
 
         let clippingPath = UIBezierPath(
             roundedRect: CGRect(origin: CGPointZero, size: squareImage.size),
@@ -211,7 +213,7 @@ extension UIImage {
 
         clippingPath.addClip()
 
-        drawInRect(CGRect(origin: CGPointZero, size: squareImage.size))
+        squareImage.drawInRect(CGRect(origin: CGPointZero, size: squareImage.size))
 
         let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
