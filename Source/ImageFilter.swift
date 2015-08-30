@@ -79,7 +79,7 @@ extension ImageFilter where Self: Sizable, Self: Roundable {
 
 #if os(iOS)
 
-// MARK: - Single Pass Image Filters (iOS only) -
+// MARK: - Single Pass Image Filters (iOS and watchOS only) -
 
 public struct ScaledToSizeFilter: ImageFilter, Sizable {
     public let size: CGSize
@@ -155,7 +155,24 @@ public struct CircleFilter: ImageFilter {
     }
 }
 
-// MARK: - Multi-Pass Image Filters (iOS only) -
+// MARK: -
+
+public struct BlurFilter: ImageFilter {
+    let blurRadius: UInt
+
+    public init(blurRadius: UInt = 10) {
+        self.blurRadius = blurRadius
+    }
+
+    public var filter: Image -> Image {
+        return { image in
+            let parameters = ["inputRadius": self.blurRadius]
+            return image.af_imageWithAppliedCoreImageFilter("CIGaussianBlur", filterParameters: parameters) ?? image
+        }
+    }
+}
+
+// MARK: - Multi-Pass Image Filters (iOS and watchOS only) -
 
 public struct ScaledToSizeWithRoundedCornersFilter: ImageFilter, Sizable, Roundable {
     public let size: CGSize

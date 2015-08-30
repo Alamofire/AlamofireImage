@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 import CoreGraphics
+import CoreImage
 import Foundation
 import UIKit
 
@@ -194,5 +195,34 @@ extension UIImage {
         UIGraphicsEndImageContext()
 
         return roundedImage
+    }
+}
+
+// MARK: - Core Image Filters
+
+extension UIImage {
+    public func af_imageWithAppliedCoreImageFilter(
+        filterName: String,
+        filterParameters: [String: AnyObject]? = nil) -> UIImage?
+    {
+        var image: CoreImage.CIImage? = CIImage
+
+        if image == nil, let CGImage = self.CGImage {
+            image = CoreImage.CIImage(CGImage: CGImage)
+        }
+
+        guard let coreImage = image else { return nil }
+
+        let context = CIContext(options: [kCIContextPriorityRequestLow: true])
+
+        var parameters: [String: AnyObject] = filterParameters ?? [:]
+        parameters[kCIInputImageKey] = coreImage
+
+        guard let filter = CIFilter(name: filterName, withInputParameters: parameters) else { return nil }
+        guard let outputImage = filter.outputImage else { return nil }
+
+        let cgImageRef = context.createCGImage(outputImage, fromRect: coreImage.extent)
+
+        return UIImage(CGImage: cgImageRef, scale: scale, orientation: imageOrientation)
     }
 }
