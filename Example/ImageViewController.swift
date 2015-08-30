@@ -42,7 +42,7 @@ class ImageViewController : UIViewController {
     private func setUpInstanceProperties() {
         title = gravatar.email
         edgesForExtendedLayout = UIRectEdge.None
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
     }
 
     private func setUpImageView() {
