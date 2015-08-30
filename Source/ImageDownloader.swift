@@ -36,6 +36,20 @@ public class ImageDownloader {
         case FIFO, LIFO
     }
 
+    private class ResponseHandler {
+        let identifier: String
+        let request: Request
+        var filters: [ImageFilter?]
+        var completionHandlers: [CompletionHandler]
+
+        init(request: Request, filter: ImageFilter?, completion: CompletionHandler) {
+            self.request = request
+            self.identifier = ImageDownloader.identifierForURLRequest(request.request!)
+            self.filters = [filter]
+            self.completionHandlers = [completion]
+        }
+    }
+
     // MARK: - Properties
 
     public let imageCache: ImageRequestCache
@@ -44,6 +58,8 @@ public class ImageDownloader {
     private let sessionManager: Alamofire.Manager
 
     private var queuedRequests: [Request]
+    private var responseHandlers: [String: ResponseHandler]
+
     private let synchronizationQueue: dispatch_queue_t
     private let responseQueue: dispatch_queue_t
     private let downloadPrioritization: DownloadPrioritization
@@ -94,6 +110,8 @@ public class ImageDownloader {
         self.imageCache = imageCache
 
         self.queuedRequests = []
+        self.responseHandlers = [:]
+
         self.activeRequestCount = 0
 
         self.synchronizationQueue = {
@@ -119,7 +137,9 @@ public class ImageDownloader {
     }
 
     public func addAuthentication(usingCredential credential: NSURLCredential) {
-        self.credential = credential
+        dispatch_sync(synchronizationQueue) {
+            self.credential = credential
+        }
     }
 
     // MARK: - Download
@@ -134,70 +154,101 @@ public class ImageDownloader {
         completion: CompletionHandler)
         -> Request?
     {
-        // Attempt to load the image from the image cache if the cache policy allows it
-        switch URLRequest.URLRequest.cachePolicy {
-        case .UseProtocolCachePolicy, .ReturnCacheDataElseLoad, .ReturnCacheDataDontLoad:
-            if let image = imageCache.cachedImageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
-                dispatch_async(dispatch_get_main_queue()) {
-                    completion(URLRequest.URLRequest, nil, .Success(image))
-                }
+        var request: Request!
 
-                return nil
-            }
-        default:
-            break
-        }
-
-        let request = sessionManager.request(URLRequest)
-
-        if let credential = credential {
-            request.authenticate(usingCredential: credential)
-        }
-
-        request.validate()
-        request.response(
-            queue: responseQueue,
-            responseSerializer: Request.imageResponseSerializer(),
-            completionHandler: { [weak self] request, response, result in
-                guard let strongSelf = self, let request = request else { return }
-
-                switch result {
-                case .Success(var image):
-                    if let filter = filter {
-                        image = filter.filter(image)
-                    }
-
-                    dispatch_async(dispatch_get_main_queue()) {
-                        completion(request, response, .Success(image))
-                    }
-
-                    strongSelf.imageCache.cacheImage(image, forRequest: request, withIdentifier: filter?.identifier)
-                case .Failure:
-                    dispatch_async(dispatch_get_main_queue()) {
-                        completion(request, response, result)
-                    }
-                }
-
-                strongSelf.safelyDecrementActiveRequestCount()
-                strongSelf.safelyStartNextRequestIfNecessary()
-            }
-        )
-
-        safelyStartRequestIfPossible(request)
-
-        return request
-    }
-
-    // MARK: - Private - Thread-Safe Request Methods
-
-    private func safelyStartRequestIfPossible(request: Request) {
         dispatch_sync(synchronizationQueue) {
+            // 1) Append the filter and completion handler to a pre-existing request if it already exists
+            let identifier = ImageDownloader.identifierForURLRequest(URLRequest)
+
+            if let responseHandler = self.responseHandlers[identifier] {
+                responseHandler.filters.append(filter)
+                responseHandler.completionHandlers.append(completion)
+                request = responseHandler.request
+
+                return
+            }
+
+            // 2) Attempt to load the image from the image cache if the cache policy allows it
+            switch URLRequest.URLRequest.cachePolicy {
+            case .UseProtocolCachePolicy, .ReturnCacheDataElseLoad, .ReturnCacheDataDontLoad:
+                if let image = self.imageCache.cachedImageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        completion(URLRequest.URLRequest, nil, .Success(image))
+                    }
+
+                    return
+                }
+            default:
+                break
+            }
+
+            // 3) Create the request and set up authentication, validation and response serialization
+            request = self.sessionManager.request(URLRequest)
+
+            if let credential = self.credential {
+                request.authenticate(usingCredential: credential)
+            }
+
+            request.validate()
+            request.response(
+                queue: self.responseQueue,
+                responseSerializer: Request.imageResponseSerializer(),
+                completionHandler: { [weak self] request, response, result in
+                    guard let strongSelf = self, let request = request else { return }
+
+                    let responseHandler = strongSelf.safelyRemoveResponseHandlerWithIdentifier(identifier)
+
+                    switch result {
+                    case .Success(var image):
+                        for (filter, completion) in zip(responseHandler.filters, responseHandler.completionHandlers) {
+                            if let filter = filter {
+                                image = filter.filter(image)
+                            }
+
+                            dispatch_async(dispatch_get_main_queue()) {
+                                completion(request, response, .Success(image))
+                            }
+
+                            strongSelf.imageCache.cacheImage(image, forRequest: request, withIdentifier: filter?.identifier)
+                        }
+                    case .Failure:
+                        for completion in responseHandler.completionHandlers {
+                            dispatch_async(dispatch_get_main_queue()) {
+                                completion(request, response, result)
+                            }
+                        }
+                    }
+
+                    strongSelf.safelyDecrementActiveRequestCount()
+                    strongSelf.safelyStartNextRequestIfNecessary()
+                }
+            )
+
+            // 4) Store the response handler for use when the request completes
+            let responseHandler = ResponseHandler(request: request, filter: filter, completion: completion)
+            self.responseHandlers[identifier] = responseHandler
+
+            // 5) Either start the request or enqueue it depending on the current active request count
             if self.isActiveRequestCountBelowMaximumLimit() {
                 self.startRequest(request)
             } else {
                 self.enqueueRequest(request)
             }
         }
+
+        return request
+    }
+
+    // MARK: - Private - Thread-Safe Request Methods
+
+    private func safelyRemoveResponseHandlerWithIdentifier(identifier: String) -> ResponseHandler {
+        var responseHandler: ResponseHandler!
+
+        dispatch_sync(synchronizationQueue) {
+            responseHandler = self.responseHandlers.removeValueForKey(identifier)
+        }
+
+        return responseHandler
     }
 
     private func safelyStartNextRequestIfNecessary() {
@@ -249,5 +300,9 @@ public class ImageDownloader {
 
     private func isActiveRequestCountBelowMaximumLimit() -> Bool {
         return activeRequestCount < maximumActiveDownloads
+    }
+
+    private static func identifierForURLRequest(URLRequest: URLRequestConvertible) -> String {
+        return URLRequest.URLRequest.URLString
     }
 }
