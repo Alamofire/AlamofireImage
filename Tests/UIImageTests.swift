@@ -1,4 +1,4 @@
-// UIImageExtensionTests.swift
+// UIImageTests.swift
 //
 // Copyright (c) 2015 Alamofire Software Foundation (http://alamofire.org/)
 //

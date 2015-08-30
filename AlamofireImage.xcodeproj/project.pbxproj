@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C0893EC1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */; settings = {ASSET_TAGS = (); }; };
-		4C0893F51B937404005125D9 /* UIImageExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893F41B937404005125D9 /* UIImageExtensionTests.swift */; settings = {ASSET_TAGS = (); }; };
+		4C0893F51B937404005125D9 /* UIImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893F41B937404005125D9 /* UIImageTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4C0894E41B9382EB005125D9 /* apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894501B9382EB005125D9 /* apple.jpg */; settings = {ASSET_TAGS = (); }; };
 		4C0894E51B9382EB005125D9 /* apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894501B9382EB005125D9 /* apple.jpg */; settings = {ASSET_TAGS = (); }; };
 		4C0894E61B9382EB005125D9 /* pirate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894511B9382EB005125D9 /* pirate.jpg */; settings = {ASSET_TAGS = (); }; };
@@ -232,7 +232,7 @@
 
 /* Begin PBXFileReference section */
 		4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImageTests.swift"; sourceTree = "<group>"; };
-		4C0893F41B937404005125D9 /* UIImageExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensionTests.swift; sourceTree = "<group>"; };
+		4C0893F41B937404005125D9 /* UIImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageTests.swift; sourceTree = "<group>"; };
 		4C0894501B9382EB005125D9 /* apple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = apple.jpg; sourceTree = "<group>"; };
 		4C0894511B9382EB005125D9 /* pirate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pirate.jpg; sourceTree = "<group>"; };
 		4C0894521B9382EB005125D9 /* rainbow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rainbow.jpg; sourceTree = "<group>"; };
@@ -577,7 +577,7 @@
 				4C1624841AABE8E600A0385D /* BaseTestCase.swift */,
 				4C54EE951AABC08B00CD894C /* ImageTests-iOS.swift */,
 				4C1624871AABE99300A0385D /* ImageTests-OSX.swift */,
-				4C0893F41B937404005125D9 /* UIImageExtensionTests.swift */,
+				4C0893F41B937404005125D9 /* UIImageTests.swift */,
 				4C0893EA1B936A4D005125D9 /* Extensions */,
 				4C0894021B9382EB005125D9 /* Resources */,
 				4C54EE991AABC09000CD894C /* Supporting Files */,
@@ -1062,7 +1062,7 @@
 				4C0893EC1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift in Sources */,
 				4C1624851AABE8E600A0385D /* BaseTestCase.swift in Sources */,
 				4CE611241AABC0FF00D35044 /* ImageTests-iOS.swift in Sources */,
-				4C0893F51B937404005125D9 /* UIImageExtensionTests.swift in Sources */,
+				4C0893F51B937404005125D9 /* UIImageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
