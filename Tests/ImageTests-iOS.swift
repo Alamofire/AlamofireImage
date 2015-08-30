@@ -26,7 +26,7 @@ import Foundation
 import UIKit
 import XCTest
 
-class ResponseImageWithInflationTestCase : BaseImageTestCase {
+class ResponseImageWithInflationTestCase : BaseTestCase {
     func testPNGResponseDataWithInflation() {
         // Given
         let URLString = "http://httpbin.org/image/png"
@@ -104,7 +104,7 @@ class ResponseImageWithInflationTestCase : BaseImageTestCase {
 
 // MARK: -
 
-class ResponseImageWithoutInflationTestCase : BaseImageTestCase {
+class ResponseImageWithoutInflationTestCase : BaseTestCase {
     func testPNGResponseDataWithoutInflation() {
         // Given
         let URLString = "http://httpbin.org/image/png"

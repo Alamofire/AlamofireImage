@@ -26,7 +26,7 @@ import Cocoa
 import Foundation
 import XCTest
 
-class ResponseImageTestCase : BaseImageTestCase {
+class ResponseImageTestCase : BaseTestCase {
     func testThatResponseImageSerializerHandlesPNGResponseData() {
         // Given
         let URLString = "http://httpbin.org/image/png"
