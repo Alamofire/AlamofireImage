@@ -60,7 +60,7 @@ public extension Request {
         -> GenericResponseSerializer<UIImage>
     {
         return GenericResponseSerializer { request, response, data in
-            guard let validData = data else {
+            guard let validData = data where validData.length > 0 else {
                 return .Failure(data, Request.imageDataError())
             }
 
@@ -142,7 +142,7 @@ public extension Request {
     */
     public class func imageResponseSerializer() -> GenericResponseSerializer<NSImage> {
         return GenericResponseSerializer { request, response, data in
-            guard let validData = data else {
+            guard let validData = data where validData.length > 0 else {
                 return .Failure(data, Request.imageDataError())
             }
 
