@@ -62,6 +62,8 @@ class BaseTestCase : XCTestCase {
         return bundle.URLForResource(fileName, withExtension: withExtension)!
     }
 
+#if os(iOS)
+
     func imageForResource(fileName: String, withExtension ext: String) -> UIImage {
         let URL = URLForResource(fileName, withExtension: ext)
         let data = NSData(contentsOfURL: URL)!
@@ -69,4 +71,6 @@ class BaseTestCase : XCTestCase {
 
         return image
     }
+
+#endif
 }

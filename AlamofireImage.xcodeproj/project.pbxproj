@@ -183,9 +183,10 @@
 		4C0897E61B93A877005125D9 /* unicorn-sepia.tone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E21B93A877005125D9 /* unicorn-sepia.tone.png */; settings = {ASSET_TAGS = (); }; };
 		4C0897E81B93B0FB005125D9 /* huge_map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E71B93B0FB005125D9 /* huge_map.jpg */; settings = {ASSET_TAGS = (); }; };
 		4C0897E91B93B0FB005125D9 /* huge_map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E71B93B0FB005125D9 /* huge_map.jpg */; settings = {ASSET_TAGS = (); }; };
+		4C0897EB1B93BC0D005125D9 /* RequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0897EA1B93BC0D005125D9 /* RequestTests.swift */; settings = {ASSET_TAGS = (); }; };
+		4C0897EC1B93BC0D005125D9 /* RequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0897EA1B93BC0D005125D9 /* RequestTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4C1624851AABE8E600A0385D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
 		4C1624861AABE8E600A0385D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
-		4C1624881AABE99300A0385D /* ImageTests-OSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624871AABE99300A0385D /* ImageTests-OSX.swift */; };
 		4C4D4EC91B9297B300C96855 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C4D4ECA1B9297BB00C96855 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290791B927CE6005E24C8 /* Image.swift */; settings = {ASSET_TAGS = (); }; };
 		4C4D4ECB1B9297BB00C96855 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; settings = {ASSET_TAGS = (); }; };
@@ -205,7 +206,6 @@
 		4C82907C1B927D13005E24C8 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; settings = {ASSET_TAGS = (); }; };
 		4C82907D1B927DA9005E24C8 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; settings = {ASSET_TAGS = (); }; };
 		4C96A4781AAE9488008AE0B6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
-		4CE611241AABC0FF00D35044 /* ImageTests-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C54EE951AABC08B00CD894C /* ImageTests-iOS.swift */; };
 		4CE6112C1AABC24E00D35044 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CE611551AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
 		4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
@@ -320,13 +320,12 @@
 		4C0897E11B93A877005125D9 /* unicorn-blurred-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8.png"; sourceTree = "<group>"; };
 		4C0897E21B93A877005125D9 /* unicorn-sepia.tone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-sepia.tone.png"; sourceTree = "<group>"; };
 		4C0897E71B93B0FB005125D9 /* huge_map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = huge_map.jpg; sourceTree = "<group>"; };
+		4C0897EA1B93BC0D005125D9 /* RequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestTests.swift; sourceTree = "<group>"; };
 		4C1624841AABE8E600A0385D /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
-		4C1624871AABE99300A0385D /* ImageTests-OSX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageTests-OSX.swift"; sourceTree = "<group>"; };
 		4C4D4EC11B92976900C96855 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4C54EE8F1AABC04900CD894C /* AlamofireImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlamofireImage.h; sourceTree = "<group>"; };
 		4C54EE901AABC04900CD894C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4C54EE951AABC08B00CD894C /* ImageTests-iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageTests-iOS.swift"; sourceTree = "<group>"; };
 		4C54EE961AABC08B00CD894C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C5D84271AAD8B9100A42375 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AlamofireImage.swift"; sourceTree = "<group>"; };
@@ -575,8 +574,7 @@
 			isa = PBXGroup;
 			children = (
 				4C1624841AABE8E600A0385D /* BaseTestCase.swift */,
-				4C54EE951AABC08B00CD894C /* ImageTests-iOS.swift */,
-				4C1624871AABE99300A0385D /* ImageTests-OSX.swift */,
+				4C0897EA1B93BC0D005125D9 /* RequestTests.swift */,
 				4C0893F41B937404005125D9 /* UIImageTests.swift */,
 				4C0893EA1B936A4D005125D9 /* Extensions */,
 				4C0894021B9382EB005125D9 /* Resources */,
@@ -1059,9 +1057,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C0897EB1B93BC0D005125D9 /* RequestTests.swift in Sources */,
 				4C0893EC1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift in Sources */,
 				4C1624851AABE8E600A0385D /* BaseTestCase.swift in Sources */,
-				4CE611241AABC0FF00D35044 /* ImageTests-iOS.swift in Sources */,
 				4C0893F51B937404005125D9 /* UIImageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1083,7 +1081,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C1624861AABE8E600A0385D /* BaseTestCase.swift in Sources */,
-				4C1624881AABE99300A0385D /* ImageTests-OSX.swift in Sources */,
+				4C0897EC1B93BC0D005125D9 /* RequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
