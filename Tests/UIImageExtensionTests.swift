@@ -76,6 +76,36 @@ class UIImageScalingTestCase: UIImageBaseTestCase {
         executeImageScaledToSizeTest(verticalRectangularSize)
     }
 
+    // MARK: Aspect Scaled to Fit
+
+    func testThatImageIsAspectScaledToFitSquareSize() {
+        executeImageAspectScaledToFitSizeTest(squareSize)
+    }
+
+    func testThatImageIsAspectScaledToFitHorizontalRectangularSize() {
+        executeImageAspectScaledToFitSizeTest(horizontalRectangularSize)
+    }
+
+    func testThatImageIsAspectScaledToFitVerticalRectangularSize() {
+        executeImageAspectScaledToFitSizeTest(verticalRectangularSize)
+    }
+
+    // MARK: Aspect Scaled to Fill
+
+    func testThatImageIsAspectScaledToFillSquareSize() {
+        executeImageAspectScaledToFillSizeTest(squareSize)
+    }
+
+    func testThatImageIsAspectScaledToFillHorizontalRectangularSize() {
+        executeImageAspectScaledToFillSizeTest(horizontalRectangularSize)
+    }
+
+    func testThatImageIsAspectScaledToFillVerticalRectangularSize() {
+        executeImageAspectScaledToFillSizeTest(verticalRectangularSize)
+    }
+
+    // MARK: Private - Test Execution
+
     private func executeImageScaledToSizeTest(size: CGSize) {
         // Given
         let w = Int(round(size.width))
@@ -104,20 +134,6 @@ class UIImageScalingTestCase: UIImageBaseTestCase {
         XCTAssertEqual(scaledUnicornImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
     }
 
-    // MARK: Aspect Scaled to Fit
-
-    func testThatImageIsAspectScaledToFitSquareSize() {
-        executeImageAspectScaledToFitSizeTest(squareSize)
-    }
-
-    func testThatImageIsAspectScaledToFitHorizontalRectangularSize() {
-        executeImageAspectScaledToFitSizeTest(horizontalRectangularSize)
-    }
-
-    func testThatImageIsAspectScaledToFitVerticalRectangularSize() {
-        executeImageAspectScaledToFitSizeTest(verticalRectangularSize)
-    }
-
     private func executeImageAspectScaledToFitSizeTest(size: CGSize) {
         // Given
         let w = Int(round(size.width))
@@ -144,20 +160,6 @@ class UIImageScalingTestCase: UIImageBaseTestCase {
         XCTAssertEqual(scaledPirateImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
         XCTAssertEqual(scaledRainbowImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
         XCTAssertEqual(scaledUnicornImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
-    }
-
-    // MARK: Aspect Scaled to Fill
-
-    func testThatImageIsAspectScaledToFillSquareSize() {
-        executeImageAspectScaledToFillSizeTest(squareSize)
-    }
-
-    func testThatImageIsAspectScaledToFillHorizontalRectangularSize() {
-        executeImageAspectScaledToFillSizeTest(horizontalRectangularSize)
-    }
-
-    func testThatImageIsAspectScaledToFillVerticalRectangularSize() {
-        executeImageAspectScaledToFillSizeTest(verticalRectangularSize)
     }
 
     private func executeImageAspectScaledToFillSizeTest(size: CGSize) {
@@ -259,8 +261,56 @@ class UIImageRoundedCornersTestCase: UIImageBaseTestCase {
         XCTAssertEqual(circularUnicornImage.size, expectedUnicornSize, "image scale should be equal to screen scale")
     }
 
+    // MARK: Private - Size Conversion
+
     private func expectedImageSizeForCircularImage(image: UIImage) -> CGSize {
         let dimension = min(image.size.width, image.size.height)
         return CGSize(width: dimension, height: dimension)
+    }
+}
+
+// MARK: -
+
+class UIImageCoreImageFilterTestCase: UIImageBaseTestCase {
+    func testThatImageWithAppliedGaussianBlurFilterReturnsBlurredImage() {
+        // Given
+        let parameters: [String: AnyObject] = ["inputRadius": 8]
+
+        // When
+        let blurredImage = unicornImage.af_imageWithAppliedCoreImageFilter("CIGaussianBlur", filterParameters: parameters)
+
+        // Then
+        if var blurredImage = blurredImage {
+            blurredImage = blurredImage.imageWithPNGRepresentation()
+            let expectedBlurredImage = BaseTestCase.imageForResource("unicorn-blurred-8", withExtension: "png")
+            XCTAssertTrue(blurredImage.af_isEqualToImage(expectedBlurredImage), "blurred image pixels do not match")
+        } else {
+            XCTFail("blurred image should not be nil")
+        }
+    }
+
+    func testThatImageWithAppliedSepiaToneFilterReturnsSepiaImage() {
+        // Given, When
+        let sepiaImage = unicornImage.af_imageWithAppliedCoreImageFilter("CISepiaTone")
+
+        // Then
+        if var sepiaImage = sepiaImage {
+            sepiaImage = sepiaImage.imageWithPNGRepresentation()
+            let expectedSepiaImage = BaseTestCase.imageForResource("unicorn-sepia.tone", withExtension: "png")
+            XCTAssertTrue(sepiaImage.af_isEqualToImage(expectedSepiaImage), "sepia image pixels do not match")
+        } else {
+            XCTFail("sepia image should not be nil")
+        }
+    }
+
+    func testThatInvalidCoreImageFilterReturnsNil() {
+        // Given
+        let filterName = "SomeFilterThatDoesNotExist"
+
+        // When
+        let filteredImage = unicornImage.af_imageWithAppliedCoreImageFilter(filterName)
+
+        // Then
+        XCTAssertNil(filteredImage, "filtered image should be nil")
     }
 }

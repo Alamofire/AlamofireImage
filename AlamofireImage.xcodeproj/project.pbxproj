@@ -177,6 +177,10 @@
 		4C0897DD1B93A37C005125D9 /* rainbow-radius-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897CE1B93A37C005125D9 /* rainbow-radius-20.png */; settings = {ASSET_TAGS = (); }; };
 		4C0897DE1B93A37C005125D9 /* unicorn-radius-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897CF1B93A37C005125D9 /* unicorn-radius-20.png */; settings = {ASSET_TAGS = (); }; };
 		4C0897DF1B93A37C005125D9 /* unicorn-radius-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897CF1B93A37C005125D9 /* unicorn-radius-20.png */; settings = {ASSET_TAGS = (); }; };
+		4C0897E31B93A877005125D9 /* unicorn-blurred-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E11B93A877005125D9 /* unicorn-blurred-8.png */; settings = {ASSET_TAGS = (); }; };
+		4C0897E41B93A877005125D9 /* unicorn-blurred-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E11B93A877005125D9 /* unicorn-blurred-8.png */; settings = {ASSET_TAGS = (); }; };
+		4C0897E51B93A877005125D9 /* unicorn-sepia.tone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E21B93A877005125D9 /* unicorn-sepia.tone.png */; settings = {ASSET_TAGS = (); }; };
+		4C0897E61B93A877005125D9 /* unicorn-sepia.tone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E21B93A877005125D9 /* unicorn-sepia.tone.png */; settings = {ASSET_TAGS = (); }; };
 		4C1624851AABE8E600A0385D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
 		4C1624861AABE8E600A0385D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
 		4C1624881AABE99300A0385D /* ImageTests-OSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624871AABE99300A0385D /* ImageTests-OSX.swift */; };
@@ -311,6 +315,8 @@
 		4C0897CD1B93A37C005125D9 /* pirate-radius-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pirate-radius-20.png"; sourceTree = "<group>"; };
 		4C0897CE1B93A37C005125D9 /* rainbow-radius-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rainbow-radius-20.png"; sourceTree = "<group>"; };
 		4C0897CF1B93A37C005125D9 /* unicorn-radius-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-radius-20.png"; sourceTree = "<group>"; };
+		4C0897E11B93A877005125D9 /* unicorn-blurred-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8.png"; sourceTree = "<group>"; };
+		4C0897E21B93A877005125D9 /* unicorn-sepia.tone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-sepia.tone.png"; sourceTree = "<group>"; };
 		4C1624841AABE8E600A0385D /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		4C1624871AABE99300A0385D /* ImageTests-OSX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageTests-OSX.swift"; sourceTree = "<group>"; };
 		4C4D4EC11B92976900C96855 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -408,6 +414,7 @@
 				4C0896EB1B9393DC005125D9 /* Aspect Scaled to Fill */,
 				4C0897041B9393DC005125D9 /* Aspect Scaled to Fit */,
 				4C0897C61B93A37C005125D9 /* Circle */,
+				4C0897E01B93A877005125D9 /* Core Image Filters */,
 				4C0897CB1B93A37C005125D9 /* Radius */,
 				4C08971D1B9393DC005125D9 /* Scaled */,
 			);
@@ -527,6 +534,15 @@
 				4C0897CF1B93A37C005125D9 /* unicorn-radius-20.png */,
 			);
 			path = Radius;
+			sourceTree = "<group>";
+		};
+		4C0897E01B93A877005125D9 /* Core Image Filters */ = {
+			isa = PBXGroup;
+			children = (
+				4C0897E11B93A877005125D9 /* unicorn-blurred-8.png */,
+				4C0897E21B93A877005125D9 /* unicorn-sepia.tone.png */,
+			);
+			path = "Core Image Filters";
 			sourceTree = "<group>";
 		};
 		4C54EE8E1AABC04900CD894C /* Source */ = {
@@ -858,6 +874,7 @@
 				4C0897881B9393DC005125D9 /* rainbow-aspect.scaled.to.fit-60x30-@3x.png in Resources */,
 				4C0897D21B93A37C005125D9 /* pirate-circle.png in Resources */,
 				4C08973A1B9393DC005125D9 /* apple-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
+				4C0897E31B93A877005125D9 /* unicorn-blurred-8.png in Resources */,
 				4C08978C1B9393DC005125D9 /* unicorn-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
 				4C0897981B9393DC005125D9 /* apple-scaled-30x60-@3x.png in Resources */,
 				4C0897941B9393DC005125D9 /* unicorn-aspect.scaled.to.fit-60x30-@3x.png in Resources */,
@@ -867,6 +884,7 @@
 				4C08975A1B9393DC005125D9 /* unicorn-aspect.scaled.to.fill-30x60-@2x.png in Resources */,
 				4C0897401B9393DC005125D9 /* apple-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
 				4C0897B61B9393DC005125D9 /* rainbow-scaled-60x30-@2x.png in Resources */,
+				4C0897E51B93A877005125D9 /* unicorn-sepia.tone.png in Resources */,
 				4C08975E1B9393DC005125D9 /* unicorn-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
 				4C0897381B9393DC005125D9 /* apple-aspect.scaled.to.fill-30x60-@3x.png in Resources */,
 				4C0897B81B9393DC005125D9 /* rainbow-scaled-60x30-@3x.png in Resources */,
@@ -956,6 +974,7 @@
 				4C0897891B9393DC005125D9 /* rainbow-aspect.scaled.to.fit-60x30-@3x.png in Resources */,
 				4C0897D31B93A37C005125D9 /* pirate-circle.png in Resources */,
 				4C08973B1B9393DC005125D9 /* apple-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
+				4C0897E41B93A877005125D9 /* unicorn-blurred-8.png in Resources */,
 				4C08978D1B9393DC005125D9 /* unicorn-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
 				4C0897991B9393DC005125D9 /* apple-scaled-30x60-@3x.png in Resources */,
 				4C0897951B9393DC005125D9 /* unicorn-aspect.scaled.to.fit-60x30-@3x.png in Resources */,
@@ -965,6 +984,7 @@
 				4C08975B1B9393DC005125D9 /* unicorn-aspect.scaled.to.fill-30x60-@2x.png in Resources */,
 				4C0897411B9393DC005125D9 /* apple-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
 				4C0897B71B9393DC005125D9 /* rainbow-scaled-60x30-@2x.png in Resources */,
+				4C0897E61B93A877005125D9 /* unicorn-sepia.tone.png in Resources */,
 				4C08975F1B9393DC005125D9 /* unicorn-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
 				4C0897391B9393DC005125D9 /* apple-aspect.scaled.to.fill-30x60-@3x.png in Resources */,
 				4C0897B91B9393DC005125D9 /* rainbow-scaled-60x30-@3x.png in Resources */,
