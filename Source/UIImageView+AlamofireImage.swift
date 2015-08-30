@@ -98,18 +98,7 @@ public extension UIImageView {
 
     // MARK: - Image Download Methods
 
-    public func af_setImage(URLString URLString: String) {
-        af_setImage(
-            URLRequest: URLRequestWithURLString(URLString),
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .None,
-            success: nil,
-            failure: nil
-        )
-    }
-
-    public func af_setImage(URLString URLString: String, placeholderImage: UIImage) {
+    public func af_setImage(URLString URLString: String, placeholderImage: UIImage? = nil) {
         af_setImage(
             URLRequest: URLRequestWithURLString(URLString),
             placeholderImage: placeholderImage,
@@ -145,7 +134,7 @@ public extension UIImageView {
     public func af_setImage(
         URLString URLString: String,
         placeholderImage: UIImage?,
-        filter: ImageFilter,
+        filter: ImageFilter?,
         imageTransition: ImageTransition)
     {
         af_setImage(
