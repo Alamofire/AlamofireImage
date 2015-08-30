@@ -68,31 +68,31 @@ public extension UIImageView {
     // MARK: - Private - AssociatedKeys
 
     private struct AssociatedKeys {
-        static var sharedImageDownloaderKey = "ai_UIImageView.SharedImageDownloader"
-        static var activeRequestKey = "ai_UIImageView.ActiveRequest"
+        static var SharedImageDownloaderKey = "af_UIImageView.SharedImageDownloader"
+        static var ActiveRequestKey = "af_UIImageView.ActiveRequest"
     }
 
     // MARK: - Properties
 
     public class var af_sharedImageDownloader: ImageDownloader {
         get {
-            if let downloader = objc_getAssociatedObject(self, &AssociatedKeys.sharedImageDownloaderKey) as? ImageDownloader {
+            if let downloader = objc_getAssociatedObject(self, &AssociatedKeys.SharedImageDownloaderKey) as? ImageDownloader {
                 return downloader
             } else {
                 return ImageDownloader.defaultInstance
             }
         }
         set(downloader) {
-            objc_setAssociatedObject(self, &AssociatedKeys.sharedImageDownloaderKey, downloader, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.SharedImageDownloaderKey, downloader, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     private var af_activeRequest: Request? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.activeRequestKey) as? Request
+            return objc_getAssociatedObject(self, &AssociatedKeys.ActiveRequestKey) as? Request
         }
         set(request) {
-            objc_setAssociatedObject(self, &AssociatedKeys.activeRequestKey, request, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.ActiveRequestKey, request, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
