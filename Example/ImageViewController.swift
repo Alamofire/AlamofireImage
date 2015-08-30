@@ -50,10 +50,10 @@ class ImageViewController : UIViewController {
 
         let URL = gravatar.URL(size: CGRectGetWidth(view.bounds))
 
-        imageView.ai_setImage(
+        imageView.af_setImage(
             URLString: URL.URLString,
             placeholderImage: nil,
-            imageTransition: UIImageView.ImageTransition.FlipFromBottom(0.5)
+            imageTransition: .FlipFromBottom(0.5)
         )
 
         view.addSubview(imageView)

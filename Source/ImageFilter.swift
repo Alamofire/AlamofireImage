@@ -83,7 +83,7 @@ public struct ScaledToSizeFilter: ImageFilter, Sizable {
 
     public var filter: Image -> Image {
         return { image in
-            return image.ai_imageScaledToSize(self.size)
+            return image.af_imageScaledToSize(self.size)
         }
     }
 }
@@ -99,7 +99,7 @@ public struct AspectScaledToFitSizeFilter: ImageFilter, Sizable {
 
     public var filter: Image -> Image {
         return { image in
-            return image.ai_imageAspectScaledToFitSize(self.size)
+            return image.af_imageAspectScaledToFitSize(self.size)
         }
     }
 }
@@ -115,7 +115,7 @@ public struct AspectScaledToFillSizeFilter: ImageFilter, Sizable {
 
     public var filter: Image -> Image {
         return { image in
-            return image.ai_imageAspectScaledToFillSize(self.size)
+            return image.af_imageAspectScaledToFillSize(self.size)
         }
     }
 }
@@ -133,8 +133,8 @@ public struct ScaledToSizeWithRoundedCornersFilter: ImageFilter, Sizable, Rounda
 
     public var filter: Image -> Image {
         return { image in
-            let scaledImage = image.ai_imageScaledToSize(self.size)
-            let roundedAndScaledImage = scaledImage.ai_imageWithRoundedCornerRadius(self.radius)
+            let scaledImage = image.af_imageScaledToSize(self.size)
+            let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius)
 
             return roundedAndScaledImage
         }
@@ -154,8 +154,8 @@ public struct AspectScaledToFitSizeWithRoundedCornersFilter: ImageFilter, Sizabl
 
     public var filter: Image -> Image {
         return { image in
-            let scaledImage = image.ai_imageAspectScaledToFitSize(self.size)
-            let roundedAndScaledImage = scaledImage.ai_imageWithRoundedCornerRadius(self.radius)
+            let scaledImage = image.af_imageAspectScaledToFitSize(self.size)
+            let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius)
 
             return roundedAndScaledImage
         }
@@ -175,8 +175,8 @@ public struct AspectScaledToFillSizeWithRoundedCornersFilter: ImageFilter, Sizab
 
     public var filter: Image -> Image {
         return { image in
-            let scaledImage = image.ai_imageAspectScaledToFillSize(self.size)
-            let roundedAndScaledImage = scaledImage.ai_imageWithRoundedCornerRadius(self.radius)
+            let scaledImage = image.af_imageAspectScaledToFillSize(self.size)
+            let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius)
 
             return roundedAndScaledImage
         }

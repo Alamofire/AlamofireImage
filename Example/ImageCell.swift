@@ -58,7 +58,7 @@ class ImageCell : UICollectionViewCell {
     func configureCellWithURLString(URLString: String, placeholderImage: UIImage) {
         let size = imageView.frame.size
 
-        imageView.ai_setImage(
+        imageView.af_setImage(
             URLString: URLString,
             placeholderImage: placeholderImage,
             filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
@@ -69,7 +69,7 @@ class ImageCell : UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        imageView.ai_cancelImageRequest()
+        imageView.af_cancelImageRequest()
         imageView.layer.removeAllAnimations()
         imageView.image = nil
     }

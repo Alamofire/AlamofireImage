@@ -26,14 +26,7 @@ import UIKit
 
 public extension UIImageView {
 
-    // MARK: - Private - Associated Keys Struct
-
-    private struct AssociatedKeys {
-        static var sharedImageDownloaderKey = "ai_UIImageView.SharedImageDownloader"
-        static var activeRequestKey = "ai_UIImageView.ActiveRequest"
-    }
-
-    // MARK: - Image Transition Enum
+    // MARK: - ImageTransition
 
     public enum ImageTransition {
         case None
@@ -47,50 +40,41 @@ public extension UIImageView {
 
         var duration: NSTimeInterval {
             switch self {
-            case None:
-                return 0.0
-            case CrossDissolve(let duration):
-                return duration
-            case CurlDown(let duration):
-                return duration
-            case CurlUp(let duration):
-                return duration
-            case FlipFromBottom(let duration):
-                return duration
-            case FlipFromLeft(let duration):
-                return duration
-            case FlipFromRight(let duration):
-                return duration
-            case FlipFromTop(let duration):
-                return duration
+            case None:                         return 0.0
+            case CrossDissolve(let duration):  return duration
+            case CurlDown(let duration):       return duration
+            case CurlUp(let duration):         return duration
+            case FlipFromBottom(let duration): return duration
+            case FlipFromLeft(let duration):   return duration
+            case FlipFromRight(let duration):  return duration
+            case FlipFromTop(let duration):    return duration
             }
         }
 
         var animationOptions: UIViewAnimationOptions {
             switch self {
-            case None:
-                return UIViewAnimationOptions.TransitionNone
-            case CrossDissolve:
-                return UIViewAnimationOptions.TransitionCrossDissolve
-            case CurlDown:
-                return UIViewAnimationOptions.TransitionCurlDown
-            case CurlUp:
-                return UIViewAnimationOptions.TransitionCurlUp
-            case FlipFromBottom:
-                return UIViewAnimationOptions.TransitionFlipFromBottom
-            case FlipFromLeft:
-                return UIViewAnimationOptions.TransitionFlipFromLeft
-            case FlipFromRight:
-                return UIViewAnimationOptions.TransitionFlipFromRight
-            case FlipFromTop:
-                return UIViewAnimationOptions.TransitionFlipFromTop
+            case None:           return .TransitionNone
+            case CrossDissolve:  return .TransitionCrossDissolve
+            case CurlDown:       return .TransitionCurlDown
+            case CurlUp:         return .TransitionCurlUp
+            case FlipFromBottom: return .TransitionFlipFromBottom
+            case FlipFromLeft:   return .TransitionFlipFromLeft
+            case FlipFromRight:  return .TransitionFlipFromRight
+            case FlipFromTop:    return .TransitionFlipFromTop
             }
         }
     }
 
+    // MARK: - Private - AssociatedKeys
+
+    private struct AssociatedKeys {
+        static var sharedImageDownloaderKey = "ai_UIImageView.SharedImageDownloader"
+        static var activeRequestKey = "ai_UIImageView.ActiveRequest"
+    }
+
     // MARK: - Properties
 
-    public class var ai_sharedImageDownloader: ImageDownloader {
+    public class var af_sharedImageDownloader: ImageDownloader {
         get {
             if let downloader = objc_getAssociatedObject(self, &AssociatedKeys.sharedImageDownloaderKey) as? ImageDownloader {
                 return downloader
@@ -103,7 +87,7 @@ public extension UIImageView {
         }
     }
 
-    private var ai_activeRequest: Request? {
+    private var af_activeRequest: Request? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.activeRequestKey) as? Request
         }
@@ -114,9 +98,9 @@ public extension UIImageView {
 
     // MARK: - Image Download Methods
 
-    public func ai_setImage(URLString URLString: String) {
-        ai_setImage(
-            URLRequest: ai_URLRequestWithURLString(URLString),
+    public func af_setImage(URLString URLString: String) {
+        af_setImage(
+            URLRequest: URLRequestWithURLString(URLString),
             placeholderImage: nil,
             filter: nil,
             imageTransition: .None,
@@ -125,9 +109,9 @@ public extension UIImageView {
         )
     }
 
-    public func ai_setImage(URLString URLString: String, placeholderImage: UIImage) {
-        ai_setImage(
-            URLRequest: ai_URLRequestWithURLString(URLString),
+    public func af_setImage(URLString URLString: String, placeholderImage: UIImage) {
+        af_setImage(
+            URLRequest: URLRequestWithURLString(URLString),
             placeholderImage: placeholderImage,
             filter: nil,
             imageTransition: .None,
@@ -136,9 +120,9 @@ public extension UIImageView {
         )
     }
 
-    public func ai_setImage(URLString URLString: String, placeholderImage: UIImage?, filter: ImageFilter) {
-        ai_setImage(
-            URLRequest: ai_URLRequestWithURLString(URLString),
+    public func af_setImage(URLString URLString: String, placeholderImage: UIImage?, filter: ImageFilter) {
+        af_setImage(
+            URLRequest: URLRequestWithURLString(URLString),
             placeholderImage: placeholderImage,
             filter: filter,
             imageTransition: .None,
@@ -147,9 +131,9 @@ public extension UIImageView {
         )
     }
 
-    public func ai_setImage(URLString URLString: String, placeholderImage: UIImage?, imageTransition: ImageTransition) {
-        ai_setImage(
-            URLRequest: ai_URLRequestWithURLString(URLString),
+    public func af_setImage(URLString URLString: String, placeholderImage: UIImage?, imageTransition: ImageTransition) {
+        af_setImage(
+            URLRequest: URLRequestWithURLString(URLString),
             placeholderImage: placeholderImage,
             filter: nil,
             imageTransition: imageTransition,
@@ -158,14 +142,14 @@ public extension UIImageView {
         )
     }
 
-    public func ai_setImage(
+    public func af_setImage(
         URLString URLString: String,
         placeholderImage: UIImage?,
         filter: ImageFilter,
         imageTransition: ImageTransition)
     {
-        ai_setImage(
-            URLRequest: ai_URLRequestWithURLString(URLString),
+        af_setImage(
+            URLRequest: URLRequestWithURLString(URLString),
             placeholderImage: placeholderImage,
             filter: filter,
             imageTransition: imageTransition,
@@ -174,7 +158,7 @@ public extension UIImageView {
         )
     }
 
-    public func ai_setImage(
+    public func af_setImage(
         URLRequest URLRequest: URLRequestConvertible,
         placeholderImage: UIImage?,
         filter: ImageFilter?,
@@ -182,9 +166,9 @@ public extension UIImageView {
         success: ((NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void)?,
         failure: ((NSURLRequest?, NSHTTPURLResponse?, NSData?, ErrorType) -> Void)?)
     {
-        ai_cancelImageRequest()
+        af_cancelImageRequest()
 
-        let imageDownloader = UIImageView.ai_sharedImageDownloader
+        let imageDownloader = UIImageView.af_sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
@@ -204,7 +188,7 @@ public extension UIImageView {
         }
 
         // Download the image, then run the image transition, success closure or failure closure
-        let request = UIImageView.ai_sharedImageDownloader.downloadImage(
+        let request = UIImageView.af_sharedImageDownloader.downloadImage(
             URLRequest: URLRequest,
             filter: filter,
             completion: { [weak self] request, response, result in
@@ -232,23 +216,23 @@ public extension UIImageView {
                     }
                 case .Failure(let data, let error):
                     failure?(request, response, data, error)
-                    strongSelf.ai_activeRequest = nil
+                    strongSelf.af_activeRequest = nil
                 }
             }
         )
 
-        self.ai_activeRequest = request
+        af_activeRequest = request
     }
 
     // MARK: - Image Download Cancellation Methods
 
-    public func ai_cancelImageRequest() {
-        self.ai_activeRequest?.cancel()
+    public func af_cancelImageRequest() {
+        af_activeRequest?.cancel()
     }
 
     // MARK: - Private - URL Request Helper Methods
 
-    private func ai_URLRequestWithURLString(URLString: String) -> NSURLRequest {
+    private func URLRequestWithURLString(URLString: String) -> NSURLRequest {
         let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URLString)!)
         mutableURLRequest.addValue("image/*", forHTTPHeaderField: "Accept")
 

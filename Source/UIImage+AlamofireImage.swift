@@ -24,8 +24,7 @@ import Foundation
 import UIKit
 
 extension UIImage {
-
-    public func ai_imageScaledToSize(size: CGSize) -> UIImage {
+    public func af_imageScaledToSize(size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         drawInRect(CGRect(origin: CGPointZero, size: size))
 
@@ -35,7 +34,7 @@ extension UIImage {
         return scaledImage
     }
 
-    public func ai_imageAspectScaledToFitSize(size: CGSize) -> UIImage {
+    public func af_imageAspectScaledToFitSize(size: CGSize) -> UIImage {
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
 
@@ -59,7 +58,7 @@ extension UIImage {
         return scaledImage
     }
 
-    public func ai_imageAspectScaledToFillSize(size: CGSize) -> UIImage {
+    public func af_imageAspectScaledToFillSize(size: CGSize) -> UIImage {
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
 
@@ -83,7 +82,7 @@ extension UIImage {
         return scaledImage
     }
 
-    public func ai_imageWithRoundedCornerRadius(radius: CGFloat) -> UIImage {
+    public func af_imageWithRoundedCornerRadius(radius: CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, 0.0)
 
         let clippingPath = UIBezierPath(roundedRect: CGRect(origin: CGPointZero, size: self.size), cornerRadius: radius)
