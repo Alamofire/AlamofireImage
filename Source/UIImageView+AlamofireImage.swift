@@ -194,6 +194,14 @@ public extension UIImageView {
             completion: { [weak self] request, response, result in
                 guard let strongSelf = self else { return }
 
+                // Ignore the event if the response request does not match the current request
+                guard let
+                    currentRequest = strongSelf.af_activeRequest?.task.currentRequest
+                    where currentRequest.URLString == request?.URLString else
+                {
+                    return
+                }
+
                 switch result {
                 case .Success(let image):
                     if let success = success {
