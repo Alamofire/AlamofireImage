@@ -26,6 +26,9 @@ import Foundation
 import XCTest
 
 class RequestTestCase: BaseTestCase {
+
+    // MARK: - Image Serialization Tests
+
     func testThatImageResponseSerializerCanDownloadPNGImage() {
         // Given
         let URLString = "https://httpbin.org/image/png"
@@ -110,6 +113,8 @@ class RequestTestCase: BaseTestCase {
 
 #if os(iOS)
 
+    // MARK: - Image Inflation Tests
+
     func testThatImageResponseSerializerCanDownloadAndInflatePNGImage() {
         // Given
         let URLString = "https://httpbin.org/image/png"
@@ -185,4 +190,167 @@ class RequestTestCase: BaseTestCase {
     }
 
 #endif
+
+    // MARK: - Image Serialization Error Tests
+
+    func testThatAttemptingToDownloadImageFromBadURLReturnsFailureResult() {
+        // Given
+        let URLString = "https://invalid.for.sure"
+        let expectation = expectationWithDescription("Request should fail with bad URL")
+
+        var request: NSURLRequest?
+        var response: NSHTTPURLResponse?
+        var result: Result<Image>?
+
+        // When
+        manager.request(.GET, URLString)
+            .responseImage { responseRequest, responseResponse, responseResult in
+                request = responseRequest
+                response = responseResponse
+                result = responseResult
+
+                expectation.fulfill()
+            }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request, "request should not be nil")
+        XCTAssertNil(response, "response should be nil")
+        XCTAssertTrue(result?.isFailure ?? false, "result should be failure")
+        XCTAssertNotNil(result?.error, "result error should not be nil")
+    }
+
+    func testThatAttemptingToDownloadUnsupportedImageTypeReturnsFailureResult() {
+        // Given
+        let URLString = "https://httpbin.org/image/webp"
+        let expectation = expectationWithDescription("Request should return webp response image")
+
+        var request: NSURLRequest?
+        var response: NSHTTPURLResponse?
+        var result: Result<Image>?
+
+        // When
+        manager.request(.GET, URLString)
+            .responseImage { responseRequest, responseResponse, responseResult in
+                request = responseRequest
+                response = responseResponse
+                result = responseResult
+
+                expectation.fulfill()
+            }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request, "request should not be nil")
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertTrue(result?.isFailure ?? false, "result should be failure")
+        XCTAssertNotNil(result?.error, "result error should not be nil")
+
+        if let error = result?.error as? NSError {
+            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
+            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+        }
+    }
+
+    func testThatAttemptingToSerializeEmptyDataReturnsFailureResult() {
+        // Given
+        let URLString = "https://httpbin.org/bytes/0"
+        let expectation = expectationWithDescription("Request should download no bytes")
+
+        var request: NSURLRequest?
+        var response: NSHTTPURLResponse?
+        var result: Result<Image>?
+
+        // When
+        manager.request(.GET, URLString)
+            .responseImage { responseRequest, responseResponse, responseResult in
+                request = responseRequest
+                response = responseResponse
+                result = responseResult
+
+                expectation.fulfill()
+            }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request, "request should not be nil")
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertTrue(result?.isFailure ?? false, "result should be failure")
+        XCTAssertNotNil(result?.error, "result error should not be nil")
+
+        if let error = result?.error as? NSError {
+            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
+            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+        }
+    }
+
+    func testThatAttemptingToSerializeRandomStreamDataReturnsFailureResult() {
+        // Given
+        let randomBytes = 4 * 1024 * 1024
+        let URLString = "https://httpbin.org/bytes/\(randomBytes)"
+        let expectation = expectationWithDescription("Request should download random bytes")
+
+        var request: NSURLRequest?
+        var response: NSHTTPURLResponse?
+        var result: Result<Image>?
+
+        // When
+        manager.request(.GET, URLString)
+            .responseImage { responseRequest, responseResponse, responseResult in
+                request = responseRequest
+                response = responseResponse
+                result = responseResult
+
+                expectation.fulfill()
+            }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request, "request should not be nil")
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertTrue(result?.isFailure ?? false, "result should be failure")
+        XCTAssertNotNil(result?.error, "result error should not be nil")
+
+        if let error = result?.error as? NSError {
+            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
+            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+        }
+    }
+
+    func testThatAttemptingToSerializeJSONResponseIntoImageReturnsFailureResult() {
+        // Given
+        let URLString = "https://httpbin.org/get"
+        let expectation = expectationWithDescription("Request should return JSON")
+
+        var request: NSURLRequest?
+        var response: NSHTTPURLResponse?
+        var result: Result<Image>?
+
+        // When
+        manager.request(.GET, URLString)
+            .responseImage { responseRequest, responseResponse, responseResult in
+                request = responseRequest
+                response = responseResponse
+                result = responseResult
+
+                expectation.fulfill()
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request, "request should not be nil")
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertTrue(result?.isFailure ?? false, "result should be failure")
+        XCTAssertNotNil(result?.error, "result error should not be nil")
+
+        if let error = result?.error as? NSError {
+            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
+            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+        }
+    }
 }
