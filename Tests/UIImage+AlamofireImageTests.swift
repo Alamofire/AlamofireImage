@@ -52,4 +52,20 @@ extension UIImage {
 
         return true
     }
+
+    /**
+        Modifies the underlying UIImage data to use a PNG representation.
+
+        This is important in verifying pixel data between two images. If one has been exported out with PNG
+        compression and another has not, the image data between the two images will never be equal. This helper
+        method helps ensure comparisons will be valid.
+
+        - returns: The PNG representation image.
+    */
+    func af_imageWithPNGRepresentation() -> UIImage {
+        let data = UIImagePNGRepresentation(self)!
+        let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)!
+
+        return image
+    }
 }

@@ -25,27 +25,10 @@ import Foundation
 import UIKit
 import XCTest
 
-extension UIImage {
-    /**
-        Modifies the underlying UIImage data to use a PNG representation.
-        
-        This is important in verifying pixel data between two images. If one has been exported out with PNG 
-        compression and another has not, the image data between the two images will never be equal. This helper 
-        method helps ensure comparisons will be valid.
+class UIImageTestCase: BaseTestCase {
 
-        - returns: The PNG representation image.
-    */
-    private func imageWithPNGRepresentation() -> UIImage {
-        let data = UIImagePNGRepresentation(self)!
-        let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)!
+    // MARK: - Properties
 
-        return image
-    }
-}
-
-// MARK: -
-
-class UIImageBaseTestCase: BaseTestCase {
     var appleImage: UIImage { return imageForResource("apple", withExtension: "jpg") }
     var pirateImage: UIImage { return imageForResource("pirate", withExtension: "jpg") }
     var rainbowImage: UIImage { return imageForResource("rainbow", withExtension: "jpg") }
@@ -56,11 +39,9 @@ class UIImageBaseTestCase: BaseTestCase {
     let squareSize = CGSize(width: 50, height: 50)
     let horizontalRectangularSize = CGSize(width: 60, height: 30)
     let verticalRectangularSize = CGSize(width: 30, height: 60)
-}
 
-// MARK: -
+    // MARK: - Initialization Tests
 
-class UIImageInitializationTestCase: UIImageBaseTestCase {
     func testThatHundredsOfLargeImagesCanBeInitializedAcrossMultipleThreads() {
         // Given
         let URL = URLForResource("huge_map", withExtension: "jpg")
@@ -128,13 +109,39 @@ class UIImageInitializationTestCase: UIImageBaseTestCase {
             XCTAssertNotNil($0, "image should not be nil")
         }
     }
-}
 
-// MARK: -
+    // MARK: - Inflation Tests
 
-class UIImageScalingTestCase: UIImageBaseTestCase {
+    func testThatImageCanBeInflated() {
+        // Given
+        let rainbowImage = imageForResource("rainbow", withExtension: "jpg")
+        let unicornImage = imageForResource("unicorn", withExtension: "png")
 
-    // MARK: Scaled to Size
+        // When
+        let inflatedRainbowImage = rainbowImage.af_inflatedImage()
+        let inflatedUnicornImage = unicornImage.af_inflatedImage()
+
+        // Then
+        XCTAssertNotNil(inflatedRainbowImage, "inflated rainbow image should not be nil")
+        XCTAssertNotNil(inflatedUnicornImage, "inflated unicorn image should not be nil")
+
+        XCTAssertNotEqual(inflatedRainbowImage, rainbowImage, "inflated rainbow image should not equal rainbow image")
+        XCTAssertNotEqual(inflatedUnicornImage, unicornImage, "inflated unicorn image should not equal unicorn image")
+    }
+
+    func testThatImageThatHasAlreadyBeenInflatedIsNotInflatedAgain() {
+        // Given
+        let unicornImage = imageForResource("unicorn", withExtension: "png").af_inflatedImage()!
+
+        // When
+        let inflatedImage = unicornImage.af_inflatedImage()
+
+        // Then
+        XCTAssertNotNil(inflatedImage, "inflated image should not be nil")
+        XCTAssertEqual(inflatedImage, unicornImage, "inflated image should equal unicorn image")
+    }
+
+    // MARK: - Scaling Tests
 
     func testThatImageIsScaledToSquareSize() {
         executeImageScaledToSizeTest(squareSize)
@@ -148,46 +155,16 @@ class UIImageScalingTestCase: UIImageBaseTestCase {
         executeImageScaledToSizeTest(verticalRectangularSize)
     }
 
-    // MARK: Aspect Scaled to Fit
-
-    func testThatImageIsAspectScaledToFitSquareSize() {
-        executeImageAspectScaledToFitSizeTest(squareSize)
-    }
-
-    func testThatImageIsAspectScaledToFitHorizontalRectangularSize() {
-        executeImageAspectScaledToFitSizeTest(horizontalRectangularSize)
-    }
-
-    func testThatImageIsAspectScaledToFitVerticalRectangularSize() {
-        executeImageAspectScaledToFitSizeTest(verticalRectangularSize)
-    }
-
-    // MARK: Aspect Scaled to Fill
-
-    func testThatImageIsAspectScaledToFillSquareSize() {
-        executeImageAspectScaledToFillSizeTest(squareSize)
-    }
-
-    func testThatImageIsAspectScaledToFillHorizontalRectangularSize() {
-        executeImageAspectScaledToFillSizeTest(horizontalRectangularSize)
-    }
-
-    func testThatImageIsAspectScaledToFillVerticalRectangularSize() {
-        executeImageAspectScaledToFillSizeTest(verticalRectangularSize)
-    }
-
-    // MARK: Private - Test Execution
-
     private func executeImageScaledToSizeTest(size: CGSize) {
         // Given
         let w = Int(round(size.width))
         let h = Int(round(size.height))
 
         // When
-        let scaledAppleImage = appleImage.af_imageScaledToSize(size).imageWithPNGRepresentation()
-        let scaledPirateImage = pirateImage.af_imageScaledToSize(size).imageWithPNGRepresentation()
-        let scaledRainbowImage = rainbowImage.af_imageScaledToSize(size).imageWithPNGRepresentation()
-        let scaledUnicornImage = unicornImage.af_imageScaledToSize(size).imageWithPNGRepresentation()
+        let scaledAppleImage = appleImage.af_imageScaledToSize(size).af_imageWithPNGRepresentation()
+        let scaledPirateImage = pirateImage.af_imageScaledToSize(size).af_imageWithPNGRepresentation()
+        let scaledRainbowImage = rainbowImage.af_imageScaledToSize(size).af_imageWithPNGRepresentation()
+        let scaledUnicornImage = unicornImage.af_imageScaledToSize(size).af_imageWithPNGRepresentation()
 
         // Then
         let expectedAppleImage = imageForResource("apple-scaled-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -206,16 +183,28 @@ class UIImageScalingTestCase: UIImageBaseTestCase {
         XCTAssertEqual(scaledUnicornImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
     }
 
+    func testThatImageIsAspectScaledToFitSquareSize() {
+        executeImageAspectScaledToFitSizeTest(squareSize)
+    }
+
+    func testThatImageIsAspectScaledToFitHorizontalRectangularSize() {
+        executeImageAspectScaledToFitSizeTest(horizontalRectangularSize)
+    }
+
+    func testThatImageIsAspectScaledToFitVerticalRectangularSize() {
+        executeImageAspectScaledToFitSizeTest(verticalRectangularSize)
+    }
+
     private func executeImageAspectScaledToFitSizeTest(size: CGSize) {
         // Given
         let w = Int(round(size.width))
         let h = Int(round(size.height))
 
         // When
-        let scaledAppleImage = appleImage.af_imageAspectScaledToFitSize(size).imageWithPNGRepresentation()
-        let scaledPirateImage = pirateImage.af_imageAspectScaledToFitSize(size).imageWithPNGRepresentation()
-        let scaledRainbowImage = rainbowImage.af_imageAspectScaledToFitSize(size).imageWithPNGRepresentation()
-        let scaledUnicornImage = unicornImage.af_imageAspectScaledToFitSize(size).imageWithPNGRepresentation()
+        let scaledAppleImage = appleImage.af_imageAspectScaledToFitSize(size).af_imageWithPNGRepresentation()
+        let scaledPirateImage = pirateImage.af_imageAspectScaledToFitSize(size).af_imageWithPNGRepresentation()
+        let scaledRainbowImage = rainbowImage.af_imageAspectScaledToFitSize(size).af_imageWithPNGRepresentation()
+        let scaledUnicornImage = unicornImage.af_imageAspectScaledToFitSize(size).af_imageWithPNGRepresentation()
 
         // Then
         let expectedAppleImage = imageForResource("apple-aspect.scaled.to.fit-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -234,16 +223,28 @@ class UIImageScalingTestCase: UIImageBaseTestCase {
         XCTAssertEqual(scaledUnicornImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
     }
 
+    func testThatImageIsAspectScaledToFillSquareSize() {
+        executeImageAspectScaledToFillSizeTest(squareSize)
+    }
+
+    func testThatImageIsAspectScaledToFillHorizontalRectangularSize() {
+        executeImageAspectScaledToFillSizeTest(horizontalRectangularSize)
+    }
+
+    func testThatImageIsAspectScaledToFillVerticalRectangularSize() {
+        executeImageAspectScaledToFillSizeTest(verticalRectangularSize)
+    }
+
     private func executeImageAspectScaledToFillSizeTest(size: CGSize) {
         // Given
         let w = Int(round(size.width))
         let h = Int(round(size.height))
 
         // When
-        let scaledAppleImage = appleImage.af_imageAspectScaledToFillSize(size).imageWithPNGRepresentation()
-        let scaledPirateImage = pirateImage.af_imageAspectScaledToFillSize(size).imageWithPNGRepresentation()
-        let scaledRainbowImage = rainbowImage.af_imageAspectScaledToFillSize(size).imageWithPNGRepresentation()
-        let scaledUnicornImage = unicornImage.af_imageAspectScaledToFillSize(size).imageWithPNGRepresentation()
+        let scaledAppleImage = appleImage.af_imageAspectScaledToFillSize(size).af_imageWithPNGRepresentation()
+        let scaledPirateImage = pirateImage.af_imageAspectScaledToFillSize(size).af_imageWithPNGRepresentation()
+        let scaledRainbowImage = rainbowImage.af_imageAspectScaledToFillSize(size).af_imageWithPNGRepresentation()
+        let scaledUnicornImage = unicornImage.af_imageAspectScaledToFillSize(size).af_imageWithPNGRepresentation()
 
         // Then
         let expectedAppleImage = imageForResource("apple-aspect.scaled.to.fill-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -261,13 +262,8 @@ class UIImageScalingTestCase: UIImageBaseTestCase {
         XCTAssertEqual(scaledRainbowImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
         XCTAssertEqual(scaledUnicornImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
     }
-}
 
-// MARK: -
-
-class UIImageRoundedCornersTestCase: UIImageBaseTestCase {
-
-    // MARK: Rounded Corners
+    // MARK: - Rounded Corners
 
     func testThatImageCornersAreRoundedToRadius() {
         // Given
@@ -275,10 +271,10 @@ class UIImageRoundedCornersTestCase: UIImageBaseTestCase {
         let r = Int(round(radius))
 
         // When
-        let roundedAppleImage = appleImage.af_imageWithRoundedCornerRadius(radius).imageWithPNGRepresentation()
-        let roundedPirateImage = pirateImage.af_imageWithRoundedCornerRadius(radius).imageWithPNGRepresentation()
-        let roundedRainbowImage = rainbowImage.af_imageWithRoundedCornerRadius(radius).imageWithPNGRepresentation()
-        let roundedUnicornImage = unicornImage.af_imageWithRoundedCornerRadius(radius).imageWithPNGRepresentation()
+        let roundedAppleImage = appleImage.af_imageWithRoundedCornerRadius(radius).af_imageWithPNGRepresentation()
+        let roundedPirateImage = pirateImage.af_imageWithRoundedCornerRadius(radius).af_imageWithPNGRepresentation()
+        let roundedRainbowImage = rainbowImage.af_imageWithRoundedCornerRadius(radius).af_imageWithPNGRepresentation()
+        let roundedUnicornImage = unicornImage.af_imageWithRoundedCornerRadius(radius).af_imageWithPNGRepresentation()
 
         // Then
         let expectedAppleImage = imageForResource("apple-radius-\(r)", withExtension: "png")
@@ -297,14 +293,12 @@ class UIImageRoundedCornersTestCase: UIImageBaseTestCase {
         XCTAssertEqual(roundedUnicornImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
     }
 
-    // MARK: Circle
-
     func testThatImageIsRoundedIntoCircle() {
         // Given, When
-        let circularAppleImage = appleImage.af_imageRoundedIntoCircle().imageWithPNGRepresentation()
-        let circularPirateImage = pirateImage.af_imageRoundedIntoCircle().imageWithPNGRepresentation()
-        let circularRainbowImage = rainbowImage.af_imageRoundedIntoCircle().imageWithPNGRepresentation()
-        let circularUnicornImage = unicornImage.af_imageRoundedIntoCircle().imageWithPNGRepresentation()
+        let circularAppleImage = appleImage.af_imageRoundedIntoCircle().af_imageWithPNGRepresentation()
+        let circularPirateImage = pirateImage.af_imageRoundedIntoCircle().af_imageWithPNGRepresentation()
+        let circularRainbowImage = rainbowImage.af_imageRoundedIntoCircle().af_imageWithPNGRepresentation()
+        let circularUnicornImage = unicornImage.af_imageRoundedIntoCircle().af_imageWithPNGRepresentation()
 
         // Then
         let expectedAppleImage = imageForResource("apple-circle", withExtension: "png")
@@ -333,17 +327,13 @@ class UIImageRoundedCornersTestCase: UIImageBaseTestCase {
         XCTAssertEqual(circularUnicornImage.size, expectedUnicornSize, "image scale should be equal to screen scale")
     }
 
-    // MARK: Private - Size Conversion
-
     private func expectedImageSizeForCircularImage(image: UIImage) -> CGSize {
         let dimension = min(image.size.width, image.size.height)
         return CGSize(width: dimension, height: dimension)
     }
-}
 
-// MARK: -
+    // MARK: - Core Image Filters
 
-class UIImageCoreImageFilterTestCase: UIImageBaseTestCase {
     func testThatImageWithAppliedGaussianBlurFilterReturnsBlurredImage() {
         // Given
         let parameters: [String: AnyObject] = ["inputRadius": 8]
@@ -353,7 +343,7 @@ class UIImageCoreImageFilterTestCase: UIImageBaseTestCase {
 
         // Then
         if var blurredImage = blurredImage {
-            blurredImage = blurredImage.imageWithPNGRepresentation()
+            blurredImage = blurredImage.af_imageWithPNGRepresentation()
             let expectedBlurredImage = imageForResource("unicorn-blurred-8", withExtension: "png")
             XCTAssertTrue(blurredImage.af_isEqualToImage(expectedBlurredImage), "blurred image pixels do not match")
         } else {
@@ -367,7 +357,7 @@ class UIImageCoreImageFilterTestCase: UIImageBaseTestCase {
 
         // Then
         if var sepiaImage = sepiaImage {
-            sepiaImage = sepiaImage.imageWithPNGRepresentation()
+            sepiaImage = sepiaImage.af_imageWithPNGRepresentation()
             let expectedSepiaImage = imageForResource("unicorn-sepia.tone", withExtension: "png")
             XCTAssertTrue(sepiaImage.af_isEqualToImage(expectedSepiaImage), "sepia image pixels do not match")
         } else {
