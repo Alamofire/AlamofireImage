@@ -37,7 +37,7 @@ class ImageViewController : UIViewController {
         setUpImageView()
     }
 
-    // MARK: - Private - Set Up Methods
+    // MARK: - Private - Setup Methods
 
     private func setUpInstanceProperties() {
         title = gravatar.email

@@ -26,29 +26,32 @@ import Foundation
 import XCTest
 
 class BaseImageTestCase : XCTestCase {
-
-    // MARK: - Properties
-
-    let defaultTimeoutDuration = 5.0
+    let timeout = 5.0
     var manager: Manager!
 
-    // MARK: - Set Up & Tear Down Methods
+    // MARK: - Setup and Teardown
 
     override func setUp() {
         super.setUp()
 
-        let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
+        manager = {
+            let configuration: NSURLSessionConfiguration = {
+                let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
 
-        let defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
-        configuration.HTTPAdditionalHeaders = defaultHeaders
+                let defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
+                configuration.HTTPAdditionalHeaders = defaultHeaders
 
-        self.manager = Manager(configuration: configuration)
+                return configuration
+            }()
+
+            return Manager(configuration: configuration)
+        }()
     }
 
     override func tearDown() {
         super.tearDown()
 
-        self.manager.session.finishTasksAndInvalidate()
-        self.manager = nil
+        manager.session.finishTasksAndInvalidate()
+        manager = nil
     }
 }
