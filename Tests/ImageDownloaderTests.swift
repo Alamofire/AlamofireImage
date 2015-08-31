@@ -113,11 +113,6 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
-
-        if let image = result?.value {
-            let expectedSize = sizeAdjustedToScreenScale(CGSize(width: 239.0, height: 178.0))
-            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-        }
     }
 
 #if os(iOS)
@@ -195,16 +190,6 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         XCTAssertTrue(result1?.isSuccess ?? false, "result 1 should be a success case")
         XCTAssertTrue(result2?.isSuccess ?? false, "result 2 should be a success case")
-
-        if let image = result1?.value {
-            let expectedSize = sizeAdjustedToScreenScale(CGSize(width: 239.0, height: 178.0))
-            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-        }
-
-        if let image = result2?.value {
-            let expectedSize = sizeAdjustedToScreenScale(CGSize(width: 100.0, height: 100.0))
-            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-        }
     }
 
 #if os(iOS)
@@ -410,11 +395,6 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertNotNil(result, "result should not be nil")
         XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
-
-        if let image = result?.value {
-            let expectedSize = sizeAdjustedToScreenScale(CGSize(width: 239.0, height: 178.0))
-            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-        }
     }
 
     func testThatItAutomaticallyCachesDownloadedImageIfCacheIsAvailable() {
@@ -543,16 +523,5 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Then
         XCTAssertEqual(queuedRequests.count, 1, "queued requests count should be 1")
         XCTAssertEqual(queuedRequests[0].task, request2.task, "queued request should be request 2")
-    }
-
-    // MARK: - Private - Convenience Methods
-
-    private func sizeAdjustedToScreenScale(size: CGSize) -> CGSize {
-        #if os(OSX)
-            return size
-        #elseif os(iOS)
-            let scale = UIScreen.mainScreen().scale
-            return CGSize(width: size.width * scale, height: size.height * scale)
-        #endif
     }
 }
