@@ -186,28 +186,7 @@ public struct ScaledToSizeWithRoundedCornersFilter: ImageFilter, Sizable, Rounda
     public var filter: Image -> Image {
         return { image in
             let scaledImage = image.af_imageScaledToSize(self.size)
-            let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius)
-
-            return roundedAndScaledImage
-        }
-    }
-}
-
-// MARK: -
-
-public struct AspectScaledToFitSizeWithRoundedCornersFilter: ImageFilter, Sizable, Roundable {
-    public let size: CGSize
-    public let radius: CGFloat
-
-    public init(size: CGSize, radius: CGFloat) {
-        self.size = size
-        self.radius = radius
-    }
-
-    public var filter: Image -> Image {
-        return { image in
-            let scaledImage = image.af_imageAspectScaledToFitSize(self.size)
-            let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius)
+            let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius * image.scale)
 
             return roundedAndScaledImage
         }
@@ -228,7 +207,7 @@ public struct AspectScaledToFillSizeWithRoundedCornersFilter: ImageFilter, Sizab
     public var filter: Image -> Image {
         return { image in
             let scaledImage = image.af_imageAspectScaledToFillSize(self.size)
-            let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius)
+            let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius * image.scale)
 
             return roundedAndScaledImage
         }
@@ -241,7 +220,7 @@ public struct ScaledToSizeCircleFilter: ImageFilter, Sizable, Roundable {
     public let size: CGSize
     public let radius: CGFloat
 
-    public init(size: CGSize, radius: CGFloat) {
+    public init(size: CGSize) {
         self.size = size
         self.radius = min(size.width, size.height) / 2.0
     }
@@ -258,32 +237,11 @@ public struct ScaledToSizeCircleFilter: ImageFilter, Sizable, Roundable {
 
 // MARK: -
 
-public struct AspectScaledToFitSizeCircleFilter: ImageFilter, Sizable, Roundable {
-    public let size: CGSize
-    public let radius: CGFloat
-
-    public init(size: CGSize, radius: CGFloat) {
-        self.size = size
-        self.radius = min(size.width, size.height) / 2.0
-    }
-
-    public var filter: Image -> Image {
-        return { image in
-            let scaledImage = image.af_imageAspectScaledToFitSize(self.size)
-            let scaledCircleImage = scaledImage.af_imageRoundedIntoCircle()
-
-            return scaledCircleImage
-        }
-    }
-}
-
-// MARK: -
-
 public struct AspectScaledToFillSizeCircleFilter: ImageFilter, Sizable, Roundable {
     public let size: CGSize
     public let radius: CGFloat
 
-    public init(size: CGSize, radius: CGFloat) {
+    public init(size: CGSize) {
         self.size = size
         self.radius = min(size.width, size.height) / 2.0
     }
