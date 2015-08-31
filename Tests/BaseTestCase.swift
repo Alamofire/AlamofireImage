@@ -62,15 +62,15 @@ class BaseTestCase : XCTestCase {
         return bundle.URLForResource(fileName, withExtension: withExtension)!
     }
 
-#if os(iOS)
-
-    func imageForResource(fileName: String, withExtension ext: String) -> UIImage {
+    func imageForResource(fileName: String, withExtension ext: String) -> Image {
         let URL = URLForResource(fileName, withExtension: ext)
         let data = NSData(contentsOfURL: URL)!
-        let image = UIImage.af_threadSafeImageWithData(data, scale: UIScreen.mainScreen().scale)!
+        #if os(iOS)
+            let image = Image.af_threadSafeImageWithData(data, scale: UIScreen.mainScreen().scale)!
+        #elseif os(OSX)
+            let image = Image(data: data)!
+        #endif
 
         return image
     }
-
-#endif
 }
