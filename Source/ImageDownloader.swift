@@ -36,7 +36,7 @@ public class ImageDownloader {
         case FIFO, LIFO
     }
 
-    private class ResponseHandler {
+    class ResponseHandler {
         let identifier: String
         let request: Request
         var filters: [ImageFilter?]
@@ -52,20 +52,20 @@ public class ImageDownloader {
 
     // MARK: - Properties
 
-    public let imageCache: ImageRequestCache
+    public let imageCache: ImageRequestCache?
     public private(set) var credential: NSURLCredential?
 
-    private let sessionManager: Alamofire.Manager
+    var queuedRequests: [Request]
+    var activeRequestCount: Int
+    let maximumActiveDownloads: Int
 
-    private var queuedRequests: [Request]
-    private var responseHandlers: [String: ResponseHandler]
+    let sessionManager: Alamofire.Manager
 
     private let synchronizationQueue: dispatch_queue_t
     private let responseQueue: dispatch_queue_t
     private let downloadPrioritization: DownloadPrioritization
 
-    private var activeRequestCount: Int
-    private let maximumActiveDownloads: Int
+    private var responseHandlers: [String: ResponseHandler]
 
     // MARK: - Initialization
 
@@ -75,13 +75,12 @@ public class ImageDownloader {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
 
         configuration.HTTPAdditionalHeaders = Manager.defaultHTTPHeaders
-        configuration.HTTPShouldSetCookies = true // true by default
-        configuration.HTTPShouldUsePipelining = true // risky change...
-//        configuration.HTTPMaximumConnectionsPerHost = 4 on iOS or 6 on OSX
+        configuration.HTTPShouldSetCookies = true
+        configuration.HTTPShouldUsePipelining = false
 
-        configuration.requestCachePolicy = .UseProtocolCachePolicy // Let server decide (should handle `willCache`)
+        configuration.requestCachePolicy = .UseProtocolCachePolicy
         configuration.allowsCellularAccess = true
-        configuration.timeoutIntervalForRequest = 30 // default is 60
+        configuration.timeoutIntervalForRequest = 60
 
         configuration.URLCache = ImageDownloader.defaultURLCache()
 
@@ -100,7 +99,7 @@ public class ImageDownloader {
         configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(),
         downloadPrioritization: DownloadPrioritization = .FIFO,
         maximumActiveDownloads: Int = 4,
-        imageCache: ImageRequestCache = AutoPurgingImageCache())
+        imageCache: ImageRequestCache? = AutoPurgingImageCache())
     {
         self.sessionManager = Alamofire.Manager(configuration: configuration)
         self.sessionManager.startRequestsImmediately = false
@@ -128,11 +127,11 @@ public class ImageDownloader {
     // MARK: - Authentication
 
     public func addAuthentication(
-        username username: String,
+        user user: String,
         password: String,
         persistence: NSURLCredentialPersistence = .ForSession)
     {
-        let credential = NSURLCredential(user: username, password: password, persistence: persistence)
+        let credential = NSURLCredential(user: user, password: password, persistence: persistence)
         addAuthentication(usingCredential: credential)
     }
 
@@ -171,7 +170,7 @@ public class ImageDownloader {
             // 2) Attempt to load the image from the image cache if the cache policy allows it
             switch URLRequest.URLRequest.cachePolicy {
             case .UseProtocolCachePolicy, .ReturnCacheDataElseLoad, .ReturnCacheDataDontLoad:
-                if let image = self.imageCache.imageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
+                if let image = self.imageCache?.imageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
                     dispatch_async(dispatch_get_main_queue()) {
                         completion(URLRequest.URLRequest, nil, .Success(image))
                     }
@@ -209,7 +208,7 @@ public class ImageDownloader {
                                 completion(request, response, .Success(image))
                             }
 
-                            strongSelf.imageCache.addImage(image, forRequest: request, withIdentifier: filter?.identifier)
+                            strongSelf.imageCache?.addImage(image, forRequest: request, withIdentifier: filter?.identifier)
                         }
                     case .Failure:
                         for completion in responseHandler.completionHandlers {
@@ -239,9 +238,9 @@ public class ImageDownloader {
         return request
     }
 
-    // MARK: - Private - Thread-Safe Request Methods
+    // MARK: - Internal - Thread-Safe Request Methods
 
-    private func safelyRemoveResponseHandlerWithIdentifier(identifier: String) -> ResponseHandler {
+    func safelyRemoveResponseHandlerWithIdentifier(identifier: String) -> ResponseHandler {
         var responseHandler: ResponseHandler!
 
         dispatch_sync(synchronizationQueue) {
@@ -251,7 +250,7 @@ public class ImageDownloader {
         return responseHandler
     }
 
-    private func safelyStartNextRequestIfNecessary() {
+    func safelyStartNextRequestIfNecessary() {
         dispatch_sync(synchronizationQueue) {
             guard self.isActiveRequestCountBelowMaximumLimit() else { return }
 
@@ -264,7 +263,7 @@ public class ImageDownloader {
         }
     }
 
-    private func safelyDecrementActiveRequestCount() {
+    func safelyDecrementActiveRequestCount() {
         dispatch_sync(self.synchronizationQueue) {
             if self.activeRequestCount > 0 {
                 self.activeRequestCount -= 1
@@ -272,14 +271,14 @@ public class ImageDownloader {
         }
     }
 
-    // MARK: - Private - Non Thread-Safe Request Methods
+    // MARK: - Internal - Non Thread-Safe Request Methods
 
-    private func startRequest(request: Request) {
+    func startRequest(request: Request) {
         request.resume()
         ++activeRequestCount
     }
 
-    private func enqueueRequest(request: Request) {
+    func enqueueRequest(request: Request) {
         switch downloadPrioritization {
         case .FIFO:
             queuedRequests.append(request)
@@ -288,7 +287,7 @@ public class ImageDownloader {
         }
     }
 
-    private func dequeueRequest() -> Request? {
+    func dequeueRequest() -> Request? {
         var request: Request?
 
         if !queuedRequests.isEmpty {
@@ -298,11 +297,11 @@ public class ImageDownloader {
         return request
     }
 
-    private func isActiveRequestCountBelowMaximumLimit() -> Bool {
+    func isActiveRequestCountBelowMaximumLimit() -> Bool {
         return activeRequestCount < maximumActiveDownloads
     }
 
-    private static func identifierForURLRequest(URLRequest: URLRequestConvertible) -> String {
+    static func identifierForURLRequest(URLRequest: URLRequestConvertible) -> String {
         return URLRequest.URLRequest.URLString
     }
 }

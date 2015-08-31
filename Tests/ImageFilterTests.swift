@@ -22,6 +22,7 @@
 
 import AlamofireImage
 import Foundation
+import UIKit
 import XCTest
 
 class ImageFilterTestCase: BaseTestCase {
