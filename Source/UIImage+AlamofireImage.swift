@@ -21,9 +21,12 @@
 // THE SOFTWARE.
 
 import CoreGraphics
-import CoreImage
 import Foundation
 import UIKit
+
+#if os(iOS)
+import CoreImage
+#endif
 
 // MARK: Initialization
 
@@ -222,6 +225,8 @@ extension UIImage {
     }
 }
 
+#if os(iOS)
+
 // MARK: - Core Image Filters
 
 extension UIImage {
@@ -250,3 +255,5 @@ extension UIImage {
         return UIImage(CGImage: cgImageRef, scale: scale, orientation: imageOrientation)
     }
 }
+
+#endif

@@ -32,14 +32,16 @@ import Cocoa
 // MARK: ImageCache
 
 public protocol ImageCache {
-    func cachedImageWithIdentifier(identifier: String) -> Image?
-    func cacheImage(image: Image, withIdentifier identifier: String)
-    func removeAllCachedImages()
+    func addImage(image: Image, withIdentifier identifier: String)
+    func removeImageWithIdentifier(identifier: String) -> Bool
+    func removeAllImages() -> Bool
+    func imageWithIdentifier(identifier: String) -> Image?
 }
 
 public protocol ImageRequestCache: ImageCache {
-    func cachedImageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> Image?
-    func cacheImage(image: Image, forRequest request: NSURLRequest, withIdentifier identifier: String?)
+    func addImage(image: Image, forRequest request: NSURLRequest, withIdentifier identifier: String?)
+    func removeImageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> Bool
+    func imageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> Image?
 }
 
 // MARK: -
@@ -48,8 +50,8 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
     // MARK: CachedImage
 
-    class CachedImage {
-        private let image: Image
+    private class CachedImage {
+        let image: Image
         let identifier: String
         let totalBytes: UInt64
         var lastAccessDate: NSDate
@@ -82,16 +84,27 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
     // MARK: Properties
 
-    public private(set) var currentMemoryUsage: UInt64
+    public var memoryUsage: UInt64 {
+        var memoryUsage: UInt64 = 0
+
+        dispatch_sync(synchronizationQueue) {
+            memoryUsage = self.currentMemoryUsage
+        }
+
+        return memoryUsage
+    }
+
     public let memoryCapacity: UInt64
     public let preferredMemoryUsageAfterPurge: UInt64
 
     private var cachedImages: [String: CachedImage]
     private let synchronizationQueue: dispatch_queue_t
 
+    private var currentMemoryUsage: UInt64
+
     // MARK: Initialization
 
-    init(memoryCapacity: UInt64 = 100 * 1024 * 1024, preferredMemoryUsageAfterPurge: UInt64 = 60 * 1024 * 1024) {
+    public init(memoryCapacity: UInt64 = 100 * 1024 * 1024, preferredMemoryUsageAfterPurge: UInt64 = 60 * 1024 * 1024) {
         self.memoryCapacity = memoryCapacity
         self.preferredMemoryUsageAfterPurge = preferredMemoryUsageAfterPurge
 
@@ -106,7 +119,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
         #if os(iOS)
             NSNotificationCenter.defaultCenter().addObserver(
                 self,
-                selector: "removeAllCachedImages",
+                selector: "removeAllImages",
                 name: UIApplicationDidReceiveMemoryWarningNotification,
                 object: nil
             )
@@ -117,32 +130,15 @@ public class AutoPurgingImageCache: ImageRequestCache {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
-    // MARK: Cache Methods
+    // MARK: Add Image to Cache
 
-    public func cachedImageForRequest(request: NSURLRequest, withIdentifier identifier: String? = nil) -> Image? {
+    public func addImage(image: Image, forRequest request: NSURLRequest, withIdentifier identifier: String? = nil) {
         let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
-        return cachedImageWithIdentifier(requestIdentifier)
+        addImage(image, withIdentifier: requestIdentifier)
     }
 
-    public func cachedImageWithIdentifier(identifier: String) -> Image? {
-        var image: Image?
-
-        dispatch_sync(synchronizationQueue) {
-            if let cachedImage = self.cachedImages[identifier] {
-                image = cachedImage.accessImage()
-            }
-        }
-
-        return image
-    }
-
-    public func cacheImage(image: Image, forRequest request: NSURLRequest, withIdentifier identifier: String? = nil) {
-        let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
-        cacheImage(image, withIdentifier: requestIdentifier)
-    }
-
-    public func cacheImage(image: Image, withIdentifier identifier: String) {
-        dispatch_barrier_async(self.synchronizationQueue) {
+    public func addImage(image: Image, withIdentifier identifier: String) {
+        dispatch_barrier_async(synchronizationQueue) {
             let cachedImage = CachedImage(image, identifier: identifier)
 
             if let previousCachedImage = self.cachedImages[identifier] {
@@ -151,15 +147,10 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
             self.cachedImages[identifier] = cachedImage
             self.currentMemoryUsage += cachedImage.totalBytes
-            print("Cached image: \(identifier) total bytes: \(self.currentMemoryUsage)")
         }
 
-        dispatch_barrier_async(self.synchronizationQueue) {
+        dispatch_barrier_async(synchronizationQueue) {
             if self.currentMemoryUsage > self.memoryCapacity {
-                // purge me some bytes!!!
-                let bytesOverMaximumAllowed = self.currentMemoryUsage - self.memoryCapacity
-                print("Bytes over maximum allowed: \(bytesOverMaximumAllowed)")
-
                 let bytesToPurge = self.currentMemoryUsage - self.preferredMemoryUsageAfterPurge
 
                 var sortedImages = [CachedImage](self.cachedImages.values)
@@ -172,11 +163,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
                 var bytesPurged = UInt64(0)
 
-                print("================== STARTING PURGE \(self.currentMemoryUsage) ==========================")
-
                 for cachedImage in sortedImages {
-                    print("Purging Cached Image: \(cachedImage.lastAccessDate) \(cachedImage.totalBytes) \(cachedImage.identifier)")
-
                     self.cachedImages.removeValueForKey(cachedImage.identifier)
                     bytesPurged += cachedImage.totalBytes
 
@@ -186,18 +173,65 @@ public class AutoPurgingImageCache: ImageRequestCache {
                 }
 
                 self.currentMemoryUsage -= bytesPurged
-
-                print("================== FINISHED PURGE \(self.currentMemoryUsage) ==========================")
             }
         }
     }
 
-    public func removeAllCachedImages() {
-        dispatch_barrier_async(self.synchronizationQueue) {
-            print("Removed all cached images!!!")
+    // MARK: - Remove Image from Cache
+
+    public func removeImageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> Bool {
+        let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
+        return removeImageWithIdentifier(requestIdentifier)
+    }
+
+    public func removeImageWithIdentifier(identifier: String) -> Bool {
+        var removed = false
+
+        dispatch_barrier_async(synchronizationQueue) {
+            if let cachedImage = self.cachedImages.removeValueForKey(identifier) {
+                self.currentMemoryUsage -= cachedImage.totalBytes
+                removed = true
+            }
+        }
+
+        return removed
+    }
+
+    @objc public func removeAllImages() -> Bool {
+        var removed = false
+
+        dispatch_sync(synchronizationQueue) {
+            if !self.cachedImages.isEmpty {
+                self.cachedImages.removeAll()
+                self.currentMemoryUsage = 0
+            }
+
             self.cachedImages.removeAll()
             self.currentMemoryUsage = 0
+
+            removed = true
         }
+
+        return removed
+    }
+
+    // MARK: Fetch Image from Cache
+
+    public func imageForRequest(request: NSURLRequest, withIdentifier identifier: String? = nil) -> Image? {
+        let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
+        return imageWithIdentifier(requestIdentifier)
+    }
+
+    public func imageWithIdentifier(identifier: String) -> Image? {
+        var image: Image?
+
+        dispatch_sync(synchronizationQueue) {
+            if let cachedImage = self.cachedImages[identifier] {
+                image = cachedImage.accessImage()
+            }
+        }
+
+        return image
     }
 
     // MARK: Private - Helper Methods
