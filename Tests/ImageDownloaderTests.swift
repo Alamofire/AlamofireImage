@@ -219,6 +219,46 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
     }
 
+    func testThatItCanDownloadImagesWithDisabledURLCacheInSessionConfiguration() {
+        // Given
+        let downloader: ImageDownloader = {
+            let configuration: NSURLSessionConfiguration = {
+                let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+                configuration.URLCache = nil
+
+                return configuration
+            }()
+
+            let downloader = ImageDownloader(configuration: configuration)
+            return downloader
+        }()
+
+        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+
+        let expectation = expectationWithDescription("image download should succeed")
+
+        var request: NSURLRequest?
+        var response: NSHTTPURLResponse?
+        var result: Result<Image>?
+
+        // When
+        downloader.downloadImage(URLRequest: download) { responseRequest, responseResponse, responseResult in
+            request = responseRequest
+            response = responseResponse
+            result = responseResult
+
+            expectation.fulfill()
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request, "request should not be nil")
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertNotNil(result, "result should not be nil")
+        XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
+    }
+
 #if os(iOS)
 
     // MARK: - Image Download Tests (iOS Only)
