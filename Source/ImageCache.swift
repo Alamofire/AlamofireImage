@@ -47,9 +47,6 @@ public protocol ImageRequestCache: ImageCache {
 // MARK: -
 
 public class AutoPurgingImageCache: ImageRequestCache {
-
-    // MARK: CachedImage
-
     private class CachedImage {
         let image: Image
         let identifier: String
@@ -177,7 +174,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
         }
     }
 
-    // MARK: - Remove Image from Cache
+    // MARK: Remove Image from Cache
 
     public func removeImageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> Bool {
         let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
