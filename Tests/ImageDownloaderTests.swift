@@ -491,6 +491,66 @@ class ImageDownloaderTestCase: BaseTestCase {
 
     // MARK: - Image Caching Tests
 
+    func testThatCachedImageIsReturnedIfAllowedByCachePolicy() {
+        // Given
+        let downloader = ImageDownloader()
+        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+
+        let expectation1 = expectationWithDescription("image download should succeed")
+
+        // When
+        let request1 = downloader.downloadImage(URLRequest: download1) { _, _, _ in
+            expectation1.fulfill()
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        let download2 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        download2.cachePolicy = .ReturnCacheDataElseLoad
+
+        let expectation2 = expectationWithDescription("image download should succeed")
+
+        let request2 = downloader.downloadImage(URLRequest: download2) { _, _, _ in
+            expectation2.fulfill()
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request1, "request 1 should not be nil")
+        XCTAssertNil(request2, "request 2 should be nil")
+    }
+
+    func testThatCachedImageIsNotReturnedIfNotAllowedByCachePolicy() {
+        // Given
+        let downloader = ImageDownloader()
+        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+
+        let expectation1 = expectationWithDescription("image download should succeed")
+
+        // When
+        let request1 = downloader.downloadImage(URLRequest: download1) { _, _, _ in
+            expectation1.fulfill()
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        let download2 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        download2.cachePolicy = .ReloadIgnoringLocalCacheData
+
+        let expectation2 = expectationWithDescription("image download should succeed")
+
+        let request2 = downloader.downloadImage(URLRequest: download2) { _, _, _ in
+            expectation2.fulfill()
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request1, "request 1 should not be nil")
+        XCTAssertNotNil(request2, "request 2 should not be nil")
+    }
+
     func testThatItCanDownloadImagesWhenNoImageCacheIsAvailable() {
         // Given
         let downloader = ImageDownloader(imageCache: nil)
