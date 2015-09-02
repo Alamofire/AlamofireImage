@@ -199,9 +199,16 @@ public class ImageDownloader {
 
                     switch result {
                     case .Success(var image):
+                        var filteredImages: [String: Image] = [:]
+
                         for (filter, completion) in zip(responseHandler.filters, responseHandler.completionHandlers) {
-                            if let filter = filter {
-                                image = filter.filter(image)
+                            if let filter = filter where filteredImages[filter.identifier] == nil {
+                                if let filteredImage = filteredImages[filter.identifier] {
+                                    image = filteredImage
+                                } else {
+                                    image = filter.filter(image)
+                                    filteredImages[filter.identifier] = image
+                                }
                             }
 
                             dispatch_async(dispatch_get_main_queue()) {

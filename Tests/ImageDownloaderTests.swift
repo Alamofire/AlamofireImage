@@ -40,6 +40,19 @@ private class ThreadCheckFilter: ImageFilter {
 
 // MARK: -
 
+private class TestBlurFilter: ImageFilter {
+    var filterOperationCompleted = false
+
+    var filter: Image -> Image {
+        return { image in
+            self.filterOperationCompleted = true
+            return image.af_imageWithAppliedCoreImageFilter("CIGaussianBlur") ?? image
+        }
+    }
+}
+
+// MARK: -
+
 class ImageDownloaderTestCase: BaseTestCase {
 
     // MARK: - Setup and Teardown
@@ -290,6 +303,48 @@ class ImageDownloaderTestCase: BaseTestCase {
         if let image = result2?.value {
             XCTAssertEqual(image.size, CGSize(width: 75, height: 75), "image size does not match expected value")
         }
+    }
+
+    func testThatDownloadsWithMultipleResponseHandlersOnlyRunDuplicateImageFiltersOnce() {
+        // Given
+        let downloader = ImageDownloader()
+
+        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download2 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+
+        let filter1 = TestBlurFilter()
+        let filter2 = TestBlurFilter()
+
+        let expectation1 = expectationWithDescription("download request 1 should succeed")
+        let expectation2 = expectationWithDescription("download request 2 should succeed")
+
+        var result1: Result<Image>?
+        var result2: Result<Image>?
+
+        // When
+        let request1 = downloader.downloadImage(URLRequest: download1, filter: filter1) { _, _, responseResult in
+            result1 = responseResult
+            expectation1.fulfill()
+        }
+
+        let request2 = downloader.downloadImage(URLRequest: download2, filter: filter2) { _, _, responseResult in
+            result2 = responseResult
+            expectation2.fulfill()
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertEqual(request1?.task, request2?.task, "request 1 and 2 should be equal")
+
+        XCTAssertNotNil(result1, "result 1 should not be nil")
+        XCTAssertNotNil(result2, "result 2 should not be nil")
+
+        XCTAssertTrue(result1?.isSuccess ?? false, "result 1 should be a success case")
+        XCTAssertTrue(result2?.isSuccess ?? false, "result 2 should be a success case")
+
+        XCTAssertTrue(filter1.filterOperationCompleted, "the filter 1 filter operation completed flag should be true")
+        XCTAssertFalse(filter2.filterOperationCompleted, "the filter 2 filter operation completed flag should be false")
     }
 
 #endif
