@@ -104,8 +104,7 @@ public extension UIImageView {
             placeholderImage: placeholderImage,
             filter: nil,
             imageTransition: .None,
-            success: nil,
-            failure: nil
+            completion: nil
         )
     }
 
@@ -115,8 +114,7 @@ public extension UIImageView {
             placeholderImage: placeholderImage,
             filter: filter,
             imageTransition: .None,
-            success: nil,
-            failure: nil
+            completion: nil
         )
     }
 
@@ -126,8 +124,7 @@ public extension UIImageView {
             placeholderImage: placeholderImage,
             filter: nil,
             imageTransition: imageTransition,
-            success: nil,
-            failure: nil
+            completion: nil
         )
     }
 
@@ -142,8 +139,7 @@ public extension UIImageView {
             placeholderImage: placeholderImage,
             filter: filter,
             imageTransition: imageTransition,
-            success: nil,
-            failure: nil
+            completion: nil
         )
     }
 
@@ -152,8 +148,7 @@ public extension UIImageView {
         placeholderImage: UIImage?,
         filter: ImageFilter?,
         imageTransition: ImageTransition,
-        success: ((NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void)?,
-        failure: ((NSURLRequest?, NSHTTPURLResponse?, NSData?, ErrorType) -> Void)?)
+        completion: ((NSURLRequest?, NSHTTPURLResponse?, Result<UIImage>) -> Void)?)
     {
         af_cancelImageRequest()
 
@@ -162,8 +157,8 @@ public extension UIImageView {
 
         // Use the image from the image cache if it exists
         if let image = imageCache?.imageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
-            if let success = success {
-                success(URLRequest.URLRequest, nil, image)
+            if let completion = completion {
+                completion(URLRequest.URLRequest, nil, .Success(image))
             } else {
                 self.image = image
             }
@@ -176,7 +171,7 @@ public extension UIImageView {
             self.image = placeholderImage
         }
 
-        // Download the image, then run the image transition, success closure or failure closure
+        // Download the image, then run the image transition or completion handler
         let request = UIImageView.af_sharedImageDownloader.downloadImage(
             URLRequest: URLRequest,
             filter: filter,
@@ -191,29 +186,28 @@ public extension UIImageView {
                     return
                 }
 
-                switch result {
-                case .Success(let image):
-                    if let success = success {
-                        success(request, response, image)
-                    } else {
-                        switch imageTransition {
-                        case .None:
-                            strongSelf.image = image
-                        default:
-                            UIView.transitionWithView(
-                                strongSelf,
-                                duration: imageTransition.duration,
-                                options: imageTransition.animationOptions,
-                                animations: {
-                                    strongSelf.image = image
-                                },
-                                completion: nil
-                            )
-                        }
+                strongSelf.af_activeRequest = nil
+
+                guard completion == nil else {
+                    completion?(request, response, result)
+                    return
+                }
+
+                if let image = result.value {
+                    switch imageTransition {
+                    case .None:
+                        strongSelf.image = image
+                    default:
+                        UIView.transitionWithView(
+                            strongSelf,
+                            duration: imageTransition.duration,
+                            options: imageTransition.animationOptions,
+                            animations: {
+                                strongSelf.image = image
+                            },
+                            completion: nil
+                        )
                     }
-                case .Failure(let data, let error):
-                    failure?(request, response, data, error)
-                    strongSelf.af_activeRequest = nil
                 }
             }
         )
