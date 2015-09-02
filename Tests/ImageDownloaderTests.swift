@@ -40,6 +40,8 @@ private class ThreadCheckFilter: ImageFilter {
 
 // MARK: -
 
+#if os(iOS)
+
 private class TestBlurFilter: ImageFilter {
     var filterOperationCompleted = false
 
@@ -50,6 +52,8 @@ private class TestBlurFilter: ImageFilter {
         }
     }
 }
+
+#endif
 
 // MARK: -
 
