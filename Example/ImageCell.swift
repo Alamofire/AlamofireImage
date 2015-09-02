@@ -58,8 +58,8 @@ class ImageCell : UICollectionViewCell {
     func configureCellWithURLString(URLString: String, placeholderImage: UIImage) {
         let size = imageView.frame.size
 
-        imageView.af_setImage(
-            URLString: URLString,
+        imageView.af_setImageWithURL(
+            NSURL(string: URLString)!,
             placeholderImage: placeholderImage,
             filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
             imageTransition: .CrossDissolve(0.2)

@@ -98,9 +98,9 @@ public extension UIImageView {
 
     // MARK: - Image Download Methods
 
-    public func af_setImage(URLString URLString: String, placeholderImage: UIImage? = nil) {
+    public func af_setImageWithURL(URL: NSURL, placeholderImage: UIImage? = nil) {
         af_setImage(
-            URLRequest: URLRequestWithURLString(URLString),
+            URLRequest: URLRequestWithURL(URL),
             placeholderImage: placeholderImage,
             filter: nil,
             imageTransition: .None,
@@ -109,9 +109,9 @@ public extension UIImageView {
         )
     }
 
-    public func af_setImage(URLString URLString: String, placeholderImage: UIImage?, filter: ImageFilter) {
+    public func af_setImageWithURL(URL: NSURL, placeholderImage: UIImage?, filter: ImageFilter) {
         af_setImage(
-            URLRequest: URLRequestWithURLString(URLString),
+            URLRequest: URLRequestWithURL(URL),
             placeholderImage: placeholderImage,
             filter: filter,
             imageTransition: .None,
@@ -120,9 +120,9 @@ public extension UIImageView {
         )
     }
 
-    public func af_setImage(URLString URLString: String, placeholderImage: UIImage?, imageTransition: ImageTransition) {
+    public func af_setImageWithURL(URL: NSURL, placeholderImage: UIImage?, imageTransition: ImageTransition) {
         af_setImage(
-            URLRequest: URLRequestWithURLString(URLString),
+            URLRequest: URLRequestWithURL(URL),
             placeholderImage: placeholderImage,
             filter: nil,
             imageTransition: imageTransition,
@@ -131,14 +131,14 @@ public extension UIImageView {
         )
     }
 
-    public func af_setImage(
-        URLString URLString: String,
+    public func af_setImageWithURL(
+        URL: NSURL,
         placeholderImage: UIImage?,
         filter: ImageFilter?,
         imageTransition: ImageTransition)
     {
         af_setImage(
-            URLRequest: URLRequestWithURLString(URLString),
+            URLRequest: URLRequestWithURL(URL),
             placeholderImage: placeholderImage,
             filter: filter,
             imageTransition: imageTransition,
@@ -229,8 +229,8 @@ public extension UIImageView {
 
     // MARK: - Private - URL Request Helper Methods
 
-    private func URLRequestWithURLString(URLString: String) -> NSURLRequest {
-        let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URLString)!)
+    private func URLRequestWithURL(URL: NSURL) -> NSURLRequest {
+        let mutableURLRequest = NSMutableURLRequest(URL: URL)
         mutableURLRequest.addValue("image/*", forHTTPHeaderField: "Accept")
 
         return mutableURLRequest

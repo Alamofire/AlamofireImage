@@ -51,8 +51,8 @@ class ImageViewController : UIViewController {
 
         let URL = gravatar.URL(size: view.bounds.size.width)
 
-        imageView.af_setImage(
-            URLString: URL.URLString,
+        imageView.af_setImageWithURL(
+            URL,
             placeholderImage: nil,
             filter: CircleFilter(),
             imageTransition: .FlipFromBottom(0.5)
