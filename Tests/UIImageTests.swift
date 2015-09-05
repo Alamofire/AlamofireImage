@@ -117,28 +117,18 @@ class UIImageTestCase: BaseTestCase {
         let rainbowImage = imageForResource("rainbow", withExtension: "jpg")
         let unicornImage = imageForResource("unicorn", withExtension: "png")
 
-        // When
-        let inflatedRainbowImage = rainbowImage.af_inflatedImage()
-        let inflatedUnicornImage = unicornImage.af_inflatedImage()
-
-        // Then
-        XCTAssertNotNil(inflatedRainbowImage, "inflated rainbow image should not be nil")
-        XCTAssertNotNil(inflatedUnicornImage, "inflated unicorn image should not be nil")
-
-        XCTAssertNotEqual(inflatedRainbowImage, rainbowImage, "inflated rainbow image should not equal rainbow image")
-        XCTAssertNotEqual(inflatedUnicornImage, unicornImage, "inflated unicorn image should not equal unicorn image")
+        // When, Then
+        rainbowImage.af_inflate()
+        unicornImage.af_inflate()
     }
 
     func testThatImageThatHasAlreadyBeenInflatedIsNotInflatedAgain() {
         // Given
-        let unicornImage = imageForResource("unicorn", withExtension: "png").af_inflatedImage()!
+        let unicornImage = imageForResource("unicorn", withExtension: "png")
+        unicornImage.af_inflate()
 
-        // When
-        let inflatedImage = unicornImage.af_inflatedImage()
-
-        // Then
-        XCTAssertNotNil(inflatedImage, "inflated image should not be nil")
-        XCTAssertEqual(inflatedImage, unicornImage, "inflated image should equal unicorn image")
+        // When, Then
+        unicornImage.af_inflate()
     }
 
     // MARK: - Scaling Tests

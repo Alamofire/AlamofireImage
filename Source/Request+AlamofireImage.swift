@@ -71,11 +71,8 @@ extension Request {
             }
 
             do {
-                var image = try Request.imageFromResponseData(validData, imageScale: imageScale)
-
-                if inflateResponseImage, let inflatedImage = image.af_inflatedImage() {
-                    image = inflatedImage
-                }
+                let image = try Request.imageFromResponseData(validData, imageScale: imageScale)
+                if inflateResponseImage { image.af_inflate() }
 
                 return .Success(image)
             } catch {

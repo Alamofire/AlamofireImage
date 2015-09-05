@@ -97,56 +97,16 @@ extension UIImage {
     }
 
     /**
-        Returns a new version of the image backed by a uncompressed bitmap representation.
-    
-        Inflating compressed image formats (such as PNG or JPEG) can significantly improve drawing performance as it 
+        Inflates the underlying compressed image data to be backed by an uncompressed bitmap representation.
+
+        Inflating compressed image formats (such as PNG or JPEG) can significantly improve drawing performance as it
         allows a bitmap representation to be constructed in the background rather than on the main thread.
-
-        - returns: A new image object.
     */
-    public func af_inflatedImage() -> UIImage? {
-        // Do not re-inflate if already inflated
-        guard !af_inflated else { return self }
+    public func af_inflate() {
+        guard !af_inflated else { return }
 
-        // Do not attempt to inflate animated images
-        guard images == nil else { return nil }
-
-        // Do not attempt to inflate if not backed by a CGImage
-        guard let imageRef = CGImageCreateCopy(CGImage) else { return nil }
-
-        let width = CGImageGetWidth(imageRef)
-        let height = CGImageGetHeight(imageRef)
-        let bitsPerComponent = CGImageGetBitsPerComponent(imageRef)
-
-        // Do not attempt to inflate if too large or has more than 8-bit components
-        guard width * height <= 4096 * 4096 && bitsPerComponent <= 8 else { return nil }
-
-        let bytesPerRow: Int = 0
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        var bitmapInfo = CGImageGetBitmapInfo(imageRef)
-
-        // Fix alpha channel issues if necessary
-        let alpha = (bitmapInfo.rawValue & CGBitmapInfo.AlphaInfoMask.rawValue)
-
-        if alpha == CGImageAlphaInfo.None.rawValue {
-            bitmapInfo.remove(.AlphaInfoMask)
-            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.NoneSkipFirst.rawValue)
-        } else if !(alpha == CGImageAlphaInfo.NoneSkipFirst.rawValue) || !(alpha == CGImageAlphaInfo.NoneSkipLast.rawValue) {
-            bitmapInfo.remove(.AlphaInfoMask)
-            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.PremultipliedFirst.rawValue)
-        }
-
-        // Render the image
-        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
-        CGContextDrawImage(context, CGRectMake(0.0, 0.0, CGFloat(width), CGFloat(height)), imageRef)
-
-        // Make sure the inflation was successful
-        guard let inflatedImageRef = CGBitmapContextCreateImage(context) else { return nil }
-
-        let inflatedImage = UIImage(CGImage: inflatedImageRef, scale: scale, orientation: imageOrientation)
-        inflatedImage.af_inflated = true
-
-        return inflatedImage
+        af_inflated = true
+        CGDataProviderCopyData(CGImageGetDataProvider(CGImage))
     }
 }
 

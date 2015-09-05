@@ -27,7 +27,11 @@ extension UIImage {
     func af_isEqualToImage(image: UIImage, withinTolerance tolerance: UInt8 = 0) -> Bool {
         guard CGSizeEqualToSize(size, image.size) else { return false }
 
-        guard let inflated1 = af_inflatedImage(), let inflated2 = image.af_inflatedImage() else { return false }
+        let inflated1 = copy() as! UIImage
+        let inflated2 = image
+
+        inflated1.af_inflate()
+        inflated2.af_inflate()
 
         let pixelData1 = CGDataProviderCopyData(CGImageGetDataProvider(inflated1.CGImage))
         let pixelData2 = CGDataProviderCopyData(CGImageGetDataProvider(inflated2.CGImage))
