@@ -32,7 +32,8 @@ import WatchKit
 import Cocoa
 #endif
 
-public extension Request {
+extension Request {
+    /// The completion handler closure used when an image response serializer completes.
     public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<Image>) -> Void
 
     // MARK: - iOS and watchOS
@@ -43,20 +44,21 @@ public extension Request {
         Creates a response serializer that returns an image initialized from the response data using the specified
         image options.
 
-        - parameter imageScale: The scale factor used when interpreting the image data to construct `responseImage`.
-            Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the
-            image. Applying a different scale factor changes the size of the image as reported by the size property.
-            `UIScreen.mainScreen().scale` by default.
-        - parameter automaticallyInflateResponseImage: Whether to automatically inflate response image data for
-            compressed formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance as it
-            allows a bitmap representation to be constructed in the background rather than on the main thread. `true`
-            by default.
+        - parameter imageScale:           The scale factor used when interpreting the image data to construct 
+                                          `responseImage`. Specifying a scale factor of 1.0 results in an image whose 
+                                          size matches the pixel-based dimensions of the image. Applying a different 
+                                          scale factor changes the size of the image as reported by the size property.
+                                          `Screen.scale` by default.
+        - parameter inflateResponseImage: Whether to automatically inflate response image data for compressed formats 
+                                          (such as PNG or JPEG). Enabling this can significantly improve drawing 
+                                          performance as it allows a bitmap representation to be constructed in the 
+                                          background rather than on the main thread. `true` by default.
 
         - returns: An image response serializer.
     */
     public class func imageResponseSerializer(
         imageScale imageScale: CGFloat = Request.imageScale,
-        automaticallyInflateResponseImage: Bool = true)
+        inflateResponseImage: Bool = true)
         -> GenericResponseSerializer<UIImage>
     {
         return GenericResponseSerializer { request, response, data in
@@ -71,7 +73,7 @@ public extension Request {
             do {
                 var image = try Request.imageFromResponseData(validData, imageScale: imageScale)
 
-                if automaticallyInflateResponseImage, let inflatedImage = image.af_inflatedImage() {
+                if inflateResponseImage, let inflatedImage = image.af_inflatedImage() {
                     image = inflatedImage
                 }
 
@@ -85,31 +87,34 @@ public extension Request {
     /**
         Adds a handler to be called once the request has finished.
 
-        - parameter imageScale: The scale factor used when interpreting the image data to construct `responseImage`.
-            Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the
-            image. Applying a different scale factor changes the size of the image as reported by the size property.
-            This is set to the value of scale of the main screen by default, which automatically scales images for
-            retina displays, for instance. `UIScreen.mainScreen().scale` by default.
-        - parameter automaticallyInflateResponseImage: Whether to automatically inflate response image data for
-            compressed formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance as it
-            allows a bitmap representation to be constructed in the background rather than on the main thread. `true`
-            by default.
-        - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4
-            arguments: the URL request, the URL response, if one was received, the image, if one could be created from
-            the URL response and data, and any error produced while creating the image.
+        - parameter imageScale:           The scale factor used when interpreting the image data to construct 
+                                          `responseImage`. Specifying a scale factor of 1.0 results in an image whose 
+                                          size matches the pixel-based dimensions of the image. Applying a different 
+                                          scale factor changes the size of the image as reported by the size property.
+                                          This is set to the value of scale of the main screen by default, which 
+                                          automatically scales images for retina displays, for instance. 
+                                          `Screen.scale` by default.
+        - parameter inflateResponseImage: Whether to automatically inflate response image data for compressed formats 
+                                          (such as PNG or JPEG). Enabling this can significantly improve drawing 
+                                          performance as it allows a bitmap representation to be constructed in the 
+                                          background rather than on the main thread. `true` by default.
+        - parameter completionHandler:    A closure to be executed once the request has finished. The closure takes 4
+                                          arguments: the URL request, the URL response, if one was received, the image, 
+                                          if one could be created from the URL response and data, and any error produced 
+                                          while creating the image.
 
         - returns: The request.
     */
     public func responseImage(
         imageScale: CGFloat = Request.imageScale,
-        automaticallyInflateResponseImage: Bool = true,
+        inflateResponseImage: Bool = true,
         completionHandler: CompletionHandler)
         -> Self
     {
         return response(
             responseSerializer: Request.imageResponseSerializer(
                 imageScale: imageScale,
-                automaticallyInflateResponseImage: automaticallyInflateResponseImage
+                inflateResponseImage: inflateResponseImage
             ),
             completionHandler: completionHandler
         )
@@ -165,8 +170,9 @@ public extension Request {
         Adds a handler to be called once the request has finished.
 
         - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4
-            arguments: the URL request, the URL response, if one was received, the image, if one could be created from
-            the URL response and data, and any error produced while creating the image.
+                                       arguments: the URL request, the URL response, if one was received, the image, if 
+                                       one could be created from the URL response and data, and any error produced while 
+                                       creating the image.
 
         - returns: The request.
     */
