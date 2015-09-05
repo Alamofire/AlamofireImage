@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/AlamofireImage.svg?style=flat)](http://cocoadocs.org/docsets/AlamofireImage)
 [![Twitter](https://img.shields.io/badge/twitter-@AlamofireSF-blue.svg?style=flat)](http://twitter.com/AlamofireSF)
 
-AlamofireImage is an image component library to Alamofire.
+AlamofireImage is an image component library for Alamofire.
 
 ## Features
 

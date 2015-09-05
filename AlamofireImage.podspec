@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name = 'AlamofireImage'
   s.version = '1.0.0-beta.1'
   s.license = 'MIT'
-  s.summary = 'AlamofireImage is an image component library to Alamofire'
+  s.summary = 'AlamofireImage is an image component library for Alamofire'
   s.homepage = 'https://github.com/Alamofire/AlamofireImage'
   s.social_media_url = 'http://twitter.com/AlamofireSF'
   s.authors = { 'Alamofire Software Foundation' => 'info@alamofire.org' }
