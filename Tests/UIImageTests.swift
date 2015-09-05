@@ -151,10 +151,10 @@ class UIImageTestCase: BaseTestCase {
         let h = Int(round(size.height))
 
         // When
-        let scaledAppleImage = appleImage.af_imageScaledToSize(size).af_imageWithPNGRepresentation()
-        let scaledPirateImage = pirateImage.af_imageScaledToSize(size).af_imageWithPNGRepresentation()
-        let scaledRainbowImage = rainbowImage.af_imageScaledToSize(size).af_imageWithPNGRepresentation()
-        let scaledUnicornImage = unicornImage.af_imageScaledToSize(size).af_imageWithPNGRepresentation()
+        let scaledAppleImage = appleImage.af_imageScaledToSize(size)
+        let scaledPirateImage = pirateImage.af_imageScaledToSize(size)
+        let scaledRainbowImage = rainbowImage.af_imageScaledToSize(size)
+        let scaledUnicornImage = unicornImage.af_imageScaledToSize(size)
 
         // Then
         let expectedAppleImage = imageForResource("apple-scaled-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -191,10 +191,10 @@ class UIImageTestCase: BaseTestCase {
         let h = Int(round(size.height))
 
         // When
-        let scaledAppleImage = appleImage.af_imageAspectScaledToFitSize(size).af_imageWithPNGRepresentation()
-        let scaledPirateImage = pirateImage.af_imageAspectScaledToFitSize(size).af_imageWithPNGRepresentation()
-        let scaledRainbowImage = rainbowImage.af_imageAspectScaledToFitSize(size).af_imageWithPNGRepresentation()
-        let scaledUnicornImage = unicornImage.af_imageAspectScaledToFitSize(size).af_imageWithPNGRepresentation()
+        let scaledAppleImage = appleImage.af_imageAspectScaledToFitSize(size)
+        let scaledPirateImage = pirateImage.af_imageAspectScaledToFitSize(size)
+        let scaledRainbowImage = rainbowImage.af_imageAspectScaledToFitSize(size)
+        let scaledUnicornImage = unicornImage.af_imageAspectScaledToFitSize(size)
 
         // Then
         let expectedAppleImage = imageForResource("apple-aspect.scaled.to.fit-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -231,10 +231,10 @@ class UIImageTestCase: BaseTestCase {
         let h = Int(round(size.height))
 
         // When
-        let scaledAppleImage = appleImage.af_imageAspectScaledToFillSize(size).af_imageWithPNGRepresentation()
-        let scaledPirateImage = pirateImage.af_imageAspectScaledToFillSize(size).af_imageWithPNGRepresentation()
-        let scaledRainbowImage = rainbowImage.af_imageAspectScaledToFillSize(size).af_imageWithPNGRepresentation()
-        let scaledUnicornImage = unicornImage.af_imageAspectScaledToFillSize(size).af_imageWithPNGRepresentation()
+        let scaledAppleImage = appleImage.af_imageAspectScaledToFillSize(size)
+        let scaledPirateImage = pirateImage.af_imageAspectScaledToFillSize(size)
+        let scaledRainbowImage = rainbowImage.af_imageAspectScaledToFillSize(size)
+        let scaledUnicornImage = unicornImage.af_imageAspectScaledToFillSize(size)
 
         // Then
         let expectedAppleImage = imageForResource("apple-aspect.scaled.to.fill-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -261,10 +261,10 @@ class UIImageTestCase: BaseTestCase {
         let r = Int(round(radius))
 
         // When
-        let roundedAppleImage = appleImage.af_imageWithRoundedCornerRadius(radius).af_imageWithPNGRepresentation()
-        let roundedPirateImage = pirateImage.af_imageWithRoundedCornerRadius(radius).af_imageWithPNGRepresentation()
-        let roundedRainbowImage = rainbowImage.af_imageWithRoundedCornerRadius(radius).af_imageWithPNGRepresentation()
-        let roundedUnicornImage = unicornImage.af_imageWithRoundedCornerRadius(radius).af_imageWithPNGRepresentation()
+        let roundedAppleImage = appleImage.af_imageWithRoundedCornerRadius(radius)
+        let roundedPirateImage = pirateImage.af_imageWithRoundedCornerRadius(radius)
+        let roundedRainbowImage = rainbowImage.af_imageWithRoundedCornerRadius(radius)
+        let roundedUnicornImage = unicornImage.af_imageWithRoundedCornerRadius(radius)
 
         // Then
         let expectedAppleImage = imageForResource("apple-radius-\(r)", withExtension: "png")
@@ -285,10 +285,10 @@ class UIImageTestCase: BaseTestCase {
 
     func testThatImageIsRoundedIntoCircle() {
         // Given, When
-        let circularAppleImage = appleImage.af_imageRoundedIntoCircle().af_imageWithPNGRepresentation()
-        let circularPirateImage = pirateImage.af_imageRoundedIntoCircle().af_imageWithPNGRepresentation()
-        let circularRainbowImage = rainbowImage.af_imageRoundedIntoCircle().af_imageWithPNGRepresentation()
-        let circularUnicornImage = unicornImage.af_imageRoundedIntoCircle().af_imageWithPNGRepresentation()
+        let circularAppleImage = appleImage.af_imageRoundedIntoCircle()
+        let circularPirateImage = pirateImage.af_imageRoundedIntoCircle()
+        let circularRainbowImage = rainbowImage.af_imageRoundedIntoCircle()
+        let circularUnicornImage = unicornImage.af_imageRoundedIntoCircle()
 
         // Then
         let expectedAppleImage = imageForResource("apple-circle", withExtension: "png")
@@ -332,10 +332,10 @@ class UIImageTestCase: BaseTestCase {
         let blurredImage = unicornImage.af_imageWithAppliedCoreImageFilter("CIGaussianBlur", filterParameters: parameters)
 
         // Then
-        if var blurredImage = blurredImage {
-            blurredImage = blurredImage.af_imageWithPNGRepresentation()
+        if let blurredImage = blurredImage {
             let expectedBlurredImage = imageForResource("unicorn-blurred-8", withExtension: "png")
-            XCTAssertTrue(blurredImage.af_isEqualToImage(expectedBlurredImage), "blurred image pixels do not match")
+            let pixelsMatch = blurredImage.af_isEqualToImage(expectedBlurredImage, withinTolerance: 5)
+            XCTAssertTrue(pixelsMatch, "pixels match should be true")
         } else {
             XCTFail("blurred image should not be nil")
         }
@@ -346,8 +346,7 @@ class UIImageTestCase: BaseTestCase {
         let sepiaImage = unicornImage.af_imageWithAppliedCoreImageFilter("CISepiaTone")
 
         // Then
-        if var sepiaImage = sepiaImage {
-            sepiaImage = sepiaImage.af_imageWithPNGRepresentation()
+        if let sepiaImage = sepiaImage {
             let expectedSepiaImage = imageForResource("unicorn-sepia.tone", withExtension: "png")
             XCTAssertTrue(sepiaImage.af_isEqualToImage(expectedSepiaImage), "sepia image pixels do not match")
         } else {

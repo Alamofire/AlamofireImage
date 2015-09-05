@@ -88,7 +88,7 @@ class ImageFilterTestCase: BaseTestCase {
         let filter = ScaledToSizeFilter(size: squareSize)
 
         // When
-        let filteredImage = filter.filter(image).af_imageWithPNGRepresentation()
+        let filteredImage = filter.filter(image)
 
         // Then
         let expectedFilteredImage = imageForResource("pirate-scaled-50x50-@\(scale)x", withExtension: "png")
@@ -101,7 +101,7 @@ class ImageFilterTestCase: BaseTestCase {
         let filter = AspectScaledToFitSizeFilter(size: squareSize)
 
         // When
-        let filteredImage = filter.filter(image).af_imageWithPNGRepresentation()
+        let filteredImage = filter.filter(image)
 
         // Then
         let expectedFilteredImage = imageForResource("pirate-aspect.scaled.to.fit-50x50-@\(scale)x", withExtension: "png")
@@ -114,7 +114,7 @@ class ImageFilterTestCase: BaseTestCase {
         let filter = AspectScaledToFillSizeFilter(size: squareSize)
 
         // When
-        let filteredImage = filter.filter(image).af_imageWithPNGRepresentation()
+        let filteredImage = filter.filter(image)
 
         // Then
         let expectedFilteredImage = imageForResource("pirate-aspect.scaled.to.fill-50x50-@\(scale)x", withExtension: "png")
@@ -127,7 +127,7 @@ class ImageFilterTestCase: BaseTestCase {
         let filter = RoundedCornersFilter(radius: 20)
 
         // When
-        let filteredImage = filter.filter(image).af_imageWithPNGRepresentation()
+        let filteredImage = filter.filter(image)
 
         // Then
         let expectedFilteredImage = imageForResource("pirate-radius-20", withExtension: "png")
@@ -140,7 +140,7 @@ class ImageFilterTestCase: BaseTestCase {
         let filter = CircleFilter()
 
         // When
-        let filteredImage = filter.filter(image).af_imageWithPNGRepresentation()
+        let filteredImage = filter.filter(image)
 
         // Then
         let expectedFilteredImage = imageForResource("pirate-circle", withExtension: "png")
@@ -153,11 +153,12 @@ class ImageFilterTestCase: BaseTestCase {
         let filter = BlurFilter(blurRadius: 8)
 
         // When
-        let filteredImage = filter.filter(image).af_imageWithPNGRepresentation()
+        let filteredImage = filter.filter(image)
 
         // Then
         let expectedFilteredImage = imageForResource("unicorn-blurred-8", withExtension: "png")
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        let pixelsMatch = filteredImage.af_isEqualToImage(expectedFilteredImage, withinTolerance: 5)
+        XCTAssertTrue(pixelsMatch, "pixels match should be true")
     }
 
     // MARK: - Multi-Pass Image Filter Tests
@@ -168,7 +169,7 @@ class ImageFilterTestCase: BaseTestCase {
         let filter = ScaledToSizeWithRoundedCornersFilter(size: largeSquareSize, radius: 20)
 
         // When
-        let filteredImage = filter.filter(image).af_imageWithPNGRepresentation()
+        let filteredImage = filter.filter(image)
 
         // Then
         let expectedFilteredImage = imageForResource(
@@ -185,7 +186,7 @@ class ImageFilterTestCase: BaseTestCase {
         let filter = AspectScaledToFillSizeWithRoundedCornersFilter(size: largeSquareSize, radius: 20)
 
         // When
-        let filteredImage = filter.filter(image).af_imageWithPNGRepresentation()
+        let filteredImage = filter.filter(image)
 
         // Then
         let expectedFilteredImage = imageForResource(
@@ -202,7 +203,7 @@ class ImageFilterTestCase: BaseTestCase {
         let filter = ScaledToSizeCircleFilter(size: largeSquareSize)
 
         // When
-        let filteredImage = filter.filter(image).af_imageWithPNGRepresentation()
+        let filteredImage = filter.filter(image)
 
         // Then
         let expectedFilteredImage = imageForResource(
@@ -219,7 +220,7 @@ class ImageFilterTestCase: BaseTestCase {
         let filter = AspectScaledToFillSizeCircleFilter(size: largeSquareSize)
 
         // When
-        let filteredImage = filter.filter(image).af_imageWithPNGRepresentation()
+        let filteredImage = filter.filter(image)
 
         // Then
         let expectedFilteredImage = imageForResource(
