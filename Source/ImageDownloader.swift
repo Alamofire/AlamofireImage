@@ -29,9 +29,22 @@ import UIKit
 import Cocoa
 #endif
 
+/// The `ImageDownloader` class is responsible for downloading images in parallel on a prioritized queue. Incoming
+/// downloads are added to the front or back of the queue depending on the download prioritization. Each downloaded 
+/// image is cached in the underlying `NSURLCache` as well as the in-memory image cache that supports image filters. 
+/// By default, any download request with a cached image equivalent in the image cache will automatically be served the
+/// cached image representation. Additional advanced features include supporting multiple image filters and completion 
+/// handlers for a single request.
 public class ImageDownloader {
+    /// The completion handler closure used when an image download completes.
     public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<Image>) -> Void
 
+    /**
+        Defines the order prioritization of incoming download requests being inserted into the queue.
+
+        - FIFO: All incoming downloads are added to the back of the queue.
+        - LIFO: All incoming downloads are added to the front of the queue.
+    */
     public enum DownloadPrioritization {
         case FIFO, LIFO
     }
@@ -52,7 +65,10 @@ public class ImageDownloader {
 
     // MARK: - Properties
 
+    /// The image cache used to store all downloaded images in.
     public let imageCache: ImageRequestCache?
+
+    /// The credential used for authenticating each download request.
     public private(set) var credential: NSURLCredential?
 
     var queuedRequests: [Request]
@@ -69,8 +85,14 @@ public class ImageDownloader {
 
     // MARK: - Initialization
 
+    /// The default instance of `ImageDownloader` initialized with default values.
     public static let defaultInstance = ImageDownloader()
 
+    /**
+        Creates a default `NSURLSessionConfiguration` with common usage parameter values.
+    
+        - returns: The default `NSURLSessionConfiguration` instance.
+    */
     public class func defaultURLSessionConfiguration() -> NSURLSessionConfiguration {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
 
@@ -87,6 +109,11 @@ public class ImageDownloader {
         return configuration
     }
 
+    /**
+        Creates a default `NSURLCache` with common usage parameter values.
+
+        - returns: The default `NSURLCache` instance.
+    */
     public class func defaultURLCache() -> NSURLCache {
         return NSURLCache(
             memoryCapacity: 50 * 1024 * 1024, // 50 MB
@@ -95,6 +122,18 @@ public class ImageDownloader {
         )
     }
 
+    /**
+        Initializes the `ImageDownloader` instance with the given configuration, download prioritization, maximum active 
+        download count and image cache.
+
+        - parameter configuration:          The `NSURLSessionConfiguration` to use to create the underlying Alamofire 
+                                            `Manager` instance.
+        - parameter downloadPrioritization: The download prioritization of the download queue. `.FIFO` by default.
+        - parameter maximumActiveDownloads: The maximum number of active downloads allowed at any given time.
+        - parameter imageCache:             The image cache used to store all downloaded images in.
+
+        - returns: The new `ImageDownloader` instance.
+    */
     public init(
         configuration: NSURLSessionConfiguration = ImageDownloader.defaultURLSessionConfiguration(),
         downloadPrioritization: DownloadPrioritization = .FIFO,
@@ -126,6 +165,13 @@ public class ImageDownloader {
 
     // MARK: - Authentication
 
+    /**
+        Associates an HTTP Basic Auth credential with all future download requests.
+
+        - parameter user:        The user.
+        - parameter password:    The password.
+        - parameter persistence: The URL credential persistence. `.ForSession` by default.
+    */
     public func addAuthentication(
         user user: String,
         password: String,
@@ -135,6 +181,11 @@ public class ImageDownloader {
         addAuthentication(usingCredential: credential)
     }
 
+    /**
+        Associates the specified credential with all future download requests.
+
+        - parameter credential: The credential.
+    */
     public func addAuthentication(usingCredential credential: NSURLCredential) {
         dispatch_sync(synchronizationQueue) {
             self.credential = credential
@@ -143,10 +194,39 @@ public class ImageDownloader {
 
     // MARK: - Download
 
+    /**
+        Creates a download request using the internal Alamofire `Manager` instance for the specified URL request.
+    
+        If the same download request is already in the queue or currently being downloaded, the completion handler is
+        appended to the already existing request. Once the request completes, all completion handlers attached to the
+        request are executed in the order they were added.
+
+        - parameter URLRequest: The URL request.
+        - parameter completion: The closure called when the download request is complete.
+
+        - returns: The created download request if available. `nil` if the image is stored in the image cache and the
+                  URL request cache policy allows the cache to be used.
+    */
     public func downloadImage(URLRequest URLRequest: URLRequestConvertible, completion: CompletionHandler) -> Request? {
         return downloadImage(URLRequest: URLRequest, filter: nil, completion: completion)
     }
 
+    /**
+        Creates a download request using the internal Alamofire `Manager` instance for the specified URL request.
+
+        If the same download request is already in the queue or currently being downloaded, the filter and completion 
+        handler are appended to the already existing request. Once the request completes, all filters and completion 
+        handlers attached to the request are executed in the order they were added. Additionally, any filters attached
+        to the request with the same identifiers are only executed once. The resulting image is then passed into each
+        completion handler paired with the filter.
+
+        - parameter URLRequest: The URL request.
+        - parameter filter      The image filter to apply to the image after the download is complete.
+        - parameter completion: The closure called when the download request is complete.
+
+        - returns: The created download request if available. `nil` if the image is stored in the image cache and the
+                   URL request cache policy allows the cache to be used.
+    */
     public func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
         filter: ImageFilter?,
