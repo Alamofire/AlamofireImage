@@ -6,18 +6,18 @@
 [![Platform](https://img.shields.io/cocoapods/p/AlamofireImage.svg?style=flat)](http://cocoadocs.org/docsets/AlamofireImage)
 [![Twitter](https://img.shields.io/badge/twitter-@AlamofireSF-blue.svg?style=flat)](http://twitter.com/AlamofireSF)
 
-AlamofireImage is an Alamofire component library designed to ease common network image operations.
+AlamofireImage is an image component library to Alamofire.
 
 ## Features
 
 - [x] Image Response Serializers
-- [x] UIImage Inflation / Scaling / Rounding / CoreImage Extensions
-- [x] UIImageView Async Remote Downloads with Placeholders
-- [x] UIImageView Filters and Transitions
-- [x] In-Memory Auto-Purging Image Cache
+- [x] UIImage Extensions for Inflation / Scaling / Rounding / CoreImage
 - [x] Single and Multi-Pass Image Filters
+- [x] Auto-Purging In-Memory Image Cache
 - [x] Prioritized Queue Order Image Downloading
 - [x] Authentication with NSURLCredential
+- [x] UIImageView Async Remote Downloads with Placeholders
+- [x] UIImageView Filters and Transitions
 - [x] Comprehensive Test Coverage
 - [x] [Complete Documentation](http://cocoadocs.org/docsets/AlamofireImage)
 
@@ -102,16 +102,16 @@ Alamofire.request(.GET, "https://httpbin.org/image/png")
 
 The AlamofireImage response image serializers support a wide range of image types including:
 
-- "image/png"
-- "image/jpeg"
-- "image/tiff"
-- "image/gif"
-- "image/ico"
-- "image/x-icon"
-- "image/bmp"
-- "image/x-bmp"
-- "image/x-xbitmap"
-- "image/x-win-bitmap"
+- `image/png`
+- `image/jpeg`
+- `image/tiff`
+- `image/gif`
+- `image/ico`
+- `image/x-icon`
+- `image/bmp`
+- `image/x-bmp`
+- `image/x-xbitmap`
+- `image/x-win-bitmap`
 
 > Support for other image types will continue to be added as the library matures. Pull requests welcome!
 
@@ -157,13 +157,16 @@ let roundedImage = image.af_imageWithRoundedCornerRadius(radius)
 let circularImage = image.af_imageRoundedIntoCircle()
 ```
 
-#### CoreImage Filters
+#### Core Image Filters
 
 ```swift
 let image = UIImage(named: "unicorn")!
 
 let sepiaImage = image.af_imageWithAppliedCoreImageFilter("CISepiaTone")
-let blurredImage = image.af_imageWithAppliedCoreImageFilter("CIGaussianBlur", filterParameters: ["inputRadius": 25])
+let blurredImage = image.af_imageWithAppliedCoreImageFilter(
+    "CIGaussianBlur", 
+    filterParameters: ["inputRadius": 25]
+)
 ```
 
 ### Image Filters
@@ -181,16 +184,7 @@ The `filter` closure contains the operation used to create a modified version of
 
 #### Single Pass
 
-The single pass image filters only perform a single operation on the specified image. The current list of single pass image filters includes:
-
-- `ScaledToSizeFilter(size: CGSize)` - Scales an image to a specified size.
-- `AspectScaledToFitSizeFilter(size: CGSize)` - Scales an image from the center while maintaining the aspect ratio to fit within a specified size.
-- `AspectScaledToFillSizeFilter(size: CGSize)` - Scales an image from the center while maintaining the aspect ratio to fill a specified size. Any pixels that fall outside the specified size are clipped.
-- `RoundedCornersFilter(radius: CGFloat)` - Rounds the corners of an image to the specified radius.
-- `CircleFilter()` - Rounds the corners of an image into a circle.
-- `BlurFilter(blurRadius: CGFloat)` - Blurs an image using a `CIGaussianBlur` filter with the specified blur radius.
-
-> Each image filter is built ontop of the `UIImage` extensions.
+The single pass image filters only perform a single operation on the specified image.
 
 ```swift
 let image = UIImage(named: "unicorn")!
@@ -199,14 +193,20 @@ let imageFilter = RoundedCornersFilter(radius: 10.0)
 let roundedImage = imageFilter.filter(image)
 ```
 
+The current list of single pass image filters includes:
+
+- `ScaledToSizeFilter` - Scales an image to a specified size.
+- `AspectScaledToFitSizeFilter` - Scales an image from the center while maintaining the aspect ratio to fit within a specified size.
+- `AspectScaledToFillSizeFilter` - Scales an image from the center while maintaining the aspect ratio to fill a specified size. Any pixels that fall outside the specified size are clipped.
+- `RoundedCornersFilter` - Rounds the corners of an image to the specified radius.
+- `CircleFilter` - Rounds the corners of an image into a circle.
+- `BlurFilter` - Blurs an image using a `CIGaussianBlur` filter with the specified blur radius.
+
+> Each image filter is built ontop of the `UIImage` extensions.
+
 #### Multi-Pass
 
-The multi-pass image filters perform multiple operations on the specified image. The current list of multi-pass image filters includes:
-
-- `ScaledToSizeWithRoundedCornersFilter(size: CGSize, radius: CGFloat)` - Scales an image to a specified size, then rounds the corners to the specified radius.
-- `AspectScaledToFillSizeWithRoundedCornersFilter(size: CGSize, radius: CGFloat)` - Scales an image from the center while maintaining the aspect ratio to fit within a specified size, then rounds the corners to the specified radius.
-- `ScaledToSizeCircleFilter(size: CGSize)` - Scales an image to a specified size, then rounds the corners into a circle.
-- `AspectScaledToFillSizeCircleFilter(size: CGSize)` - Scales an image from the center while maintaining the aspect ratio to fit within a specified size, then rounds the corners into a circle.
+The multi-pass image filters perform multiple operations on the specified image.
 
 ```swift
 let image = UIImage(named: "avatar")!
@@ -216,13 +216,18 @@ let imageFilter = AspectScaledToFillSizeCircleFilter(size: size)
 let avatarImage = imageFilter.filter(image)
 ```
 
+The current list of multi-pass image filters includes:
+
+- `ScaledToSizeWithRoundedCornersFilter` - Scales an image to a specified size, then rounds the corners to the specified radius.
+- `AspectScaledToFillSizeWithRoundedCornersFilter` - Scales an image from the center while maintaining the aspect ratio to fit within a specified size, then rounds the corners to the specified radius.
+- `ScaledToSizeCircleFilter` - Scales an image to a specified size, then rounds the corners into a circle.
+- `AspectScaledToFillSizeCircleFilter` - Scales an image from the center while maintaining the aspect ratio to fit within a specified size, then rounds the corners into a circle.
+
 ### Image Cache
 
 Image caching can become complicated when it comes to network images. `NSURLCache` is quite powerful and does a great job reasoning through the various cache policies and `Cache-Control` headers. However, it is not equiped to handle caching multiple modified versions of those images. 
 
 For example, let's say you need to download an album of images. Your app needs to display both the thumbnail version as well as the full size version at various times. Due to performance issues, you want to scale down the thumbnails to a reasonable size before rendering them on-screen. You also need to apply a global CoreImage filter to the full size images when displayed. While `NSURLCache` can easily handle storing the original downloaded image, it cannot store these different variants. What you really need is another caching layer designed to handle these different variants.
-
-The `AutoPurgingImageCache` in AlamofireImage fills the roll of that additional caching layer. It is an in-memory image cache used to store images up to a given memory capacity. When the memory capacity is reached, the image cache is sorted by last access date, then the oldest image is continuously purged until the preferred memory usage after purge is met. Each time an image is accessed through the cache, the internal access date of the image is updated.
 
 ```swift
 let imageCache = AutoPurgingImageCache(
@@ -231,24 +236,29 @@ let imageCache = AutoPurgingImageCache(
 )
 ```
 
+The `AutoPurgingImageCache` in AlamofireImage fills the roll of that additional caching layer. It is an in-memory image cache used to store images up to a given memory capacity. When the memory capacity is reached, the image cache is sorted by last access date, then the oldest image is continuously purged until the preferred memory usage after purge is met. Each time an image is accessed through the cache, the internal access date of the image is updated.
+
 #### Add / Remove / Fetch Images
 
 Interacting with the `ImageCache` protocol APIs is very straight-forward.
 
 ```swift
 let imageCache = AutoPurgingImageCache()
-
 let avatarImage = UIImage(data: data)!
+
+// Add
 imageCache.addImage(avatarImage, withIdentifier: "avatar")
 
+// Fetch
 let cachedAvatar = imageCache.imageWithIdentifier("avatar")
 
+// Remove
 imageCache.removeImageWithIdentifier("avatar")
 ```
 
 #### URL Requests
 
-The `ImageRequestCache` protocol extends the `ImageCache` protocol by adding support for `NSURLRequest` caching. This allows an `NSURLRequest` and optional identifier to generate the unique identifier for the image in the cache.
+The `ImageRequestCache` protocol extends the `ImageCache` protocol by adding support for `NSURLRequest` caching. This allows an `NSURLRequest` and additional identifier to generate the unique identifier for the image in the cache.
 
 ```swift
 let imageCache = AutoPurgingImageCache()
@@ -256,11 +266,24 @@ let imageCache = AutoPurgingImageCache()
 let URLRequest = NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/png")!)
 let avatarImage = UIImage(named: "avatar")!.af_imageRoundedIntoCircle()
 
-imageCache.addImage(avatarImage, forRequest: URLRequest, withIdentifier: "circle")
+// Add
+imageCache.addImage(
+    avatarImage, 
+    forRequest: URLRequest, 
+    withAdditionalIdentifier: "circle"
+)
 
-let cachedAvatarImage = imageCache.imageForRequest(URLRequest, withIdentifier: "circle")
+// Fetch
+let cachedAvatarImage = imageCache.imageForRequest(
+    URLRequest, 
+    withAdditionalIdentifier: "circle"
+)
 
-imageCache.removeImageForRequest(URLRequest, withIdentifier: "circle")
+// Remove
+imageCache.removeImageForRequest(
+    URLRequest, 
+    withAdditionalIdentifier: "circle"
+)
 ```
 
 #### Auto-Purging
@@ -269,7 +292,10 @@ Each time an image is fetched from the cache, the cache internally updates the l
 
 ```swift
 let avatar = imageCache.imageWithIdentifier("avatar")
-let circularAvatar = imageCache.imageForRequest(URLRequest, withIdentifier: "circle")
+let circularAvatar = imageCache.imageForRequest(
+    URLRequest, 
+    withIdentifier: "circle"
+)
 ```
 
 By updating the last access date for each image, the image cache can make more informed decisions about which images to purge when the memory capacity is reached. The `AutoPurgingImageCache` automatically evicts images from the cache in order from oldest last access date to newest until the memory capacity drops below the `preferredMemoryCapacityAfterPurge`.
@@ -365,6 +391,8 @@ The `NSURLCache` is used to cache all the original image content downloaded from
 
 The `ImageCache` is used to cache all the potentially filtered image content after it has been downloaded from the server. This allows multiple variants of the same image to also be cached, rather than having to re-apply the image filters to the original image each time it is required. By default, an `AutoPurgingImageCache` is initialized with a memory capacity of 100 MB and a preferred memory usage after purge limit of 60 MB. This allows up to 100 MB of most recently accessed filtered image content to be stored in-memory at a given time.
 
+##### Setting Ideal Capacity Limits
+
 Determining the ideal the in-memory and on-disk capacity limits of the `NSURLCache` and `AutoPurgingImageCache` requires a bit of forethought. You must carefully consider your application's needs, and tailor the limits accordingly. By default, the combination of caches offers the following storage capacities:
 
 - 150 MB of on-disk storage
@@ -376,26 +404,106 @@ Determining the ideal the in-memory and on-disk capacity limits of the `NSURLCac
 
 #### Duplicate Downloads
 
-Sometimes your logic can end up attempting to download an image more than once before the initial download request is complete. Most often, this results in the image being downloaded more than once. AlamofireImage handles this case elegantly by merging the duplicate downloads. The image will only be downloaded once, yet both completion handlers will be called.
+Sometimes application logic can end up attempting to download an image more than once before the initial download request is complete. Most often, this results in the image being downloaded more than once. AlamofireImage handles this case elegantly by merging the duplicate downloads. The image will only be downloaded once, yet both completion handlers will be called.
 
 ##### Image Filter Reuse
 
-In addition to merging duplicate downloads, AlamofireImage can also merge duplicate image filters. If two image filters with the same identifier are attached to the same download, the image filter is only executed once. Then both completion handlers are called with the same resulting image. This can save large amounts of time and resources for computationally expensive filters such as CoreImage filters.
+In addition to merging duplicate downloads, AlamofireImage can also merge duplicate image filters. If two image filters with the same identifier are attached to the same download, the image filter is only executed once and both completion handlers are called with the same resulting image. This can save large amounts of time and resources for computationally expensive filters such as ones leveraging CoreImage.
 
 ### UIImageView Extension
 
+The [UIImage Extensions](#uiimage-extensions), [Image Filters](#image-filters), [Image Cache](#image-cache) and [Image Downloader](#image-downloader) were all designed to be flexible and standalone, yet also to provide the foundation of the `UIImageView` extension. Due to the powerful support of these classes, protocols and extensions, the `UIImageView` APIs are concise, easy to use and contain a large amount of functionality.
+
 #### Setting Image with URL
+
+Setting the image with a URL will asynchronously download the image and set it once the request is finished.
+
+```swift
+let imageView = UIImageView(frame: frame)
+let URL = NSURL(string: "https://httpbin.org/image/png")!
+
+imageView.af_setImageWithURL(URL)
+```
+
+> If the image is cached locally, the image is set immediately.
 
 #### Placeholder Images
 
+By specifying a placeholder image, the image view uses the placeholder image until the remote image is downloaded.
+
+```swift
+let imageView = UIImageView(frame: frame)
+let URL = NSURL(string: "https://httpbin.org/image/png")!
+let placeholderImage = UIImage(named: "placeholder")!
+
+imageView.af_setImageWithURL(URL, placeholderImage: placeholderImage)
+```
+
+> If the remote image is cached locally, the placeholder image is never set.
+
 #### Image Filters
+
+If an image filter is specified, it is applied asynchronously after the remote image is downloaded. Once the filter execution is complete, the resulting image is set on the image view.
+
+```swift
+let imageView = UIImageView(frame: frame)
+
+let URL = NSURL(string: "https://httpbin.org/image/png")!
+let placeholderImage = UIImage(named: "placeholder")!
+
+let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+    size: imageView.frame.size, 
+    radius: 20.0
+)
+
+imageView.af_setImageWithURL(
+    URL, 
+    placeholderImage: placeholderImage,
+    filter: filter
+)
+```
+
+> If the remote image with the applied filter is cached locally, the image is set immediately.
 
 #### Image Transitions
 
+By default, there is no image transition animation when setting the image on the image view. If you wish to add a cross dissolve or flip-from-bottom animation, then specify an `ImageTransition` with the preferred duration.
+
+```swift
+let imageView = UIImageView(frame: frame)
+
+let URL = NSURL(string: "https://httpbin.org/image/png")!
+let placeholderImage = UIImage(named: "placeholder")!
+
+let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+    size: imageView.frame.size, 
+    radius: 20.0
+)
+
+imageView.af_setImageWithURL(
+    URL, 
+    placeholderImage: placeholderImage,
+    filter: filter,
+    imageTransition: .CrossDissolve(0.2)
+)
+```
+
+> If the remote image is cached locally, the image transition is ignored.
+
 #### Image Downloader
+
+The `UIImageView` extension is powered by the default `ImageDownloader` instance. To customize cache capacities, download priorities, request cache policies, timeout durations, etc., please refer to the [Image Downloader](#image-downloader) documentation.
 
 ##### Authentication
 
+If an image requires and authentication credential from the `UIImageView` extension, it can be provided as follows:
+
+```swift
+ImageDownloader.defaultInstance.addAuthentication(
+    user: "user", 
+    password: "password"
+)
+```
 
 ---
 
@@ -410,62 +518,3 @@ If you believe you have identified a security vulnerability with AlamofireImage,
 ## License
 
 AlamofireImage is released under the MIT license. See LICENSE for details.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
