@@ -33,6 +33,17 @@ import CoreImage
 private let lock = NSLock()
 
 extension UIImage {
+    /**
+        Initializes and returns the image object with the specified data in a thread-safe manner.
+
+        It has been reported that there are thread-safety issues when initializing large amounts of images 
+        simultaneously. In the event of these issues occurring, this method can be used in place of 
+        the `init?(data:)` method.
+
+        - parameter data: The data object containing the image data.
+
+        - returns: An initialized `UIImage` object, or `nil` if the method failed.
+    */
     public static func af_threadSafeImageWithData(data: NSData) -> UIImage? {
         lock.lock()
         let image = UIImage(data: data)
@@ -41,6 +52,20 @@ extension UIImage {
         return image
     }
 
+    /**
+        Initializes and returns the image object with the specified data and scale in a thread-safe manner.
+
+        It has been reported that there are thread-safety issues when initializing large amounts of images
+        simultaneously. In the event of these issues occurring, this method can be used in place of
+        the `init?(data:scale:)` method.
+
+        - parameter data:  The data object containing the image data.
+        - parameter scale: The scale factor to assume when interpreting the image data. Applying a scale factor of 1.0 
+                           results in an image whose size matches the pixel-based dimensions of the image. Applying a 
+                           different scale factor changes the size of the image as reported by the size property.
+
+        - returns: An initialized `UIImage` object, or `nil` if the method failed.
+    */
     public static func af_threadSafeImageWithData(data: NSData, scale: CGFloat) -> UIImage? {
         lock.lock()
         let image = UIImage(data: data, scale: scale)
@@ -57,6 +82,7 @@ extension UIImage {
         static var InflatedKey = "af_UIImage.Inflated"
     }
 
+    /// Returns whether the image is inflated.
     public var af_inflated: Bool {
         get {
             if let inflated = objc_getAssociatedObject(self, &AssociatedKeys.InflatedKey) as? Bool {
@@ -70,6 +96,14 @@ extension UIImage {
         }
     }
 
+    /**
+        Returns a new version of the image backed by a uncompressed bitmap representation.
+    
+        Inflating compressed image formats (such as PNG or JPEG) can significantly improve drawing performance as it 
+        allows a bitmap representation to be constructed in the background rather than on the main thread.
+
+        - returns: A new image object.
+    */
     public func af_inflatedImage() -> UIImage? {
         // Do not re-inflate if already inflated
         guard !af_inflated else { return self }
@@ -119,6 +153,13 @@ extension UIImage {
 // MARK: - Scaling
 
 extension UIImage {
+    /**
+        Returns a new version of the image scaled to the specified size.
+
+        - parameter size: The size to use when scaling the new image.
+
+        - returns: A new image object.
+    */
     public func af_imageScaledToSize(size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         drawInRect(CGRect(origin: CGPointZero, size: size))
@@ -129,6 +170,14 @@ extension UIImage {
         return scaledImage
     }
 
+    /**
+        Returns a new version of the image scaled from the center while maintaining the aspect ratio to fit within 
+        a specified size.
+
+        - parameter size: The size to use when scaling the new image.
+
+        - returns: A new image object.
+    */
     public func af_imageAspectScaledToFitSize(size: CGSize) -> UIImage {
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
@@ -153,6 +202,14 @@ extension UIImage {
         return scaledImage
     }
 
+    /**
+        Returns a new version of the image scaled from the center while maintaining the aspect ratio to fill a
+        specified size. Any pixels that fall outside the specified size are clipped.
+
+        - parameter size: The size to use when scaling the new image.
+
+        - returns: A new image object.
+    */
     public func af_imageAspectScaledToFillSize(size: CGSize) -> UIImage {
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
@@ -181,6 +238,13 @@ extension UIImage {
 // MARK: - Rounded Corners
 
 extension UIImage {
+    /**
+        Returns a new version of the image with the corners rounded to the specified radius.
+
+        - parameter radius: The radius to use when rounding the new image.
+
+        - returns: A new image object.
+    */
     public func af_imageWithRoundedCornerRadius(radius: CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
 
@@ -197,6 +261,11 @@ extension UIImage {
         return roundedImage
     }
 
+    /**
+        Returns a new version of the image rounded into a circle.
+
+        - returns: A new image object.
+    */
     public func af_imageRoundedIntoCircle() -> UIImage {
         let radius = min(size.width, size.height) / 2.0
         var squareImage = self
@@ -230,6 +299,14 @@ extension UIImage {
 // MARK: - Core Image Filters
 
 extension UIImage {
+    /**
+        Returns a new version of the image using a CoreImage filter with the specified name and parameters.
+
+        - parameter filterName:       The name of the CoreImage filter to use on the new image.
+        - parameter filterParameters: The parameters to apply to the CoreImage filter.
+
+        - returns: A new image object, or `nil` if the filter failed for any reason.
+    */
     public func af_imageWithAppliedCoreImageFilter(
         filterName: String,
         filterParameters: [String: AnyObject]? = nil) -> UIImage?
