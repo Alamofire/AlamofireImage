@@ -201,12 +201,9 @@ public class AutoPurgingImageCache: ImageRequestCache {
             if !self.cachedImages.isEmpty {
                 self.cachedImages.removeAll()
                 self.currentMemoryUsage = 0
+
+                removed = true
             }
-
-            self.cachedImages.removeAll()
-            self.currentMemoryUsage = 0
-
-            removed = true
         }
 
         return removed
