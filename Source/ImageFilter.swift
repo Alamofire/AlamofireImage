@@ -89,7 +89,7 @@ extension ImageFilter where Self: Sizable, Self: Roundable {
     }
 }
 
-#if os(iOS)
+#if os(iOS) || os(watchOS)
 
 // MARK: - Single Pass Image Filters (iOS and watchOS only) -
 
@@ -217,6 +217,8 @@ public struct CircleFilter: ImageFilter {
 
 // MARK: -
 
+#if os(iOS)
+
 /// Blurs an image using a `CIGaussianBlur` filter with the specified blur radius.
 public struct BlurFilter: ImageFilter {
     /// The blur radius of the filter.
@@ -241,6 +243,8 @@ public struct BlurFilter: ImageFilter {
         }
     }
 }
+
+#endif
 
 // MARK: - Multi-Pass Image Filters (iOS and watchOS only) -
 
