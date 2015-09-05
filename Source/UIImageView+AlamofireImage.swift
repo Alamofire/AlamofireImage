@@ -24,10 +24,11 @@ import Alamofire
 import Foundation
 import UIKit
 
-public extension UIImageView {
+extension UIImageView {
 
     // MARK: - ImageTransition
 
+    /// Used to wrap all `UIView` animation transition options alongside a duration.
     public enum ImageTransition {
         case None
         case CrossDissolve(NSTimeInterval)
@@ -38,7 +39,7 @@ public extension UIImageView {
         case FlipFromRight(NSTimeInterval)
         case FlipFromTop(NSTimeInterval)
 
-        var duration: NSTimeInterval {
+        private var duration: NSTimeInterval {
             switch self {
             case None:                         return 0.0
             case CrossDissolve(let duration):  return duration
@@ -51,7 +52,7 @@ public extension UIImageView {
             }
         }
 
-        var animationOptions: UIViewAnimationOptions {
+        private var animationOptions: UIViewAnimationOptions {
             switch self {
             case None:           return .TransitionNone
             case CrossDissolve:  return .TransitionCrossDissolve
@@ -74,6 +75,9 @@ public extension UIImageView {
 
     // MARK: - Properties
 
+    /// The image downloader used to download all images. By default, this is the default `ImageDownloader` instance 
+    /// backed with an `AutoPurgingImageCache` which automatically evicts images from the cache when the memory capacity 
+    /// is reached or memory warning notifications occur.
     public class var af_sharedImageDownloader: ImageDownloader {
         get {
             if let downloader = objc_getAssociatedObject(self, &AssociatedKeys.SharedImageDownloaderKey) as? ImageDownloader {
@@ -98,6 +102,17 @@ public extension UIImageView {
 
     // MARK: - Image Download Methods
 
+    /**
+        Asynchronously downloads an image from the specified URL and sets it once the request is finished.
+
+        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be 
+        set immediately, and then the remote image will be set once the image request is finished.
+
+        - parameter URL:              The URL used for the image request.
+        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the 
+                                      image view will not change its image until the image request finishes. `nil` by 
+                                      default.
+    */
     public func af_setImageWithURL(URL: NSURL, placeholderImage: UIImage? = nil) {
         af_setImageWithURLRequest(
             URLRequestWithURL(URL),
@@ -108,6 +123,19 @@ public extension UIImageView {
         )
     }
 
+    /**
+        Asynchronously downloads an image from the specified URL, applies the specified image filter to the downloaded 
+        image and sets it once finished.
+
+        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+        set immediately, and then the remote image will be set once the image request is finished.
+
+        - parameter URL:              The URL used for the image request.
+        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
+                                      image view will not change its image until the image request finishes. `nil` by 
+                                      default.
+        - parameter filter:           The image filter applied to the image after the image request is finished.
+    */
     public func af_setImageWithURL(URL: NSURL, placeholderImage: UIImage? = nil, filter: ImageFilter) {
         af_setImageWithURLRequest(
             URLRequestWithURL(URL),
@@ -118,6 +146,19 @@ public extension UIImageView {
         )
     }
 
+    /**
+        Asynchronously downloads an image from the specified URL and sets it once the request is finished while 
+        executing the image transition.
+
+        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+        set immediately, and then the remote image will be set once the image request is finished.
+
+        - parameter URL:              The URL used for the image request.
+        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
+                                      image view will not change its image until the image request finishes. `nil` by
+                                      default.
+        - parameter imageTransition:  The image transition animation applied to the image when set.
+    */
     public func af_setImageWithURL(URL: NSURL, placeholderImage: UIImage? = nil, imageTransition: ImageTransition) {
         af_setImageWithURLRequest(
             URLRequestWithURL(URL),
@@ -128,6 +169,19 @@ public extension UIImageView {
         )
     }
 
+    /**
+        Asynchronously downloads an image from the specified URL, applies the specified image filter to the downloaded
+        image and sets it once finished while executing the image transition.
+
+        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+        set immediately, and then the remote image will be set once the image request is finished.
+
+        - parameter URL:              The URL used for the image request.
+        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
+                                      image view will not change its image until the image request finishes.
+        - parameter filter:           The image filter applied to the image after the image request is finished.
+        - parameter imageTransition:  The image transition animation applied to the image when set.
+    */
     public func af_setImageWithURL(
         URL: NSURL,
         placeholderImage: UIImage?,
@@ -143,6 +197,27 @@ public extension UIImageView {
         )
     }
 
+    /**
+        Asynchronously downloads an image from the specified URL, applies the specified image filter to the downloaded
+        image and sets it once finished while executing the image transition.
+
+        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+        set immediately, and then the remote image will be set once the image request is finished.
+
+        If a `completion` closure is specified, it is the responsibility of the closure to set the image of the image 
+        view before returning. If no `completion` closure is specified, the default behavior of setting the image is 
+        applied.
+
+        - parameter URL:              The URL used for the image request.
+        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
+                                      image view will not change its image until the image request finishes.
+        - parameter filter:           The image filter applied to the image after the image request is finished.
+        - parameter imageTransition:  The image transition animation applied to the image when set.
+        - parameter completion:       A closure to be executed when the image request finishes. The closure has no 
+                                      return value and takes three arguments: the original request, the response from 
+                                      the server and the result containing either the image or the error that occurred.
+                                      If the image was returned from the image cache, the response will be `nil`.
+    */
     public func af_setImageWithURLRequest(
         URLRequest: URLRequestConvertible,
         placeholderImage: UIImage?,
@@ -217,6 +292,9 @@ public extension UIImageView {
 
     // MARK: - Image Download Cancellation Methods
 
+    /**
+        Cancels the active download request, if one exists.
+    */
     public func af_cancelImageRequest() {
         af_activeRequest?.cancel()
     }
