@@ -77,7 +77,12 @@ class ImagesViewController: UIViewController {
 
     private func sizeForCollectionViewItem() -> CGSize {
         let viewWidth = view.bounds.size.width
-        let cellWidth = (viewWidth - 4 * 8) / 3.0
+
+        var cellWidth = (viewWidth - 4 * 8) / 3.0
+
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            cellWidth = (viewWidth - 7 * 8) / 6.0
+        }
 
         return CGSize(width: cellWidth, height: cellWidth)
     }
@@ -110,10 +115,7 @@ extension ImagesViewController : UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        let viewWidth = self.view.bounds.size.width
-        let cellWidth = (viewWidth - 4 * 8) / 3.0
-
-        return CGSize(width: cellWidth, height: cellWidth)
+        return sizeForCollectionViewItem()
     }
 
     func collectionView(
