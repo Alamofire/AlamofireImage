@@ -116,8 +116,8 @@ public class ImageDownloader {
     */
     public class func defaultURLCache() -> NSURLCache {
         return NSURLCache(
-            memoryCapacity: 50 * 1024 * 1024, // 50 MB
-            diskCapacity: 100 * 1024 * 1024, // 100 MB
+            memoryCapacity: 20 * 1024 * 1024, // 20 MB
+            diskCapacity: 150 * 1024 * 1024,  // 150 MB
             diskPath: "com.alamofire.imagedownloader"
         )
     }
