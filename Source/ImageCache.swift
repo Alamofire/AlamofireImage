@@ -47,16 +47,16 @@ public protocol ImageCache {
 }
 
 /// The `ImageRequestCache` protocol extends the `ImageCache` protocol by adding methods for adding, removing and
-/// fetching images from a cache given an `NSURLRequest` and optional identifier.
+/// fetching images from a cache given an `NSURLRequest` and additional identifier.
 public protocol ImageRequestCache: ImageCache {
-    /// Adds the image to the cache using an identifier created from the request and optional identifier.
-    func addImage(image: Image, forRequest request: NSURLRequest, withIdentifier identifier: String?)
+    /// Adds the image to the cache using an identifier created from the request and additional identifier.
+    func addImage(image: Image, forRequest request: NSURLRequest, withAdditionalIdentifier identifier: String?)
 
-    /// Removes the image from the cache using an identifier created from the request and optional identifier.
-    func removeImageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> Bool
+    /// Removes the image from the cache using an identifier created from the request and additional identifier.
+    func removeImageForRequest(request: NSURLRequest, withAdditionalIdentifier identifier: String?) -> Bool
 
-    /// Returns the image from the cache associated with an identifier created from the request and optional identifier.
-    func imageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> Image?
+    /// Returns the image from the cache associated with an identifier created from the request and additional identifier.
+    func imageForRequest(request: NSURLRequest, withAdditionalIdentifier identifier: String?) -> Image?
 }
 
 // MARK: -
@@ -163,10 +163,10 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
         - parameter image:      The image to add to the cache.
         - parameter request:    The request used to generate the image's unique identifier.
-        - parameter identifier: The optional identifier to append to the image's unique identifier.
+        - parameter identifier: The additional identifier to append to the image's unique identifier.
     */
-    public func addImage(image: Image, forRequest request: NSURLRequest, withIdentifier identifier: String? = nil) {
-        let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
+    public func addImage(image: Image, forRequest request: NSURLRequest, withAdditionalIdentifier identifier: String? = nil) {
+        let requestIdentifier = imageCacheKeyFromURLRequest(request, withAdditionalIdentifier: identifier)
         addImage(image, withIdentifier: requestIdentifier)
     }
 
@@ -222,12 +222,12 @@ public class AutoPurgingImageCache: ImageRequestCache {
         Removes the image from the cache using an identifier created from the request and optional identifier.
 
         - parameter request:    The request used to generate the image's unique identifier.
-        - parameter identifier: The optional identifier to append to the image's unique identifier.
+        - parameter identifier: The additional identifier to append to the image's unique identifier.
 
         - returns: `true` if the image was removed, `false` otherwise.
     */
-    public func removeImageForRequest(request: NSURLRequest, withIdentifier identifier: String?) -> Bool {
-        let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
+    public func removeImageForRequest(request: NSURLRequest, withAdditionalIdentifier identifier: String?) -> Bool {
+        let requestIdentifier = imageCacheKeyFromURLRequest(request, withAdditionalIdentifier: identifier)
         return removeImageWithIdentifier(requestIdentifier)
     }
 
@@ -277,12 +277,12 @@ public class AutoPurgingImageCache: ImageRequestCache {
         Returns the image from the cache associated with an identifier created from the request and optional identifier.
 
         - parameter request:    The request used to generate the image's unique identifier.
-        - parameter identifier: The optional identifier to append to the image's unique identifier.
+        - parameter identifier: The additional identifier to append to the image's unique identifier.
 
         - returns: The image if it is stored in the cache, `nil` otherwise.
     */
-    public func imageForRequest(request: NSURLRequest, withIdentifier identifier: String? = nil) -> Image? {
-        let requestIdentifier = imageCacheKeyFromURLRequest(request, withIdentifier: identifier)
+    public func imageForRequest(request: NSURLRequest, withAdditionalIdentifier identifier: String? = nil) -> Image? {
+        let requestIdentifier = imageCacheKeyFromURLRequest(request, withAdditionalIdentifier: identifier)
         return imageWithIdentifier(requestIdentifier)
     }
 
@@ -307,7 +307,11 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
     // MARK: Private - Helper Methods
 
-    private func imageCacheKeyFromURLRequest(request: NSURLRequest, withIdentifier identifier: String?) -> String {
+    private func imageCacheKeyFromURLRequest(
+        request: NSURLRequest,
+        withAdditionalIdentifier identifier: String?)
+        -> String
+    {
         var key = request.URLString
 
         if let identifier = identifier {

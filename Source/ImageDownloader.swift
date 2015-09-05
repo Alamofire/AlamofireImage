@@ -250,7 +250,10 @@ public class ImageDownloader {
             // 2) Attempt to load the image from the image cache if the cache policy allows it
             switch URLRequest.URLRequest.cachePolicy {
             case .UseProtocolCachePolicy, .ReturnCacheDataElseLoad, .ReturnCacheDataDontLoad:
-                if let image = self.imageCache?.imageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
+                if let image = self.imageCache?.imageForRequest(
+                    URLRequest.URLRequest,
+                    withAdditionalIdentifier: filter?.identifier)
+                {
                     dispatch_async(dispatch_get_main_queue()) {
                         completion(URLRequest.URLRequest, nil, .Success(image))
                     }
@@ -295,7 +298,11 @@ public class ImageDownloader {
                                 completion(request, response, .Success(image))
                             }
 
-                            strongSelf.imageCache?.addImage(image, forRequest: request, withIdentifier: filter?.identifier)
+                            strongSelf.imageCache?.addImage(
+                                image,
+                                forRequest: request,
+                                withAdditionalIdentifier: filter?.identifier
+                            )
                         }
                     case .Failure:
                         for completion in responseHandler.completionHandlers {

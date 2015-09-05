@@ -231,7 +231,7 @@ extension UIImageView {
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
-        if let image = imageCache?.imageForRequest(URLRequest.URLRequest, withIdentifier: filter?.identifier) {
+        if let image = imageCache?.imageForRequest(URLRequest.URLRequest, withAdditionalIdentifier: filter?.identifier) {
             if let completion = completion {
                 completion(URLRequest.URLRequest, nil, .Success(image))
             } else {
