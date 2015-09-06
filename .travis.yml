@@ -36,10 +36,14 @@ script:
         -configuration Release ONLY_ACTIVE_ARCH=NO | xcpretty -c;
     fi
 
-  # Build example in Debug (having issues in Release with Travis-CI)
+  # Build example in Debug and Release
   - if [ $BUILD_EXAMPLE == "YES" ]; then 
       xcodebuild -workspace AlamofireImage.xcworkspace -scheme "iOS Example" -sdk "$SDK" -destination "$DESTINATION"
         -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty -c;
+    fi
+  - if [ $BUILD_EXAMPLE == "YES" ]; then 
+      xcodebuild -workspace AlamofireImage.xcworkspace -scheme "iOS Example" -sdk "$SDK" -destination "$DESTINATION"
+        -configuration Release ONLY_ACTIVE_ARCH=NO build | xcpretty -c;
     fi
 
   # Run pod lib lint quick if specified
