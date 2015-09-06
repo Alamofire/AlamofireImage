@@ -30,8 +30,6 @@
 		4C4D4ECD1B9297BB00C96855 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; settings = {ASSET_TAGS = (); }; };
 		4C4D4ECE1B9297BB00C96855 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; settings = {ASSET_TAGS = (); }; };
 		4C4D4ECF1B9297BB00C96855 /* UIImage+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */; settings = {ASSET_TAGS = (); }; };
-		4C4D4ED11B9297F800C96855 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5D84271AAD8B9100A42375 /* Alamofire.framework */; settings = {ASSET_TAGS = (); }; };
-		4C4D4ED21B9297FA00C96855 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5D84271AAD8B9100A42375 /* Alamofire.framework */; settings = {ASSET_TAGS = (); }; };
 		4C5308501AB561BF0051DBAC /* UIImage+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */; };
 		4C54EE911AABC04900CD894C /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C5872CA1B93DEAC00407E58 /* ImageFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5872C91B93DEAC00407E58 /* ImageFilterTests.swift */; settings = {ASSET_TAGS = (); }; };
@@ -297,7 +295,6 @@
 		4C5874841B93EFFB00407E58 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873801B93EFFB00407E58 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@3x.png */; settings = {ASSET_TAGS = (); }; };
 		4C5874861B93F81800407E58 /* ImageDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5874851B93F81800407E58 /* ImageDownloaderTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4C5874871B93F81800407E58 /* ImageDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5874851B93F81800407E58 /* ImageDownloaderTests.swift */; settings = {ASSET_TAGS = (); }; };
-		4C5D84281AAD8B9100A42375 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5D84271AAD8B9100A42375 /* Alamofire.framework */; };
 		4C62D3101B96C1500011B036 /* UIImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D30F1B96C1500011B036 /* UIImageViewTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4C78EA721AACD28C002C0569 /* UIImageView+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */; };
 		4C8290781B926F19005E24C8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; settings = {ASSET_TAGS = (); }; };
@@ -306,6 +303,9 @@
 		4C82907C1B927D13005E24C8 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; settings = {ASSET_TAGS = (); }; };
 		4C82907D1B927DA9005E24C8 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; settings = {ASSET_TAGS = (); }; };
 		4C96A4781AAE9488008AE0B6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
+		4CA55D301B9BC65600435784 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA55D2F1B9BC65600435784 /* Alamofire.framework */; };
+		4CA55D311B9BC66B00435784 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA55D2F1B9BC65600435784 /* Alamofire.framework */; };
+		4CA55D321B9BC67600435784 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA55D2F1B9BC65600435784 /* Alamofire.framework */; };
 		4CE6112C1AABC24E00D35044 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CE611551AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
 		4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
@@ -479,13 +479,13 @@
 		4C58737F1B93EFFB00407E58 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pirate-scaled.to.size.with.rounded.corners-100x100x20-@2x.png"; sourceTree = "<group>"; };
 		4C5873801B93EFFB00407E58 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pirate-scaled.to.size.with.rounded.corners-100x100x20-@3x.png"; sourceTree = "<group>"; };
 		4C5874851B93F81800407E58 /* ImageDownloaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderTests.swift; sourceTree = "<group>"; };
-		4C5D84271AAD8B9100A42375 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C62D30F1B96C1500011B036 /* UIImageViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewTests.swift; sourceTree = "<group>"; };
 		4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4C8290791B927CE6005E24C8 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		4C9043771AABBFC5001B4E60 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9043821AABBFC5001B4E60 /* AlamofireImage iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		4CA55D2F1B9BC65600435784 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE611321AABC24E00D35044 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE611471AABC5C900D35044 /* AlamofireImage OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+AlamofireImage.swift"; sourceTree = "<group>"; };
@@ -499,7 +499,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C4D4ED21B9297FA00C96855 /* Alamofire.framework in Frameworks */,
+				4CA55D321B9BC67600435784 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,7 +507,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C5D84281AAD8B9100A42375 /* Alamofire.framework in Frameworks */,
+				4CA55D301B9BC65600435784 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,7 +522,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C4D4ED11B9297F800C96855 /* Alamofire.framework in Frameworks */,
+				4CA55D311B9BC66B00435784 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -832,7 +832,7 @@
 		4C5D842B1AAD8C1100A42375 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4C5D84271AAD8B9100A42375 /* Alamofire.framework */,
+				4CA55D2F1B9BC65600435784 /* Alamofire.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
