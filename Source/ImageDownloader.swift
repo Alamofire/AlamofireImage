@@ -294,15 +294,15 @@ public class ImageDownloader {
                                 }
                             }
 
-                            dispatch_async(dispatch_get_main_queue()) {
-                                completion(request, response, .Success(image))
-                            }
-
                             strongSelf.imageCache?.addImage(
                                 image,
                                 forRequest: request,
                                 withAdditionalIdentifier: filter?.identifier
                             )
+
+                            dispatch_async(dispatch_get_main_queue()) {
+                                completion(request, response, .Success(image))
+                            }
                         }
                     case .Failure:
                         for completion in responseHandler.completionHandlers {
