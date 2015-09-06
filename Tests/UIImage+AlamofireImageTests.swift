@@ -50,7 +50,10 @@ extension UIImage {
             let byte2 = data2[index]
             let delta = UInt8(abs(Int(byte1) - Int(byte2)))
 
-            guard delta <= tolerance else { return false }
+            guard delta <= tolerance else {
+                print("Failed with delta: \(delta) and tolerance: \(tolerance)")
+                return false
+            }
         }
 
         return true

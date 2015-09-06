@@ -202,9 +202,9 @@ class UIImageTestCase: BaseTestCase {
         let expectedRainbowImage = imageForResource("rainbow-aspect.scaled.to.fit-\(w)x\(h)-@\(scale)x", withExtension: "png")
         let expectedUnicornImage = imageForResource("unicorn-aspect.scaled.to.fit-\(w)x\(h)-@\(scale)x", withExtension: "png")
 
-        XCTAssertTrue(scaledAppleImage.af_isEqualToImage(expectedAppleImage), "scaled apple image pixels do not match")
+        XCTAssertTrue(scaledAppleImage.af_isEqualToImage(expectedAppleImage, withinTolerance: 4), "scaled apple image pixels do not match")
         XCTAssertTrue(scaledPirateImage.af_isEqualToImage(expectedPirateImage), "scaled pirate image pixels do not match")
-        XCTAssertTrue(scaledRainbowImage.af_isEqualToImage(expectedRainbowImage), "scaled rainbow image pixels do not match")
+        XCTAssertTrue(scaledRainbowImage.af_isEqualToImage(expectedRainbowImage, withinTolerance: 5), "scaled rainbow image pixels do not match")
         XCTAssertTrue(scaledUnicornImage.af_isEqualToImage(expectedUnicornImage), "scaled unicorn image pixels do not match")
 
         XCTAssertEqual(scaledAppleImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
