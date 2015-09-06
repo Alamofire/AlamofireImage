@@ -285,7 +285,7 @@ public class ImageDownloader {
                         var filteredImages: [String: Image] = [:]
 
                         for (filter, completion) in zip(responseHandler.filters, responseHandler.completionHandlers) {
-                            var filteredImage: UIImage
+                            var filteredImage: Image
 
                             if let filter = filter {
                                 if let alreadyFilteredImage = filteredImages[filter.identifier] {
