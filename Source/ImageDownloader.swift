@@ -240,6 +240,7 @@ public class ImageDownloader {
             let identifier = ImageDownloader.identifierForURLRequest(URLRequest)
 
             if let responseHandler = self.responseHandlers[identifier] {
+                print("Appending filter: \(filter?.identifier) to response handler: \(responseHandler.identifier)")
                 responseHandler.filters.append(filter)
                 responseHandler.completionHandlers.append(completion)
                 request = responseHandler.request
@@ -285,10 +286,12 @@ public class ImageDownloader {
                         var filteredImages: [String: Image] = [:]
 
                         for (filter, completion) in zip(responseHandler.filters, responseHandler.completionHandlers) {
-                            if let filter = filter where filteredImages[filter.identifier] == nil {
+                            if let filter = filter {
+                                print("Extracted filter: \(filter.identifier)")
                                 if let filteredImage = filteredImages[filter.identifier] {
                                     image = filteredImage
                                 } else {
+                                    print("Running filter: \(filter.identifier)")
                                     image = filter.filter(image)
                                     filteredImages[filter.identifier] = image
                                 }
@@ -300,6 +303,7 @@ public class ImageDownloader {
                                 withAdditionalIdentifier: filter?.identifier
                             )
 
+                            print("Dispatching image to main queue: \(image)")
                             dispatch_async(dispatch_get_main_queue()) {
                                 completion(request, response, .Success(image))
                             }
@@ -320,6 +324,7 @@ public class ImageDownloader {
             // 4) Store the response handler for use when the request completes
             let responseHandler = ResponseHandler(request: request, filter: filter, completion: completion)
             self.responseHandlers[identifier] = responseHandler
+            print("Creating response handler: \(responseHandler.identifier) with filter: \(filter?.identifier)")
 
             // 5) Either start the request or enqueue it depending on the current active request count
             if self.isActiveRequestCountBelowMaximumLimit() {
