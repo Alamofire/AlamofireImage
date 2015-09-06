@@ -23,6 +23,9 @@
 		4C0897EC1B93BC0D005125D9 /* RequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0897EA1B93BC0D005125D9 /* RequestTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4C1624851AABE8E600A0385D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
 		4C1624861AABE8E600A0385D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
+		4C3F7CE01B9BC957007B790B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA55D2F1B9BC65600435784 /* Alamofire.framework */; };
+		4C3F7CE11B9BC95B007B790B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA55D2F1B9BC65600435784 /* Alamofire.framework */; };
+		4C3F7CE21B9BC962007B790B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA55D2F1B9BC65600435784 /* Alamofire.framework */; };
 		4C4D4EC91B9297B300C96855 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C4D4ECA1B9297BB00C96855 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290791B927CE6005E24C8 /* Image.swift */; settings = {ASSET_TAGS = (); }; };
 		4C4D4ECB1B9297BB00C96855 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; settings = {ASSET_TAGS = (); }; };
@@ -303,9 +306,6 @@
 		4C82907C1B927D13005E24C8 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; settings = {ASSET_TAGS = (); }; };
 		4C82907D1B927DA9005E24C8 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; settings = {ASSET_TAGS = (); }; };
 		4C96A4781AAE9488008AE0B6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
-		4CA55D301B9BC65600435784 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA55D2F1B9BC65600435784 /* Alamofire.framework */; };
-		4CA55D311B9BC66B00435784 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA55D2F1B9BC65600435784 /* Alamofire.framework */; };
-		4CA55D321B9BC67600435784 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA55D2F1B9BC65600435784 /* Alamofire.framework */; };
 		4CE6112C1AABC24E00D35044 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CE611551AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
 		4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
@@ -499,7 +499,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CA55D321B9BC67600435784 /* Alamofire.framework in Frameworks */,
+				4C3F7CE01B9BC957007B790B /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,7 +507,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CA55D301B9BC65600435784 /* Alamofire.framework in Frameworks */,
+				4C3F7CE21B9BC962007B790B /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,7 +522,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CA55D311B9BC66B00435784 /* Alamofire.framework in Frameworks */,
+				4C3F7CE11B9BC95B007B790B /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
