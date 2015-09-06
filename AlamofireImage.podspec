@@ -10,6 +10,9 @@ Pod::Spec.new do |s|
   s.source = { :git => 'https://github.com/Alamofire/AlamofireImage.git', :tag => s.version }
   s.source_files = 'Source/*.swift'
 
+  s.osx.exclude_files = 'Source/UIImage*.swift'
+  s.watchos.exclude_files = 'Source/UIImageView+AlamofireImage.swift'
+
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
   s.watchos.deployment_target = '2.0'
