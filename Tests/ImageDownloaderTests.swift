@@ -42,13 +42,13 @@ private class ThreadCheckFilter: ImageFilter {
 
 #if os(iOS)
 
-private class TestBlurFilter: ImageFilter {
+private class TestCircleFilter: ImageFilter {
     var filterOperationCompleted = false
 
     var filter: Image -> Image {
         return { image in
             self.filterOperationCompleted = true
-            return image.af_imageWithAppliedCoreImageFilter("CIGaussianBlur") ?? image
+            return image.af_imageRoundedIntoCircle()
         }
     }
 }
@@ -356,8 +356,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
         let download2 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
 
-        let filter1 = TestBlurFilter()
-        let filter2 = TestBlurFilter()
+        let filter1 = TestCircleFilter()
+        let filter2 = TestCircleFilter()
 
         let expectation1 = expectationWithDescription("download request 1 should succeed")
         let expectation2 = expectationWithDescription("download request 2 should succeed")
