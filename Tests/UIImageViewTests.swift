@@ -117,7 +117,7 @@ class UIImageViewTestCase: BaseTestCase {
 
     // MARK: - Image Cache
 
-    func testThatImageCanLoadedFromImageCacheFromRequestIdentifierIfAvailable() {
+    func testThatImageCanBeLoadedFromImageCacheFromRequestIdentifierIfAvailable() {
         // Given
         let imageView = UIImageView()
 
@@ -139,7 +139,7 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertNotNil(imageView.image, "image view image should not be nil")
     }
 
-    func testThatImageCanLoadedFromImageCacheFromRequestAndFilterIdentifierIfAvailable() {
+    func testThatImageCanBeLoadedFromImageCacheFromRequestAndFilterIdentifierIfAvailable() {
         // Given
         let imageView = UIImageView()
 
