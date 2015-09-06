@@ -282,19 +282,23 @@ public class ImageDownloader {
                     let responseHandler = strongSelf.safelyRemoveResponseHandlerWithIdentifier(identifier)
 
                     switch result {
-                    case .Success(var image):
+                    case .Success(let image):
                         var filteredImages: [String: Image] = [:]
 
                         for (filter, completion) in zip(responseHandler.filters, responseHandler.completionHandlers) {
+                            var filteredImage: UIImage
+
                             if let filter = filter {
                                 print("Extracted filter: \(filter.identifier)")
-                                if let filteredImage = filteredImages[filter.identifier] {
-                                    image = filteredImage
+                                if let alreadyFilteredImage = filteredImages[filter.identifier] {
+                                    filteredImage = alreadyFilteredImage
                                 } else {
                                     print("Running filter: \(filter.identifier)")
-                                    image = filter.filter(image)
-                                    filteredImages[filter.identifier] = image
+                                    filteredImage = filter.filter(image)
+                                    filteredImages[filter.identifier] = filteredImage
                                 }
+                            } else {
+                                filteredImage = image
                             }
 
                             strongSelf.imageCache?.addImage(
@@ -303,9 +307,9 @@ public class ImageDownloader {
                                 withAdditionalIdentifier: filter?.identifier
                             )
 
-                            print("Dispatching image to main queue: \(image)")
+                            print("Dispatching image to main queue: \(filteredImage)")
                             dispatch_async(dispatch_get_main_queue()) {
-                                completion(request, response, .Success(image))
+                                completion(request, response, .Success(filteredImage))
                             }
                         }
                     case .Failure:
