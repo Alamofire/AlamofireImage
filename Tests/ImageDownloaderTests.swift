@@ -625,6 +625,58 @@ class ImageDownloaderTestCase: BaseTestCase {
         }
     }
 
+#if os(iOS)
+
+    func testThatFilteredImageIsStoredInCacheIfCacheIsAvailable() {
+        // Given
+        let downloader = ImageDownloader()
+        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let size  = CGSize(width: 20, height: 20)
+        let filter = ScaledToSizeFilter(size: size)
+
+        let expectation1 = expectationWithDescription("image download should succeed")
+
+        var result1: Result<Image>?
+        var result2: Result<Image>?
+
+        // When
+        let request1 = downloader.downloadImage(URLRequest: download, filter: filter) { _, _, responseResult in
+            result1 = responseResult
+            expectation1.fulfill()
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        let expectation2 = expectationWithDescription("image download should succeed")
+
+        let request2 = downloader.downloadImage(URLRequest: download, filter: filter) { _, _, responseResult in
+            result2 = responseResult
+            expectation2.fulfill()
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request1, "request 1 should not be nil")
+        XCTAssertNil(request2, "request 2 should be nil")
+
+        XCTAssertNotNil(result1, "result 1 should not be nil")
+        XCTAssertNotNil(result2, "result 2 should not be nil")
+
+        XCTAssertTrue(result1?.isSuccess ?? false, "result 1 should be a success case")
+        XCTAssertTrue(result2?.isSuccess ?? false, "result 2 should be a success case")
+
+        if let image1 = result1?.value, let image2 = result2?.value {
+            XCTAssertEqual(image1, image2, "images 1 and 2 should be equal")
+            XCTAssertEqual(image1.size, size, "image size should match expected size")
+            XCTAssertEqual(image2.size, size, "image size should match expected size")
+        } else {
+            XCTFail("images should not be nil")
+        }
+    }
+
+#endif
+
     // MARK: - Internal Logic Tests
 
     func testThatStartingRequestIncrementsActiveRequestCount() {
