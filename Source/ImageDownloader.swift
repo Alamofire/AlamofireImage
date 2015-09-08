@@ -299,7 +299,7 @@ public class ImageDownloader {
                             }
 
                             strongSelf.imageCache?.addImage(
-                                image,
+                                filteredImage,
                                 forRequest: request,
                                 withAdditionalIdentifier: filter?.identifier
                             )
