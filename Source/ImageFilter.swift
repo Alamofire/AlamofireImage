@@ -246,6 +246,32 @@ public struct BlurFilter: ImageFilter {
 
 #endif
 
+// MARK: - Composite Image Filters (iOS and watchOS only) -
+
+/// The `CompositeImageFilter` protocol defines an additional filter property for filter components.
+public protocol CompositeImageFilter: ImageFilter {
+    
+    /// The filters composing the receiver filter.
+    var filters: [ImageFilter] { get }
+    
+}
+    
+public extension CompositeImageFilter {
+    
+    /// The unique idenitifier for any `CompositeImageFilter` type.
+    var identifier: String {
+        return filters.map { $0.identifier }.joinWithSeparator("_")
+    }
+    
+    /// The filter closure for any `CompositeImageFilter` type.
+    var filter: Image -> Image {
+        return { image in
+            return self.filters.reduce(image) { $1.filter($0) }
+        }
+    }
+    
+}
+    
 // MARK: - Multi-Pass Image Filters (iOS and watchOS only) -
 
 /// Scales an image to a specified size, then rounds the corners to the specified radius.
