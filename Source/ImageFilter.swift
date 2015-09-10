@@ -272,10 +272,10 @@ public extension CompositeImageFilter {
     
 }
     
-// MARK: - Multi-Pass Image Filters (iOS and watchOS only) -
+// MARK: -
 
 /// Scales an image to a specified size, then rounds the corners to the specified radius.
-public struct ScaledToSizeWithRoundedCornersFilter: ImageFilter, Sizable, Roundable {
+public struct ScaledToSizeWithRoundedCornersFilter: CompositeImageFilter, Sizable, Roundable {
     /// The size of the filter.
     public let size: CGSize
 
@@ -293,24 +293,19 @@ public struct ScaledToSizeWithRoundedCornersFilter: ImageFilter, Sizable, Rounda
     public init(size: CGSize, radius: CGFloat) {
         self.size = size
         self.radius = radius
+        self.filters = [ScaledToSizeFilter(size: size), RoundedCornersFilter(radius: radius)]
     }
+    
+    /// The filters composing the receiver filter.
+    public let filters: [ImageFilter]
 
-    /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
-        return { image in
-            let scaledImage = image.af_imageScaledToSize(self.size)
-            let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius * image.scale)
-
-            return roundedAndScaledImage
-        }
-    }
 }
 
 // MARK: -
 
 /// Scales an image from the center while maintaining the aspect ratio to fit within a specified size, then rounds the 
 /// corners to the specified radius.
-public struct AspectScaledToFillSizeWithRoundedCornersFilter: ImageFilter, Sizable, Roundable {
+public struct AspectScaledToFillSizeWithRoundedCornersFilter: CompositeImageFilter, Sizable, Roundable {
     /// The size of the filter.
     public let size: CGSize
 
@@ -328,23 +323,17 @@ public struct AspectScaledToFillSizeWithRoundedCornersFilter: ImageFilter, Sizab
     public init(size: CGSize, radius: CGFloat) {
         self.size = size
         self.radius = radius
+        self.filters = [AspectScaledToFillSizeFilter(size: size), RoundedCornersFilter(radius: radius)]
     }
-
-    /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
-        return { image in
-            let scaledImage = image.af_imageAspectScaledToFillSize(self.size)
-            let roundedAndScaledImage = scaledImage.af_imageWithRoundedCornerRadius(self.radius * image.scale)
-
-            return roundedAndScaledImage
-        }
-    }
+    
+    /// The filters composing the receiver filter.
+    public let filters: [ImageFilter]
 }
 
 // MARK: -
 
 /// Scales an image to a specified size, then rounds the corners into a circle.
-public struct ScaledToSizeCircleFilter: ImageFilter, Sizable, Roundable {
+public struct ScaledToSizeCircleFilter: CompositeImageFilter, Sizable, Roundable {
     /// The size of the filter.
     public let size: CGSize
 
@@ -361,24 +350,18 @@ public struct ScaledToSizeCircleFilter: ImageFilter, Sizable, Roundable {
     public init(size: CGSize) {
         self.size = size
         self.radius = min(size.width, size.height) / 2.0
+        self.filters = [ScaledToSizeFilter(size: size), CircleFilter()]
     }
-
-    /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
-        return { image in
-            let scaledImage = image.af_imageScaledToSize(self.size)
-            let scaledCircleImage = scaledImage.af_imageRoundedIntoCircle()
-            
-            return scaledCircleImage
-        }
-    }
+    
+    /// The filters composing the receiver filter.
+    public let filters: [ImageFilter]
 }
 
 // MARK: -
 
 /// Scales an image from the center while maintaining the aspect ratio to fit within a specified size, then rounds the
 /// corners into a circle.
-public struct AspectScaledToFillSizeCircleFilter: ImageFilter, Sizable, Roundable {
+public struct AspectScaledToFillSizeCircleFilter: CompositeImageFilter, Sizable, Roundable {
     /// The size of the filter.
     public let size: CGSize
 
@@ -395,17 +378,11 @@ public struct AspectScaledToFillSizeCircleFilter: ImageFilter, Sizable, Roundabl
     public init(size: CGSize) {
         self.size = size
         self.radius = min(size.width, size.height) / 2.0
+        self.filters = [AspectScaledToFillSizeFilter(size: size), CircleFilter()]
     }
-
-    /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
-        return { image in
-            let scaledImage = image.af_imageAspectScaledToFillSize(self.size)
-            let scaledCircleImage = scaledImage.af_imageRoundedIntoCircle()
-            
-            return scaledCircleImage
-        }
-    }
+    
+    /// The filters composing the receiver filter.
+    public let filters: [ImageFilter]
 }
 
 #endif
