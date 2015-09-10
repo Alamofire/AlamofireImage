@@ -10,7 +10,8 @@ All notable changes to this project will be documented in this file.
 ---
 
 ## [1.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/1.0.0)
-Released on 2015-09-09.
+Released on 2015-09-09. All issues associated with this milestone can be found using this 
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.0.0).
 
 #### Added
 - Initial release of AlamofireImage.
