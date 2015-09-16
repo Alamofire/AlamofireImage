@@ -201,14 +201,19 @@ extension UIImage {
     /**
         Returns a new version of the image with the corners rounded to the specified radius.
 
-        - parameter radius: The radius to use when rounding the new image.
+        - parameter radius:                   The radius to use when rounding the new image.
+        - parameter divideRadiusByImageScale: Whether to divide the radius by the image scale. Set to `true` when the 
+                                              image has the same resolution for all screen scales such as @1x, @2x and 
+                                              @3x (i.e. single image from web server). Set to `false` for images loaded 
+                                              from an asset catalog with varying resolutions for each screen scale. 
+                                              `false` by default.
 
         - returns: A new image object.
     */
-    public func af_imageWithRoundedCornerRadius(radius: CGFloat) -> UIImage {
+    public func af_imageWithRoundedCornerRadius(radius: CGFloat, divideRadiusByImageScale: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
 
-        let scaledRadius = radius / scale
+        let scaledRadius = divideRadiusByImageScale ? radius / scale : radius
 
         let clippingPath = UIBezierPath(roundedRect: CGRect(origin: CGPointZero, size: size), cornerRadius: scaledRadius)
         clippingPath.addClip()
