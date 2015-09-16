@@ -53,9 +53,9 @@ public class ImageDownloader {
         let identifier: String
         let request: Request
         var filters: [ImageFilter?]
-        var completionHandlers: [CompletionHandler]
+        var completionHandlers: [CompletionHandler?]
 
-        init(request: Request, filter: ImageFilter?, completion: CompletionHandler) {
+        init(request: Request, filter: ImageFilter?, completion: CompletionHandler?) {
             self.request = request
             self.identifier = ImageDownloader.identifierForURLRequest(request.request!)
             self.filters = [filter]
@@ -207,7 +207,7 @@ public class ImageDownloader {
         - returns: The created download request if available. `nil` if the image is stored in the image cache and the
                   URL request cache policy allows the cache to be used.
     */
-    public func downloadImage(URLRequest URLRequest: URLRequestConvertible, completion: CompletionHandler) -> Request? {
+    public func downloadImage(URLRequest URLRequest: URLRequestConvertible, completion: CompletionHandler?) -> Request? {
         return downloadImage(URLRequest: URLRequest, filter: nil, completion: completion)
     }
 
@@ -230,7 +230,7 @@ public class ImageDownloader {
     public func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
         filter: ImageFilter?,
-        completion: CompletionHandler)
+        completion: CompletionHandler?)
         -> Request?
     {
         var request: Request!
@@ -255,7 +255,7 @@ public class ImageDownloader {
                     withAdditionalIdentifier: filter?.identifier)
                 {
                     dispatch_async(dispatch_get_main_queue()) {
-                        completion(URLRequest.URLRequest, nil, .Success(image))
+                        completion?(URLRequest.URLRequest, nil, .Success(image))
                     }
 
                     return
@@ -305,13 +305,13 @@ public class ImageDownloader {
                             )
 
                             dispatch_async(dispatch_get_main_queue()) {
-                                completion(request, response, .Success(filteredImage))
+                                completion?(request, response, .Success(filteredImage))
                             }
                         }
                     case .Failure:
                         for completion in responseHandler.completionHandlers {
                             dispatch_async(dispatch_get_main_queue()) {
-                                completion(request, response, result)
+                                completion?(request, response, result)
                             }
                         }
                     }
