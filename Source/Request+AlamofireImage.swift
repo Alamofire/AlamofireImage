@@ -23,7 +23,7 @@
 import Alamofire
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import UIKit
 #elseif os(watchOS)
 import UIKit
@@ -36,9 +36,9 @@ extension Request {
     /// The completion handler closure used when an image response serializer completes.
     public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<Image>) -> Void
 
-    // MARK: - iOS and watchOS
+    // MARK: - iOS, tvOS and watchOS
 
-#if os(iOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS)
 
     /**
         Creates a response serializer that returns an image initialized from the response data using the specified
@@ -126,7 +126,7 @@ extension Request {
     }
 
     private class var imageScale: CGFloat {
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
             return UIScreen.mainScreen().scale
         #elseif os(watchOS)
             return WKInterfaceDevice.currentDevice().screenScale

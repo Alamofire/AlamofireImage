@@ -23,7 +23,7 @@
 import Alamofire
 import Foundation
 
-#if os(iOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
 #elseif os(OSX)
 import Cocoa
@@ -78,7 +78,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
             self.lastAccessDate = NSDate()
 
             self.totalBytes = {
-                #if os(iOS) || os(watchOS)
+                #if os(iOS) || os(tvOS) || os(watchOS)
                     let size = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
                 #elseif os(OSX)
                     let size = CGSize(width: image.size.width, height: image.size.height)

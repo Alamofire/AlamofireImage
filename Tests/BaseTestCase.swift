@@ -65,7 +65,7 @@ class BaseTestCase : XCTestCase {
     func imageForResource(fileName: String, withExtension ext: String) -> Image {
         let URL = URLForResource(fileName, withExtension: ext)
         let data = NSData(contentsOfURL: URL)!
-        #if os(iOS)
+        #if os(iOS) || os(tvOS)
             let image = Image.af_threadSafeImageWithData(data, scale: UIScreen.mainScreen().scale)!
         #elseif os(OSX)
             let image = Image(data: data)!

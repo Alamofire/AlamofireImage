@@ -24,7 +24,7 @@ import CoreGraphics
 import Foundation
 import UIKit
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 import CoreImage
 #endif
 
@@ -254,7 +254,7 @@ extension UIImage {
     }
 }
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 
 // MARK: - Core Image Filters
 
