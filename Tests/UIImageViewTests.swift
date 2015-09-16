@@ -326,12 +326,20 @@ class UIImageViewTestCase: BaseTestCase {
 
         let expectation8 = expectationWithDescription("image download should succeed")
         imageView.imageObserver = {
-            imageTransitionsComplete = true
             expectation8.fulfill()
         }
-
         ImageDownloader.defaultInstance.imageCache?.removeAllImages()
         imageView.af_setImageWithURL(URL, imageTransition: .FlipFromTop(0.1))
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        let customTransition = UIImageView.ImageTransition.Custom(0.5, UIViewAnimationOptions(), {$0.image = $1}, nil)
+        let expectation9 = expectationWithDescription("image download should succeed")
+        imageView.imageObserver = {
+            imageTransitionsComplete = true
+            expectation9.fulfill()
+        }
+        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
+        imageView.af_setImageWithURL(URL, imageTransition: customTransition)
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
@@ -373,7 +381,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         // Then
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
-        XCTAssertNil(imageView.image, "image view image should be nil when completion handler is not nil")
+        XCTAssertNotNil(imageView.image, "image view image should be not be nil when completion handler is not nil")
         XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
     }
 
@@ -406,6 +414,49 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
         XCTAssertNil(imageView.image, "image view image should be nil when completion handler is not nil")
         XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
+    }
+
+    func testThatCompletionHandlerAndCustomTransitionHandlerAreBothCalled() {
+        // Given
+        let imageView = UIImageView()
+
+        let URLRequest: NSURLRequest = {
+            let request = NSMutableURLRequest(URL: URL)
+            request.addValue("image/*", forHTTPHeaderField: "Accept")
+            return request
+            }()
+
+        let transitionExpectation = expectationWithDescription("image transition should complete")
+        var transitionCompletionHandlerCalled = false
+        let customTransition = UIImageView.ImageTransition.Custom(0.5, UIViewAnimationOptions(), {$0.image = $1}, { (_) in
+            transitionCompletionHandlerCalled = true
+            transitionExpectation.fulfill()
+        })
+
+        let expectation = expectationWithDescription("image download should succeed")
+        var completionHandlerCalled = false
+        var result: Result<UIImage>?
+
+        // When
+        imageView.af_setImageWithURLRequest(
+            URLRequest,
+            placeholderImage: nil,
+            filter: nil,
+            imageTransition: customTransition,
+            completion: { _, _, responseResult in
+                completionHandlerCalled = true
+                result = responseResult
+                expectation.fulfill()
+            }
+        )
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
+        XCTAssertTrue(transitionCompletionHandlerCalled, "transition completion hanlder called should be true")
+        XCTAssertNotNil(imageView.image, "image view image should be not be nil when completion handler is not nil")
+        XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
     }
 
     // MARK: - Cancellation
@@ -481,7 +532,7 @@ class UIImageViewTestCase: BaseTestCase {
         // Then
         XCTAssertFalse(completion1Called, "completion 1 called should be false")
         XCTAssertTrue(completion2Called, "completion 2 called should be true")
-        XCTAssertNil(imageView.image, "image view image should be nil when completion handler is not nil")
+        XCTAssertNotNil(imageView.image, "image view image should not be nil when completion handler is not nil")
         XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
     }
 }

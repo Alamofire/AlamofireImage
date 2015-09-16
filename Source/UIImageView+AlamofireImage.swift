@@ -38,30 +38,50 @@ extension UIImageView {
         case FlipFromLeft(NSTimeInterval)
         case FlipFromRight(NSTimeInterval)
         case FlipFromTop(NSTimeInterval)
+        case Custom(NSTimeInterval, UIViewAnimationOptions, ((UIImageView, Image) -> (Void)), ((Bool) -> Void)?)
 
         private var duration: NSTimeInterval {
             switch self {
-            case None:                         return 0.0
-            case CrossDissolve(let duration):  return duration
-            case CurlDown(let duration):       return duration
-            case CurlUp(let duration):         return duration
-            case FlipFromBottom(let duration): return duration
-            case FlipFromLeft(let duration):   return duration
-            case FlipFromRight(let duration):  return duration
-            case FlipFromTop(let duration):    return duration
+            case None:                              return 0.0
+            case CrossDissolve(let duration):       return duration
+            case CurlDown(let duration):            return duration
+            case CurlUp(let duration):              return duration
+            case FlipFromBottom(let duration):      return duration
+            case FlipFromLeft(let duration):        return duration
+            case FlipFromRight(let duration):       return duration
+            case FlipFromTop(let duration):         return duration
+            case Custom(let duration, _, _, _):     return duration
             }
         }
 
         private var animationOptions: UIViewAnimationOptions {
             switch self {
-            case None:           return .TransitionNone
-            case CrossDissolve:  return .TransitionCrossDissolve
-            case CurlDown:       return .TransitionCurlDown
-            case CurlUp:         return .TransitionCurlUp
-            case FlipFromBottom: return .TransitionFlipFromBottom
-            case FlipFromLeft:   return .TransitionFlipFromLeft
-            case FlipFromRight:  return .TransitionFlipFromRight
-            case FlipFromTop:    return .TransitionFlipFromTop
+            case None:                                        return .TransitionNone
+            case CrossDissolve:                               return .TransitionCrossDissolve
+            case CurlDown:                                    return .TransitionCurlDown
+            case CurlUp:                                      return .TransitionCurlUp
+            case FlipFromBottom:                              return .TransitionFlipFromBottom
+            case FlipFromLeft:                                return .TransitionFlipFromLeft
+            case FlipFromRight:                               return .TransitionFlipFromRight
+            case FlipFromTop:                                 return .TransitionFlipFromTop
+            case Custom(_, let animationOptions, _, _):       return animationOptions
+            }
+        }
+
+        private var animations: ((UIImageView, Image) -> (Void)) {
+            switch self {
+            case Custom(_, _,let animations, _):       return animations
+            default:
+                let animation: ((UIImageView, Image) -> (Void)) = {$0.image = $1}
+                return animation
+            }
+        }
+
+        private var completion: ((Bool) -> Void)? {
+            switch self {
+            case Custom(_, _, _, let completion):       return completion
+            default:
+                return nil
             }
         }
     }
@@ -204,9 +224,11 @@ extension UIImageView {
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
         set immediately, and then the remote image will be set once the image request is finished.
 
-        If a `completion` closure is specified, it is the responsibility of the closure to set the image of the image 
-        view before returning. If no `completion` closure is specified, the default behavior of setting the image is 
-        applied.
+        If an 'imageTransition` other than `None` is specified, the `completion` closure will be called just before the start of transition, and the image will not yet be set on the image view. If `None` is specified, the completion closure will be called after the image has been set on the image view.
+        
+        Note that it is no longer the responsibility of the `completion` closure to set the image. It will be set automatically.
+    
+        If you require being notified when the image transition has completion, use a `.Custom` image transition and specify a completion closure. That closure will be called when the transition animation has finished.
 
         - parameter URL:              The URL used for the image request.
         - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
@@ -263,26 +285,23 @@ extension UIImageView {
 
                 strongSelf.af_activeRequest = nil
 
-                guard completion == nil else {
-                    completion?(request, response, result)
-                    return
-                }
-
                 if let image = result.value {
                     switch imageTransition {
                     case .None:
                         strongSelf.image = image
+                        completion?(request, response, result)
                     default:
+                        completion?(request, response, result)
                         UIView.transitionWithView(
                             strongSelf,
                             duration: imageTransition.duration,
                             options: imageTransition.animationOptions,
-                            animations: {
-                                strongSelf.image = image
-                            },
-                            completion: nil
+                            animations: {imageTransition.animations(strongSelf, image)},
+                            completion: imageTransition.completion
                         )
                     }
+                } else {
+                    completion?(request, response, result)
                 }
             }
         )
