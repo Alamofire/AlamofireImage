@@ -23,8 +23,8 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Requirements
 
-- iOS 8.0+ / Mac OS X 10.9+ / watchOS 2
-- Xcode 7.0+
+- iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2
+- Xcode 7.1 beta 1+
 
 ## Dependencies
 
