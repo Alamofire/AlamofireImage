@@ -62,7 +62,8 @@ class ImageFilterTestCase: BaseTestCase {
         let identifier = filter.identifier
 
         // Then
-        XCTAssertEqual(identifier, "RoundedCornersFilter-radius:(12)", "identifier does not match expected value")
+        let expectedIdentifier = "RoundedCornersFilter-radius:(12)-divided:(false)"
+        XCTAssertEqual(identifier, expectedIdentifier, "identifier does not match expected value")
     }
 
     // MARK: - CompositeImageFilter Protocol Extension Identifiers
@@ -75,11 +76,8 @@ class ImageFilterTestCase: BaseTestCase {
         let identifier = filter.identifier
 
         // Then
-        XCTAssertEqual(
-            identifier,
-            "ScaledToSizeFilter-size:(200x100)_RoundedCornersFilter-radius:(20)",
-            "identifier does not match expected value"
-        )
+        let expectedIdentifier = "ScaledToSizeFilter-size:(200x100)_RoundedCornersFilter-radius:(20)-divided:(false)"
+        XCTAssertEqual(identifier, expectedIdentifier, "identifier does not match expected value")
     }
 
     // MARK: - Single Pass Image Filter Tests
@@ -126,7 +124,7 @@ class ImageFilterTestCase: BaseTestCase {
     func testThatRoundedCornersFilterReturnsCorrectFilteredImage() {
         // Given
         let image = imageForResource("pirate", withExtension: "jpg")
-        let filter = RoundedCornersFilter(radius: 20)
+        let filter = RoundedCornersFilter(radius: 20, divideRadiusByImageScale: true)
 
         // When
         let filteredImage = filter.filter(image)
@@ -134,6 +132,9 @@ class ImageFilterTestCase: BaseTestCase {
         // Then
         let expectedFilteredImage = imageForResource("pirate-radius-20", withExtension: "png")
         XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+
+        let expectedIdentifier = "RoundedCornersFilter-radius:(20)-divided:(true)"
+        XCTAssertEqual(filter.identifier, expectedIdentifier, "filter identifier does not match")
     }
 
     func testThatCircleFilterReturnsCorrectFilteredImage() {

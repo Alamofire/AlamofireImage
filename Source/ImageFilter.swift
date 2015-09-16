@@ -166,22 +166,40 @@ public struct RoundedCornersFilter: ImageFilter, Roundable {
     /// The radius of the filter.
     public let radius: CGFloat
 
+    /// Whether to divide the radius by the image scale.
+    public let divideRadiusByImageScale: Bool
+
     /**
         Initializes the `RoundedCornersFilter` instance with the given radius.
 
-        - parameter radius: The radius.
+        - parameter radius:                   The radius.
+        - parameter divideRadiusByImageScale: Whether to divide the radius by the image scale. Set to `true` when the
+                                              image has the same resolution for all screen scales such as @1x, @2x and
+                                              @3x (i.e. single image from web server). Set to `false` for images loaded
+                                              from an asset catalog with varying resolutions for each screen scale.
+                                              `false` by default.
 
         - returns: The new `RoundedCornersFilter` instance.
     */
-    public init(radius: CGFloat) {
+    public init(radius: CGFloat, divideRadiusByImageScale: Bool = false) {
         self.radius = radius
+        self.divideRadiusByImageScale = divideRadiusByImageScale
     }
 
     /// The filter closure used to create the modified representation of the given image.
     public var filter: Image -> Image {
         return { image in
-            return image.af_imageWithRoundedCornerRadius(self.radius)
+            return image.af_imageWithRoundedCornerRadius(
+                self.radius,
+                divideRadiusByImageScale: self.divideRadiusByImageScale
+            )
         }
+    }
+
+    /// The unique idenitifier for an `ImageFilter` conforming to the `Roundable` protocol.
+    public var identifier: String {
+        let radius = Int64(round(self.radius))
+        return "\(self.dynamicType)-radius:(\(radius))-divided:(\(divideRadiusByImageScale))"
     }
 }
 
@@ -264,13 +282,21 @@ public struct ScaledToSizeWithRoundedCornersFilter: CompositeImageFilter {
     /**
         Initializes the `ScaledToSizeWithRoundedCornersFilter` instance with the given size and radius.
 
-        - parameter size:   The size.
-        - parameter radius: The radius.
+        - parameter size:                     The size.
+        - parameter radius:                   The radius.
+        - parameter divideRadiusByImageScale: Whether to divide the radius by the image scale. Set to `true` when the
+                                              image has the same resolution for all screen scales such as @1x, @2x and
+                                              @3x (i.e. single image from web server). Set to `false` for images loaded
+                                              from an asset catalog with varying resolutions for each screen scale.
+                                              `false` by default.
 
         - returns: The new `ScaledToSizeWithRoundedCornersFilter` instance.
     */
-    public init(size: CGSize, radius: CGFloat) {
-        self.filters = [ScaledToSizeFilter(size: size), RoundedCornersFilter(radius: radius)]
+    public init(size: CGSize, radius: CGFloat, divideRadiusByImageScale: Bool = false) {
+        self.filters = [
+            ScaledToSizeFilter(size: size),
+            RoundedCornersFilter(radius: radius, divideRadiusByImageScale: divideRadiusByImageScale)
+        ]
     }
 
     /// The image filters to apply to the image in sequential order.
@@ -285,13 +311,21 @@ public struct AspectScaledToFillSizeWithRoundedCornersFilter: CompositeImageFilt
     /**
         Initializes the `AspectScaledToFillSizeWithRoundedCornersFilter` instance with the given size and radius.
 
-        - parameter size:   The size.
-        - parameter radius: The radius.
+        - parameter size:                     The size.
+        - parameter radius:                   The radius.
+        - parameter divideRadiusByImageScale: Whether to divide the radius by the image scale. Set to `true` when the
+                                              image has the same resolution for all screen scales such as @1x, @2x and
+                                              @3x (i.e. single image from web server). Set to `false` for images loaded
+                                              from an asset catalog with varying resolutions for each screen scale.
+                                              `false` by default.
 
         - returns: The new `AspectScaledToFillSizeWithRoundedCornersFilter` instance.
     */
-    public init(size: CGSize, radius: CGFloat) {
-        self.filters = [AspectScaledToFillSizeFilter(size: size), RoundedCornersFilter(radius: radius)]
+    public init(size: CGSize, radius: CGFloat, divideRadiusByImageScale: Bool = false) {
+        self.filters = [
+            AspectScaledToFillSizeFilter(size: size),
+            RoundedCornersFilter(radius: radius, divideRadiusByImageScale: divideRadiusByImageScale)
+        ]
     }
 
     /// The image filters to apply to the image in sequential order.
