@@ -40,7 +40,7 @@ public protocol ImageFilter {
 }
 
 extension ImageFilter {
-    /// The unique idenitifier for any `ImageFilter` type.
+    /// The unique identifier for any `ImageFilter` type.
     public var identifier: String { return "\(self.dynamicType)" }
 }
 
@@ -75,6 +75,82 @@ extension ImageFilter where Self: Roundable {
     public var identifier: String {
         let radius = Int64(round(self.radius))
         return "\(self.dynamicType)-radius:(\(radius))"
+    }
+}
+
+// MARK: - DynamicImageFilter
+
+/// The `DynamicImageFilter` class simplifies custom image filter creation by using a trailing closure initializer.
+public struct DynamicImageFilter: ImageFilter {
+    /// The string used to uniquely identify the image filter operation.
+    public let identifier: String
+
+    /// A closure used to create an alternative representation of the given image.
+    public let filter: Image -> Image
+
+    /**
+        Initializes the `DynamicImageFilter` instance with the specified identifier and filter closure.
+
+        - parameter identifier: The unique identifier of the filter.
+        - parameter filter:     A closure used to create an alternative representation of the given image.
+
+        - returns: The new `DynamicImageFilter` instance.
+    */
+    public init(_ identifier: String, filter: Image -> Image) {
+        self.identifier = identifier
+        self.filter = filter
+    }
+}
+
+// MARK: - CompositeImageFilter
+
+/// The `CompositeImageFilter` protocol defines an additional `filters` property to support multiple composite filters.
+public protocol CompositeImageFilter: ImageFilter {
+    /// The image filters to apply to the image in sequential order.
+    var filters: [ImageFilter] { get }
+}
+
+public extension CompositeImageFilter {
+    /// The unique idenitifier for any `CompositeImageFilter` type.
+    var identifier: String {
+        return filters.map { $0.identifier }.joinWithSeparator("_")
+    }
+
+    /// The filter closure for any `CompositeImageFilter` type.
+    var filter: Image -> Image {
+        return { image in
+            return self.filters.reduce(image) { $1.filter($0) }
+        }
+    }
+}
+
+// MARK: - DynamicCompositeImageFilter
+
+/// The `DynamicCompositeImageFilter` class is a composite image filter based on a specified array of filters.
+public struct DynamicCompositeImageFilter: CompositeImageFilter {
+    /// The image filters to apply to the image in sequential order.
+    public let filters: [ImageFilter]
+
+    /**
+        Initializes the `DynamicCompositeImageFilter` instance with the given filters.
+
+        - parameter filters: The filters taking part in the composite image filter.
+
+        - returns: The new `DynamicCompositeImageFilter` instance.
+    */
+    public init(_ filters: [ImageFilter]) {
+        self.filters = filters
+    }
+
+    /**
+        Initializes the `DynamicCompositeImageFilter` instance with the given filters.
+
+        - parameter filters: The filters taking part in the composite image filter.
+
+        - returns: The new `DynamicCompositeImageFilter` instance.
+    */
+    public init(_ filters: ImageFilter...) {
+        self.init(filters)
     }
 }
 
@@ -254,28 +330,6 @@ public struct BlurFilter: ImageFilter {
 #endif
 
 // MARK: - Composite Image Filters (iOS and watchOS only) -
-
-/// The `CompositeImageFilter` protocol defines an additional `filters` property to support multiple composite filters.
-public protocol CompositeImageFilter: ImageFilter {
-    /// The image filters to apply to the image in sequential order.
-    var filters: [ImageFilter] { get }
-}
-
-public extension CompositeImageFilter {
-    /// The unique idenitifier for any `CompositeImageFilter` type.
-    var identifier: String {
-        return filters.map { $0.identifier }.joinWithSeparator("_")
-    }
-
-    /// The filter closure for any `CompositeImageFilter` type.
-    var filter: Image -> Image {
-        return { image in
-            return self.filters.reduce(image) { $1.filter($0) }
-        }
-    }
-}
-
-// MARK: -
 
 /// Scales an image to a specified size, then rounds the corners to the specified radius.
 public struct ScaledToSizeWithRoundedCornersFilter: CompositeImageFilter {
