@@ -4,18 +4,47 @@ All notable changes to this project will be documented in this file.
 
 #### 1.x Releases
 
+- `1.1.x` Releases - [1.1.0](#110)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
 
+## [1.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.0)
+Released on 2015-09-19. All issues associated with this milestone can be found using this 
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.1.0).
+
+#### Added
+- Custom image transition to the `UIImageView` extension.
+  - Added by [Kevin Harwood](https://github.com/kcharwood) in Pull Request
+  [#9](https://github.com/Alamofire/AlamofireImage/pull/9).
+- CompositeImageFilter protocol to construct composite image filters.
+  - Added by [Damien Rambout](https://github.com/damienrambout) in Pull Request
+  [#8](https://github.com/Alamofire/AlamofireImage/pull/8).
+- `DynamicImageFilter` and `DynamicCompositeImageFilter` structs to make it easy
+to create custom image filters.
+  - Added by [Damien Rambout](https://github.com/damienrambout) in Pull Request
+  [#14](https://github.com/Alamofire/AlamofireImage/pull/14).
+
+#### Updated
+- `ImageDownloader` download image completion closures to be optional.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Completion callback behavior of the `UIImageView` extension methods to be called before
+the image transition occurs.
+  - Updated by [Kevin Harwood](https://github.com/kcharwood) in Pull Request
+  [#9](https://github.com/Alamofire/AlamofireImage/pull/9).
+- Rounded corner radius image filter can now be adjusted by the image scale.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#10](https://github.com/Alamofire/AlamofireImage/pull/10).
+- Enabled APPLICATION_EXTENSION_API_ONLY in watchOS framework.
+  - Updated by [James Barrow](https://github.com/Baza207) in Pull Request
+  [#11](https://github.com/Alamofire/AlamofireImage/pull/11).
+- The podspec file to allow all Alamofire 2.x versions.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+
 ## [1.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/1.0.0)
 Released on 2015-09-09. All issues associated with this milestone can be found using this 
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.0.0).
-
-#### Added
-- Initial release of AlamofireImage.
-  - Added by [Christian Noon](https://github.com/cnoon).
 
 #### Updated
 - Alamofire dependency to `~> 2.0` for CocoaPods and Carthage.
