@@ -79,6 +79,55 @@ class ImageFilterTestCase: BaseTestCase {
         let expectedIdentifier = "ScaledToSizeFilter-size:(200x100)_RoundedCornersFilter-radius:(20)-divided:(false)"
         XCTAssertEqual(identifier, expectedIdentifier, "identifier does not match expected value")
     }
+    
+    // MARK: - DynamicImageFilter tests
+    
+    func testThatDynamicImageFilterIdentifierIsImplemented() {
+        let expectedIdentifier = "DynamicFilter"
+        
+        // Given
+        let filter = DynamicImageFilter(expectedIdentifier) { $0 }
+        
+        // When
+        let identifier = filter.identifier
+        
+        // Then
+        XCTAssertEqual(identifier, expectedIdentifier, "identifier does not match expected value")
+    }
+    
+    func testThatDynamicImageFilterReturnsCorrectFilteredImage() {
+        // Given
+        let image = imageForResource("pirate", withExtension: "jpg")
+        let filter = DynamicImageFilter("DynamicScaleToSizeFilter") { image in
+            return image.af_imageScaledToSize(CGSize(width: 50.0, height: 50.0))
+        }
+        
+        // When
+        let filteredImage = filter.filter(image)
+        
+        // Then
+        let expectedFilteredImage = imageForResource("pirate-scaled-50x50-@\(scale)x", withExtension: "png")
+        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+    }
+    
+    // MARK: - DynamicCompositeImageFilter tests
+    
+    func testThatDynamicCompositeImageFilterReturnsCorrectFilteredImage() {
+        // Given
+        let image = imageForResource("pirate", withExtension: "jpg")
+        let filter = DynamicCompositeImageFilter(ScaledToSizeFilter(size: largeSquareSize), RoundedCornersFilter(radius: 20))
+        
+        // When
+        let filteredImage = filter.filter(image)
+        
+        // Then
+        let expectedFilteredImage = imageForResource(
+            "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
+            withExtension: "png"
+        )
+        
+        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+    }
 
     // MARK: - Single Pass Image Filter Tests
 
