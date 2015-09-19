@@ -40,7 +40,7 @@ public protocol ImageFilter {
 }
 
 extension ImageFilter {
-    /// The unique idenitifier for any `ImageFilter` type.
+    /// The unique identifier for any `ImageFilter` type.
     public var identifier: String { return "\(self.dynamicType)" }
 }
 
@@ -75,6 +75,29 @@ extension ImageFilter where Self: Roundable {
     public var identifier: String {
         let radius = Int64(round(self.radius))
         return "\(self.dynamicType)-radius:(\(radius))"
+    }
+}
+
+// MARK: - Dynamic Filter
+
+/// The `DynamicImageFilter` class is an image filter based on a given closure and a unique identifier.
+public struct DynamicImageFilter: ImageFilter {
+    /// A closure used to create an alternative representation of the given image.
+    public let filter: Image -> Image
+    /// The string used to uniquely identify the filter operation.
+    public let identifier: String
+    
+    /**
+    Initializes the `DynamicImageFilter` instance with the given identifier and filter closure.
+    
+    - parameter identifier: The unique identifier of the filter.
+    - parameter filter: A closure used to create an alternative representation of the given image.
+    
+    - returns: The new `DynamicImageFilter` instance.
+    */
+    public init(_ identifier: String, filter: Image -> Image) {
+        self.identifier = identifier
+        self.filter = filter
     }
 }
 
@@ -272,6 +295,36 @@ public extension CompositeImageFilter {
         return { image in
             return self.filters.reduce(image) { $1.filter($0) }
         }
+    }
+}
+    
+// MARK: - Dynamic Composite Filter
+
+/// The `DynamicCompositeImageFilter` class is an image filter based on a given closure and a unique identifier.
+public struct DynamicCompositeImageFilter: CompositeImageFilter {
+    /// The image filters to apply to the image in sequential order.
+    public let filters: [ImageFilter]
+    
+    /**
+    Initializes the `DynamicCompositeImageFilter` instance with the given filters.
+    
+    - parameter filters: The filters taking part in the composite image filter.
+    
+    - returns: The new `DynamicCompositeImageFilter` instance.
+    */
+    public init(_ filters: [ImageFilter]) {
+        self.filters = filters
+    }
+    
+    /**
+    Initializes the `DynamicCompositeImageFilter` instance with the given filters.
+    
+    - parameter filters: The filters taking part in the composite image filter.
+    
+    - returns: The new `DynamicCompositeImageFilter` instance.
+    */
+    public init(_ filters: ImageFilter...) {
+        self.init(filters)
     }
 }
 
