@@ -322,7 +322,7 @@ extension UIImageView {
 
                 // Ignore the event if the response request does not match the current request
                 guard let
-                    currentRequest = strongSelf.af_activeRequest?.task.currentRequest
+                    currentRequest = strongSelf.af_activeRequest?.task.originalRequest
                     where currentRequest.URLString == request?.URLString else
                 {
                     return
