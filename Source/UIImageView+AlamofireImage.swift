@@ -301,12 +301,8 @@ extension UIImageView {
 
         // Use the image from the image cache if it exists
         if let image = imageCache?.imageForRequest(URLRequest.URLRequest, withAdditionalIdentifier: filter?.identifier) {
-            if let completion = completion {
-                completion(URLRequest.URLRequest, nil, .Success(image))
-            } else {
-                self.image = image
-            }
-
+            completion?(URLRequest.URLRequest, nil, .Success(image))
+            self.image = image
             return
         }
 
