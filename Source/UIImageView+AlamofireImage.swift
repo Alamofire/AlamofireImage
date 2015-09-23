@@ -320,7 +320,7 @@ extension UIImageView {
             completion: { [weak self] request, response, result in
                 guard let strongSelf = self else { return }
 
-                // Ignore the event if the response request does not match the current request
+                // Ignore the event if the response request does not match the original request
                 guard let
                     currentRequest = strongSelf.af_activeRequest?.task.originalRequest
                     where currentRequest.URLString == request?.URLString else
