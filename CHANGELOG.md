@@ -4,11 +4,32 @@ All notable changes to this project will be documented in this file.
 
 #### 1.x Releases
 
-- `1.1.x` Releases - [1.1.0](#110)
+- `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+
+## [1.1.1](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.1)
+Released on 2015-09-22. All issues associated with this milestone can be found using this 
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.1.1).
+
+#### Added
+- Tests around the UIImageView extension usage with redirect URLs.
+  - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
+  [#15](https://github.com/Alamofire/AlamofireImage/pull/15).
+- Tests around the UIImageView extension usage with duplicate image requests.
+  - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
+  [#17](https://github.com/Alamofire/AlamofireImage/pull/17).
+
+#### Fixed
+- Issue where `UIImageView` extension did not support redirect URLs.
+  - Fixed by [Robert Payne](https://github.com/robertjpayne) in Pull Request
+  [#16](https://github.com/Alamofire/AlamofireImage/pull/16).
+- Issue where duplicate image requests were cancelling the active image download
+in the `UIImageView` extension.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
+  [#17](https://github.com/Alamofire/AlamofireImage/pull/17).
 
 ## [1.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.0)
 Released on 2015-09-19. All issues associated with this milestone can be found using this 
