@@ -292,6 +292,8 @@ extension UIImageView {
         imageTransition: ImageTransition,
         completion: ((NSURLRequest?, NSHTTPURLResponse?, Result<UIImage>) -> Void)?)
     {
+        guard !isURLRequestURLEqualToActiveRequestURL(URLRequest) else { return }
+
         af_cancelImageRequest()
 
         let imageDownloader = UIImageView.af_sharedImageDownloader
@@ -319,14 +321,7 @@ extension UIImageView {
             filter: filter,
             completion: { [weak self] request, response, result in
                 guard let strongSelf = self else { return }
-
-                // Ignore the event if the response request does not match the original request
-                guard let
-                    currentRequest = strongSelf.af_activeRequest?.task.originalRequest
-                    where currentRequest.URLString == request?.URLString else
-                {
-                    return
-                }
+                guard strongSelf.isURLRequestURLEqualToActiveRequestURL(request) else { return }
 
                 strongSelf.af_activeRequest = nil
 
@@ -367,5 +362,16 @@ extension UIImageView {
         mutableURLRequest.addValue("image/*", forHTTPHeaderField: "Accept")
 
         return mutableURLRequest
+    }
+
+    private func isURLRequestURLEqualToActiveRequestURL(URLRequest: URLRequestConvertible?) -> Bool {
+        if let
+            currentRequest = af_activeRequest?.task.originalRequest
+            where currentRequest.URLString == URLRequest?.URLRequest.URLString
+        {
+            return true
+        }
+
+        return false
     }
 }

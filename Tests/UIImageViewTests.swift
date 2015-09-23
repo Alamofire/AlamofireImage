@@ -96,6 +96,26 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
     }
 
+    func testThatImageDownloadSucceedsWhenDuplicateRequestIsSentToImageView() {
+        // Given
+        let expectation = expectationWithDescription("image should download successfully")
+        var imageDownloadComplete = false
+
+        let imageView = TestImageView {
+            imageDownloadComplete = true
+            expectation.fulfill()
+        }
+
+        // When
+        imageView.af_setImageWithURL(URL)
+        imageView.af_setImageWithURL(URL)
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
+        XCTAssertNotNil(imageView.image, "image view image should not be nil")
+    }
+
     func testThatActiveRequestIsNilAfterImageDownloadCompletes() {
         // Given
         let expectation = expectationWithDescription("image should download successfully")
