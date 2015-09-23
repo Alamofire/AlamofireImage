@@ -486,6 +486,45 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
     }
 
+    func testThatImageIsSetWhenReturnedFromCacheAndCompletionHandlerSet() {
+        // Given
+        let imageView = UIImageView()
+        let URLRequest: NSURLRequest = {
+            let request = NSMutableURLRequest(URL: URL)
+            request.addValue("image/*", forHTTPHeaderField: "Accept")
+            return request
+        }()
+
+        let downloadExpectation = expectationWithDescription("image download should succeed")
+
+        // When
+        UIImageView.af_sharedImageDownloader.downloadImage(URLRequest: URLRequest) { _, _, _ in
+            downloadExpectation.fulfill()
+        }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        let cachedExpectation = expectationWithDescription("image should be cached")
+        var result: Result<UIImage>?
+
+        imageView.af_setImageWithURLRequest(
+            URLRequest,
+            placeholderImage: nil,
+            filter: nil,
+            imageTransition: .None,
+            completion: { _, _, responseResult in
+                result = responseResult
+                cachedExpectation.fulfill()
+            }
+        )
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(result?.value, "result value should not be nil")
+        XCTAssertEqual(result?.value, imageView.image, "result value should be equal to image view image")
+    }
+
     // MARK: - Cancellation
 
     func testThatImageDownloadCanBeCancelled() {
