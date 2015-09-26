@@ -33,8 +33,6 @@ import Cocoa
 #endif
 
 extension Request {
-    /// The completion handler closure used when an image response serializer completes.
-    public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<Image>) -> Void
 
     // MARK: - iOS and watchOS
 
@@ -59,15 +57,17 @@ extension Request {
     public class func imageResponseSerializer(
         imageScale imageScale: CGFloat = Request.imageScale,
         inflateResponseImage: Bool = true)
-        -> GenericResponseSerializer<UIImage>
+        -> ResponseSerializer<UIImage, NSError>
     {
-        return GenericResponseSerializer { request, response, data in
+        return ResponseSerializer { request, response, data, error in
+            guard error == nil else { return .Failure(error!) }
+
             guard let validData = data where validData.length > 0 else {
-                return .Failure(data, Request.imageDataError())
+                return .Failure(Request.imageDataError())
             }
 
             guard Request.validateContentTypeForRequest(request, response: response) else {
-                return .Failure(data, Request.contentTypeValidationError())
+                return .Failure(Request.contentTypeValidationError())
             }
 
             do {
@@ -76,7 +76,7 @@ extension Request {
 
                 return .Success(image)
             } catch {
-                return .Failure(data, error)
+                return .Failure(error as NSError)
             }
         }
     }
@@ -105,7 +105,7 @@ extension Request {
     public func responseImage(
         imageScale: CGFloat = Request.imageScale,
         inflateResponseImage: Bool = true,
-        completionHandler: CompletionHandler)
+        completionHandler: Response<Image, NSError> -> Void)
         -> Self
     {
         return response(
@@ -142,18 +142,20 @@ extension Request {
 
         - returns: An image response serializer.
     */
-    public class func imageResponseSerializer() -> GenericResponseSerializer<NSImage> {
-        return GenericResponseSerializer { request, response, data in
+    public class func imageResponseSerializer() -> ResponseSerializer<NSImage, NSError> {
+        return ResponseSerializer { request, response, data, error in
+            guard error == nil else { return .Failure(error!) }
+
             guard let validData = data where validData.length > 0 else {
-                return .Failure(data, Request.imageDataError())
+                return .Failure(Request.imageDataError())
             }
 
             guard Request.validateContentTypeForRequest(request, response: response) else {
-                return .Failure(data, Request.contentTypeValidationError())
+                return .Failure(Request.contentTypeValidationError())
             }
 
             guard let bitmapImage = NSBitmapImageRep(data: validData) else {
-                return .Failure(data, Request.imageDataError())
+                return .Failure(Request.imageDataError())
             }
 
             let image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
@@ -173,7 +175,7 @@ extension Request {
 
         - returns: The request.
     */
-    public func responseImage(completionHandler: CompletionHandler) -> Self {
+    public func responseImage(completionHandler: Response<Image, NSError> -> Void) -> Self {
         return response(
             responseSerializer: Request.imageResponseSerializer(),
             completionHandler: completionHandler

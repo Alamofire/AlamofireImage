@@ -37,7 +37,7 @@ import Cocoa
 /// handlers for a single request.
 public class ImageDownloader {
     /// The completion handler closure used when an image download completes.
-    public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<Image>) -> Void
+    public typealias CompletionHandler = Response<Image, NSError> -> Void
 
     /**
         Defines the order prioritization of incoming download requests being inserted into the queue.
@@ -255,7 +255,14 @@ public class ImageDownloader {
                     withAdditionalIdentifier: filter?.identifier)
                 {
                     dispatch_async(dispatch_get_main_queue()) {
-                        completion?(URLRequest.URLRequest, nil, .Success(image))
+                        let response = Response<Image, NSError>(
+                            request: URLRequest.URLRequest,
+                            response: nil,
+                            data: nil,
+                            result: .Success(image)
+                        )
+
+                        completion?(response)
                     }
 
                     return
@@ -275,12 +282,12 @@ public class ImageDownloader {
             request.response(
                 queue: self.responseQueue,
                 responseSerializer: Request.imageResponseSerializer(),
-                completionHandler: { [weak self] request, response, result in
-                    guard let strongSelf = self, let request = request else { return }
+                completionHandler: { [weak self] response in
+                    guard let strongSelf = self, let request = response.request else { return }
 
                     let responseHandler = strongSelf.safelyRemoveResponseHandlerWithIdentifier(identifier)
 
-                    switch result {
+                    switch response.result {
                     case .Success(let image):
                         var filteredImages: [String: Image] = [:]
 
@@ -305,14 +312,19 @@ public class ImageDownloader {
                             )
 
                             dispatch_async(dispatch_get_main_queue()) {
-                                completion?(request, response, .Success(filteredImage))
+                                let response = Response<Image, NSError>(
+                                    request: response.request,
+                                    response: response.response,
+                                    data: response.data,
+                                    result: .Success(filteredImage)
+                                )
+
+                                completion?(response)
                             }
                         }
                     case .Failure:
                         for completion in responseHandler.completionHandlers {
-                            dispatch_async(dispatch_get_main_queue()) {
-                                completion?(request, response, result)
-                            }
+                            dispatch_async(dispatch_get_main_queue()) { completion?(response) }
                         }
                     }
 

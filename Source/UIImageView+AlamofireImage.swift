@@ -251,7 +251,7 @@ extension UIImageView {
         placeholderImage: UIImage?,
         filter: ImageFilter?,
         imageTransition: ImageTransition,
-        completion: ((NSURLRequest?, NSHTTPURLResponse?, Result<UIImage>) -> Void)?)
+        completion: (Response<UIImage, NSError> -> Void)?)
     {
         af_setImageWithURLRequest(
             URLRequestWithURL(URL),
@@ -290,7 +290,7 @@ extension UIImageView {
         placeholderImage: UIImage?,
         filter: ImageFilter?,
         imageTransition: ImageTransition,
-        completion: ((NSURLRequest?, NSHTTPURLResponse?, Result<UIImage>) -> Void)?)
+        completion: (Response<UIImage, NSError> -> Void)?)
     {
         guard !isURLRequestURLEqualToActiveRequestURL(URLRequest) else { return }
 
@@ -301,8 +301,16 @@ extension UIImageView {
 
         // Use the image from the image cache if it exists
         if let image = imageCache?.imageForRequest(URLRequest.URLRequest, withAdditionalIdentifier: filter?.identifier) {
-            completion?(URLRequest.URLRequest, nil, .Success(image))
+            let response = Response<UIImage, NSError>(
+                request: URLRequest.URLRequest,
+                response: nil,
+                data: nil,
+                result: .Success(image)
+            )
+
+            completion?(response)
             self.image = image
+
             return
         }
 
@@ -315,15 +323,14 @@ extension UIImageView {
         let request = UIImageView.af_sharedImageDownloader.downloadImage(
             URLRequest: URLRequest,
             filter: filter,
-            completion: { [weak self] request, response, result in
+            completion: { [weak self] response in
                 guard let strongSelf = self else { return }
-                guard strongSelf.isURLRequestURLEqualToActiveRequestURL(request) else { return }
+                guard strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) else { return }
 
                 strongSelf.af_activeRequest = nil
+                completion?(response)
 
-                if let image = result.value {
-                    completion?(request, response, result)
-
+                if let image = response.result.value {
                     UIView.transitionWithView(
                         strongSelf,
                         duration: imageTransition.duration,
@@ -333,8 +340,6 @@ extension UIImageView {
                         },
                         completion: imageTransition.completion
                     )
-                } else {
-                    completion?(request, response, result)
                 }
             }
         )
