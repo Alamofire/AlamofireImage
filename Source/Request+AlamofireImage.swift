@@ -66,7 +66,7 @@ extension Request {
                 return .Failure(data, Request.imageDataError())
             }
 
-            guard Request.validateResponse(response) else {
+            guard Request.validateContentTypeForRequest(request, response: response) else {
                 return .Failure(data, Request.contentTypeValidationError())
             }
 
@@ -148,7 +148,7 @@ extension Request {
                 return .Failure(data, Request.imageDataError())
             }
 
-            guard Request.validateResponse(response) else {
+            guard Request.validateContentTypeForRequest(request, response: response) else {
                 return .Failure(data, Request.contentTypeValidationError())
             }
 
@@ -184,7 +184,15 @@ extension Request {
 
     // MARK: - Private - Shared Helper Methods
 
-    private class func validateResponse(response: NSHTTPURLResponse?) -> Bool {
+    private class func validateContentTypeForRequest(
+        request: NSURLRequest?,
+        response: NSHTTPURLResponse?)
+        -> Bool
+    {
+        if let URL = request?.URL where URL.fileURL {
+            return true
+        }
+
         let acceptableContentTypes: Set<String> = [
             "image/tiff",
             "image/jpeg",

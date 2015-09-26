@@ -111,6 +111,47 @@ class RequestTestCase: BaseTestCase {
         }
     }
 
+    func testThatImageResponseSerializerCanDownloadImageFromFileURL() {
+        // Given
+        let URL = URLForResource("apple", withExtension: "jpg")
+        let expectation = expectationWithDescription("Request should return JPG response image")
+
+        var request: NSURLRequest?
+        var response: NSHTTPURLResponse?
+        var result: Result<Image>?
+
+        // When
+        manager.request(.GET, URL)
+            .responseImage { responseRequest, responseResponse, responseResult in
+                request = responseRequest
+                response = responseResponse
+                result = responseResult
+
+                expectation.fulfill()
+            }
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(request, "request should not be nil")
+        XCTAssertNil(response, "response should be nil")
+        XCTAssertTrue(result?.isSuccess ?? false, "result should be success")
+
+        if let result = result, let image = result.value {
+            #if os(iOS)
+                let screenScale = UIScreen.mainScreen().scale
+                let expectedSize = CGSize(width: CGFloat(180) / screenScale, height: CGFloat(260) / screenScale)
+                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+                XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+            #elseif os(OSX)
+                let expectedSize = CGSize(width: 180.0, height: 260.0)
+                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+            #endif
+        } else {
+            XCTFail("result image should not be nil")
+        }
+    }
+
 #if os(iOS)
 
     // MARK: - Image Inflation Tests
