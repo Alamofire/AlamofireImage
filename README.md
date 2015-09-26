@@ -93,12 +93,14 @@ github "Alamofire/AlamofireImage" ~> 1.0
 import AlamofireImage
 
 Alamofire.request(.GET, "https://httpbin.org/image/png")
-         .responseImage { request, response, result in
-             print(request)
-             print(response)
-             debugPrint(result)
-             
-             if let image = result.value {
+         .responseImage { response in
+             debugPrint(response)
+
+             print(response.request)
+             print(response.response)
+             debugPrint(response.result)
+
+             if let image = response.result.value {
                  print("image downloaded: \(image)")
              }
          }
@@ -331,12 +333,12 @@ let imageDownloader = ImageDownloader(
 let downloader = ImageDownloader()
 let URLRequest = NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/jpeg")!)
 
-downloader.downloadImage(URLRequest: URLRequest) { request, response, result in
-    print(request)
-    print(response)
-    debugPrint(result)
+downloader.downloadImage(URLRequest: URLRequest) { response in
+    print(response.request)
+    print(response.response)
+    debugPrint(response.result)
 
-    if let image = result.value {
+    if let image = response.result.value {
         print(image)
     }
 }
@@ -349,12 +351,12 @@ let downloader = ImageDownloader()
 let URLRequest = NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/jpeg")!)
 let filter = AspectScaledToFillSizeCircleFilter(size: CGSize(width: 100.0, height: 100.0))
 
-downloader.downloadImage(URLRequest: URLRequest, filter: filter) { request, response, result in
-    print(request)
-    print(response)
-    debugPrint(result)
+downloader.downloadImage(URLRequest: URLRequest, filter: filter) { response in
+    print(response.request)
+    print(response.response)
+    debugPrint(response.result)
     
-    if let image = result.value {
+    if let image = response.result.value {
         print(image)
     }
 }
