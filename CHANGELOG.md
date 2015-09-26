@@ -4,11 +4,33 @@ All notable changes to this project will be documented in this file.
 
 #### 1.x Releases
 
-- `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111)
+- `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+
+## [1.1.2](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.2)
+Released on 2015-09-26. All issues associated with this milestone can be found using this 
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.1.2).
+
+#### Added
+- Tests verifying response image serializers support file URLs.
+  - Added by [Alexander Edge](https://github.com/alexanderedge) in regards to Pull Request
+  [#19](https://github.com/Alamofire/AlamofireImage/pull/19).
+- Tests verifying cached image is set on `UIImageView` if completion closure is set.
+  - Added by [Kevin Harwood](https://github.com/kcharwood) in Pull Request
+  [#20](https://github.com/Alamofire/AlamofireImage/pull/20).
+
+#### Updated
+- The `Request` extension to validate file URLs making test mocking easier.
+  - Updated by [Alexander Edge](https://github.com/alexanderedge) in Pull Request
+  [#19](https://github.com/Alamofire/AlamofireImage/pull/19).
+
+#### Fixed
+- Issue where cached image was not set on a `UIImageView` if completion closure was set.
+  - Fixed by [Kevin Harwood](https://github.com/kcharwood) in Pull Request
+  [#20](https://github.com/Alamofire/AlamofireImage/pull/20).
 
 ## [1.1.1](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.1)
 Released on 2015-09-22. All issues associated with this milestone can be found using this 
