@@ -1,4 +1,4 @@
-# Alamofire 3.0 Migration Guide
+# AlamofireImage 2.0 Migration Guide
 
 AlamofireImage 2.0 is the latest major release of AlamofireImage, an image component library for Alamofire supporting iOS, Mac OS X and watchOS written in Swift. As a major release, following Semantic Versioning conventions, 2.0 introduces several API-breaking changes that one should be aware of.
 
