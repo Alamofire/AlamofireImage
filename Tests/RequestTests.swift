@@ -34,28 +34,23 @@ class RequestTestCase: BaseTestCase {
         let URLString = "https://httpbin.org/image/png"
         let expectation = expectationWithDescription("Request should return PNG response image")
 
-        var request: NSURLRequest?
-        var response: NSHTTPURLResponse?
-        var result: Result<Image>?
+        var response: Response<Image, NSError>?
 
         // When
         manager.request(.GET, URLString)
-            .responseImage { responseRequest, responseResponse, responseResult in
-                request = responseRequest
-                response = responseResponse
-                result = responseResult
-
+            .responseImage { closureResponse in
+                response = closureResponse
                 expectation.fulfill()
             }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertTrue(result?.isSuccess ?? false, "result should be success")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
-        if let result = result, let image = result.value {
+        if let image = response?.result.value {
             #if os(iOS)
                 let screenScale = UIScreen.mainScreen().scale
                 let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
@@ -75,28 +70,23 @@ class RequestTestCase: BaseTestCase {
         let URLString = "https://httpbin.org/image/jpeg"
         let expectation = expectationWithDescription("Request should return JPG response image")
 
-        var request: NSURLRequest?
-        var response: NSHTTPURLResponse?
-        var result: Result<Image>?
+        var response: Response<Image, NSError>?
 
         // When
         manager.request(.GET, URLString)
-            .responseImage { responseRequest, responseResponse, responseResult in
-                request = responseRequest
-                response = responseResponse
-                result = responseResult
-
+            .responseImage { closureResponse in
+                response = closureResponse
                 expectation.fulfill()
             }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertTrue(result?.isSuccess ?? false, "result should be success")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
-        if let result = result, let image = result.value {
+        if let image = response?.result.value {
             #if os(iOS)
                 let screenScale = UIScreen.mainScreen().scale
                 let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
@@ -116,28 +106,23 @@ class RequestTestCase: BaseTestCase {
         let URL = URLForResource("apple", withExtension: "jpg")
         let expectation = expectationWithDescription("Request should return JPG response image")
 
-        var request: NSURLRequest?
-        var response: NSHTTPURLResponse?
-        var result: Result<Image>?
+        var response: Response<Image, NSError>?
 
         // When
         manager.request(.GET, URL)
-            .responseImage { responseRequest, responseResponse, responseResult in
-                request = responseRequest
-                response = responseResponse
-                result = responseResult
-
+            .responseImage { closureResponse in
+                response = closureResponse
                 expectation.fulfill()
             }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNil(response, "response should be nil")
-        XCTAssertTrue(result?.isSuccess ?? false, "result should be success")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNil(response?.response, "response should be nil")
+        XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
-        if let result = result, let image = result.value {
+        if let image = response?.result.value {
             #if os(iOS)
                 let screenScale = UIScreen.mainScreen().scale
                 let expectedSize = CGSize(width: CGFloat(180) / screenScale, height: CGFloat(260) / screenScale)
@@ -161,28 +146,23 @@ class RequestTestCase: BaseTestCase {
         let URLString = "https://httpbin.org/image/png"
         let expectation = expectationWithDescription("Request should return PNG response image")
 
-        var request: NSURLRequest?
-        var response: NSHTTPURLResponse?
-        var result: Result<Image>?
+        var response: Response<Image, NSError>?
 
         // When
         manager.request(.GET, URLString)
-            .responseImage { responseRequest, responseResponse, responseResult in
-                request = responseRequest
-                response = responseResponse
-                result = responseResult
-
+            .responseImage { closureResponse in
+                response = closureResponse
                 expectation.fulfill()
             }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertTrue(result?.isSuccess ?? false, "result should be success")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
-        if let result = result, let image = result.value {
+        if let image = response?.result.value {
             let screenScale = UIScreen.mainScreen().scale
             let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
 
@@ -198,28 +178,23 @@ class RequestTestCase: BaseTestCase {
         let URLString = "https://httpbin.org/image/jpeg"
         let expectation = expectationWithDescription("Request should return JPG response image")
 
-        var request: NSURLRequest?
-        var response: NSHTTPURLResponse?
-        var result: Result<Image>?
+        var response: Response<Image, NSError>?
 
         // When
         manager.request(.GET, URLString)
-            .responseImage { responseRequest, responseResponse, responseResult in
-                request = responseRequest
-                response = responseResponse
-                result = responseResult
-
+            .responseImage { closureResponse in
+                response = closureResponse
                 expectation.fulfill()
             }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertTrue(result?.isSuccess ?? false, "result should be success")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
-        if let result = result, let image = result.value {
+        if let image = response?.result.value {
             let screenScale = UIScreen.mainScreen().scale
             let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
 
@@ -239,27 +214,22 @@ class RequestTestCase: BaseTestCase {
         let URLString = "https://invalid.for.sure"
         let expectation = expectationWithDescription("Request should fail with bad URL")
 
-        var request: NSURLRequest?
-        var response: NSHTTPURLResponse?
-        var result: Result<Image>?
+        var response: Response<Image, NSError>?
 
         // When
         manager.request(.GET, URLString)
-            .responseImage { responseRequest, responseResponse, responseResult in
-                request = responseRequest
-                response = responseResponse
-                result = responseResult
-
+            .responseImage { closureResponse in
+                response = closureResponse
                 expectation.fulfill()
             }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNil(response, "response should be nil")
-        XCTAssertTrue(result?.isFailure ?? false, "result should be failure")
-        XCTAssertNotNil(result?.error, "result error should not be nil")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNil(response?.response, "response should be nil")
+        XCTAssertTrue(response?.result.isFailure ?? false, "result should be failure")
+        XCTAssertNotNil(response?.result.error, "result error should not be nil")
     }
 
     func testThatAttemptingToDownloadUnsupportedImageTypeReturnsFailureResult() {
@@ -267,29 +237,24 @@ class RequestTestCase: BaseTestCase {
         let URLString = "https://httpbin.org/image/webp"
         let expectation = expectationWithDescription("Request should return webp response image")
 
-        var request: NSURLRequest?
-        var response: NSHTTPURLResponse?
-        var result: Result<Image>?
+        var response: Response<Image, NSError>?
 
         // When
         manager.request(.GET, URLString)
-            .responseImage { responseRequest, responseResponse, responseResult in
-                request = responseRequest
-                response = responseResponse
-                result = responseResult
-
+            .responseImage { closureResponse in
+                response = closureResponse
                 expectation.fulfill()
             }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertTrue(result?.isFailure ?? false, "result should be failure")
-        XCTAssertNotNil(result?.error, "result error should not be nil")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isFailure ?? false, "result should be failure")
+        XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
-        if let error = result?.error as? NSError {
+        if let error = response?.result.error {
             XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
             XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
         }
@@ -300,29 +265,24 @@ class RequestTestCase: BaseTestCase {
         let URLString = "https://httpbin.org/bytes/0"
         let expectation = expectationWithDescription("Request should download no bytes")
 
-        var request: NSURLRequest?
-        var response: NSHTTPURLResponse?
-        var result: Result<Image>?
+        var response: Response<Image, NSError>?
 
         // When
         manager.request(.GET, URLString)
-            .responseImage { responseRequest, responseResponse, responseResult in
-                request = responseRequest
-                response = responseResponse
-                result = responseResult
-
+            .responseImage { closureResponse in
+                response = closureResponse
                 expectation.fulfill()
             }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertTrue(result?.isFailure ?? false, "result should be failure")
-        XCTAssertNotNil(result?.error, "result error should not be nil")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isFailure ?? false, "result should be failure")
+        XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
-        if let error = result?.error as? NSError {
+        if let error = response?.result.error {
             XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
             XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
         }
@@ -334,29 +294,24 @@ class RequestTestCase: BaseTestCase {
         let URLString = "https://httpbin.org/bytes/\(randomBytes)"
         let expectation = expectationWithDescription("Request should download random bytes")
 
-        var request: NSURLRequest?
-        var response: NSHTTPURLResponse?
-        var result: Result<Image>?
+        var response: Response<Image, NSError>?
 
         // When
         manager.request(.GET, URLString)
-            .responseImage { responseRequest, responseResponse, responseResult in
-                request = responseRequest
-                response = responseResponse
-                result = responseResult
-
+            .responseImage { closureResponse in
+                response = closureResponse
                 expectation.fulfill()
             }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertTrue(result?.isFailure ?? false, "result should be failure")
-        XCTAssertNotNil(result?.error, "result error should not be nil")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isFailure ?? false, "result should be failure")
+        XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
-        if let error = result?.error as? NSError {
+        if let error = response?.result.error {
             XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
             XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
         }
@@ -367,29 +322,24 @@ class RequestTestCase: BaseTestCase {
         let URLString = "https://httpbin.org/get"
         let expectation = expectationWithDescription("Request should return JSON")
 
-        var request: NSURLRequest?
-        var response: NSHTTPURLResponse?
-        var result: Result<Image>?
+        var response: Response<Image, NSError>?
 
         // When
         manager.request(.GET, URLString)
-            .responseImage { responseRequest, responseResponse, responseResult in
-                request = responseRequest
-                response = responseResponse
-                result = responseResult
-
+            .responseImage { closureResponse in
+                response = closureResponse
                 expectation.fulfill()
         }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertTrue(result?.isFailure ?? false, "result should be failure")
-        XCTAssertNotNil(result?.error, "result error should not be nil")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isFailure ?? false, "result should be failure")
+        XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
-        if let error = result?.error as? NSError {
+        if let error = response?.result.error {
             XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
             XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
         }

@@ -145,7 +145,7 @@ class UIImageViewTestCase: BaseTestCase {
         let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
         let expectation = expectationWithDescription("image download should succeed")
 
-        downloader.downloadImage(URLRequest: download) { _, _, _ in
+        downloader.downloadImage(URLRequest: download) { _ in
             expectation.fulfill()
         }
 
@@ -167,7 +167,7 @@ class UIImageViewTestCase: BaseTestCase {
         let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
         let expectation = expectationWithDescription("image download should succeed")
 
-        downloader.downloadImage(URLRequest: download, filter: CircleFilter()) { _, _, _ in
+        downloader.downloadImage(URLRequest: download, filter: CircleFilter()) { _ in
             expectation.fulfill()
         }
 
@@ -234,7 +234,7 @@ class UIImageViewTestCase: BaseTestCase {
         let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
         let expectation = expectationWithDescription("image download should succeed")
 
-        downloader.downloadImage(URLRequest: download) { _, _, _ in
+        downloader.downloadImage(URLRequest: download) { _ in
             expectation.fulfill()
         }
 
@@ -389,7 +389,7 @@ class UIImageViewTestCase: BaseTestCase {
         let expectation = expectationWithDescription("image download should succeed")
 
         var completionHandlerCalled = false
-        var result: Result<UIImage>?
+        var result: Result<UIImage, NSError>?
 
         // When
         imageView.af_setImageWithURLRequest(
@@ -397,9 +397,9 @@ class UIImageViewTestCase: BaseTestCase {
             placeholderImage: nil,
             filter: nil,
             imageTransition: .None,
-            completion: { _, _, responseResult in
+            completion: { closureResponse in
                 completionHandlerCalled = true
-                result = responseResult
+                result = closureResponse.result
                 expectation.fulfill()
             }
         )
@@ -420,7 +420,7 @@ class UIImageViewTestCase: BaseTestCase {
         let expectation = expectationWithDescription("image download should succeed")
 
         var completionHandlerCalled = false
-        var result: Result<UIImage>?
+        var result: Result<UIImage, NSError>?
 
         // When
         imageView.af_setImageWithURLRequest(
@@ -428,9 +428,9 @@ class UIImageViewTestCase: BaseTestCase {
             placeholderImage: nil,
             filter: nil,
             imageTransition: .None,
-            completion: { _, _, responseResult in
+            completion: { closureResponse in
                 completionHandlerCalled = true
-                result = responseResult
+                result = closureResponse.result
                 expectation.fulfill()
             }
         )
@@ -453,7 +453,7 @@ class UIImageViewTestCase: BaseTestCase {
         var completionHandlerCalled = false
         var transitionCompletionHandlerCalled = false
 
-        var result: Result<UIImage>?
+        var result: Result<UIImage, NSError>?
 
         // When
         imageView.af_setImageWithURL(
@@ -469,9 +469,9 @@ class UIImageViewTestCase: BaseTestCase {
                     transitionExpectation.fulfill()
                 }
             ),
-            completion: { _, _, responseResult in
+            completion: { closureResponse in
                 completionHandlerCalled = true
-                result = responseResult
+                result = closureResponse.result
 
                 completionExpectation.fulfill()
             }
@@ -498,22 +498,22 @@ class UIImageViewTestCase: BaseTestCase {
         let downloadExpectation = expectationWithDescription("image download should succeed")
 
         // When
-        UIImageView.af_sharedImageDownloader.downloadImage(URLRequest: URLRequest) { _, _, _ in
+        UIImageView.af_sharedImageDownloader.downloadImage(URLRequest: URLRequest) { _ in
             downloadExpectation.fulfill()
         }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         let cachedExpectation = expectationWithDescription("image should be cached")
-        var result: Result<UIImage>?
+        var result: Result<UIImage, NSError>?
 
         imageView.af_setImageWithURLRequest(
             URLRequest,
             placeholderImage: nil,
             filter: nil,
             imageTransition: .None,
-            completion: { _, _, responseResult in
-                result = responseResult
+            completion: { closureResponse in
+                result = closureResponse.result
                 cachedExpectation.fulfill()
             }
         )
@@ -535,7 +535,7 @@ class UIImageViewTestCase: BaseTestCase {
         let expectation = expectationWithDescription("image download should succeed")
 
         var completionHandlerCalled = false
-        var result: Result<UIImage>?
+        var result: Result<UIImage, NSError>?
 
         // When
         imageView.af_setImageWithURLRequest(
@@ -543,9 +543,9 @@ class UIImageViewTestCase: BaseTestCase {
             placeholderImage: nil,
             filter: nil,
             imageTransition: .None,
-            completion: { _, _, responseResult in
+            completion: { closureResponse in
                 completionHandlerCalled = true
-                result = responseResult
+                result = closureResponse.result
                 expectation.fulfill()
             }
         )
@@ -566,7 +566,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         var completion1Called = false
         var completion2Called = false
-        var result: Result<UIImage>?
+        var result: Result<UIImage, NSError>?
 
         // When
         imageView.af_setImageWithURLRequest(
@@ -574,7 +574,7 @@ class UIImageViewTestCase: BaseTestCase {
             placeholderImage: nil,
             filter: nil,
             imageTransition: .None,
-            completion: { _, _, _ in
+            completion: { _ in
                 completion1Called = true
             }
         )
@@ -586,9 +586,9 @@ class UIImageViewTestCase: BaseTestCase {
             placeholderImage: nil,
             filter: nil,
             imageTransition: .None,
-            completion: { _, _, responseResult in
+            completion: { closureResponse in
                 completion2Called = true
-                result = responseResult
+                result = closureResponse.result
                 expectation.fulfill()
             }
         )
