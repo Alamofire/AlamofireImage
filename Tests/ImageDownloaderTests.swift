@@ -368,6 +368,89 @@ class ImageDownloaderTestCase: BaseTestCase {
 
 #endif
 
+    // MARK: - Cancellation Tests
+
+    func testThatCancellingDownloadCallsCompletionWithCancellationError() {
+        // Given
+        let downloader = ImageDownloader()
+        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+
+        let expectation = expectationWithDescription("download request should succeed")
+
+        var response: Response<Image, NSError>?
+
+        // When
+        let requestReceipt = downloader.downloadImage(URLRequest: download) { closureResponse in
+            response = closureResponse
+            expectation.fulfill()
+        }
+
+        downloader.cancelRequestForRequestReceipt(requestReceipt!)
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNil(response?.response, "response should be nil")
+        XCTAssertNil(response?.data, "data should be nil")
+        XCTAssertTrue(response?.result.isFailure ?? false, "result should be a failure case")
+
+        if let error = response?.result.error {
+            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
+            XCTAssertEqual(error.code, NSURLErrorCancelled, "error code should be cancelled")
+        }
+    }
+
+    func testThatCancellingDownloadWithMultipleResponseHandlersCancelsFirstYetAllowsSecondToComplete() {
+        // Given
+        let downloader = ImageDownloader()
+
+        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download2 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+
+        let expectation1 = expectationWithDescription("download request 1 should succeed")
+        let expectation2 = expectationWithDescription("download request 2 should succeed")
+
+        var response1: Response<Image, NSError>?
+        var response2: Response<Image, NSError>?
+
+        // When
+        let requestReceipt1 = downloader.downloadImage(URLRequest: download1) { closureResponse in
+            response1 = closureResponse
+            expectation1.fulfill()
+        }
+
+        let requestReceipt2 = downloader.downloadImage(URLRequest: download2) { closureResponse in
+            response2 = closureResponse
+            expectation2.fulfill()
+        }
+
+        downloader.cancelRequestForRequestReceipt(requestReceipt1!)
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertEqual(requestReceipt1?.request.task, requestReceipt2?.request.task, "tasks 1 and 2 should be equal")
+
+        XCTAssertNotNil(response1, "response 1 should not be nil")
+        XCTAssertNotNil(response1?.request, "response 1 request should not be nil")
+        XCTAssertNil(response1?.response, "response 1 response should be nil")
+        XCTAssertNil(response1?.data, "response 1 data should be nil")
+        XCTAssertTrue(response1?.result.isFailure ?? false, "response 1 result should be a failure case")
+
+        if let error = response1?.result.error {
+            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
+            XCTAssertEqual(error.code, NSURLErrorCancelled, "error code should be cancelled")
+        }
+
+        XCTAssertNotNil(response2, "response 2 should not be nil")
+        XCTAssertNotNil(response2?.request, "response 2 request should not be nil")
+        XCTAssertNotNil(response2?.response, "response 2 response should not be nil")
+        XCTAssertNotNil(response2?.data, "response 2 data should not be nil")
+        XCTAssertTrue(response2?.result.isSuccess ?? false, "response 2 result should be a success case")
+    }
+
     // MARK: - Authentication Tests
 
     func testThatItDoesNotAttachAuthenticationCredentialToRequestIfItDoesNotExist() {
