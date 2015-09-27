@@ -16,7 +16,9 @@ The [Alamofire Software Foundation](https://github.com/Alamofire/Foundation) (AS
 
 The benefits of upgrading can be summarized as follows:
 
-TODO
+* Can be used in conjunction with Alamofire 3.0
+* Leverages generic `Response` types for all `Request` completion closures.
+* Image download request cancellation logic is now much more intelligent thanks to the new `RequestReceipt` struct allowing MUCH better optimization for table and collection view use cases.
 
 ---
 
@@ -26,12 +28,78 @@ AlamofireImage 2.0 contains some breaking API changes to the foundational classe
 
 ### Request Extension
 
-TODO
+The `Request` extension has been modified to support the Alamofire 3.0 `ResponseSerializer` changes. All `responseImage` methods now use a `completionHandler` of type `Response<Image, NSError> -> Void` matching all response serializers located in the Alamofire core library.
+
+```swift
+public func responseImage(
+    imageScale: CGFloat = Request.imageScale,
+    inflateResponseImage: Bool = true,
+    completionHandler: Response<Image, NSError> -> Void)
+    -> Self
+{
+    return response(
+        responseSerializer: Request.imageResponseSerializer(
+            imageScale: imageScale,
+            inflateResponseImage: inflateResponseImage
+        ),
+        completionHandler: completionHandler
+    )
+}
+```
+
+> There are no actual changes in functionality in terms of the `responseImage` serializers.
 
 ### Image Downloader 
 
-TODO
+#### Completion Handler
+
+The `CompletionHandler` typealias in the `ImageDownloader` has been modified to a `Response<Image, NSError>` type to match the Alamofire 3.0 APIs.
+
+```swift
+public class ImageDownloader {
+	public typealias CompletionHandler = Response<Image, NSError> -> Void
+}
+```
+
+#### Request Receipts
+
+The `downloadImage` APIs now return a `RequestReceipt?` instead of a `Request?`. The main reason for this change was to allow the `ImageDownloader` to be more intelligent about cancelling active requests. Here are some of the questions we asked ourselves when designing this new system:
+
+Should a download request be cancelled...
+
+* If it is pending in the queue?
+    * `YES`
+* If it is actively being downloaded?
+    * `NO` - The completion handler should be called with a cancellation error while the request is allowed to complete.
+* If there are multiple response handlers attached to the same request?
+    * `NO` - The completion handler should be called with a cancellation error while the request is allowed to complete since the other callers also depend on the same request.
+
+In order to be able to support the third case, the `ImageDownloader` needed a way to identify multiple response handlers attached to a single `Request`. The `RequestReceipt` solves this problem by associating a `receiptID` with each download request. Each call to `downloadImage` generates a new, unique `receiptID` which can in turn be used to cancel a request.
+
+```swift
+public class RequestReceipt {
+    public let request: Request
+    public let receiptID: String
+}
+```
+
+The `cancelRequestForRequestReceipt` method on the `ImageDownloader` handles all three cancellation cases internally. By always cancelling requests using the `RequestReceipt` APIs, your download requests will much better optimized for table and collection view use cases.
+
 
 ### UIImageView Extension
 
-TODO
+The only changes to the `UIImageView` extension in terms of backwards compatibility is the `completion` closure signature that now leverages the new Alamofire 3.0 `Response` type. 
+
+```swift
+public func af_setImageWithURLRequest(
+    URLRequest: URLRequestConvertible,
+    placeholderImage: UIImage?,
+    filter: ImageFilter?,
+    imageTransition: ImageTransition,
+    completion: (Response<UIImage, NSError> -> Void)?)
+{
+    ...
+}
+```
+
+Another change worth noting is the `UIImageView` extension now leverages `RequestReceipt` objects for cancelling the active request. This greatly improves overall performance and behavior for image views used in table and collection views.
