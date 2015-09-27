@@ -2,11 +2,40 @@
 All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
+#### 2.x Releases
+- `2.0.0` Betas - [2.0.0-beta.1](#200-beta1)
+
 #### 1.x Releases
 
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
+
+---
+
+## [2.0.0-beta.1](https://github.com/Alamofire/AlamofireImage/releases/tag/2.0.0-beta.1)
+Released on 2015-09-27. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.0.0-beta.1).
+
+#### Added
+- The AlamofireImage 2.0 Migration Guide and also added to the README.
+  - Added by [Christian Noon](https://github.com/cnoon).
+- A new `RequestReceipt` struct to the `ImageDownloader` to improve cancellation reasoning.
+  - Added by [Kevin Harwood](https://github.com/kcharwood).
+- Cancellation tests to the `ImageDownloader` to validate new cancellation behavior.
+  - Added by [Christian Noon](https://github.com/cnoon).
+- Section to the README documenting the `RequestReceipt` usage.
+  - Added by [Christian Noon](https://github.com/cnoon).
+
+#### Updated
+- Cartfile to pick up latest changes from the `master` branch of Alamofire 3.0.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- All source logic to use the Alamofire 3.0 APIs.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- All tests to compile and run against the Alamofire 3.0 APIs.
+  - Updated by [Christian Noon](https://github.com/cnoon).  
+- All the sample code examples in the README to use all the new APIs.
+  - Updated by [Christian Noon](https://github.com/cnoon).    
 
 ---
 
