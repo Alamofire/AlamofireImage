@@ -420,6 +420,14 @@ Sometimes application logic can end up attempting to download an image more than
 
 In addition to merging duplicate downloads, AlamofireImage can also merge duplicate image filters. If two image filters with the same identifier are attached to the same download, the image filter is only executed once and both completion handlers are called with the same resulting image. This can save large amounts of time and resources for computationally expensive filters such as ones leveraging CoreImage.
 
+##### Request Receipts
+
+Sometimes it is necessary to cancel an image download for various reasons. AlamofireImage can intelligently handle cancellation logic in the `ImageDownloader` by leveraging the `RequestReceipt` type along with the `cancelRequestForRequestReceipt` method. Each download request vends a `RequestReceipt` which can be later used to cancel the request.
+
+By cancelling the request through the `ImageDownloader` using the `RequestReceipt`, AlamofireImage is able to determine how to best handle the cancellation. The cancelled download will always receive a cancellation error, while duplicate downloads are allowed to complete. If the download is already active, it is allowed to complete even though the completion handler will be called with a cancellation error. This greatly improves performance of table and collection views displaying large amounts of images.
+
+> It is NOT recommended to directly call `cancel` on the `request` in the `RequestReceipt`. Doing so can lead to issues such as duplicate downloads never being allowed to complete.
+
 ### UIImageView Extension
 
 The [UIImage Extensions](#uiimage-extensions), [Image Filters](#image-filters), [Image Cache](#image-cache) and [Image Downloader](#image-downloader) were all designed to be flexible and standalone, yet also to provide the foundation of the `UIImageView` extension. Due to the powerful support of these classes, protocols and extensions, the `UIImageView` APIs are concise, easy to use and contain a large amount of functionality.
