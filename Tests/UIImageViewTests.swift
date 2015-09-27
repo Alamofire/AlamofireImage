@@ -132,7 +132,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         // Then
         XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
-        XCTAssertNil(imageView.af_activeRequest, "active request should be nil after download completes")
+        XCTAssertNil(imageView.af_activeRequestReceipt, "active request receipt should be nil after download completes")
     }
 
     // MARK: - Image Cache
@@ -579,8 +579,6 @@ class UIImageViewTestCase: BaseTestCase {
             }
         )
 
-        imageView.af_cancelImageRequest()
-
         imageView.af_setImageWithURLRequest(
             NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/png")!),
             placeholderImage: nil,
@@ -596,7 +594,7 @@ class UIImageViewTestCase: BaseTestCase {
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertFalse(completion1Called, "completion 1 called should be false")
+        XCTAssertTrue(completion1Called, "completion 1 called should be true")
         XCTAssertTrue(completion2Called, "completion 2 called should be true")
         XCTAssertNotNil(imageView.image, "image view image should not be nil when completion handler is not nil")
         XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")

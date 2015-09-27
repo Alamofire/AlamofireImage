@@ -173,17 +173,17 @@ class ImageDownloaderTestCase: BaseTestCase {
         let download2 = URLRequest(.GET, "https://httpbin.org/image/png")
 
         // When
-        let request1 = downloader.downloadImage(URLRequest: download1) { _ in
+        let requestReceipt1 = downloader.downloadImage(URLRequest: download1) { _ in
             // No-op
         }
 
-        let request2 = downloader.downloadImage(URLRequest: download2) { _ in
+        let requestReceipt2 = downloader.downloadImage(URLRequest: download2) { _ in
             // No-op
         }
 
         let activeRequestCount = downloader.activeRequestCount
-        request1?.cancel()
-        request2?.cancel()
+        requestReceipt1?.request.cancel()
+        requestReceipt2?.request.cancel()
 
         // Then
         XCTAssertEqual(activeRequestCount, 1, "active request count should be 1")
@@ -294,12 +294,12 @@ class ImageDownloaderTestCase: BaseTestCase {
         var result2: Result<Image, NSError>?
 
         // When
-        let request1 = downloader.downloadImage(URLRequest: download1, filter: filter1) { closureResponse in
+        let requestReceipt1 = downloader.downloadImage(URLRequest: download1, filter: filter1) { closureResponse in
             result1 = closureResponse.result
             expectation1.fulfill()
         }
 
-        let request2 = downloader.downloadImage(URLRequest: download2, filter: filter2) { closureResponse in
+        let requestReceipt2 = downloader.downloadImage(URLRequest: download2, filter: filter2) { closureResponse in
             result2 = closureResponse.result
             expectation2.fulfill()
         }
@@ -307,7 +307,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(request1?.task, request2?.task, "request 1 and 2 should be equal")
+        XCTAssertEqual(requestReceipt1?.request.task, requestReceipt2?.request.task, "request 1 and 2 should be equal")
 
         XCTAssertNotNil(result1, "result 1 should not be nil")
         XCTAssertNotNil(result2, "result 2 should not be nil")
@@ -341,12 +341,12 @@ class ImageDownloaderTestCase: BaseTestCase {
         var result2: Result<Image, NSError>?
 
         // When
-        let request1 = downloader.downloadImage(URLRequest: download1, filter: filter1) { closureResponse in
+        let requestReceipt1 = downloader.downloadImage(URLRequest: download1, filter: filter1) { closureResponse in
             result1 = closureResponse.result
             expectation1.fulfill()
         }
 
-        let request2 = downloader.downloadImage(URLRequest: download2, filter: filter2) { closureResponse in
+        let requestReceipt2 = downloader.downloadImage(URLRequest: download2, filter: filter2) { closureResponse in
             result2 = closureResponse.result
             expectation2.fulfill()
         }
@@ -354,7 +354,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertEqual(request1?.task, request2?.task, "request 1 and 2 should be equal")
+        XCTAssertEqual(requestReceipt1?.request.task, requestReceipt2?.request.task, "tasks 1 and 2 should be equal")
 
         XCTAssertNotNil(result1, "result 1 should not be nil")
         XCTAssertNotNil(result2, "result 2 should not be nil")
@@ -376,12 +376,12 @@ class ImageDownloaderTestCase: BaseTestCase {
         let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
 
         // When
-        let request = downloader.downloadImage(URLRequest: download) { _ in
+        let requestReceipt = downloader.downloadImage(URLRequest: download) { _ in
             // No-op
         }
 
-        let credential = request?.delegate.credential
-        request?.cancel()
+        let credential = requestReceipt?.request.delegate.credential
+        requestReceipt?.request.cancel()
 
         // Then
         XCTAssertNil(credential, "credential should be nil")
@@ -395,12 +395,12 @@ class ImageDownloaderTestCase: BaseTestCase {
         // When
         downloader.addAuthentication(user: "foo", password: "bar")
 
-        let request = downloader.downloadImage(URLRequest: download) { _ in
+        let requestReceipt = downloader.downloadImage(URLRequest: download) { _ in
             // No-op
         }
 
-        let credential = request?.delegate.credential
-        request?.cancel()
+        let credential = requestReceipt?.request.delegate.credential
+        requestReceipt?.request.cancel()
 
         // Then
         XCTAssertNotNil(credential, "credential should not be nil")
@@ -415,12 +415,12 @@ class ImageDownloaderTestCase: BaseTestCase {
         let credential = NSURLCredential(user: "foo", password: "bar", persistence: .ForSession)
         downloader.addAuthentication(usingCredential: credential)
 
-        let request = downloader.downloadImage(URLRequest: download) { _ in
+        let requestReceipt = downloader.downloadImage(URLRequest: download) { _ in
             // No-op
         }
 
-        let requestCredential = request?.delegate.credential
-        request?.cancel()
+        let requestCredential = requestReceipt?.request.delegate.credential
+        requestReceipt?.request.cancel()
 
         // Then
         XCTAssertNotNil(requestCredential, "request credential should not be nil")
@@ -478,7 +478,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectationWithDescription("image download should succeed")
 
         // When
-        let request1 = downloader.downloadImage(URLRequest: download1) { _ in
+        let requestReceipt1 = downloader.downloadImage(URLRequest: download1) { _ in
             expectation1.fulfill()
         }
 
@@ -489,15 +489,15 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation2 = expectationWithDescription("image download should succeed")
 
-        let request2 = downloader.downloadImage(URLRequest: download2) { _ in
+        let requestReceipt2 = downloader.downloadImage(URLRequest: download2) { _ in
             expectation2.fulfill()
         }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request1, "request 1 should not be nil")
-        XCTAssertNil(request2, "request 2 should be nil")
+        XCTAssertNotNil(requestReceipt1, "request receipt 1 should not be nil")
+        XCTAssertNil(requestReceipt2, "request receipt 2 should be nil")
     }
 
     func testThatCachedImageIsNotReturnedIfNotAllowedByCachePolicy() {
@@ -508,7 +508,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectationWithDescription("image download should succeed")
 
         // When
-        let request1 = downloader.downloadImage(URLRequest: download1) { _ in
+        let requestReceipt1 = downloader.downloadImage(URLRequest: download1) { _ in
             expectation1.fulfill()
         }
 
@@ -519,15 +519,15 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation2 = expectationWithDescription("image download should succeed")
 
-        let request2 = downloader.downloadImage(URLRequest: download2) { _ in
+        let requestReceipt2 = downloader.downloadImage(URLRequest: download2) { _ in
             expectation2.fulfill()
         }
 
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request1, "request 1 should not be nil")
-        XCTAssertNotNil(request2, "request 2 should not be nil")
+        XCTAssertNotNil(requestReceipt1, "request receipt 1 should not be nil")
+        XCTAssertNotNil(requestReceipt2, "request receipt 2 should not be nil")
     }
 
     func testThatItCanDownloadImagesWhenNoImageCacheIsAvailable() {
@@ -563,7 +563,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         var result2: Result<Image, NSError>?
 
         // When
-        let request1 = downloader.downloadImage(URLRequest: download) { closureResponse in
+        let requestReceipt1 = downloader.downloadImage(URLRequest: download) { closureResponse in
             result1 = closureResponse.result
             expectation1.fulfill()
         }
@@ -572,7 +572,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation2 = expectationWithDescription("image download should succeed")
 
-        let request2 = downloader.downloadImage(URLRequest: download) { closureResponse in
+        let requestReceipt2 = downloader.downloadImage(URLRequest: download) { closureResponse in
             result2 = closureResponse.result
             expectation2.fulfill()
         }
@@ -580,8 +580,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request1, "request 1 should not be nil")
-        XCTAssertNil(request2, "request 2 should be nil")
+        XCTAssertNotNil(requestReceipt1, "request receipt 1 should not be nil")
+        XCTAssertNil(requestReceipt2, "request receipt 2 should be nil")
 
         XCTAssertNotNil(result1, "result 1 should not be nil")
         XCTAssertNotNil(result2, "result 2 should not be nil")
@@ -609,7 +609,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         var result2: Result<Image, NSError>?
 
         // When
-        let request1 = downloader.downloadImage(URLRequest: download, filter: filter) { closureResponse in
+        let requestReceipt1 = downloader.downloadImage(URLRequest: download, filter: filter) { closureResponse in
             result1 = closureResponse.result
             expectation1.fulfill()
         }
@@ -618,7 +618,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation2 = expectationWithDescription("image download should succeed")
 
-        let request2 = downloader.downloadImage(URLRequest: download, filter: filter) { closureResponse in
+        let requestReceipt2 = downloader.downloadImage(URLRequest: download, filter: filter) { closureResponse in
             result2 = closureResponse.result
             expectation2.fulfill()
         }
@@ -626,8 +626,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         waitForExpectationsWithTimeout(timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request1, "request 1 should not be nil")
-        XCTAssertNil(request2, "request 2 should be nil")
+        XCTAssertNotNil(requestReceipt1, "request receipt 1 should not be nil")
+        XCTAssertNil(requestReceipt2, "request receipt 2 should be nil")
 
         XCTAssertNotNil(result1, "result 1 should not be nil")
         XCTAssertNotNil(result2, "result 2 should not be nil")
