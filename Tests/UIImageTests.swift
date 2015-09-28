@@ -261,10 +261,10 @@ class UIImageTestCase: BaseTestCase {
         let r = Int(round(radius))
 
         // When
-        let roundedAppleImage = appleImage.af_imageWithRoundedCornerRadius(radius)
-        let roundedPirateImage = pirateImage.af_imageWithRoundedCornerRadius(radius)
-        let roundedRainbowImage = rainbowImage.af_imageWithRoundedCornerRadius(radius)
-        let roundedUnicornImage = unicornImage.af_imageWithRoundedCornerRadius(radius)
+        let roundedAppleImage = appleImage.af_imageWithRoundedCornerRadius(radius, divideRadiusByImageScale: true)
+        let roundedPirateImage = pirateImage.af_imageWithRoundedCornerRadius(radius, divideRadiusByImageScale: true)
+        let roundedRainbowImage = rainbowImage.af_imageWithRoundedCornerRadius(radius, divideRadiusByImageScale: true)
+        let roundedUnicornImage = unicornImage.af_imageWithRoundedCornerRadius(radius, divideRadiusByImageScale: true)
 
         // Then
         let expectedAppleImage = imageForResource("apple-radius-\(r)", withExtension: "png")

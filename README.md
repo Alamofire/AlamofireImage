@@ -26,6 +26,10 @@ AlamofireImage is an image component library for Alamofire.
 - iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2
 - Xcode 7.1 beta 1+
 
+## Migration Guides
+
+- [AlamofireImage 2.0 Migration Guide](https://github.com/Alamofire/AlamofireImage/blob/master/Documentation/AlamofireImage%202.0%20Migration%20Guide.md)
+
 ## Dependencies
 
 - [Alamofire 2.0+](https://github.com/Alamofire/Alamofire)
@@ -93,12 +97,14 @@ github "Alamofire/AlamofireImage" ~> 1.0
 import AlamofireImage
 
 Alamofire.request(.GET, "https://httpbin.org/image/png")
-         .responseImage { request, response, result in
-             print(request)
-             print(response)
-             debugPrint(result)
-             
-             if let image = result.value {
+         .responseImage { response in
+             debugPrint(response)
+
+             print(response.request)
+             print(response.response)
+             debugPrint(response.result)
+
+             if let image = response.result.value {
                  print("image downloaded: \(image)")
              }
          }
@@ -331,12 +337,12 @@ let imageDownloader = ImageDownloader(
 let downloader = ImageDownloader()
 let URLRequest = NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/jpeg")!)
 
-downloader.downloadImage(URLRequest: URLRequest) { request, response, result in
-    print(request)
-    print(response)
-    debugPrint(result)
+downloader.downloadImage(URLRequest: URLRequest) { response in
+    print(response.request)
+    print(response.response)
+    debugPrint(response.result)
 
-    if let image = result.value {
+    if let image = response.result.value {
         print(image)
     }
 }
@@ -349,12 +355,12 @@ let downloader = ImageDownloader()
 let URLRequest = NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/jpeg")!)
 let filter = AspectScaledToFillSizeCircleFilter(size: CGSize(width: 100.0, height: 100.0))
 
-downloader.downloadImage(URLRequest: URLRequest, filter: filter) { request, response, result in
-    print(request)
-    print(response)
-    debugPrint(result)
+downloader.downloadImage(URLRequest: URLRequest, filter: filter) { response in
+    print(response.request)
+    print(response.response)
+    debugPrint(response.result)
     
-    if let image = result.value {
+    if let image = response.result.value {
         print(image)
     }
 }
@@ -413,6 +419,14 @@ Sometimes application logic can end up attempting to download an image more than
 ##### Image Filter Reuse
 
 In addition to merging duplicate downloads, AlamofireImage can also merge duplicate image filters. If two image filters with the same identifier are attached to the same download, the image filter is only executed once and both completion handlers are called with the same resulting image. This can save large amounts of time and resources for computationally expensive filters such as ones leveraging CoreImage.
+
+##### Request Receipts
+
+Sometimes it is necessary to cancel an image download for various reasons. AlamofireImage can intelligently handle cancellation logic in the `ImageDownloader` by leveraging the `RequestReceipt` type along with the `cancelRequestForRequestReceipt` method. Each download request vends a `RequestReceipt` which can be later used to cancel the request.
+
+By cancelling the request through the `ImageDownloader` using the `RequestReceipt`, AlamofireImage is able to determine how to best handle the cancellation. The cancelled download will always receive a cancellation error, while duplicate downloads are allowed to complete. If the download is already active, it is allowed to complete even though the completion handler will be called with a cancellation error. This greatly improves performance of table and collection views displaying large amounts of images.
+
+> It is NOT recommended to directly call `cancel` on the `request` in the `RequestReceipt`. Doing so can lead to issues such as duplicate downloads never being allowed to complete.
 
 ### UIImageView Extension
 

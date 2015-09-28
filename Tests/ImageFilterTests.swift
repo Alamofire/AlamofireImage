@@ -30,7 +30,7 @@ class ImageFilterTestCase: BaseTestCase {
     let largeSquareSize = CGSize(width: 100, height: 100)
     let scale = Int(round(UIScreen.mainScreen().scale))
 
-    // MARK: - Protocol Extension Identifiers
+    // MARK: - ImageFilter Protocol Extension Identifiers
 
     func testThatImageFilterIdentifierIsImplemented() {
         // Given
@@ -62,10 +62,13 @@ class ImageFilterTestCase: BaseTestCase {
         let identifier = filter.identifier
 
         // Then
-        XCTAssertEqual(identifier, "RoundedCornersFilter-radius:(12)", "identifier does not match expected value")
+        let expectedIdentifier = "RoundedCornersFilter-radius:(12)-divided:(false)"
+        XCTAssertEqual(identifier, expectedIdentifier, "identifier does not match expected value")
     }
 
-    func testThatImageFilterWhereSelfIsSizableAndRoundableIdentifierIsImplemented() {
+    // MARK: - CompositeImageFilter Protocol Extension Identifiers
+
+    func testThatCompositeImageFilterIdentifierIsImplemented() {
         // Given
         let filter = ScaledToSizeWithRoundedCornersFilter(size: CGSize(width: 200, height: 100), radius: 20.0123)
 
@@ -73,11 +76,58 @@ class ImageFilterTestCase: BaseTestCase {
         let identifier = filter.identifier
 
         // Then
-        XCTAssertEqual(
-            identifier,
-            "ScaledToSizeWithRoundedCornersFilter-size:(200x100)-radius:(20)",
-            "identifier does not match expected value"
+        let expectedIdentifier = "ScaledToSizeFilter-size:(200x100)_RoundedCornersFilter-radius:(20)-divided:(false)"
+        XCTAssertEqual(identifier, expectedIdentifier, "identifier does not match expected value")
+    }
+
+    // MARK: - DynamicImageFilter Tests
+
+    func testThatDynamicImageFilterIdentifierIsImplemented() {
+        // Given
+        let identifier = "DynamicFilter"
+
+        // When
+        let filter = DynamicImageFilter(identifier) { $0 }
+
+        // Then
+        XCTAssertEqual(filter.identifier, identifier, "identifier does not match expected value")
+    }
+
+    func testThatDynamicImageFilterReturnsCorrectFilteredImage() {
+        // Given
+        let image = imageForResource("pirate", withExtension: "jpg")
+        let filter = DynamicImageFilter("DynamicScaleToSizeFilter") { image in
+            return image.af_imageScaledToSize(CGSize(width: 50.0, height: 50.0))
+        }
+
+        // When
+        let filteredImage = filter.filter(image)
+
+        // Then
+        let expectedFilteredImage = imageForResource("pirate-scaled-50x50-@\(scale)x", withExtension: "png")
+        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+    }
+
+    // MARK: - DynamicCompositeImageFilter Tests
+
+    func testThatDynamicCompositeImageFilterReturnsCorrectFilteredImage() {
+        // Given
+        let image = imageForResource("pirate", withExtension: "jpg")
+        let filter = DynamicCompositeImageFilter(
+            ScaledToSizeFilter(size: largeSquareSize),
+            RoundedCornersFilter(radius: 20)
         )
+
+        // When
+        let filteredImage = filter.filter(image)
+
+        // Then
+        let expectedFilteredImage = imageForResource(
+            "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
+            withExtension: "png"
+        )
+
+        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     // MARK: - Single Pass Image Filter Tests
@@ -124,7 +174,7 @@ class ImageFilterTestCase: BaseTestCase {
     func testThatRoundedCornersFilterReturnsCorrectFilteredImage() {
         // Given
         let image = imageForResource("pirate", withExtension: "jpg")
-        let filter = RoundedCornersFilter(radius: 20)
+        let filter = RoundedCornersFilter(radius: 20, divideRadiusByImageScale: true)
 
         // When
         let filteredImage = filter.filter(image)
@@ -132,6 +182,9 @@ class ImageFilterTestCase: BaseTestCase {
         // Then
         let expectedFilteredImage = imageForResource("pirate-radius-20", withExtension: "png")
         XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+
+        let expectedIdentifier = "RoundedCornersFilter-radius:(20)-divided:(true)"
+        XCTAssertEqual(filter.identifier, expectedIdentifier, "filter identifier does not match")
     }
 
     func testThatCircleFilterReturnsCorrectFilteredImage() {
@@ -163,7 +216,7 @@ class ImageFilterTestCase: BaseTestCase {
         XCTAssertTrue(pixelsMatch, "pixels match should be true")
     }
 
-    // MARK: - Multi-Pass Image Filter Tests
+    // MARK: - Composite Image Filter Tests
 
     func testThatScaledToSizeWithRoundedCornersFilterReturnsCorrectFilteredImage() {
         // Given

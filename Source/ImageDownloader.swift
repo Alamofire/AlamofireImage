@@ -29,6 +29,23 @@ import UIKit
 import Cocoa
 #endif
 
+/// The `RequestReceipt` is an object vended by the `ImageDownloader` when starting a download request. It can be used 
+/// to cancel active requests running on the `ImageDownloader` session. As a general rule, image download requests 
+/// should be cancelled using the `RequestReceipt` instead of calling `cancel` directly on the `request` itself. The 
+/// `ImageDownloader` is optimized to handle duplicate request scenarios as well as pending versus active downloads.
+public class RequestReceipt {
+    /// The download request created by the `ImageDownloader`.
+    public let request: Request
+
+    /// The unique identifier for the image filters and completion handlers when duplicate requests are made.
+    public let receiptID: String
+
+    init(request: Request, receiptID: String) {
+        self.request = request
+        self.receiptID = receiptID
+    }
+}
+
 /// The `ImageDownloader` class is responsible for downloading images in parallel on a prioritized queue. Incoming
 /// downloads are added to the front or back of the queue depending on the download prioritization. Each downloaded 
 /// image is cached in the underlying `NSURLCache` as well as the in-memory image cache that supports image filters. 
@@ -37,7 +54,7 @@ import Cocoa
 /// handlers for a single request.
 public class ImageDownloader {
     /// The completion handler closure used when an image download completes.
-    public typealias CompletionHandler = (NSURLRequest?, NSHTTPURLResponse?, Result<Image>) -> Void
+    public typealias CompletionHandler = Response<Image, NSError> -> Void
 
     /**
         Defines the order prioritization of incoming download requests being inserted into the queue.
@@ -52,14 +69,12 @@ public class ImageDownloader {
     class ResponseHandler {
         let identifier: String
         let request: Request
-        var filters: [ImageFilter?]
-        var completionHandlers: [CompletionHandler?]
+        var operations: [(id: String, filter: ImageFilter?, completion: CompletionHandler?)]
 
-        init(request: Request, filter: ImageFilter?, completion: CompletionHandler?) {
+        init(request: Request, id: String, filter: ImageFilter?, completion: CompletionHandler?) {
             self.request = request
             self.identifier = ImageDownloader.identifierForURLRequest(request.request!)
-            self.filters = [filter]
-            self.completionHandlers = [completion]
+            self.operations = [(id: id, filter: filter, completion: completion)]
         }
     }
 
@@ -204,10 +219,14 @@ public class ImageDownloader {
         - parameter URLRequest: The URL request.
         - parameter completion: The closure called when the download request is complete.
 
-        - returns: The created download request if available. `nil` if the image is stored in the image cache and the
-                  URL request cache policy allows the cache to be used.
+        - returns: The request receipt for the download request if available. `nil` if the image is stored in the image
+                   cache and the URL request cache policy allows the cache to be used.
     */
-    public func downloadImage(URLRequest URLRequest: URLRequestConvertible, completion: CompletionHandler?) -> Request? {
+    public func downloadImage(
+        URLRequest URLRequest: URLRequestConvertible,
+        completion: CompletionHandler?)
+        -> RequestReceipt?
+    {
         return downloadImage(URLRequest: URLRequest, filter: nil, completion: completion)
     }
 
@@ -220,30 +239,34 @@ public class ImageDownloader {
         to the request with the same identifiers are only executed once. The resulting image is then passed into each
         completion handler paired with the filter.
 
+        You should not attempt to directly cancel the `request` inside the request receipt since other callers may be
+        relying on the completion of that request. Instead, you should call `cancelRequestForRequestReceipt` with the
+        returned request receipt to allow the `ImageDownloader` to optimize the cancellation on behalf of all active
+        callers.
+
         - parameter URLRequest: The URL request.
         - parameter filter      The image filter to apply to the image after the download is complete.
         - parameter completion: The closure called when the download request is complete.
 
-        - returns: The created download request if available. `nil` if the image is stored in the image cache and the
-                   URL request cache policy allows the cache to be used.
+        - returns: The request receipt for the download request if available. `nil` if the image is stored in the image
+                   cache and the URL request cache policy allows the cache to be used.
     */
     public func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
         filter: ImageFilter?,
         completion: CompletionHandler?)
-        -> Request?
+        -> RequestReceipt?
     {
         var request: Request!
+        let receiptID = NSUUID().UUIDString
 
         dispatch_sync(synchronizationQueue) {
             // 1) Append the filter and completion handler to a pre-existing request if it already exists
             let identifier = ImageDownloader.identifierForURLRequest(URLRequest)
 
             if let responseHandler = self.responseHandlers[identifier] {
-                responseHandler.filters.append(filter)
-                responseHandler.completionHandlers.append(completion)
+                responseHandler.operations.append(id: receiptID, filter: filter, completion: completion)
                 request = responseHandler.request
-
                 return
             }
 
@@ -255,7 +278,14 @@ public class ImageDownloader {
                     withAdditionalIdentifier: filter?.identifier)
                 {
                     dispatch_async(dispatch_get_main_queue()) {
-                        completion?(URLRequest.URLRequest, nil, .Success(image))
+                        let response = Response<Image, NSError>(
+                            request: URLRequest.URLRequest,
+                            response: nil,
+                            data: nil,
+                            result: .Success(image)
+                        )
+
+                        completion?(response)
                     }
 
                     return
@@ -275,16 +305,16 @@ public class ImageDownloader {
             request.response(
                 queue: self.responseQueue,
                 responseSerializer: Request.imageResponseSerializer(),
-                completionHandler: { [weak self] request, response, result in
-                    guard let strongSelf = self, let request = request else { return }
+                completionHandler: { [weak self] response in
+                    guard let strongSelf = self, let request = response.request else { return }
 
                     let responseHandler = strongSelf.safelyRemoveResponseHandlerWithIdentifier(identifier)
 
-                    switch result {
+                    switch response.result {
                     case .Success(let image):
                         var filteredImages: [String: Image] = [:]
 
-                        for (filter, completion) in zip(responseHandler.filters, responseHandler.completionHandlers) {
+                        for (_, filter, completion) in responseHandler.operations {
                             var filteredImage: Image
 
                             if let filter = filter {
@@ -305,14 +335,19 @@ public class ImageDownloader {
                             )
 
                             dispatch_async(dispatch_get_main_queue()) {
-                                completion?(request, response, .Success(filteredImage))
+                                let response = Response<Image, NSError>(
+                                    request: response.request,
+                                    response: response.response,
+                                    data: response.data,
+                                    result: .Success(filteredImage)
+                                )
+
+                                completion?(response)
                             }
                         }
                     case .Failure:
-                        for completion in responseHandler.completionHandlers {
-                            dispatch_async(dispatch_get_main_queue()) {
-                                completion?(request, response, result)
-                            }
+                        for (_, _, completion) in responseHandler.operations {
+                            dispatch_async(dispatch_get_main_queue()) { completion?(response) }
                         }
                     }
 
@@ -322,7 +357,13 @@ public class ImageDownloader {
             )
 
             // 4) Store the response handler for use when the request completes
-            let responseHandler = ResponseHandler(request: request, filter: filter, completion: completion)
+            let responseHandler = ResponseHandler(
+                request: request,
+                id: receiptID,
+                filter: filter,
+                completion: completion
+            )
+
             self.responseHandlers[identifier] = responseHandler
 
             // 5) Either start the request or enqueue it depending on the current active request count
@@ -333,7 +374,48 @@ public class ImageDownloader {
             }
         }
 
-        return request
+        if let request = request {
+            return RequestReceipt(request: request, receiptID: receiptID)
+        }
+
+        return nil
+    }
+
+    /**
+        Cancels the request in the receipt by removing the response handler and cancelling the request if necessary.
+
+        If the request is pending in the queue, it will be cancelled if no other response handlers are registered with
+        the request. If the request is currently executing or is already completed, the response handler is removed and
+        will not be called.
+
+        - parameter requestReceipt: The request receipt to cancel.
+    */
+    public func cancelRequestForRequestReceipt(requestReceipt: RequestReceipt) {
+        dispatch_sync(synchronizationQueue) {
+            let identifier = ImageDownloader.identifierForURLRequest(requestReceipt.request.request!)
+            guard let responseHandler = self.responseHandlers[identifier] else { return }
+
+            if let index = responseHandler.operations.indexOf({ $0.id == requestReceipt.receiptID }) {
+                let operation = responseHandler.operations.removeAtIndex(index)
+
+                let response: Response<Image, NSError> = {
+                    let URLRequest = requestReceipt.request.request!
+                    let error: NSError = {
+                        let failureReason = "ImageDownloader cancelled URL request: \(URLRequest.URLString)"
+                        let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
+                        return NSError(domain: Error.Domain, code: NSURLErrorCancelled, userInfo: userInfo)
+                    }()
+
+                    return Response(request: URLRequest, response: nil, data: nil, result: .Failure(error))
+                }()
+
+                operation.completion?(response)
+            }
+
+            if responseHandler.operations.isEmpty && requestReceipt.request.task.state == .Suspended {
+                requestReceipt.request.cancel()
+            }
+        }
     }
 
     // MARK: - Internal - Thread-Safe Request Methods
