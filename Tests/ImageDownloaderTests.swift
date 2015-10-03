@@ -58,12 +58,15 @@ private class TestCircleFilter: ImageFilter {
 // MARK: -
 
 class ImageDownloaderTestCase: BaseTestCase {
+    var appendCredential = false
 
     // MARK: - Setup and Teardown
 
     override func setUp() {
         super.setUp()
+
         ImageDownloader.defaultURLCache().removeAllCachedResponses()
+        appendCredential = false
     }
 
     // MARK: - Initialization Tests
@@ -453,7 +456,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
     // MARK: - Authentication Tests
 
-    func testThatItDoesNotAttachAuthenticationCredentialToRequestIfItDoesNotExist() {
+    func testThatItDoesNotAttachAuthenticationCredentialToRequestByDefault() {
         // Given
         let downloader = ImageDownloader()
         let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
@@ -470,14 +473,33 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertNil(credential, "credential should be nil")
     }
 
-    func testThatItAttachsUsernamePasswordCredentialToRequestIfItExists() {
+    func testThatItDoesNotAttachAuthenticationCredentialToRequestWithDelegateByDefault() {
         // Given
         let downloader = ImageDownloader()
+        downloader.delegate = self
         let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
 
         // When
-        downloader.addAuthentication(user: "foo", password: "bar")
+        let requestReceipt = downloader.downloadImage(URLRequest: download) { _ in
+            // No-op
+        }
 
+        let credential = requestReceipt?.request.delegate.credential
+        requestReceipt?.request.cancel()
+
+        // Then
+        XCTAssertNil(credential, "credential should be nil")
+    }
+
+    func testThatItAttachsAuthenticationCredentialToRequestIfReturnedFromDelegate() {
+        // Given
+        let downloader = ImageDownloader()
+        downloader.delegate = self
+        appendCredential = true
+
+        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+
+        // When
         let requestReceipt = downloader.downloadImage(URLRequest: download) { _ in
             // No-op
         }
@@ -487,26 +509,6 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         // Then
         XCTAssertNotNil(credential, "credential should not be nil")
-    }
-
-    func testThatItAttachsAuthenticationCredentialToRequestIfItExists() {
-        // Given
-        let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-
-        // When
-        let credential = NSURLCredential(user: "foo", password: "bar", persistence: .ForSession)
-        downloader.addAuthentication(usingCredential: credential)
-
-        let requestReceipt = downloader.downloadImage(URLRequest: download) { _ in
-            // No-op
-        }
-
-        let requestCredential = requestReceipt?.request.delegate.credential
-        requestReceipt?.request.cancel()
-
-        // Then
-        XCTAssertNotNil(requestCredential, "request credential should not be nil")
     }
 
     // MARK: - Threading Tests
@@ -813,5 +815,14 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Then
         XCTAssertEqual(queuedRequests.count, 1, "queued requests count should be 1")
         XCTAssertEqual(queuedRequests[0].task, request2.task, "queued request should be request 2")
+    }
+}
+
+// MARK: -
+
+extension ImageDownloaderTestCase: ImageDownloaderDelegate {
+    func authenticationCredentialForURLRequest(URLRequest: NSURLRequest) -> NSURLCredential? {
+        guard appendCredential else { return nil }
+        return NSURLCredential(user: "foo", password: "bar", persistence: .ForSession)
     }
 }

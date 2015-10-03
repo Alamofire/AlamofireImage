@@ -46,6 +46,23 @@ public class RequestReceipt {
     }
 }
 
+// MARK: -
+
+/// The `ImageDownlaoderDelegate` protocol defines APIs for providing the `ImageDownloader` with different
+/// authentication credentials on a per URL request basis.
+public protocol ImageDownloaderDelegate: class {
+    /**
+        Returns the authentication credential for the URL request if required.
+
+        - parameter URLRequest: The URL request to provide a credential for.
+
+        - returns: The authentication credential for the URL request.
+    */
+    func authenticationCredentialForURLRequest(URLRequest: NSURLRequest) -> NSURLCredential?
+}
+
+// MARK: -
+
 /// The `ImageDownloader` class is responsible for downloading images in parallel on a prioritized queue. Incoming
 /// downloads are added to the front or back of the queue depending on the download prioritization. Each downloaded 
 /// image is cached in the underlying `NSURLCache` as well as the in-memory image cache that supports image filters. 
@@ -83,8 +100,8 @@ public class ImageDownloader {
     /// The image cache used to store all downloaded images in.
     public let imageCache: ImageRequestCache?
 
-    /// The credential used for authenticating each download request.
-    public private(set) var credential: NSURLCredential?
+    /// The `ImageDownloaderDelegate` to gather authentication credentials from.
+    public weak var delegate: ImageDownloaderDelegate?
 
     var queuedRequests: [Request]
     var activeRequestCount: Int
@@ -178,35 +195,6 @@ public class ImageDownloader {
         }()
     }
 
-    // MARK: - Authentication
-
-    /**
-        Associates an HTTP Basic Auth credential with all future download requests.
-
-        - parameter user:        The user.
-        - parameter password:    The password.
-        - parameter persistence: The URL credential persistence. `.ForSession` by default.
-    */
-    public func addAuthentication(
-        user user: String,
-        password: String,
-        persistence: NSURLCredentialPersistence = .ForSession)
-    {
-        let credential = NSURLCredential(user: user, password: password, persistence: persistence)
-        addAuthentication(usingCredential: credential)
-    }
-
-    /**
-        Associates the specified credential with all future download requests.
-
-        - parameter credential: The credential.
-    */
-    public func addAuthentication(usingCredential credential: NSURLCredential) {
-        dispatch_sync(synchronizationQueue) {
-            self.credential = credential
-        }
-    }
-
     // MARK: - Download
 
     /**
@@ -297,7 +285,7 @@ public class ImageDownloader {
             // 3) Create the request and set up authentication, validation and response serialization
             request = self.sessionManager.request(URLRequest)
 
-            if let credential = self.credential {
+            if let credential = self.delegate?.authenticationCredentialForURLRequest(URLRequest.URLRequest) {
                 request.authenticate(usingCredential: credential)
             }
 
