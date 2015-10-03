@@ -85,6 +85,17 @@ public class RequestReceipt {
 
 The `cancelRequestForRequestReceipt` method on the `ImageDownloader` handles all three cancellation cases internally. By always cancelling requests using the `RequestReceipt` APIs, your download requests will much better optimized for table and collection view use cases.
 
+#### Authentication Credentials
+
+Previously, the `ImageDownloader` only allowed a single credential to be applied to all download requests. This was problematic if images were behind different sets of basic auth credentials. In AlamofireImage 2.0, the `ImageDownloaderDelegate` protocol now allows custom authentication credentials to be specified on a per-request basis. 
+
+```swift
+public protocol ImageDownloaderDelegate: class {
+	func authenticationCredentialForURLRequest(URLRequest: NSURLRequest) -> NSURLCredential?
+}
+```
+
+> These changes allow the `UIImageView` extension to apply different basic auth credentials to the underlying requests without having to add the credentials directly in the `UIImageView` APIs.
 
 ### UIImageView Extension
 
