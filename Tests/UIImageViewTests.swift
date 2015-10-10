@@ -132,7 +132,34 @@ class UIImageViewTestCase: BaseTestCase {
 
         // Then
         XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
+    }
+
+    // MARK: - Image Downloaders
+
+    func testThatInstanceImageDownloaderOverridesSharedImageDownloader() {
+        // Given
+        let expectation = expectationWithDescription("image should download successfully")
+        var imageDownloadComplete = false
+
+        let imageView = TestImageView {
+            imageDownloadComplete = true
+            expectation.fulfill()
+        }
+
+        let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
+        let imageDownloader = ImageDownloader(configuration: configuration)
+        imageView.af_imageDownloader = imageDownloader
+
+        // When
+        imageView.af_setImageWithURL(URL)
+        let activeRequestCount = imageDownloader.activeRequestCount
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
         XCTAssertNil(imageView.af_activeRequestReceipt, "active request receipt should be nil after download completes")
+        XCTAssertEqual(activeRequestCount, 1, "active request count should be 1")
     }
 
     // MARK: - Image Cache
