@@ -87,6 +87,17 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertNil(downloader, "downloader should be nil")
     }
 
+    func testThatImageDownloaderCanBeInitializedWithManagerInstanceAndDeinitialized() {
+        // Given
+        var downloader: ImageDownloader? = ImageDownloader(sessionManager: Manager())
+
+        // When
+        downloader = nil
+
+        // Then
+        XCTAssertNil(downloader, "downloader should be nil")
+    }
+
     func testThatImageDownloaderCanBeInitializedAndDeinitializedWithActiveDownloads() {
         // Given
         var downloader: ImageDownloader? = ImageDownloader()

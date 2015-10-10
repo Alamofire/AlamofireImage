@@ -86,17 +86,23 @@ public class ImageDownloader {
     /// The credential used for authenticating each download request.
     public private(set) var credential: NSURLCredential?
 
-    var queuedRequests: [Request]
-    var activeRequestCount: Int
+    let sessionManager: Alamofire.Manager
+    let downloadPrioritization: DownloadPrioritization
     let maximumActiveDownloads: Int
 
-    let sessionManager: Alamofire.Manager
+    var activeRequestCount = 0
+    var queuedRequests: [Request] = []
+    var responseHandlers: [String: ResponseHandler] = [:]
 
-    private let synchronizationQueue: dispatch_queue_t
-    private let responseQueue: dispatch_queue_t
-    private let downloadPrioritization: DownloadPrioritization
+    private let synchronizationQueue: dispatch_queue_t = {
+        let name = String(format: "com.alamofire.imagedownloader.synchronizationqueue-%08%08", arc4random(), arc4random())
+        return dispatch_queue_create(name, DISPATCH_QUEUE_SERIAL)
+    }()
 
-    private var responseHandlers: [String: ResponseHandler]
+    private let responseQueue: dispatch_queue_t = {
+        let name = String(format: "com.alamofire.imagedownloader.responsequeue-%08%08", arc4random(), arc4random())
+        return dispatch_queue_create(name, DISPATCH_QUEUE_CONCURRENT)
+    }()
 
     // MARK: - Initialization
 
@@ -161,21 +167,31 @@ public class ImageDownloader {
         self.downloadPrioritization = downloadPrioritization
         self.maximumActiveDownloads = maximumActiveDownloads
         self.imageCache = imageCache
+    }
 
-        self.queuedRequests = []
-        self.responseHandlers = [:]
+    /**
+        Initializes the `ImageDownloader` instance with the given sesion manager, download prioritization, maximum
+        active download count and image cache.
 
-        self.activeRequestCount = 0
+        - parameter sessionManager:         The Alamofire `Manager` instance to handle all download requests.
+        - parameter downloadPrioritization: The download prioritization of the download queue. `.FIFO` by default.
+        - parameter maximumActiveDownloads: The maximum number of active downloads allowed at any given time.
+        - parameter imageCache:             The image cache used to store all downloaded images in.
 
-        self.synchronizationQueue = {
-            let name = String(format: "com.alamofire.imagedownloader.synchronizationqueue-%08%08", arc4random(), arc4random())
-            return dispatch_queue_create(name, DISPATCH_QUEUE_SERIAL)
-        }()
+        - returns: The new `ImageDownloader` instance.
+    */
+    public init(
+        sessionManager: Manager,
+        downloadPrioritization: DownloadPrioritization = .FIFO,
+        maximumActiveDownloads: Int = 4,
+        imageCache: ImageRequestCache? = AutoPurgingImageCache())
+    {
+        self.sessionManager = sessionManager
+        self.sessionManager.startRequestsImmediately = false
 
-        self.responseQueue = {
-            let name = String(format: "com.alamofire.imagedownloader.responsequeue-%08%08", arc4random(), arc4random())
-            return dispatch_queue_create(name, DISPATCH_QUEUE_CONCURRENT)
-        }()
+        self.downloadPrioritization = downloadPrioritization
+        self.maximumActiveDownloads = maximumActiveDownloads
+        self.imageCache = imageCache
     }
 
     // MARK: - Authentication
