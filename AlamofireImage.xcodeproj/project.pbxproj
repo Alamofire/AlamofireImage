@@ -2029,6 +2029,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				BITCODE_GENERATION_MODE = marker;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2051,6 +2052,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				BITCODE_GENERATION_MODE = bitcode;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2417,6 +2419,7 @@
 				4C16B38F1BA9399500A66EF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C16B39B1BA9399500A66EF0 /* Build configuration list for PBXNativeTarget "AlamofireImage tvOS Tests" */ = {
 			isa = XCConfigurationList;
@@ -2425,6 +2428,7 @@
 				4C16B3911BA9399500A66EF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C4D4EC61B92976900C96855 /* Build configuration list for PBXNativeTarget "AlamofireImage watchOS" */ = {
 			isa = XCConfigurationList;
