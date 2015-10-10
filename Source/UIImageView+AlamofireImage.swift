@@ -357,6 +357,8 @@ extension UIImageView {
     public func af_cancelImageRequest() {
         guard let activeRequestReceipt = af_activeRequestReceipt else { return }
         UIImageView.af_sharedImageDownloader.cancelRequestForRequestReceipt(activeRequestReceipt)
+
+        af_activeRequestReceipt = nil
     }
 
     // MARK: - Private - URL Request Helper Methods

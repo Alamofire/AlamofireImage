@@ -409,7 +409,7 @@ public class ImageDownloader {
                     return Response(request: URLRequest, response: nil, data: nil, result: .Failure(error))
                 }()
 
-                operation.completion?(response)
+                dispatch_async(dispatch_get_main_queue()) { operation.completion?(response) }
             }
 
             if responseHandler.operations.isEmpty && requestReceipt.request.task.state == .Suspended {
