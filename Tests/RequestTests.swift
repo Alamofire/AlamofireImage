@@ -21,11 +21,40 @@
 // THE SOFTWARE.
 
 import Alamofire
-import AlamofireImage
+@testable import AlamofireImage
 import Foundation
 import XCTest
 
 class RequestTestCase: BaseTestCase {
+    var acceptableImageContentTypes: Set<String>!
+
+    // MARK: - Setup and Teardown
+
+    override func setUp() {
+        super.setUp()
+        acceptableImageContentTypes = Request.acceptableImageContentTypes
+    }
+
+    override func tearDown() {
+        super.tearDown()
+        Request.acceptableImageContentTypes = acceptableImageContentTypes
+    }
+
+    // MARK: - Image Content Type Tests
+
+    func testThatAddingAcceptableImageContentTypesInsertsThemIntoTheGlobalList() {
+        // Given
+        let contentTypes: Set<String> = ["image/jpg", "binary/octet-stream"]
+
+        // When
+        let beforeCount = Request.acceptableImageContentTypes.count
+        Request.addAcceptableImageContentTypes(contentTypes)
+        let afterCount = Request.acceptableImageContentTypes.count
+
+        // Then
+        XCTAssertEqual(beforeCount, 10, "before count should be 10")
+        XCTAssertEqual(afterCount, 12, "after count should be 12")
+    }
 
     // MARK: - Image Serialization Tests
 
