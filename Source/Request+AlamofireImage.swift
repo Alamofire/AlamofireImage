@@ -33,6 +33,27 @@ import Cocoa
 #endif
 
 extension Request {
+    static var acceptableImageContentTypes: Set<String> = [
+        "image/tiff",
+        "image/jpeg",
+        "image/gif",
+        "image/png",
+        "image/ico",
+        "image/x-icon",
+        "image/bmp",
+        "image/x-bmp",
+        "image/x-xbitmap",
+        "image/x-win-bitmap"
+    ]
+
+    /**
+        Adds the content types specified to the list of acceptable images content types for validation.
+
+        - parameter contentTypes: The additional content types.
+    */
+    public class func addAcceptableImageContentTypes(contentTypes: Set<String>) {
+        Request.acceptableImageContentTypes.unionInPlace(contentTypes)
+    }
 
     // MARK: - iOS and watchOS
 
@@ -195,20 +216,7 @@ extension Request {
             return true
         }
 
-        let acceptableContentTypes: Set<String> = [
-            "image/tiff",
-            "image/jpeg",
-            "image/gif",
-            "image/png",
-            "image/ico",
-            "image/x-icon",
-            "image/bmp",
-            "image/x-bmp",
-            "image/x-xbitmap",
-            "image/x-win-bitmap"
-        ]
-
-        if let mimeType = response?.MIMEType where acceptableContentTypes.contains(mimeType) {
+        if let mimeType = response?.MIMEType where Request.acceptableImageContentTypes.contains(mimeType) {
             return true
         }
 
