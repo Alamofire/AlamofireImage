@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.9'
   s.watchos.deployment_target = '2.0'
 
-  s.dependency 'Alamofire', '~> 3.0.0-beta.3'
+  s.dependency 'Alamofire', '~> 3.0'
 end
