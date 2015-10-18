@@ -3,7 +3,8 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 2.x Releases
-- `2.0.0` Betas - [2.0.0-beta.1](#200-beta1)
+- `2.0.x` Releases - [2.0.0](#200)
+- `2.0.0` Betas - [2.0.0-beta.1](#200-beta1) | [2.0.0-beta.2](#200-beta2)
 
 #### 1.x Releases
 
@@ -12,6 +13,37 @@ All notable changes to this project will be documented in this file.
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+
+## [2.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.0.0)
+Released on 2015-10-17. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.0.0).
+
+#### Updated
+- The cocoapods and carthage instructions in the README.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+
+---
+
+## [2.0.0-beta.2](https://github.com/Alamofire/AlamofireImage/releases/tag/2.0.0-beta.2)
+Released on 2015-10-14. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.0.0-beta.2).
+
+#### Added
+- Ability to use a custom `ImageDownloader` per `UIImageView` instance.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#31](https://github.com/Alamofire/AlamofireImage/pull/31).
+- New `ImageDownloader` initializer accepting a custom `Manager` instance using dependency injection.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#32](https://github.com/Alamofire/AlamofireImage/pull/32).
+- Ability to add additional acceptable image content types for `Request` validation.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#33](https://github.com/Alamofire/AlamofireImage/pull/33) to address Issues
+  [#28](https://github.com/Alamofire/AlamofireImage/issues/28) and
+  [#29](https://github.com/Alamofire/AlamofireImage/issues/29).
+
+#### Fixed
+- Cancelled request completion closures are now called on the main queue.
+  - Fixed by [Christian Noon](https://github.com/cnoon).
 
 ## [2.0.0-beta.1](https://github.com/Alamofire/AlamofireImage/releases/tag/2.0.0-beta.1)
 Released on 2015-09-27. All issues associated with this milestone can be found using this
