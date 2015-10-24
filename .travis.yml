@@ -65,5 +65,5 @@ script:
 
   # Run `pod lib lint` if specified
   - if [ $POD_LINT == "YES" ]; then
-      pod lib lint;
+      pod lib lint --verbose;
     fi
