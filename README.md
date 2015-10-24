@@ -246,11 +246,11 @@ let imageCache = AutoPurgingImageCache(
 )
 ```
 
-The `AutoPurgingImageCache` in AlamofireImage fills the roll of that additional caching layer. It is an in-memory image cache used to store images up to a given memory capacity. When the memory capacity is reached, the image cache is sorted by last access date, then the oldest image is continuously purged until the preferred memory usage after purge is met. Each time an image is accessed through the cache, the internal access date of the image is updated.
+The `AutoPurgingImageCache` in AlamofireImage fills the role of that additional caching layer. It is an in-memory image cache used to store images up to a given memory capacity. When the memory capacity is reached, the image cache is sorted by last access date, then the oldest image is continuously purged until the preferred memory usage after purge is met. Each time an image is accessed through the cache, the internal access date of the image is updated.
 
 #### Add / Remove / Fetch Images
 
-Interacting with the `ImageCache` protocol APIs is very straight-forward.
+Interacting with the `ImageCache` protocol APIs is very straightforward.
 
 ```swift
 let imageCache = AutoPurgingImageCache()
