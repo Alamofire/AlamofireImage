@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 2.x Releases
+- `2.1.x` Releases - [2.1.0](#210)
 - `2.0.x` Releases - [2.0.0](#200)
 - `2.0.0` Betas - [2.0.0-beta.1](#200-beta1) | [2.0.0-beta.2](#200-beta2)
 
@@ -11,6 +12,30 @@ All notable changes to this project will be documented in this file.
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
+
+---
+
+## [2.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.1.0)
+Released on 2015-10-24. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.1.0).
+
+#### Added
+- New tvOS framework and test targets to the project.
+  - Added by [Christian Noon](https://github.com/cnoon).
+- The tvOS deployment target to the podspec.
+  - Added by [Christian Noon](https://github.com/cnoon).
+- The `BITCODE_GENERATION_MODE` user defined setting to tvOS framework target.
+  - Added by [Christian Noon](https://github.com/cnoon).
+
+#### Updated
+- The README to include tvOS and bumped the required version of Xcode.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The default tvOS and watchOS deployment targets in the Xcode project.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The Cartfile and Alamofire submodule to the 3.1.0 release.
+  - Updated by [Christian Noon](https://github.com/cnoon).  
+- The Travis-CI yaml file to run watchOS and tvOS builds and tests on xcode7.1 osx_image.
+  - Updated by [Christian Noon](https://github.com/cnoon).
 
 ---
 
