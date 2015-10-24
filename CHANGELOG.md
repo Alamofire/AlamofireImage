@@ -33,9 +33,14 @@ Released on 2015-10-24. All issues associated with this milestone can be found u
 - The default tvOS and watchOS deployment targets in the Xcode project.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - The Cartfile and Alamofire submodule to the 3.1.0 release.
-  - Updated by [Christian Noon](https://github.com/cnoon).  
+  - Updated by [Christian Noon](https://github.com/cnoon).
 - The Travis-CI yaml file to run watchOS and tvOS builds and tests on xcode7.1 osx_image.
   - Updated by [Christian Noon](https://github.com/cnoon).
+
+#### Fixed
+- Several typos in the `AutoPurgingImageCache` section of the README.
+  - Fixed by [Nate Cook](https://github.com/natecook1000) in Pull Request
+  [#39](https://github.com/Alamofire/AlamofireImage/pull/39).
 
 ---
 
