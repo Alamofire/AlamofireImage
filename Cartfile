@@ -1,1 +1,1 @@
-github "Alamofire/Alamofire" "tvOS"
+github "Alamofire/Alamofire" ~> 3.1
