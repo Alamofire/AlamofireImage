@@ -66,5 +66,5 @@ script:
   # Run `pod lib lint` if specified
   - if [ $POD_LINT == "YES" ]; then
       pod repo update master;
-      pod lib lint --verbose;
+      pod lib lint;
     fi
