@@ -348,6 +348,8 @@ downloader.downloadImage(URLRequest: URLRequest) { response in
 }
 ```
 
+> Make sure to keep a strong reference to the `ImageDownloader` instance, otherwise the `completion` closure will not be called because the `downloader` reference will go out of scope before the `completion` closure can be called.
+
 #### Applying an ImageFilter
 
 ```swift
