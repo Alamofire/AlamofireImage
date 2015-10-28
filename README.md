@@ -348,6 +348,20 @@ downloader.downloadImage(URLRequest: URLRequest) { response in
 }
 ```
 
+##### Note
+
+Completion handler will not be fired if `ImageDownloader` instance goes out of scope before it's done downloading. For example, the following function will never print _"Response Received"_ because `downloader` goes out of scope immediately after the  `downloadImage` call.
+
+```swift
+func downloadImage() {
+    let downloader = ImageDownloader()
+    let URLRequest = NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/jpeg")!)
+    downloader.downloadImage(URLRequest: URLRequest) { response in
+        print("Response Received")
+    }
+}
+```
+
 #### Applying an ImageFilter
 
 ```swift
