@@ -86,7 +86,9 @@ public class ImageDownloader {
     /// The credential used for authenticating each download request.
     public private(set) var credential: NSURLCredential?
 
-    let sessionManager: Alamofire.Manager
+    /// The underlying Alamofire `Manager` instance used to handle all download requests.
+    public let sessionManager: Alamofire.Manager
+
     let downloadPrioritization: DownloadPrioritization
     let maximumActiveDownloads: Int
 
