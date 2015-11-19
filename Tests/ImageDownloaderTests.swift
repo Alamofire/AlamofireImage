@@ -175,6 +175,40 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(result1?.isSuccess ?? false, "result 1 should be a success case")
         XCTAssertTrue(result2?.isSuccess ?? false, "result 2 should be a success case")
     }
+    
+    func testThatItCanEnqueueMultipleImages() {
+        // Given
+        let downloader = ImageDownloader()
+        
+        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download2 = URLRequest(.GET, "https://httpbin.org/image/png")
+
+        let expectation = expectationWithDescription("both downloads should succeed")
+        var completedDownloads = 0
+        
+        var results: [Result<Image, NSError>] = []
+        
+        // When
+        downloader.downloadImages(URLRequests: [download1, download2], filter: nil) { closureResponse in
+            results.append(closureResponse.result)
+            
+            completedDownloads++
+            
+            if completedDownloads == 2 {
+                expectation.fulfill()
+            }
+        }
+        
+        let activeRequestCount = downloader.activeRequestCount
+        
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+        
+        // Then
+        XCTAssertEqual(activeRequestCount, 2, "active request count should be 2")
+        
+        XCTAssertTrue(results[0].isSuccess, "the first result should be a success case")
+        XCTAssertTrue(results[1].isSuccess, "the second result should be a success case")
+    }
 
     func testThatItDoesNotExceedTheMaximumActiveDownloadsLimit() {
         // Given
