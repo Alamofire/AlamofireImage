@@ -424,22 +424,13 @@ public class ImageDownloader {
      */
     public func downloadImages(
         URLRequests URLRequests: [URLRequestConvertible],
-        filter: ImageFilter?,
-        completion: CompletionHandler? )
+        filter: ImageFilter? = nil,
+        completion: CompletionHandler? = nil)
         -> [RequestReceipt]
     {
-        var receipts: [RequestReceipt] = []
-        
-        for request in URLRequests {
-            if let receipt = downloadImage(
-                URLRequest: request,
-                filter: filter,
-                completion: completion) {
-                    receipts.append(receipt)
-            }
+        return URLRequests.flatMap {
+            downloadImage(URLRequest: $0, filter: filter, completion: completion)
         }
-        
-        return receipts
     }
 
     /**
