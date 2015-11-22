@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 2.x Releases
-- `2.1.x` Releases - [2.1.0](#210)
+- `2.1.x` Releases - [2.1.0](#210) | [2.1.1](#211)
 - `2.0.x` Releases - [2.0.0](#200)
 - `2.0.0` Betas - [2.0.0-beta.1](#200-beta1) | [2.0.0-beta.2](#200-beta2)
 
@@ -14,6 +14,24 @@ All notable changes to this project will be documented in this file.
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+
+## [2.1.1](https://github.com/Alamofire/AlamofireImage/releases/tag/2.1.1)
+Released on 2015-11-22. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.1.1).
+
+#### Added
+- Note to the README about storing a strong ref to image downloaders.
+  - Added by [Muhammad Ishaq](https://github.com/ishaq) in Pull Request
+  [#45](https://github.com/Alamofire/AlamofireImage/pull/45).
+- Custom `Info.plist` for tvOS setting the `UIRequiredDeviceCapabilities` to `arm64`.
+  - Added by [Christian Noon](https://github.com/cnoon).
+
+#### Updated
+- The `sessionManager` ACL in the `ImageDownloader` to allow access to the underlying
+  session and configuration.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The Alamofire submodule to the Alamofire 3.1.3 release.
+  - Updated by [Christian Noon](https://github.com/cnoon).
 
 ## [2.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.1.0)
 Released on 2015-10-24. All issues associated with this milestone can be found using this
