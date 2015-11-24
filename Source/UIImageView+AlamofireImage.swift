@@ -192,19 +192,30 @@ extension UIImageView {
 
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
         set immediately, and then the remote image will be set once the image request is finished.
+     
+        If the `showTransitionWhenCached` flag is overridden, the transition will always occur even if the image has
+        been cached.
 
-        - parameter URL:              The URL used for the image request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image view will not change its image until the image request finishes. `nil` by
-                                      default.
-        - parameter imageTransition:  The image transition animation applied to the image when set.
+        - parameter URL:                      The URL used for the image request.
+        - parameter placeholderImage:         The image to be set initially until the image request finished. If `nil`, the
+                                              image view will not change its image until the image request finishes. `nil` by
+                                              default.
+        - parameter imageTransition:          The image transition animation applied to the image when set.
+        - parameter showTransitionWhenCached: Force showing the image transition even if the image has been cached.
+                                              Defaults to `false`.
     */
-    public func af_setImageWithURL(URL: NSURL, placeholderImage: UIImage? = nil, imageTransition: ImageTransition) {
+    public func af_setImageWithURL(
+        URL: NSURL,
+        placeholderImage: UIImage? = nil,
+        imageTransition: ImageTransition,
+        showTransitionWhenCached: Bool = false)
+    {
         af_setImageWithURLRequest(
             URLRequestWithURL(URL),
             placeholderImage: placeholderImage,
             filter: nil,
             imageTransition: imageTransition,
+            showTransitionWhenCached: showTransitionWhenCached,
             completion: nil
         )
     }
@@ -216,55 +227,68 @@ extension UIImageView {
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
         set immediately, and then the remote image will be set once the image request is finished.
 
-        - parameter URL:              The URL used for the image request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image view will not change its image until the image request finishes.
-        - parameter filter:           The image filter applied to the image after the image request is finished.
-        - parameter imageTransition:  The image transition animation applied to the image when set.
-    */
-    public func af_setImageWithURL(
-        URL: NSURL,
-        placeholderImage: UIImage?,
-        filter: ImageFilter?,
-        imageTransition: ImageTransition)
-    {
-        af_setImageWithURLRequest(
-            URLRequestWithURL(URL),
-            placeholderImage: placeholderImage,
-            filter: filter,
-            imageTransition: imageTransition,
-            completion: nil
-        )
-    }
-
-    /**
-        Asynchronously downloads an image from the specified URL, applies the specified image filter to the downloaded
-        image and sets it once finished while executing the image transition.
-
-        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
-        set immediately, and then the remote image will be set once the image request is finished.
-
-        The `completion` closure is called after the image download and filtering are complete, but before the start of
-        the image transition. Please note it is no longer the responsibility of the `completion` closure to set the
-        image. It will be set automatically. If you require a second notification after the image transition completes,
-        use a `.Custom` image transition with a `completion` closure. The `.Custom` `completion` closure is called when
-        the image transition is finished.
-
-        - parameter URL:              The URL used for the image request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image view will not change its image until the image request finishes.
-        - parameter filter:           The image filter applied to the image after the image request is finished.
-        - parameter imageTransition:  The image transition animation applied to the image when set.
-        - parameter completion:       A closure to be executed when the image request finishes. The closure has no
-                                      return value and takes three arguments: the original request, the response from
-                                      the server and the result containing either the image or the error that occurred.
-                                      If the image was returned from the image cache, the response will be `nil`.
+        If the `showTransitionWhenCached` flag is overridden, the transition will always occur even if the image has
+        been cached.
+     
+        - parameter URL:                      The URL used for the image request.
+        - parameter placeholderImage:         The image to be set initially until the image request finished. If `nil`, the
+                                              image view will not change its image until the image request finishes.
+        - parameter filter:                   The image filter applied to the image after the image request is finished.
+        - parameter imageTransition:          The image transition animation applied to the image when set.
+        - parameter showTransitionWhenCached: Force showing the image transition even if the image has been cached.
+                                              Defaults to `false`.
     */
     public func af_setImageWithURL(
         URL: NSURL,
         placeholderImage: UIImage?,
         filter: ImageFilter?,
         imageTransition: ImageTransition,
+        showTransitionWhenCached: Bool = false)
+    {
+        af_setImageWithURLRequest(
+            URLRequestWithURL(URL),
+            placeholderImage: placeholderImage,
+            filter: filter,
+            imageTransition: imageTransition,
+            showTransitionWhenCached: showTransitionWhenCached,
+            completion: nil
+        )
+    }
+
+    /**
+        Asynchronously downloads an image from the specified URL, applies the specified image filter to the downloaded
+        image and sets it once finished while executing the image transition.
+
+        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+        set immediately, and then the remote image will be set once the image request is finished.
+
+        If the `showTransitionWhenCached` flag is overridden, the transition will always occur even if the image has
+        been cached.
+     
+        The `completion` closure is called after the image download and filtering are complete, but before the start of
+        the image transition. Please note it is no longer the responsibility of the `completion` closure to set the
+        image. It will be set automatically. If you require a second notification after the image transition completes,
+        use a `.Custom` image transition with a `completion` closure. The `.Custom` `completion` closure is called when
+        the image transition is finished.
+
+        - parameter URL:                      The URL used for the image request.
+        - parameter placeholderImage:         The image to be set initially until the image request finished. If `nil`, the
+                                              image view will not change its image until the image request finishes.
+        - parameter filter:                   The image filter applied to the image after the image request is finished.
+        - parameter imageTransition:          The image transition animation applied to the image when set.
+        - parameter showTransitionWhenCached: Force showing the image transition even if the image has been cached.
+                                              Defaults to `false`.
+        - parameter completion:               A closure to be executed when the image request finishes. The closure has no
+                                              return value and takes three arguments: the original request, the response from
+                                              the server and the result containing either the image or the error that occurred.
+                                              If the image was returned from the image cache, the response will be `nil`.
+    */
+    public func af_setImageWithURL(
+        URL: NSURL,
+        placeholderImage: UIImage?,
+        filter: ImageFilter?,
+        imageTransition: ImageTransition,
+        showTransitionWhenCached: Bool = false,
         completion: (Response<UIImage, NSError> -> Void)?)
     {
         af_setImageWithURLRequest(
@@ -272,6 +296,7 @@ extension UIImageView {
             placeholderImage: placeholderImage,
             filter: filter,
             imageTransition: imageTransition,
+            showTransitionWhenCached: showTransitionWhenCached,
             completion: completion
         )
     }
@@ -282,6 +307,9 @@ extension UIImageView {
 
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
         set immediately, and then the remote image will be set once the image request is finished.
+     
+        If the `showTransitionWhenCached` flag is overridden, the transition will always occur even if the image has
+        been cached.
 
         The `completion` closure is called after the image download and filtering are complete, but before the start of 
         the image transition. Please note it is no longer the responsibility of the `completion` closure to set the 
@@ -289,21 +317,24 @@ extension UIImageView {
         use a `.Custom` image transition with a `completion` closure. The `.Custom` `completion` closure is called when 
         the image transition is finished.
 
-        - parameter URLRequest:       The URL request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image view will not change its image until the image request finishes.
-        - parameter filter:           The image filter applied to the image after the image request is finished.
-        - parameter imageTransition:  The image transition animation applied to the image when set.
-        - parameter completion:       A closure to be executed when the image request finishes. The closure has no 
-                                      return value and takes three arguments: the original request, the response from 
-                                      the server and the result containing either the image or the error that occurred.
-                                      If the image was returned from the image cache, the response will be `nil`.
+        - parameter URLRequest:               The URL request.
+        - parameter placeholderImage:         The image to be set initially until the image request finished. If `nil`, the
+                                              image view will not change its image until the image request finishes.
+        - parameter filter:                   The image filter applied to the image after the image request is finished.
+        - parameter imageTransition:          The image transition animation applied to the image when set.
+        - parameter showTransitionWhenCached: Force showing the image transition even if the image has been cached.
+                                              Defaults to `false`.
+        - parameter completion:               A closure to be executed when the image request finishes. The closure has no
+                                              return value and takes three arguments: the original request, the response from
+                                              the server and the result containing either the image or the error that occurred.
+                                              If the image was returned from the image cache, the response will be `nil`.
     */
     public func af_setImageWithURLRequest(
         URLRequest: URLRequestConvertible,
         placeholderImage: UIImage?,
         filter: ImageFilter?,
         imageTransition: ImageTransition,
+        showTransitionWhenCached: Bool = false,
         completion: (Response<UIImage, NSError> -> Void)?)
     {
         guard !isURLRequestURLEqualToActiveRequestURL(URLRequest) else { return }
@@ -313,6 +344,22 @@ extension UIImageView {
         let imageDownloader = af_imageDownloader ?? UIImageView.af_sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
+        // Put the animation into a closure as we call it from a couple of spots.
+        let performTransition: (image: Image) -> Void = { [weak self] image in
+            guard let strongSelf = self else { return }
+            
+            // animate the transition.
+            UIView.transitionWithView(
+                strongSelf,
+                duration: imageTransition.duration,
+                options: imageTransition.animationOptions,
+                animations: {
+                    imageTransition.animations(strongSelf, image)
+                },
+                completion: imageTransition.completion
+            )
+        }
+        
         // Use the image from the image cache if it exists
         if let image = imageCache?.imageForRequest(URLRequest.URLRequest, withAdditionalIdentifier: filter?.identifier) {
             let response = Response<UIImage, NSError>(
@@ -323,7 +370,14 @@ extension UIImageView {
             )
 
             completion?(response)
-            self.image = image
+            
+            if showTransitionWhenCached {
+                dispatch_async(dispatch_get_main_queue()) {
+                    performTransition(image: image)
+                }
+            } else {
+                self.image = image
+            }
 
             return
         }
@@ -347,15 +401,7 @@ extension UIImageView {
                 strongSelf.af_activeRequestReceipt = nil
 
                 if let image = response.result.value {
-                    UIView.transitionWithView(
-                        strongSelf,
-                        duration: imageTransition.duration,
-                        options: imageTransition.animationOptions,
-                        animations: {
-                            imageTransition.animations(strongSelf, image)
-                        },
-                        completion: imageTransition.completion
-                    )
+                    performTransition(image: image)
                 }
             }
         )
