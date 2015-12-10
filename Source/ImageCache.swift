@@ -125,6 +125,8 @@ public class AutoPurgingImageCache: ImageRequestCache {
         Initialies the `AutoPurgingImageCache` instance with the given memory capacity and preferred memory usage 
         after purge limit.
 
+        Please note, the memory capacity must always be greater than or equal to the preferred memory usage after purge.
+
         - parameter memoryCapacity:                 The total memory capacity of the cache in bytes. `100 MB` by default.
         - parameter preferredMemoryUsageAfterPurge: The preferred memory usage after purge in bytes. `60 MB` by default.
 
@@ -133,6 +135,11 @@ public class AutoPurgingImageCache: ImageRequestCache {
     public init(memoryCapacity: UInt64 = 100 * 1024 * 1024, preferredMemoryUsageAfterPurge: UInt64 = 60 * 1024 * 1024) {
         self.memoryCapacity = memoryCapacity
         self.preferredMemoryUsageAfterPurge = preferredMemoryUsageAfterPurge
+
+        precondition(
+            memoryCapacity >= preferredMemoryUsageAfterPurge,
+            "The `memoryCapacity` must be greater than or equal to `preferredMemoryUsageAfterPurge`"
+        )
 
         self.cachedImages = [:]
         self.currentMemoryUsage = 0
