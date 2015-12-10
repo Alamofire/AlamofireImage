@@ -627,6 +627,49 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
     }
 
+    func testThatActiveRequestCanBeCancelledAndRestartedSuccessfully() {
+        // Given
+        let imageView = UIImageView()
+        let expectation = expectationWithDescription("image download should succeed")
+
+        var completion1Called = false
+        var completion2Called = false
+        var result: Result<UIImage, NSError>?
+
+        // When
+        imageView.af_setImageWithURLRequest(
+            NSURLRequest(URL: URL),
+            placeholderImage: nil,
+            filter: nil,
+            imageTransition: .None,
+            completion: { _ in
+                completion1Called = true
+            }
+        )
+
+        imageView.af_cancelImageRequest()
+
+        imageView.af_setImageWithURLRequest(
+            NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/png")!),
+            placeholderImage: nil,
+            filter: nil,
+            imageTransition: .None,
+            completion: { closureResponse in
+                completion2Called = true
+                result = closureResponse.result
+                expectation.fulfill()
+            }
+        )
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completion1Called, "completion 1 called should be true")
+        XCTAssertTrue(completion2Called, "completion 2 called should be true")
+        XCTAssertNotNil(imageView.image, "image view image should not be nil when completion handler is not nil")
+        XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
+    }
+
     // MARK: - Redirects
 
     func testThatImageBehindRedirectCanBeDownloaded() {
