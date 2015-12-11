@@ -650,7 +650,7 @@ class UIImageViewTestCase: BaseTestCase {
         imageView.af_cancelImageRequest()
 
         imageView.af_setImageWithURLRequest(
-            NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/png")!),
+            NSURLRequest(URL: URL),
             placeholderImage: nil,
             filter: nil,
             imageTransition: .None,

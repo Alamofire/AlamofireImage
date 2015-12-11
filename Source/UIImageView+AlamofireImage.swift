@@ -333,6 +333,10 @@ extension UIImageView {
             self.image = placeholderImage
         }
 
+        // Generate a unique download id to check whether the active request has changed while downloading
+        let downloadID = NSUUID().UUIDString
+        currentDownloadID = downloadID
+
         // Download the image, then run the image transition or completion handler
         let requestReceipt = imageDownloader.downloadImage(
             URLRequest: URLRequest,
@@ -342,9 +346,12 @@ extension UIImageView {
 
                 completion?(response)
 
-                guard strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) else { return }
-
-                strongSelf.af_activeRequestReceipt = nil
+                guard
+                    strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) &&
+                    currentDownloadID == downloadID
+                else {
+                    return
+                }
 
                 if let image = response.result.value {
                     UIView.transitionWithView(
@@ -357,6 +364,9 @@ extension UIImageView {
                         completion: imageTransition.completion
                     )
                 }
+
+                strongSelf.af_activeRequestReceipt = nil
+                currentDownloadID = nil
             }
         )
 
@@ -397,3 +407,5 @@ extension UIImageView {
         return false
     }
 }
+
+private var currentDownloadID: String?
