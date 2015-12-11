@@ -98,6 +98,7 @@ extension UIImageView {
         static var ImageDownloaderKey = "af_UIImageView.ImageDownloader"
         static var SharedImageDownloaderKey = "af_UIImageView.SharedImageDownloader"
         static var ActiveRequestReceiptKey = "af_UIImageView.ActiveRequestReceipt"
+        static var ActiveDownloadIDKey = "af_UIImageView.ActiveDownloadID"
     }
 
     // MARK: - Properties
@@ -135,8 +136,17 @@ extension UIImageView {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.ActiveRequestReceiptKey) as? RequestReceipt
         }
-        set(request) {
-            objc_setAssociatedObject(self, &AssociatedKeys.ActiveRequestReceiptKey, request, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        set(receipt) {
+            objc_setAssociatedObject(self, &AssociatedKeys.ActiveRequestReceiptKey, receipt, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    var af_activeDownloadID: String? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.ActiveDownloadIDKey) as? String
+        }
+        set(downloadID) {
+            objc_setAssociatedObject(self, &AssociatedKeys.ActiveDownloadIDKey, downloadID, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -335,7 +345,7 @@ extension UIImageView {
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = NSUUID().UUIDString
-        currentDownloadID = downloadID
+        af_activeDownloadID = downloadID
 
         // Download the image, then run the image transition or completion handler
         let requestReceipt = imageDownloader.downloadImage(
@@ -348,7 +358,7 @@ extension UIImageView {
 
                 guard
                     strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) &&
-                    currentDownloadID == downloadID
+                    strongSelf.af_activeDownloadID == downloadID
                 else {
                     return
                 }
@@ -366,7 +376,7 @@ extension UIImageView {
                 }
 
                 strongSelf.af_activeRequestReceipt = nil
-                currentDownloadID = nil
+                strongSelf.af_activeDownloadID = nil
             }
         )
 
@@ -407,5 +417,3 @@ extension UIImageView {
         return false
     }
 }
-
-private var currentDownloadID: String?
