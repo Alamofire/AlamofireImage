@@ -323,6 +323,91 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
         XCTAssertNotNil(imageView.image, "image view image should not be nil")
     }
+    
+    func testThatTransitionsCanBeForcedToShowWhenOverridden() {
+        // Given
+        let initialImageView = UIImageView()
+        let unforcedTransitionImageView = UIImageView()
+        let forcedTransitionImageView = UIImageView()
+        let URLRequest: NSURLRequest = {
+            let request = NSMutableURLRequest(URL: URL)
+            request.addValue("image/*", forHTTPHeaderField: "Accept")
+            return request
+        }()
+        
+        let downloadExpectation = expectationWithDescription("image download should succeed")
+        let transitionExpectation = expectationWithDescription("image transition should complete")
+        
+        var forcedTransitionCompletionHandlerCalled = false
+        var unforcedTransitionCompletionHandlerCalled = false
+
+        // When
+        UIImageView.af_sharedImageDownloader.downloadImage(URLRequest: URLRequest) { _ in
+            downloadExpectation.fulfill()
+        }
+        
+        let cachedExpectation = expectationWithDescription("image should be cached")
+        var result: Result<UIImage, NSError>?
+        
+        initialImageView.af_setImageWithURLRequest(
+            URLRequest,
+            placeholderImage: nil,
+            filter: nil,
+            imageTransition: .None,
+            completion: { closureResponse in
+                result = closureResponse.result
+                cachedExpectation.fulfill()
+                
+                // now that we've cached the image, use the same URL
+                // to set another image view but force the transition
+                forcedTransitionImageView.af_setImageWithURLRequest(
+                    URLRequest,
+                    placeholderImage: nil,
+                    filter: nil,
+                    imageTransition: .Custom(
+                        duration: 0.1,
+                        animationOptions: UIViewAnimationOptions(),
+                        animations: { $0.image = $1 },
+                        completion: { _ in
+                            forcedTransitionCompletionHandlerCalled = true
+                            transitionExpectation.fulfill()
+                        }
+                    ),
+                    showTransitionWhenCached: true,
+                    completion: nil
+                )
+                
+                // use the same URL to set the image for another image view,
+                // but don't force the transition.
+                unforcedTransitionImageView.af_setImageWithURLRequest(
+                    URLRequest,
+                    placeholderImage: nil,
+                    filter: nil,
+                    imageTransition: .Custom(
+                        duration: 0.1,
+                        animationOptions: UIViewAnimationOptions(),
+                        animations: { $0.image = $1 },
+                        completion: { _ in
+                            unforcedTransitionCompletionHandlerCalled = true
+                        }
+                    ),
+                    showTransitionWhenCached: false,
+                    completion: nil
+                )
+            }
+        )
+        
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+        
+        // Then
+        XCTAssertNotNil(result?.value, "result value should not be nil")
+        XCTAssertEqual(result?.value, initialImageView.image, "result value should be equal to image view image")
+        XCTAssertEqual(result?.value, unforcedTransitionImageView.image, "result value should be equal to image view image")
+        XCTAssertEqual(result?.value, forcedTransitionImageView.image, "result value should be equal to image view image")
+        XCTAssertTrue(forcedTransitionCompletionHandlerCalled, "transition completion handler called should be true")
+        XCTAssertFalse(unforcedTransitionCompletionHandlerCalled, "transition should be ignored when unforced.")
+    
+    }
 
     func testThatAllImageTransitionsCanBeApplied() {
         // Given
