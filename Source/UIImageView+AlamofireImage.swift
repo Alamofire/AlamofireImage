@@ -141,15 +141,6 @@ extension UIImageView {
         }
     }
 
-    var af_activeDownloadID: String? {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.ActiveDownloadIDKey) as? String
-        }
-        set(downloadID) {
-            objc_setAssociatedObject(self, &AssociatedKeys.ActiveDownloadIDKey, downloadID, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
     // MARK: - Image Download Methods
 
     /**
@@ -380,11 +371,11 @@ extension UIImageView {
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = NSUUID().UUIDString
-        af_activeDownloadID = downloadID
 
         // Download the image, then run the image transition or completion handler
         let requestReceipt = imageDownloader.downloadImage(
             URLRequest: URLRequest,
+            receiptID: downloadID,
             filter: filter,
             completion: { [weak self] response in
                 guard let strongSelf = self else { return }
@@ -393,7 +384,7 @@ extension UIImageView {
 
                 guard
                     strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) &&
-                    strongSelf.af_activeDownloadID == downloadID
+                    strongSelf.af_activeRequestReceipt?.receiptID == downloadID
                 else {
                     return
                 }
@@ -403,7 +394,6 @@ extension UIImageView {
                 }
 
                 strongSelf.af_activeRequestReceipt = nil
-                strongSelf.af_activeDownloadID = nil
             }
         )
 
