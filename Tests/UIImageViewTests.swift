@@ -693,4 +693,23 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
         XCTAssertNotNil(imageView.image, "image view image should not be nil")
     }
+
+    // MARK: - Accept Header
+
+    func testThatAcceptHeaderMatchesAcceptableContentTypes() {
+        // Given
+        let imageView = UIImageView()
+
+        // When
+        imageView.af_setImageWithURL(URL)
+        let acceptField = imageView.af_activeRequestReceipt?.request.request?.allHTTPHeaderFields?["Accept"]
+        imageView.af_cancelImageRequest()
+
+        // Then
+        XCTAssertNotNil(acceptField)
+
+        if let acceptField = acceptField {
+            XCTAssertEqual(acceptField, Request.acceptableImageContentTypes.joinWithSeparator(","))
+        }
+    }
 }

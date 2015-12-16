@@ -442,6 +442,7 @@ extension UIImageView {
 
     private func URLRequestWithURL(URL: NSURL) -> NSURLRequest {
         let mutableURLRequest = NSMutableURLRequest(URL: URL)
+
         for mimeType in Request.acceptableImageContentTypes {
             mutableURLRequest.addValue(mimeType, forHTTPHeaderField: "Accept")
         }
