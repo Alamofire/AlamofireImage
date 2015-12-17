@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 2.x Releases
+- `2.2.x` Releases - [2.2.0](#220)
 - `2.1.x` Releases - [2.1.0](#210) | [2.1.1](#211)
 - `2.0.x` Releases - [2.0.0](#200)
 - `2.0.0` Betas - [2.0.0-beta.1](#200-beta1) | [2.0.0-beta.2](#200-beta2)
@@ -12,6 +13,45 @@ All notable changes to this project will be documented in this file.
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
+
+---
+
+## [2.2.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.2.0)
+Released on 2015-12-16. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.2.0).
+
+#### Added
+- Ability for `ImageDownloader` to enqueue multiple image downloads at once.
+  - Added by [Jeff Kelley](https://github.com/SlaunchaMan) in Pull Request
+  [#51](https://github.com/Alamofire/AlamofireImage/pull/51).
+- Tests to verify image view can cancel and restart the same request.
+  - Added by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  [#55](https://github.com/Alamofire/AlamofireImage/pull/55).
+- Precondition to `ImageCache` ensuring memory capacity is GTE preferred usage after purge.
+  - Added by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  [#56](https://github.com/Alamofire/AlamofireImage/pull/56).
+- Ability for image transitions to run when image is cached if specified.
+  - Added by [Jarrod Robins](https://github.com/jarrodrobins) in Pull Request
+  [#50](https://github.com/Alamofire/AlamofireImage/pull/50).
+- Test to verify Accept header is set correctly on `UIImageView` extension.
+  - Added by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  [#60](https://github.com/Alamofire/AlamofireImage/pull/60).
+- Added `ReleaseTest` configuration to allow running tests against optimized build.
+  - Added by [Christian Noon](https://github.com/cnoon).
+
+#### Updated
+- Project to disable testability on release and to only build tests on when testing.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The Travis-CI configuration to Xcode 7.2, iOS 9.2, tvOS 9.1 and watchOS 2.1.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+
+#### Fixed
+- Issue where image was not downloaded when cancelled and restarted.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  [#55](https://github.com/Alamofire/AlamofireImage/pull/55).
+- Issue where `af_setImageWithURL` was not using acceptable content types.
+  - Fixed by [Branden Russell](https://github.com/brandenr) in Pull Request
+  [#61](https://github.com/Alamofire/AlamofireImage/pull/61).
 
 ---
 
