@@ -78,8 +78,8 @@ extension UIButton {
     
         - parameter URL:              The URL used for the image request.
         - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image view will not change its image until the image request finishes. `nil` by
-                                      default.
+                                      background image will not change its image until the image request finishes. 
+                                      `nil` by default.
     */
     public func af_setBackgroundImageForState(state: UIControlState, URL: NSURL, placeHolderImage: UIImage? = nil) {
         af_setBackgroundImageForState(state, URLRequest: URLRequestWithURL(URL), placeholderImage: placeHolderImage)
@@ -93,8 +93,8 @@ extension UIButton {
     
         - parameter URLRequest:       The URL request.
         - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image view will not change its image until the image request finishes. `nil` by
-                                      default.
+                                      background image will not change its image until the image request finishes.
+                                      `nil` by default.
         - parameter completion:       A closure to be executed when the image request finishes. The closure
                                       has no return value and takes three arguments: the original request,
                                       the response from the server and the result containing either the
@@ -160,8 +160,7 @@ extension UIButton {
     
         - parameter URL:              The URL used for the image request.
         - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image view will not change its image until the image request finishes. `nil` by
-                                      default.
+                                      image will not change its image until the image request finishes. `nil` by default.
     */
     public func af_setImageForState(state: UIControlState, URL: NSURL, placeHolderImage: UIImage? = nil) {
         af_setImageForState(state, URLRequest: URLRequestWithURL(URL), placeholderImage: placeHolderImage)
@@ -175,8 +174,7 @@ extension UIButton {
      
         - parameter URLRequest:       The URL request.
         - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image view will not change its image until the image request finishes. `nil` by
-                                      default.
+                                      image will not change its image until the image request finishes. `nil` by default.
         - parameter completion:       A closure to be executed when the image request finishes. The closure
                                       has no return value and takes three arguments: the original request,
                                       the response from the server and the result containing either the
