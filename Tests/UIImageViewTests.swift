@@ -132,6 +132,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         // Then
         XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
+        XCTAssertNil(imageView.af_activeRequestReceipt, "active request receipt should be nil after download completes")
     }
 
     // MARK: - Image Downloaders
