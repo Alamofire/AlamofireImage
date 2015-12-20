@@ -314,7 +314,7 @@ By updating the last access date for each image, the image cache can make more i
 
 #### Memory Warnings
 
-The `AutoPurgingImageCache` also listens for memory warnings from your application and will purge all images from the cache is a memory warning is observed.
+The `AutoPurgingImageCache` also listens for memory warnings from your application and will purge all images from the cache if a memory warning is observed.
 
 ### Image Downloader
 
