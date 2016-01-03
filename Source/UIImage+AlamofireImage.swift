@@ -110,6 +110,25 @@ extension UIImage {
     }
 }
 
+// MARK: - Alpha
+
+extension UIImage {
+    /// Returns whether the image contains an alpha component.
+    public var af_containsAlphaComponent: Bool {
+        let alphaInfo = CGImageGetAlphaInfo(CGImage)
+
+        return (
+            alphaInfo == .First ||
+            alphaInfo == .Last ||
+            alphaInfo == .PremultipliedFirst ||
+            alphaInfo == .PremultipliedLast
+        )
+    }
+
+    /// Returns whether the image is opaque.
+    public var af_isOpaque: Bool { return !af_containsAlphaComponent }
+}
+
 // MARK: - Scaling
 
 extension UIImage {

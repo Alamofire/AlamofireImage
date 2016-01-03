@@ -131,6 +131,21 @@ class UIImageTestCase: BaseTestCase {
         unicornImage.af_inflate()
     }
 
+    // MARK: - Alpha Tests
+
+    func testThatImageAlphaComponentPropertiesReturnExpectedValues() {
+        // Given, When, Then
+        XCTAssertTrue(appleImage.af_isOpaque)
+        XCTAssertTrue(pirateImage.af_isOpaque)
+        XCTAssertTrue(rainbowImage.af_isOpaque)
+        XCTAssertFalse(unicornImage.af_isOpaque)
+
+        XCTAssertFalse(appleImage.af_containsAlphaComponent)
+        XCTAssertFalse(pirateImage.af_containsAlphaComponent)
+        XCTAssertFalse(rainbowImage.af_containsAlphaComponent)
+        XCTAssertTrue(unicornImage.af_containsAlphaComponent)
+    }
+
     // MARK: - Scaling Tests
 
     func testThatImageIsScaledToSquareSize() {
