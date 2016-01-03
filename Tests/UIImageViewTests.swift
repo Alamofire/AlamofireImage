@@ -27,8 +27,6 @@ import UIKit
 import XCTest
 
 private class TestImageView: UIImageView {
-    let imageKeyPath = "image"
-    var kvoContext: UInt8 = 1
     var imageObserver: (Void -> Void)?
 
     convenience init(imageObserver: (Void -> Void)? = nil) {
@@ -38,24 +36,18 @@ private class TestImageView: UIImageView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addObserver(self, forKeyPath: imageKeyPath, options: NSKeyValueObservingOptions.New, context: &kvoContext)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    deinit {
-        removeObserver(self, forKeyPath: imageKeyPath, context: &kvoContext)
-    }
-
-    override func observeValueForKeyPath(
-        keyPath: String?,
-        ofObject object: AnyObject?,
-        change: [String: AnyObject]?,
-        context: UnsafeMutablePointer<Void>)
-    {
-        if context == &kvoContext {
+    override var image: UIImage? {
+        get {
+            return super.image
+        }
+        set {
+            super.image = newValue
             imageObserver?()
         }
     }
@@ -137,7 +129,7 @@ class UIImageViewTestCase: BaseTestCase {
 
     // MARK: - Image Downloaders
 
-    func testThatInstanceImageDownloaderOverridesSharedImageDownloader() {
+    func testThatImageDownloaderOverridesSharedImageDownloader() {
         // Given
         let expectation = expectationWithDescription("image should download successfully")
         var imageDownloadComplete = false
