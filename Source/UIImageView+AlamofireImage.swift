@@ -132,7 +132,7 @@ extension UIImageView {
         }
     }
 
-    var af_activeRequestReceipt: RequestReceipt? {
+    var activeRequestReceipt: RequestReceipt? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.ActiveRequestReceiptKey) as? RequestReceipt
         }
@@ -384,7 +384,7 @@ extension UIImageView {
 
                 guard
                     strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) &&
-                    strongSelf.af_activeRequestReceipt?.receiptID == downloadID
+                    strongSelf.activeRequestReceipt?.receiptID == downloadID
                 else {
                     return
                 }
@@ -393,11 +393,11 @@ extension UIImageView {
                     strongSelf.runImageTransition(imageTransition, withImage: image)
                 }
 
-                strongSelf.af_activeRequestReceipt = nil
+                strongSelf.activeRequestReceipt = nil
             }
         )
 
-        af_activeRequestReceipt = requestReceipt
+        activeRequestReceipt = requestReceipt
     }
 
     // MARK: - Image Download Cancellation Methods
@@ -406,12 +406,12 @@ extension UIImageView {
         Cancels the active download request, if one exists.
     */
     public func af_cancelImageRequest() {
-        guard let activeRequestReceipt = af_activeRequestReceipt else { return }
+        guard let activeRequestReceipt = self.activeRequestReceipt else { return }
 
         let imageDownloader = af_imageDownloader ?? UIImageView.af_sharedImageDownloader
         imageDownloader.cancelRequestForRequestReceipt(activeRequestReceipt)
 
-        af_activeRequestReceipt = nil
+        self.activeRequestReceipt = nil
     }
 
     // MARK: - Private - Image Transition
@@ -442,7 +442,7 @@ extension UIImageView {
 
     private func isURLRequestURLEqualToActiveRequestURL(URLRequest: URLRequestConvertible?) -> Bool {
         if let
-            currentRequest = af_activeRequestReceipt?.request.task.originalRequest
+            currentRequest = activeRequestReceipt?.request.task.originalRequest
             where currentRequest.URLString == URLRequest?.URLRequest.URLString
         {
             return true
