@@ -164,16 +164,22 @@ extension UIButton {
         // Set the placeholder since we're going to have to download
         if let placeholderImage = placeholderImage { self.setImage(placeholderImage, forState: state)  }
 
+        // Generate a unique download id to check whether the active request has changed while downloading
+        let downloadID = NSUUID().UUIDString
+
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.downloadImage(
             URLRequest: URLRequest,
+            receiptID: downloadID,
+            filter: nil,
             completion: { [weak self] response in
                 guard let strongSelf = self else { return }
 
                 completion?(response)
 
                 guard
-                    strongSelf.isImageURLRequest(response.request, equalToActiveRequestURLForState: state)
+                    strongSelf.isImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
+                    strongSelf.imageRequestReceiptForState(state)?.receiptID == downloadID
                 else {
                     return
                 }
@@ -265,16 +271,22 @@ extension UIButton {
         // Set the placeholder since we're going to have to download
         if let placeholderImage = placeholderImage { self.setBackgroundImage(placeholderImage, forState: state)  }
 
+        // Generate a unique download id to check whether the active request has changed while downloading
+        let downloadID = NSUUID().UUIDString
+
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.downloadImage(
             URLRequest: URLRequest,
+            receiptID: downloadID,
+            filter: nil,
             completion: { [weak self] response in
                 guard let strongSelf = self else { return }
 
                 completion?(response)
 
                 guard
-                    strongSelf.isBackgroundImageURLRequest(response.request, equalToActiveRequestURLForState: state)
+                    strongSelf.isBackgroundImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
+                    strongSelf.backgroundImageRequestReceiptForState(state)?.receiptID == downloadID
                 else {
                     return
                 }

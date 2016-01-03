@@ -597,7 +597,229 @@ class UIButtonTests: BaseTestCase {
         XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
     }
 
-    // TODO: Add cancellation tests
+    // MARK: - Cancellation
+
+    func testThatImageDownloadCanBeCancelled() {
+        // Given
+        let button = UIButton()
+        let URLRequest = NSURLRequest(URL: NSURL(string: "domain-name-does-not-exist")!)
+
+        let expectation = expectationWithDescription("image download should succeed")
+
+        var completionHandlerCalled = false
+        var result: Result<UIImage, NSError>?
+
+        // When
+        button.af_setImageForState(
+            .Normal,
+            URLRequest: URLRequest,
+            placeholderImage: nil,
+            completion: { closureResponse in
+                completionHandlerCalled = true
+                result = closureResponse.result
+                expectation.fulfill()
+            }
+        )
+
+        button.af_cancelImageRequestForState(.Normal)
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completionHandlerCalled)
+        XCTAssertNil(button.imageForState(.Normal))
+        XCTAssertTrue(result?.isFailure ?? false)
+    }
+
+    func testThatBackgroundImageDownloadCanBeCancelled() {
+        // Given
+        let button = UIButton()
+        let URLRequest = NSURLRequest(URL: NSURL(string: "domain-name-does-not-exist")!)
+
+        let expectation = expectationWithDescription("background image download should succeed")
+
+        var completionHandlerCalled = false
+        var result: Result<UIImage, NSError>?
+
+        // When
+        button.af_setBackgroundImageForState(
+            .Normal,
+            URLRequest: URLRequest,
+            placeholderImage: nil,
+            completion: { closureResponse in
+                completionHandlerCalled = true
+                result = closureResponse.result
+                expectation.fulfill()
+            }
+        )
+
+        button.af_cancelBackgroundImageRequestForState(.Normal)
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completionHandlerCalled)
+        XCTAssertNil(button.backgroundImageForState(.Normal))
+        XCTAssertTrue(result?.isFailure ?? false)
+    }
+
+    func testThatActiveImageRequestIsAutomaticallyCancelledBySettingNewURL() {
+        // Given
+        let button = UIButton()
+        let expectation = expectationWithDescription("image download should succeed")
+
+        var completion1Called = false
+        var completion2Called = false
+        var result: Result<UIImage, NSError>?
+
+        // When
+        button.af_setImageForState(
+            .Normal,
+            URLRequest: NSURLRequest(URL: URL),
+            placeholderImage: nil,
+            completion: { closureResponse in
+                completion1Called = true
+            }
+        )
+
+        button.af_setImageForState(
+            .Normal,
+            URLRequest: NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/png")!),
+            placeholderImage: nil,
+            completion: { closureResponse in
+                completion2Called = true
+                result = closureResponse.result
+                expectation.fulfill()
+            }
+        )
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completion1Called)
+        XCTAssertTrue(completion2Called)
+        XCTAssertNotNil(button.imageForState(.Normal))
+        XCTAssertTrue(result?.isSuccess ?? false)
+    }
+
+    func testThatActiveBackgroundImageRequestIsAutomaticallyCancelledBySettingNewURL() {
+        // Given
+        let button = UIButton()
+        let expectation = expectationWithDescription("background image download should succeed")
+
+        var completion1Called = false
+        var completion2Called = false
+        var result: Result<UIImage, NSError>?
+
+        // When
+        button.af_setBackgroundImageForState(
+            .Normal,
+            URLRequest: NSURLRequest(URL: URL),
+            placeholderImage: nil,
+            completion: { closureResponse in
+                completion1Called = true
+            }
+        )
+
+        button.af_setBackgroundImageForState(
+            .Normal,
+            URLRequest: NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/png")!),
+            placeholderImage: nil,
+            completion: { closureResponse in
+                completion2Called = true
+                result = closureResponse.result
+                expectation.fulfill()
+            }
+        )
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completion1Called)
+        XCTAssertTrue(completion2Called)
+        XCTAssertNotNil(button.backgroundImageForState(.Normal))
+        XCTAssertTrue(result?.isSuccess ?? false)
+    }
+
+    func testThatActiveImageRequestCanBeCancelledAndRestartedSuccessfully() {
+        // Given
+        let button = UIButton()
+        let expectation = expectationWithDescription("image download should succeed")
+
+        var completion1Called = false
+        var completion2Called = false
+        var result: Result<UIImage, NSError>?
+
+        // When
+        button.af_setImageForState(
+            .Normal,
+            URLRequest: NSURLRequest(URL: URL),
+            placeholderImage: nil,
+            completion: { closureResponse in
+                completion1Called = true
+            }
+        )
+
+        button.af_cancelImageRequestForState(.Normal)
+
+        button.af_setImageForState(
+            .Normal,
+            URLRequest: NSURLRequest(URL: URL),
+            placeholderImage: nil,
+            completion: { closureResponse in
+                completion2Called = true
+                result = closureResponse.result
+                expectation.fulfill()
+            }
+        )
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completion1Called)
+        XCTAssertTrue(completion2Called)
+        XCTAssertNotNil(button.imageForState(.Normal))
+        XCTAssertTrue(result?.isSuccess ?? false)
+    }
+
+    func testThatActiveBackgroundImageRequestCanBeCancelledAndRestartedSuccessfully() {
+        // Given
+        let button = UIButton()
+        let expectation = expectationWithDescription("background image download should succeed")
+
+        var completion1Called = false
+        var completion2Called = false
+        var result: Result<UIImage, NSError>?
+
+        // When
+        button.af_setBackgroundImageForState(
+            .Normal,
+            URLRequest: NSURLRequest(URL: URL),
+            placeholderImage: nil,
+            completion: { closureResponse in
+                completion1Called = true
+            }
+        )
+
+        button.af_cancelBackgroundImageRequestForState(.Normal)
+
+        button.af_setBackgroundImageForState(
+            .Normal,
+            URLRequest: NSURLRequest(URL: URL),
+            placeholderImage: nil,
+            completion: { closureResponse in
+                completion2Called = true
+                result = closureResponse.result
+                expectation.fulfill()
+            }
+        )
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completion1Called)
+        XCTAssertTrue(completion2Called)
+        XCTAssertNotNil(button.backgroundImageForState(.Normal))
+        XCTAssertTrue(result?.isSuccess ?? false)
+    }
 
     // MARK: - Redirects
 
