@@ -645,5 +645,22 @@ class UIButtonTests: BaseTestCase {
         XCTAssertNotNil(button.backgroundImageForState(.Normal), "button background image should not be nil")
     }
 
-    // TODO: Add accept header tests
+    // MARK: - Accept Header
+
+    func testThatAcceptHeaderMatchesAcceptableContentTypes() {
+        // Given
+        let button = UIButton()
+
+        // When
+        button.af_setImageForState(.Normal, URL: URL)
+        let acceptField = button.imageRequestReceiptForState(.Normal)?.request.request?.allHTTPHeaderFields?["Accept"]
+        button.af_cancelImageRequestForState(.Normal)
+
+        // Then
+        XCTAssertNotNil(acceptField)
+
+        if let acceptField = acceptField {
+            XCTAssertEqual(acceptField, Request.acceptableImageContentTypes.joinWithSeparator(","))
+        }
+    }
 }
