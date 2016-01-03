@@ -140,7 +140,7 @@ extension UIImage {
         - returns: A new image object.
     */
     public func af_imageScaledToSize(size: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         drawInRect(CGRect(origin: CGPointZero, size: size))
 
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -152,6 +152,11 @@ extension UIImage {
     /**
         Returns a new version of the image scaled from the center while maintaining the aspect ratio to fit within 
         a specified size.
+
+        The resulting image contains an alpha component used to pad the width or height with the necessary transparent
+        pixels to fit the specified size. In high performance critical situations, this may not be the optimal approach.
+        To maintain an opaque image, you could compute the `scaledSize` manually, then use the `af_imageScaledToSize`
+        method in conjunction with a `.Center` content mode to achieve the same visual result.
 
         - parameter size: The size to use when scaling the new image.
 
@@ -204,7 +209,7 @@ extension UIImage {
         let scaledSize = CGSize(width: self.size.width * resizeFactor, height: self.size.height * resizeFactor)
         let origin = CGPoint(x: (size.width - scaledSize.width) / 2.0, y: (size.height - scaledSize.height) / 2.0)
 
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         drawInRect(CGRect(origin: origin, size: scaledSize))
 
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
