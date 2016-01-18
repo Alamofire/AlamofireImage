@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 2.x Releases
+- `2.3.x` Releases - [2.3.0](#230)
 - `2.2.x` Releases - [2.2.0](#220)
 - `2.1.x` Releases - [2.1.0](#210) | [2.1.1](#211)
 - `2.0.x` Releases - [2.0.0](#200)
@@ -13,6 +14,52 @@ All notable changes to this project will be documented in this file.
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
+
+---
+
+## [2.3.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.3.0)
+Released on 2016-1-17. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.3.0).
+
+#### Added
+- Alpha properties to `UIImage` extension along with unit tests.
+  - Added by [Christian Noon](https://github.com/cnoon).
+- Condition to `UIImageView` test to verify active request receipt is reset.
+  - Added by [Jorge Mario Orjuela Gutierrez](https://github.com/jorjuela33) in Pull Request
+  [#62](https://github.com/Alamofire/AlamofireImage/pull/62).
+- `UIButton` extension supporting remote image downloads.
+  - Added by [Jorge Mario Orjuela Gutierrez](https://github.com/jorjuela33) in Pull Request
+  [#63](https://github.com/Alamofire/AlamofireImage/pull/63).
+- Tests verifying `Accept` header is set properly for button image downloads.
+  - Added by [Christian Noon](https://github.com/cnoon).
+- `UIButton` extension tests around cancelling and restarting image downloads.
+  - Added by [Christian Noon](https://github.com/cnoon).
+- iOS 9.2 devices to the travis yaml device matrix.
+  - Added by [Christian Noon](https://github.com/cnoon).
+- `Carthage/Build` ignore flag to the `.gitignore` file to match Alamofire.
+  - Added by [Lars Anderson](https://github.com/larsacus) in Pull Request
+  [#71](https://github.com/Alamofire/AlamofireImage/pull/71).
+- `Package.swift` file to support Swift Package Manager (SPM).
+  - Added by [Christian Noon](https://github.com/cnoon).
+
+#### Updated
+- `UIImage` scaling now uses `af_isOpaque` property where applicable.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  [#65](https://github.com/Alamofire/AlamofireImage/issues/65).
+- Refactored `UIButton` extension and tests to more closely follow coding standards.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Simplified `UIImageView` tests replacing KVO by overriding the image property.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Excluded the `UIButton` extension from osx and watchOS targets in podspec.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Copyright headers to include 2016! 🎉🎉🎉
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The default parameters in `AutoPurgingImageCache` initializer with correct MB values.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Several `UIImageView` APIs to public ACL to allow for better reuse.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Alamofire submodule to 3.1.5 release.
+  - Updated by [Christian Noon](https://github.com/cnoon).
 
 ---
 
