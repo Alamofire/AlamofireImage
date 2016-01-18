@@ -45,35 +45,56 @@ extension UIImageView {
             completion: (Bool -> Void)?
         )
 
-        private var duration: NSTimeInterval {
+        /// The duration of the image transition in seconds.
+        public var duration: NSTimeInterval {
             switch self {
-            case None:                          return 0.0
-            case CrossDissolve(let duration):   return duration
-            case CurlDown(let duration):        return duration
-            case CurlUp(let duration):          return duration
-            case FlipFromBottom(let duration):  return duration
-            case FlipFromLeft(let duration):    return duration
-            case FlipFromRight(let duration):   return duration
-            case FlipFromTop(let duration):     return duration
-            case Custom(let duration, _, _, _): return duration
+            case None:
+                return 0.0
+            case CrossDissolve(let duration):
+                return duration
+            case CurlDown(let duration):
+                return duration
+            case CurlUp(let duration):
+                return duration
+            case FlipFromBottom(let duration):
+                return duration
+            case FlipFromLeft(let duration):
+                return duration
+            case FlipFromRight(let duration):
+                return duration
+            case FlipFromTop(let duration):
+                return duration
+            case Custom(let duration, _, _, _):
+                return duration
             }
         }
 
-        private var animationOptions: UIViewAnimationOptions {
+        /// The animation options of the image transition.
+        public var animationOptions: UIViewAnimationOptions {
             switch self {
-            case None:                                  return .TransitionNone
-            case CrossDissolve:                         return .TransitionCrossDissolve
-            case CurlDown:                              return .TransitionCurlDown
-            case CurlUp:                                return .TransitionCurlUp
-            case FlipFromBottom:                        return .TransitionFlipFromBottom
-            case FlipFromLeft:                          return .TransitionFlipFromLeft
-            case FlipFromRight:                         return .TransitionFlipFromRight
-            case FlipFromTop:                           return .TransitionFlipFromTop
-            case Custom(_, let animationOptions, _, _): return animationOptions
+            case None:
+                return .TransitionNone
+            case CrossDissolve:
+                return .TransitionCrossDissolve
+            case CurlDown:
+                return .TransitionCurlDown
+            case CurlUp:
+                return .TransitionCurlUp
+            case FlipFromBottom:
+                return .TransitionFlipFromBottom
+            case FlipFromLeft:
+                return .TransitionFlipFromLeft
+            case FlipFromRight:
+                return .TransitionFlipFromRight
+            case FlipFromTop:
+                return .TransitionFlipFromTop
+            case Custom(_, let animationOptions, _, _):
+                return animationOptions
             }
         }
 
-        private var animations: ((UIImageView, Image) -> Void) {
+        /// The animation options of the image transition.
+        public var animations: ((UIImageView, Image) -> Void) {
             switch self {
             case Custom(_, _, let animations, _):
                 return animations
@@ -82,7 +103,8 @@ extension UIImageView {
             }
         }
 
-        private var completion: (Bool -> Void)? {
+        /// The completion closure associated with the image transition.
+        public var completion: (Bool -> Void)? {
             switch self {
             case Custom(_, _, _, let completion):
                 return completion
@@ -98,10 +120,9 @@ extension UIImageView {
         static var ImageDownloaderKey = "af_UIImageView.ImageDownloader"
         static var SharedImageDownloaderKey = "af_UIImageView.SharedImageDownloader"
         static var ActiveRequestReceiptKey = "af_UIImageView.ActiveRequestReceipt"
-        static var ActiveDownloadIDKey = "af_UIImageView.ActiveDownloadID"
     }
 
-    // MARK: - Properties
+    // MARK: - Associated Properties
 
     /// The instance image downloader used to download all images. If this property is `nil`, the `UIImageView` will
     /// fallback on the `af_sharedImageDownloader` for all downloads. The most common use case for needing to use a
@@ -127,21 +148,21 @@ extension UIImageView {
                 return ImageDownloader.defaultInstance
             }
         }
-        set(downloader) {
-            objc_setAssociatedObject(self, &AssociatedKeys.SharedImageDownloaderKey, downloader, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.SharedImageDownloaderKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
-    var activeRequestReceipt: RequestReceipt? {
+    var af_activeRequestReceipt: RequestReceipt? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.ActiveRequestReceiptKey) as? RequestReceipt
         }
-        set(receipt) {
-            objc_setAssociatedObject(self, &AssociatedKeys.ActiveRequestReceiptKey, receipt, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.ActiveRequestReceiptKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
-    // MARK: - Image Download Methods
+    // MARK: - Image Download
 
     /**
         Asynchronously downloads an image from the specified URL and sets it once the request is finished.
@@ -384,7 +405,7 @@ extension UIImageView {
 
                 guard
                     strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) &&
-                    strongSelf.activeRequestReceipt?.receiptID == downloadID
+                    strongSelf.af_activeRequestReceipt?.receiptID == downloadID
                 else {
                     return
                 }
@@ -393,30 +414,36 @@ extension UIImageView {
                     strongSelf.runImageTransition(imageTransition, withImage: image)
                 }
 
-                strongSelf.activeRequestReceipt = nil
+                strongSelf.af_activeRequestReceipt = nil
             }
         )
 
-        activeRequestReceipt = requestReceipt
+        af_activeRequestReceipt = requestReceipt
     }
 
-    // MARK: - Image Download Cancellation Methods
+    // MARK: - Image Download Cancellation
 
     /**
         Cancels the active download request, if one exists.
     */
     public func af_cancelImageRequest() {
-        guard let activeRequestReceipt = self.activeRequestReceipt else { return }
+        guard let activeRequestReceipt = af_activeRequestReceipt else { return }
 
         let imageDownloader = af_imageDownloader ?? UIImageView.af_sharedImageDownloader
         imageDownloader.cancelRequestForRequestReceipt(activeRequestReceipt)
 
-        self.activeRequestReceipt = nil
+        af_activeRequestReceipt = nil
     }
 
-    // MARK: - Private - Image Transition
+    // MARK: - Image Transition
 
-    private func runImageTransition(imageTransition: ImageTransition, withImage image: Image) {
+    /**
+        Runs the image transition on the image view with the specified image.
+
+        - parameter imageTransition: The image transition to ran on the image view.
+        - parameter image:           The image to use for the image transition.
+    */
+    public func runImageTransition(imageTransition: ImageTransition, withImage image: Image) {
         UIView.transitionWithView(
             self,
             duration: imageTransition.duration,
@@ -442,7 +469,7 @@ extension UIImageView {
 
     private func isURLRequestURLEqualToActiveRequestURL(URLRequest: URLRequestConvertible?) -> Bool {
         if let
-            currentRequest = activeRequestReceipt?.request.task.originalRequest
+            currentRequest = af_activeRequestReceipt?.request.task.originalRequest
             where currentRequest.URLString == URLRequest?.URLRequest.URLString
         {
             return true
