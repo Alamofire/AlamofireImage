@@ -132,7 +132,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
         - returns: The new `AutoPurgingImageCache` instance.
     */
-    public init(memoryCapacity: UInt64 = 100 * 1024 * 1024, preferredMemoryUsageAfterPurge: UInt64 = 60 * 1024 * 1024) {
+    public init(memoryCapacity: UInt64 = 100_000_000, preferredMemoryUsageAfterPurge: UInt64 = 60_000_000) {
         self.memoryCapacity = memoryCapacity
         self.preferredMemoryUsageAfterPurge = preferredMemoryUsageAfterPurge
 
