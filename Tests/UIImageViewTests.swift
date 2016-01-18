@@ -124,7 +124,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         // Then
         XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
-        XCTAssertNil(imageView.activeRequestReceipt, "active request receipt should be nil after download completes")
+        XCTAssertNil(imageView.af_activeRequestReceipt, "active request receipt should be nil after download completes")
     }
 
     // MARK: - Image Downloaders
@@ -151,7 +151,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         // Then
         XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
-        XCTAssertNil(imageView.activeRequestReceipt, "active request receipt should be nil after download completes")
+        XCTAssertNil(imageView.af_activeRequestReceipt, "active request receipt should be nil after download completes")
         XCTAssertEqual(activeRequestCount, 1, "active request count should be 1")
     }
 
@@ -695,7 +695,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         // When
         imageView.af_setImageWithURL(URL)
-        let acceptField = imageView.activeRequestReceipt?.request.request?.allHTTPHeaderFields?["Accept"]
+        let acceptField = imageView.af_activeRequestReceipt?.request.request?.allHTTPHeaderFields?["Accept"]
         imageView.af_cancelImageRequest()
 
         // Then
