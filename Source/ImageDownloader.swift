@@ -523,7 +523,7 @@ public class ImageDownloader {
 
     func startRequest(request: Request) {
         request.resume()
-        ++activeRequestCount
+        activeRequestCount += 1
     }
 
     func enqueueRequest(request: Request) {
