@@ -316,7 +316,7 @@ extension UIImage {
         guard let filter = CIFilter(name: filterName, withInputParameters: parameters) else { return nil }
         guard let outputImage = filter.outputImage else { return nil }
 
-        let cgImageRef = context.createCGImage(outputImage, fromRect: coreImage.extent)
+        let cgImageRef = context.createCGImage(outputImage, fromRect: outputImage.extent)
 
         return UIImage(CGImage: cgImageRef, scale: scale, orientation: imageOrientation)
     }
