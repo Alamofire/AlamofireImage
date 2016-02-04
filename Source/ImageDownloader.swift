@@ -56,6 +56,9 @@ public class ImageDownloader {
     /// The completion handler closure used when an image download completes.
     public typealias CompletionHandler = Response<Image, NSError> -> Void
 
+    /// The progress handler closure called periodically during an image download .
+    public typealias ProgressHandler = (Int64, Int64, Int64) -> Void
+
     /**
         Defines the order prioritization of incoming download requests being inserted into the queue.
 
@@ -242,6 +245,8 @@ public class ImageDownloader {
     */
     public func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
+        progress: ProgressHandler? = nil,
+        progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
         completion: CompletionHandler?)
         -> RequestReceipt?
     {
@@ -249,6 +254,8 @@ public class ImageDownloader {
             URLRequest: URLRequest,
             receiptID: NSUUID().UUIDString,
             filter: nil,
+            progress: progress,
+            progressQueue: progressQueue,
             completion: completion
         )
     }
@@ -277,6 +284,8 @@ public class ImageDownloader {
     public func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
         filter: ImageFilter?,
+        progress: ProgressHandler? = nil,
+        progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
         completion: CompletionHandler?)
         -> RequestReceipt?
     {
@@ -284,14 +293,18 @@ public class ImageDownloader {
             URLRequest: URLRequest,
             receiptID: NSUUID().UUIDString,
             filter: filter,
+            progress: progress,
+            progressQueue: progressQueue,
             completion: completion
         )
     }
-
+    
     func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
         receiptID: String,
         filter: ImageFilter?,
+        progress: ProgressHandler?,
+        progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
         completion: CompletionHandler?)
         -> RequestReceipt?
     {
@@ -339,6 +352,11 @@ public class ImageDownloader {
             }
 
             request.validate()
+            request.progress() { bytesSent, totalBytesSent, totalExpectedBytes in
+                dispatch_sync(progressQueue) {
+                    progress?(bytesSent, totalBytesSent, totalExpectedBytes)
+                }
+            }
             request.response(
                 queue: self.responseQueue,
                 responseSerializer: Request.imageResponseSerializer(),
