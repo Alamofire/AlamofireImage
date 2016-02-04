@@ -165,115 +165,6 @@ extension UIImageView {
     // MARK: - Image Download
 
     /**
-        Asynchronously downloads an image from the specified URL and sets it once the request is finished.
-
-        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be 
-        set immediately, and then the remote image will be set once the image request is finished.
-
-        - parameter URL:              The URL used for the image request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the 
-                                      image view will not change its image until the image request finishes. `nil` by 
-                                      default.
-    */
-    public func af_setImageWithURL(URL: NSURL, placeholderImage: UIImage? = nil) {
-        af_setImageWithURLRequest(
-            URLRequestWithURL(URL),
-            placeholderImage: placeholderImage,
-            filter: nil,
-            imageTransition: .None,
-            completion: nil
-        )
-    }
-
-    /**
-        Asynchronously downloads an image from the specified URL, applies the specified image filter to the downloaded 
-        image and sets it once finished.
-
-        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
-        set immediately, and then the remote image will be set once the image request is finished.
-
-        - parameter URL:              The URL used for the image request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image view will not change its image until the image request finishes. `nil` by 
-                                      default.
-        - parameter filter:           The image filter applied to the image after the image request is finished.
-    */
-    public func af_setImageWithURL(URL: NSURL, placeholderImage: UIImage? = nil, filter: ImageFilter) {
-        af_setImageWithURLRequest(
-            URLRequestWithURL(URL),
-            placeholderImage: placeholderImage,
-            filter: filter,
-            imageTransition: .None,
-            completion: nil
-        )
-    }
-
-    /**
-        Asynchronously downloads an image from the specified URL and sets it once the request is finished while 
-        executing the image transition.
-
-        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
-        set immediately, and then the remote image will be set once the image request is finished.
-
-        - parameter URL:                        The URL used for the image request.
-        - parameter placeholderImage:           The image to be set initially until the image request finished. If
-                                                `nil`, the image view will not change its image until the image
-                                                request finishes. `nil` by default.
-        - parameter imageTransition:            The image transition animation applied to the image when set.
-        - parameter runImageTransitionIfCached: Whether to run the image transition if the image is cached. Defaults
-                                                to `false`.
-    */
-    public func af_setImageWithURL(
-        URL: NSURL,
-        placeholderImage: UIImage? = nil,
-        imageTransition: ImageTransition,
-        runImageTransitionIfCached: Bool = false)
-    {
-        af_setImageWithURLRequest(
-            URLRequestWithURL(URL),
-            placeholderImage: placeholderImage,
-            filter: nil,
-            imageTransition: imageTransition,
-            runImageTransitionIfCached: runImageTransitionIfCached,
-            completion: nil
-        )
-    }
-
-    /**
-        Asynchronously downloads an image from the specified URL, applies the specified image filter to the downloaded
-        image and sets it once finished while executing the image transition.
-
-        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
-        set immediately, and then the remote image will be set once the image request is finished.
-
-        - parameter URL:                        The URL used for the image request.
-        - parameter placeholderImage:           The image to be set initially until the image request finished. If
-                                                `nil`, the image view will not change its image until the image
-                                                request finishes.
-        - parameter filter:                     The image filter applied to the image after the image request is
-                                                finished.
-        - parameter imageTransition:            The image transition animation applied to the image when set.
-        - parameter runImageTransitionIfCached: Whether to run the image transition if the image is cached. Defaults
-                                                to `false`.
-    */
-    public func af_setImageWithURL(
-        URL: NSURL,
-        placeholderImage: UIImage?,
-        filter: ImageFilter?,
-        imageTransition: ImageTransition,
-        runImageTransitionIfCached: Bool = false)
-    {
-        af_setImageWithURLRequest(
-            URLRequestWithURL(URL),
-            placeholderImage: placeholderImage,
-            filter: filter,
-            imageTransition: imageTransition,
-            runImageTransitionIfCached: runImageTransitionIfCached,
-            completion: nil
-        )
-    }
-
-    /**
         Asynchronously downloads an image from the specified URL, applies the specified image filter to the downloaded
         image and sets it once finished while executing the image transition.
 
@@ -289,25 +180,26 @@ extension UIImageView {
         - parameter URL:                        The URL used for the image request.
         - parameter placeholderImage:           The image to be set initially until the image request finished. If
                                                 `nil`, the image view will not change its image until the image
-                                                request finishes.
+                                                request finishes. Defaults to `nil`.
         - parameter filter:                     The image filter applied to the image after the image request is
-                                                finished.
-        - parameter imageTransition:            The image transition animation applied to the image when set.
+                                                finished. Defaults to `nil`.
+        - parameter imageTransition:            The image transition animation applied to the image when set. 
+                                                Defaults to `.None`.
         - parameter runImageTransitionIfCached: Whether to run the image transition if the image is cached. Defaults
                                                 to `false`.
         - parameter completion:                 A closure to be executed when the image request finishes. The closure
                                                 has no return value and takes three arguments: the original request,
                                                 the response from the server and the result containing either the
                                                 image or the error that occurred. If the image was returned from the
-                                                image cache, the response will be `nil`.
+                                                image cache, the response will be `nil`. Defaults to `nil`.
     */
     public func af_setImageWithURL(
         URL: NSURL,
-        placeholderImage: UIImage?,
-        filter: ImageFilter?,
-        imageTransition: ImageTransition,
+        placeholderImage: UIImage? = nil,
+        filter: ImageFilter? = nil,
+        imageTransition: ImageTransition = .None,
         runImageTransitionIfCached: Bool = false,
-        completion: (Response<UIImage, NSError> -> Void)?)
+        completion: (Response<UIImage, NSError> -> Void)? = nil)
     {
         af_setImageWithURLRequest(
             URLRequestWithURL(URL),
@@ -320,7 +212,7 @@ extension UIImageView {
     }
 
     /**
-        Asynchronously downloads an image from the specified URL, applies the specified image filter to the downloaded
+        Asynchronously downloads an image from the specified URL Request, applies the specified image filter to the downloaded
         image and sets it once finished while executing the image transition.
 
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
@@ -335,25 +227,26 @@ extension UIImageView {
         - parameter URLRequest:                 The URL request.
         - parameter placeholderImage:           The image to be set initially until the image request finished. If
                                                 `nil`, the image view will not change its image until the image
-                                                request finishes.
+                                                request finishes. Defaults to `nil`.
         - parameter filter:                     The image filter applied to the image after the image request is
-                                                finished.
+                                                finished. Defaults to `nil`.
         - parameter imageTransition:            The image transition animation applied to the image when set.
+                                                Defaults to `.None`.
         - parameter runImageTransitionIfCached: Whether to run the image transition if the image is cached. Defaults
                                                 to `false`.
         - parameter completion:                 A closure to be executed when the image request finishes. The closure
                                                 has no return value and takes three arguments: the original request,
                                                 the response from the server and the result containing either the
                                                 image or the error that occurred. If the image was returned from the
-                                                image cache, the response will be `nil`.
+                                                image cache, the response will be `nil`. Defaults to `nil`.
     */
     public func af_setImageWithURLRequest(
         URLRequest: URLRequestConvertible,
-        placeholderImage: UIImage?,
-        filter: ImageFilter?,
-        imageTransition: ImageTransition,
+        placeholderImage: UIImage? = nil,
+        filter: ImageFilter? = nil,
+        imageTransition: ImageTransition = .None,
         runImageTransitionIfCached: Bool = false,
-        completion: (Response<UIImage, NSError> -> Void)?)
+        completion: (Response<UIImage, NSError> -> Void)? = nil)
     {
         guard !isURLRequestURLEqualToActiveRequestURL(URLRequest) else { return }
 

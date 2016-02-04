@@ -230,45 +230,19 @@ public class ImageDownloader {
     /**
         Creates a download request using the internal Alamofire `Manager` instance for the specified URL request.
     
-        If the same download request is already in the queue or currently being downloaded, the completion handler is
-        appended to the already existing request. Once the request completes, all completion handlers attached to the
-        request are executed in the order they were added.
-
-        - parameter URLRequest: The URL request.
-        - parameter completion: The closure called when the download request is complete.
-
-        - returns: The request receipt for the download request if available. `nil` if the image is stored in the image
-                   cache and the URL request cache policy allows the cache to be used.
-    */
-    public func downloadImage(
-        URLRequest URLRequest: URLRequestConvertible,
-        completion: CompletionHandler?)
-        -> RequestReceipt?
-    {
-        return downloadImage(
-            URLRequest: URLRequest,
-            receiptID: NSUUID().UUIDString,
-            filter: nil,
-            completion: completion
-        )
-    }
-
-    /**
-        Creates a download request using the internal Alamofire `Manager` instance for the specified URL request.
-
-        If the same download request is already in the queue or currently being downloaded, the filter and completion 
-        handler are appended to the already existing request. Once the request completes, all filters and completion 
+        If the same download request is already in the queue or currently being downloaded, the filter and completion
+        handler are appended to the already existing request. Once the request completes, all filters and completion
         handlers attached to the request are executed in the order they were added. Additionally, any filters attached
         to the request with the same identifiers are only executed once. The resulting image is then passed into each
         completion handler paired with the filter.
-
+    
         You should not attempt to directly cancel the `request` inside the request receipt since other callers may be
         relying on the completion of that request. Instead, you should call `cancelRequestForRequestReceipt` with the
         returned request receipt to allow the `ImageDownloader` to optimize the cancellation on behalf of all active
         callers.
 
         - parameter URLRequest: The URL request.
-        - parameter filter      The image filter to apply to the image after the download is complete.
+        - parameter filter      The image filter to apply to the image after the download is complete. Defaults to `nil`.
         - parameter completion: The closure called when the download request is complete.
 
         - returns: The request receipt for the download request if available. `nil` if the image is stored in the image
@@ -276,7 +250,7 @@ public class ImageDownloader {
     */
     public func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
-        filter: ImageFilter?,
+        filter: ImageFilter? = nil,
         completion: CompletionHandler?)
         -> RequestReceipt?
     {
