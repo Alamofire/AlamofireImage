@@ -123,7 +123,6 @@
 		4C16B3FE1BA93AEF00A66EF0 /* pirate-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873491B93EFFB00407E58 /* pirate-circle.png */; };
 		4C16B3FF1BA93AEF00A66EF0 /* rainbow-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734A1B93EFFB00407E58 /* rainbow-circle.png */; };
 		4C16B4001BA93AEF00A66EF0 /* unicorn-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734B1B93EFFB00407E58 /* unicorn-circle.png */; };
-		4C16B4011BA93AEF00A66EF0 /* unicorn-blurred-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734D1B93EFFB00407E58 /* unicorn-blurred-8.png */; };
 		4C16B4021BA93AEF00A66EF0 /* unicorn-sepia.tone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734E1B93EFFB00407E58 /* unicorn-sepia.tone.png */; };
 		4C16B4031BA93AF200A66EF0 /* apple-radius-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873501B93EFFB00407E58 /* apple-radius-20.png */; };
 		4C16B4041BA93AF200A66EF0 /* pirate-radius-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873511B93EFFB00407E58 /* pirate-radius-20.png */; };
@@ -352,8 +351,6 @@
 		4C5874221B93EFFB00407E58 /* rainbow-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734A1B93EFFB00407E58 /* rainbow-circle.png */; };
 		4C5874231B93EFFB00407E58 /* unicorn-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734B1B93EFFB00407E58 /* unicorn-circle.png */; };
 		4C5874241B93EFFB00407E58 /* unicorn-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734B1B93EFFB00407E58 /* unicorn-circle.png */; };
-		4C5874251B93EFFB00407E58 /* unicorn-blurred-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734D1B93EFFB00407E58 /* unicorn-blurred-8.png */; };
-		4C5874261B93EFFB00407E58 /* unicorn-blurred-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734D1B93EFFB00407E58 /* unicorn-blurred-8.png */; };
 		4C5874271B93EFFB00407E58 /* unicorn-sepia.tone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734E1B93EFFB00407E58 /* unicorn-sepia.tone.png */; };
 		4C5874281B93EFFB00407E58 /* unicorn-sepia.tone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734E1B93EFFB00407E58 /* unicorn-sepia.tone.png */; };
 		4C5874291B93EFFB00407E58 /* apple-radius-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873501B93EFFB00407E58 /* apple-radius-20.png */; };
@@ -458,6 +455,18 @@
 		4C82907C1B927D13005E24C8 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
 		4C82907D1B927DA9005E24C8 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; };
 		4C96A4781AAE9488008AE0B6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
+		4CB2DBDD1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBD91C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png */; };
+		4CB2DBDE1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBD91C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png */; };
+		4CB2DBDF1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBD91C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png */; };
+		4CB2DBE61C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE31C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png */; };
+		4CB2DBE71C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE31C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png */; };
+		4CB2DBE81C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE31C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png */; };
+		4CB2DBE91C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE41C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png */; };
+		4CB2DBEA1C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE41C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png */; };
+		4CB2DBEB1C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE41C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png */; };
+		4CB2DBEC1C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE51C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png */; };
+		4CB2DBED1C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE51C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png */; };
+		4CB2DBEE1C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE51C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png */; };
 		4CE5AABB1B9BF104003530D6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE5AAAF1B9BF09A003530D6 /* Alamofire.framework */; };
 		4CE5AABE1B9BF111003530D6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE5AAAF1B9BF09A003530D6 /* Alamofire.framework */; };
 		4CE5AAC11B9BF11F003530D6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE5AAAF1B9BF09A003530D6 /* Alamofire.framework */; };
@@ -673,7 +682,6 @@
 		4C5873491B93EFFB00407E58 /* pirate-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pirate-circle.png"; sourceTree = "<group>"; };
 		4C58734A1B93EFFB00407E58 /* rainbow-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rainbow-circle.png"; sourceTree = "<group>"; };
 		4C58734B1B93EFFB00407E58 /* unicorn-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-circle.png"; sourceTree = "<group>"; };
-		4C58734D1B93EFFB00407E58 /* unicorn-blurred-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8.png"; sourceTree = "<group>"; };
 		4C58734E1B93EFFB00407E58 /* unicorn-sepia.tone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-sepia.tone.png"; sourceTree = "<group>"; };
 		4C5873501B93EFFB00407E58 /* apple-radius-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-radius-20.png"; sourceTree = "<group>"; };
 		4C5873511B93EFFB00407E58 /* pirate-radius-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pirate-radius-20.png"; sourceTree = "<group>"; };
@@ -729,6 +737,10 @@
 		4C9043821AABBFC5001B4E60 /* AlamofireImage iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		4CB2B2F31C0270C500B442EA /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
+		4CB2DBD91C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8-ios-9.png"; sourceTree = "<group>"; };
+		4CB2DBE31C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8-ios-8.1.png"; sourceTree = "<group>"; };
+		4CB2DBE41C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8-ios-8.3.png"; sourceTree = "<group>"; };
+		4CB2DBE51C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8-ios-9.png"; sourceTree = "<group>"; };
 		4CE5AAA61B9BF099003530D6 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Carthage/Checkouts/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		4CE611321AABC24E00D35044 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE611471AABC5C900D35044 /* AlamofireImage OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1015,7 +1027,10 @@
 		4C58734C1B93EFFB00407E58 /* Core Image Filters */ = {
 			isa = PBXGroup;
 			children = (
-				4C58734D1B93EFFB00407E58 /* unicorn-blurred-8.png */,
+				4CB2DBE31C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png */,
+				4CB2DBE41C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png */,
+				4CB2DBE51C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png */,
+				4CB2DBD91C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png */,
 				4C58734E1B93EFFB00407E58 /* unicorn-sepia.tone.png */,
 			);
 			path = "Core Image Filters";
@@ -1468,6 +1483,7 @@
 				4C16B3E51BA93AEF00A66EF0 /* pirate-aspect.scaled.to.fit-50x50-@1x.png in Resources */,
 				4C16B3FF1BA93AEF00A66EF0 /* rainbow-circle.png in Resources */,
 				4C16B4191BA93AFD00A66EF0 /* rainbow-scaled-30x60-@1x.png in Resources */,
+				4CB2DBEB1C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png in Resources */,
 				4C16B4281BA93AFD00A66EF0 /* unicorn-scaled-60x30-@1x.png in Resources */,
 				4C16B3FD1BA93AEF00A66EF0 /* apple-circle.png in Resources */,
 				4C16B3B41BA93AE600A66EF0 /* apple-aspect.scaled.to.fill-50x50-@3x.png in Resources */,
@@ -1505,6 +1521,7 @@
 				4C16B3CD1BA93AE600A66EF0 /* unicorn-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
 				4C16B41C1BA93AFD00A66EF0 /* rainbow-scaled-50x50-@1x.png in Resources */,
 				4C16B42E1BA93AFD00A66EF0 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@1x.png in Resources */,
+				4CB2DBE81C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png in Resources */,
 				4C16B3CE1BA93AE600A66EF0 /* unicorn-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
 				4C16B40D1BA93AFD00A66EF0 /* apple-scaled-60x30-@1x.png in Resources */,
 				4C16B42D1BA93AFD00A66EF0 /* pirate-scaled.to.size.circle-100x100-@3x.png in Resources */,
@@ -1537,6 +1554,7 @@
 				4C16B3D81BA93AE600A66EF0 /* pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@3x.png in Resources */,
 				4C16B3FB1BA93AEF00A66EF0 /* unicorn-aspect.scaled.to.fit-60x30-@2x.png in Resources */,
 				4C16B41B1BA93AFD00A66EF0 /* rainbow-scaled-30x60-@3x.png in Resources */,
+				4CB2DBEE1C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */,
 				4C16B4171BA93AFD00A66EF0 /* pirate-scaled-60x30-@2x.png in Resources */,
 				4C16B3C91BA93AE600A66EF0 /* rainbow-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
 				4C16B4311BA93AFD00A66EF0 /* apple.jpg in Resources */,
@@ -1579,12 +1597,12 @@
 				4C16B4321BA93AFD00A66EF0 /* huge_map.jpg in Resources */,
 				4C16B4181BA93AFD00A66EF0 /* pirate-scaled-60x30-@3x.png in Resources */,
 				4C16B3ED1BA93AEF00A66EF0 /* rainbow-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
-				4C16B4011BA93AEF00A66EF0 /* unicorn-blurred-8.png in Resources */,
 				4C16B3DE1BA93AEF00A66EF0 /* apple-aspect.scaled.to.fit-50x50-@3x.png in Resources */,
 				4C16B3DD1BA93AEF00A66EF0 /* apple-aspect.scaled.to.fit-50x50-@2x.png in Resources */,
 				4C16B40A1BA93AFD00A66EF0 /* apple-scaled-50x50-@1x.png in Resources */,
 				4C16B3B51BA93AE600A66EF0 /* apple-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
 				4C16B4131BA93AFD00A66EF0 /* pirate-scaled-50x50-@1x.png in Resources */,
+				4CB2DBDF1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */,
 				4C16B40F1BA93AFD00A66EF0 /* apple-scaled-60x30-@3x.png in Resources */,
 				4C16B3E01BA93AEF00A66EF0 /* apple-aspect.scaled.to.fit-60x30-@2x.png in Resources */,
 			);
@@ -1624,6 +1642,7 @@
 				4C58745D1B93EFFB00407E58 /* rainbow-scaled-50x50-@2x.png in Resources */,
 				4C5873911B93EFFB00407E58 /* apple-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
 				4C0894E41B9382EB005125D9 /* apple.jpg in Resources */,
+				4CB2DBE91C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png in Resources */,
 				4C5873E31B93EFFB00407E58 /* apple-aspect.scaled.to.fit-60x30-@2x.png in Resources */,
 				4C5873B11B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
 				4C58747B1B93EFFB00407E58 /* pirate-scaled.to.size.circle-100x100-@2x.png in Resources */,
@@ -1661,6 +1680,7 @@
 				4C58741F1B93EFFB00407E58 /* pirate-circle.png in Resources */,
 				4C5873A71B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-30x60-@2x.png in Resources */,
 				4C0897E81B93B0FB005125D9 /* huge_map.jpg in Resources */,
+				4CB2DBE61C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png in Resources */,
 				4C5873EF1B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-50x50-@2x.png in Resources */,
 				4C5873BB1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-30x60-@3x.png in Resources */,
 				4C5873DB1B93EFFB00407E58 /* apple-aspect.scaled.to.fit-50x50-@1x.png in Resources */,
@@ -1693,6 +1713,7 @@
 				4C58747D1B93EFFB00407E58 /* pirate-scaled.to.size.circle-100x100-@3x.png in Resources */,
 				4C5873931B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-30x60-@1x.png in Resources */,
 				4C58741D1B93EFFB00407E58 /* apple-circle.png in Resources */,
+				4CB2DBEC1C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */,
 				4C58739F1B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
 				4C58746F1B93EFFB00407E58 /* unicorn-scaled-50x50-@2x.png in Resources */,
 				4C5873DF1B93EFFB00407E58 /* apple-aspect.scaled.to.fit-50x50-@3x.png in Resources */,
@@ -1720,7 +1741,6 @@
 				4C5873A91B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-30x60-@3x.png in Resources */,
 				4C5874471B93EFFB00407E58 /* pirate-scaled-30x60-@3x.png in Resources */,
 				4C5874171B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-60x30-@1x.png in Resources */,
-				4C5874251B93EFFB00407E58 /* unicorn-blurred-8.png in Resources */,
 				4C5873DD1B93EFFB00407E58 /* apple-aspect.scaled.to.fit-50x50-@2x.png in Resources */,
 				4C5873AF1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-50x50-@3x.png in Resources */,
 				4C58747F1B93EFFB00407E58 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@1x.png in Resources */,
@@ -1741,6 +1761,7 @@
 				4C5873BD1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
 				4C58740B1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-30x60-@1x.png in Resources */,
 				4C5873FD1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
+				4CB2DBDD1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */,
 				4C5873871B93EFFB00407E58 /* apple-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
 				4C58742F1B93EFFB00407E58 /* unicorn-radius-20.png in Resources */,
 			);
@@ -1773,6 +1794,7 @@
 				4C58745E1B93EFFB00407E58 /* rainbow-scaled-50x50-@2x.png in Resources */,
 				4C5873921B93EFFB00407E58 /* apple-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
 				4C0894E51B9382EB005125D9 /* apple.jpg in Resources */,
+				4CB2DBEA1C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png in Resources */,
 				4C5873E41B93EFFB00407E58 /* apple-aspect.scaled.to.fit-60x30-@2x.png in Resources */,
 				4C5873B21B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
 				4C58747C1B93EFFB00407E58 /* pirate-scaled.to.size.circle-100x100-@2x.png in Resources */,
@@ -1810,6 +1832,7 @@
 				4C5874201B93EFFB00407E58 /* pirate-circle.png in Resources */,
 				4C5873A81B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-30x60-@2x.png in Resources */,
 				4C0897E91B93B0FB005125D9 /* huge_map.jpg in Resources */,
+				4CB2DBE71C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png in Resources */,
 				4C5873F01B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-50x50-@2x.png in Resources */,
 				4C5873BC1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-30x60-@3x.png in Resources */,
 				4C5873DC1B93EFFB00407E58 /* apple-aspect.scaled.to.fit-50x50-@1x.png in Resources */,
@@ -1842,6 +1865,7 @@
 				4C58747E1B93EFFB00407E58 /* pirate-scaled.to.size.circle-100x100-@3x.png in Resources */,
 				4C5873941B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-30x60-@1x.png in Resources */,
 				4C58741E1B93EFFB00407E58 /* apple-circle.png in Resources */,
+				4CB2DBED1C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */,
 				4C5873A01B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
 				4C5874701B93EFFB00407E58 /* unicorn-scaled-50x50-@2x.png in Resources */,
 				4C5873E01B93EFFB00407E58 /* apple-aspect.scaled.to.fit-50x50-@3x.png in Resources */,
@@ -1869,7 +1893,6 @@
 				4C5873AA1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-30x60-@3x.png in Resources */,
 				4C5874481B93EFFB00407E58 /* pirate-scaled-30x60-@3x.png in Resources */,
 				4C5874181B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-60x30-@1x.png in Resources */,
-				4C5874261B93EFFB00407E58 /* unicorn-blurred-8.png in Resources */,
 				4C5873DE1B93EFFB00407E58 /* apple-aspect.scaled.to.fit-50x50-@2x.png in Resources */,
 				4C5873B01B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-50x50-@3x.png in Resources */,
 				4C5874801B93EFFB00407E58 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@1x.png in Resources */,
@@ -1890,6 +1913,7 @@
 				4C5873BE1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
 				4C58740C1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-30x60-@1x.png in Resources */,
 				4C5873FE1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
+				4CB2DBDE1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */,
 				4C5873881B93EFFB00407E58 /* apple-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
 				4C5874301B93EFFB00407E58 /* unicorn-radius-20.png in Resources */,
 			);

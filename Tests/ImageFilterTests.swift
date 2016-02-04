@@ -209,10 +209,18 @@ class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource("unicorn-blurred-8", withExtension: "png")
-        let pixelsMatch = filteredImage.af_isEqualToImage(expectedFilteredImage, withinTolerance: 43)
+        let expectedFilteredImage: UIImage
 
-        // NOTE: Tolerance is within 5 on 8.3+, but needs to drop to 43 for iOS 8.1 and 8.2
+        if #available(iOS 9.0, *) {
+            expectedFilteredImage = imageForResource("unicorn-blurred-8-ios-9", withExtension: "png")
+        } else if #available(iOS 8.3, *) {
+            expectedFilteredImage = imageForResource("unicorn-blurred-8-ios-8.3", withExtension: "png")
+        } else {
+            expectedFilteredImage = imageForResource("unicorn-blurred-8-ios-8.1", withExtension: "png")
+        }
+
+        let pixelsMatch = filteredImage.af_isEqualToImage(expectedFilteredImage)
+
         XCTAssertTrue(pixelsMatch, "pixels match should be true")
     }
 
