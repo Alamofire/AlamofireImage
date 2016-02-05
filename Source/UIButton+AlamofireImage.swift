@@ -102,7 +102,7 @@ extension UIButton {
 
     /**
         Asynchronously downloads an image from the specified URL and sets it once the request is finished.
-    
+
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
         set immediately, and then the remote image will be set once the image request is finished.
     
@@ -231,7 +231,8 @@ extension UIButton {
                                         background image will not change its image until the image request finishes.
                                         Defaults to `nil`.
     */
-    public func af_setBackgroundImageForState(state: UIControlState,
+    public func af_setBackgroundImageForState(
+        state: UIControlState,
         URL: NSURL,
         placeHolderImage: UIImage? = nil,
         completion: (Response<UIImage, NSError> -> Void)? = nil)
