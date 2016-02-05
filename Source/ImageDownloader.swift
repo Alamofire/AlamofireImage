@@ -251,7 +251,7 @@ public class ImageDownloader {
     public func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
         filter: ImageFilter? = nil,
-        completion: CompletionHandler?)
+        completion: CompletionHandler? = nil)
         -> RequestReceipt?
     {
         return downloadImage(
