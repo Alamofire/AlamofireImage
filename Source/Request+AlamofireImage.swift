@@ -139,7 +139,7 @@ extension Request {
     }
 
     private class func imageFromResponseData(data: NSData, imageScale: CGFloat) throws -> UIImage {
-        if let image = UIImage(data: data, scale: imageScale) {
+        if let image = UIImage.af_threadSafeImageWithData(data, scale: imageScale) {
             return image
         }
 
