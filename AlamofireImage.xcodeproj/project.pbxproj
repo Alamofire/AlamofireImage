@@ -1351,7 +1351,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = Alamofire;
 				TargetAttributes = {
 					4C16B37C1BA9399500A66EF0 = {
