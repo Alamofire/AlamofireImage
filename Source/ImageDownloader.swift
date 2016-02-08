@@ -350,7 +350,8 @@ public class ImageDownloader {
                                     request: response.request,
                                     response: response.response,
                                     data: response.data,
-                                    result: .Success(filteredImage)
+                                    result: .Success(filteredImage),
+                                    timeline: response.timeline
                                 )
 
                                 completion?(response)
