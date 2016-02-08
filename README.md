@@ -32,7 +32,7 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Dependencies
 
-- [Alamofire 2.0+](https://github.com/Alamofire/Alamofire)
+- [Alamofire 3.2+](https://github.com/Alamofire/Alamofire)
 
 ## Communication
 
@@ -52,7 +52,7 @@ AlamofireImage is an image component library for Alamofire.
 $ gem install cocoapods
 ```
 
-> CocoaPods 0.39.0+ is required to build Alamofire 3.0.0+.
+> CocoaPods 0.39.0+ is required.
 
 To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
