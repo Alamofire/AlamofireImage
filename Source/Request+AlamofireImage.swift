@@ -43,6 +43,7 @@ extension Request {
         "image/bmp",
         "image/x-bmp",
         "image/x-xbitmap",
+        "image/x-ms-bmp",
         "image/x-win-bitmap"
     ]
 
