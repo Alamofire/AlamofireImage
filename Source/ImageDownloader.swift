@@ -230,7 +230,6 @@ public class ImageDownloader {
 
     // MARK: - Download
 
-    //TODO: Update documentation parameters
     /**
         Creates a download request using the internal Alamofire `Manager` instance for the specified URL request.
     
@@ -245,9 +244,12 @@ public class ImageDownloader {
         returned request receipt to allow the `ImageDownloader` to optimize the cancellation on behalf of all active
         callers.
 
-        - parameter URLRequest: The URL request.
-        - parameter filter      The image filter to apply to the image after the download is complete. Defaults to `nil`.
-        - parameter completion: The closure called when the download request is complete.
+        - parameter URLRequest:     The URL request.
+        - parameter receiptID:      The `identifier` for the `RequestReceipt` returned. Defaults to a new, randomly generated UUID.
+        - parameter filter:         The image filter to apply to the image after the download is complete. Defaults to `nil`.
+        - parameter progress:       The closure to be executed periodically during the lifecycle of the request. Defaults to `nil`.
+        - parameter progressQueue:  The dispatch queue to call the progress closure on. Defaults to the main queue.
+        - parameter completion:     The closure called when the download request is complete. Defaults to `nil`.
 
         - returns: The request receipt for the download request if available. `nil` if the image is stored in the image
                    cache and the URL request cache policy allows the cache to be used.
@@ -390,7 +392,6 @@ public class ImageDownloader {
         return nil
     }
 
-    // TODO: Add other parameters to this function
     /**
         Creates a download request using the internal Alamofire `Manager` instance for each specified URL request.
 
@@ -405,9 +406,11 @@ public class ImageDownloader {
         `cancelRequestForRequestReceipt` with the returned request receipt to allow the `ImageDownloader` to optimize
         the cancellation on behalf of all active callers.
 
-        - parameter URLRequests: The URL requests.
-        - parameter filter       The image filter to apply to the image after each download is complete.
-        - parameter completion:  The closure called when each download request is complete.
+        - parameter URLRequests:    The URL requests.
+        - parameter filter:         The image filter to apply to the image after each download is complete.
+        - parameter progress:       The closure to be executed periodically during the lifecycle of the request. Defaults to `nil`.
+        - parameter progressQueue:  The dispatch queue to call the progress closure on. Defaults to the main queue.
+        - parameter completion:     The closure called when each download request is complete.
 
         - returns: The request receipts for the download requests if available. If an image is stored in the image
                    cache and the URL request cache policy allows the cache to be used, a receipt will not be returned
@@ -416,10 +419,18 @@ public class ImageDownloader {
     public func downloadImages(
         URLRequests URLRequests: [URLRequestConvertible],
         filter: ImageFilter? = nil,
+        progress: ProgressHandler? = nil,
+        progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
         completion: CompletionHandler? = nil)
         -> [RequestReceipt]
     {
-        return URLRequests.flatMap { downloadImage(URLRequest: $0, filter: filter, completion: completion) }
+        return URLRequests.flatMap {
+            downloadImage(URLRequest: $0,
+                filter: filter,
+                progress: progress,
+                progressQueue: progressQueue,
+                completion: completion)
+        }
     }
 
     /**
