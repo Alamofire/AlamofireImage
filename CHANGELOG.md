@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 2.x Releases
-- `2.3.x` Releases - [2.3.0](#230)
+- `2.3.x` Releases - [2.3.0](#230) | [2.3.1](#231)
 - `2.2.x` Releases - [2.2.0](#220)
 - `2.1.x` Releases - [2.1.0](#210) | [2.1.1](#211)
 - `2.0.x` Releases - [2.0.0](#200)
@@ -17,8 +17,40 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [2.3.1](https://github.com/Alamofire/AlamofireImage/releases/tag/2.3.1)
+Released on 2016-02-07. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.3.1).
+
+#### Added
+- Default value to `completion` parameter in `downloadImage` API in `ImageDownloader.
+  - Added by [Christian Noon](https://github.com/cnoon).
+
+#### Updated
+- The Alamofire submodule to the 3.2.0 release.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+
+#### Removed
+- Superfluous APIs on `ImageDownloader`, `UIButton` and `UIImageView` extensions and replaced
+  with default parameter values.
+  - Removed by [Anthony Miller](https://github.com/AnthonyMDev) in Pull Request
+  [#81](https://github.com/Alamofire/AlamofireImage/pull/81).
+
+#### Fixed
+- Issue in `UIImage` extension where CoreImage filters were using the incorrect output frame.
+  - Fixed by [Felipe](https://github.com/fsaint) in Pull Request
+  [#78](https://github.com/Alamofire/AlamofireImage/pull/78).
+- All blur filter tests across all devices and OS's.
+  - Fixed by [Christian Noon](https://github.com/cnoon).
+- Issue where image response serializer was not thread-safe by switching over to 
+  thread-safe UIImage initializer.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  [#75](https://github.com/Alamofire/AlamofireImage/pull/75).
+- Build warnings in Xcode 7.3 beta 2 for Swift 2.2.
+  - Fixed by [James Barrow](https://github.com/Baza207) in Regards to Issue
+  [#77](https://github.com/Alamofire/AlamofireImage/pull/77).
+
 ## [2.3.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.3.0)
-Released on 2016-1-17. All issues associated with this milestone can be found using this
+Released on 2016-01-17. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.3.0).
 
 #### Added

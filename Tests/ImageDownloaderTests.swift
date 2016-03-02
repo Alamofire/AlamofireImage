@@ -192,7 +192,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         downloader.downloadImages(URLRequests: [download1, download2], filter: nil) { closureResponse in
             results.append(closureResponse.result)
 
-            ++completedDownloads
+            completedDownloads += 1
             if completedDownloads == 2 { expectation.fulfill() }
         }
 
