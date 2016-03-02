@@ -455,9 +455,6 @@
 		4C82907C1B927D13005E24C8 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
 		4C82907D1B927DA9005E24C8 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; };
 		4C96A4781AAE9488008AE0B6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
-		4CB2DBDD1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBD91C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png */; };
-		4CB2DBDE1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBD91C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png */; };
-		4CB2DBDF1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBD91C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png */; };
 		4CB2DBE61C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE31C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png */; };
 		4CB2DBE71C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE31C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png */; };
 		4CB2DBE81C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB2DBE31C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png */; };
@@ -737,7 +734,6 @@
 		4C9043821AABBFC5001B4E60 /* AlamofireImage iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		4CB2B2F31C0270C500B442EA /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
-		4CB2DBD91C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8-ios-9.png"; sourceTree = "<group>"; };
 		4CB2DBE31C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8-ios-8.1.png"; sourceTree = "<group>"; };
 		4CB2DBE41C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8-ios-8.3.png"; sourceTree = "<group>"; };
 		4CB2DBE51C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8-ios-9.png"; sourceTree = "<group>"; };
@@ -1030,7 +1026,6 @@
 				4CB2DBE31C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.1.png */,
 				4CB2DBE41C632D3E000CC9C2 /* unicorn-blurred-8-ios-8.3.png */,
 				4CB2DBE51C632D3E000CC9C2 /* unicorn-blurred-8-ios-9.png */,
-				4CB2DBD91C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png */,
 				4C58734E1B93EFFB00407E58 /* unicorn-sepia.tone.png */,
 			);
 			path = "Core Image Filters";
@@ -1351,7 +1346,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = Alamofire;
 				TargetAttributes = {
 					4C16B37C1BA9399500A66EF0 = {
@@ -1602,7 +1597,6 @@
 				4C16B40A1BA93AFD00A66EF0 /* apple-scaled-50x50-@1x.png in Resources */,
 				4C16B3B51BA93AE600A66EF0 /* apple-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
 				4C16B4131BA93AFD00A66EF0 /* pirate-scaled-50x50-@1x.png in Resources */,
-				4CB2DBDF1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */,
 				4C16B40F1BA93AFD00A66EF0 /* apple-scaled-60x30-@3x.png in Resources */,
 				4C16B3E01BA93AEF00A66EF0 /* apple-aspect.scaled.to.fit-60x30-@2x.png in Resources */,
 			);
@@ -1761,7 +1755,6 @@
 				4C5873BD1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
 				4C58740B1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-30x60-@1x.png in Resources */,
 				4C5873FD1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
-				4CB2DBDD1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */,
 				4C5873871B93EFFB00407E58 /* apple-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
 				4C58742F1B93EFFB00407E58 /* unicorn-radius-20.png in Resources */,
 			);
@@ -1913,7 +1906,6 @@
 				4C5873BE1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
 				4C58740C1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-30x60-@1x.png in Resources */,
 				4C5873FE1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
-				4CB2DBDE1C632BFD000CC9C2 /* unicorn-blurred-8-ios-9.png in Resources */,
 				4C5873881B93EFFB00407E58 /* apple-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
 				4C5874301B93EFFB00407E58 /* unicorn-radius-20.png in Resources */,
 			);

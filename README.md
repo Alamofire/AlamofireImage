@@ -1,7 +1,7 @@
 # AlamofireImage
 
 [![Build Status](https://travis-ci.org/Alamofire/AlamofireImage.svg)](https://travis-ci.org/Alamofire/AlamofireImage)
-[![Cocoapods Compatible](https://img.shields.io/cocoapods/v/AlamofireImage.svg)](https://img.shields.io/cocoapods/v/AlamofireImage.svg)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/AlamofireImage.svg)](https://img.shields.io/cocoapods/v/AlamofireImage.svg)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/AlamofireImage.svg?style=flat)](http://cocoadocs.org/docsets/AlamofireImage)
 [![Twitter](https://img.shields.io/badge/twitter-@AlamofireSF-blue.svg?style=flat)](http://twitter.com/AlamofireSF)
@@ -32,7 +32,7 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Dependencies
 
-- [Alamofire 2.0+](https://github.com/Alamofire/Alamofire)
+- [Alamofire 3.2+](https://github.com/Alamofire/Alamofire)
 
 ## Communication
 
@@ -52,7 +52,7 @@ AlamofireImage is an image component library for Alamofire.
 $ gem install cocoapods
 ```
 
-> CocoaPods 0.39.0+ is required to build Alamofire 3.0.0+.
+> CocoaPods 0.39.0+ is required.
 
 To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your `Podfile`:
 

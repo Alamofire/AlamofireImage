@@ -105,38 +105,49 @@ extension UIButton {
 
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
         set immediately, and then the remote image will be set once the image request is finished.
-
-        - parameter URL:              The URL used for the image request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image will not change its image until the image request finishes. `nil` by default.
+    
+        - parameter URL:                The URL used for your image request.
+        - parameter placeholderImage:   The image to be set initially until the image request finished. If `nil`, the
+                                        image will not change its image until the image request finishes.
+                                        Defaults to `nil`.
+        - parameter completion:         A closure to be executed when the image request finishes. The closure
+                                        has no return value and takes three arguments: the original request,
+                                        the response from the server and the result containing either the
+                                        image or the error that occurred. If the image was returned from the
+                                        image cache, the response will be `nil`. Defaults to `nil`.
     */
     public func af_setImageForState(
         state: UIControlState,
         URL: NSURL,
-        placeHolderImage: UIImage? = nil)
+        placeHolderImage: UIImage? = nil,
+        completion: (Response<UIImage, NSError> -> Void)? = nil)
     {
-        af_setImageForState(state, URLRequest: URLRequestWithURL(URL), placeholderImage: placeHolderImage)
+        af_setImageForState(state,
+            URLRequest: URLRequestWithURL(URL),
+            placeholderImage: placeHolderImage,
+            completion: completion)
     }
 
     /**
-        Asynchronously downloads an image from the specified URL and sets it once the request is finished.
+        Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
 
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
         set immediately, and then the remote image will be set once the image request is finished.
 
-        - parameter URLRequest:       The URL request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image will not change its image until the image request finishes. `nil` by default.
-        - parameter completion:       A closure to be executed when the image request finishes. The closure
-                                      has no return value and takes three arguments: the original request,
-                                      the response from the server and the result containing either the
-                                      image or the error that occurred. If the image was returned from the
-                                      image cache, the response will be `nil`.
+        - parameter URLRequest:         The URL request.
+        - parameter placeholderImage:   The image to be set initially until the image request finished. If `nil`, the
+                                        image will not change its image until the image request finishes.
+                                        Defaults to `nil`.
+        - parameter completion:         A closure to be executed when the image request finishes. The closure
+                                        has no return value and takes three arguments: the original request,
+                                        the response from the server and the result containing either the
+                                        image or the error that occurred. If the image was returned from the
+                                        image cache, the response will be `nil`. Defaults to `nil`.
     */
     public func af_setImageForState(
         state: UIControlState,
         URLRequest: URLRequestConvertible,
-        placeholderImage: UIImage?,
+        placeholderImage: UIImage? = nil,
         completion: (Response<UIImage, NSError> -> Void)? = nil)
     {
         guard !isImageURLRequest(URLRequest, equalToActiveRequestURLForState: state) else { return }
@@ -215,35 +226,43 @@ extension UIButton {
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
         set immediately, and then the remote image will be set once the image request is finished.
 
-        - parameter URL:              The URL used for the image request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      background image will not change its image until the image request finishes.
-                                      `nil` by default.
+        - parameter URL:                The URL used for the image request.
+        - parameter placeholderImage:   The image to be set initially until the image request finished. If `nil`, the
+                                        background image will not change its image until the image request finishes.
+                                        Defaults to `nil`.
     */
-    public func af_setBackgroundImageForState(state: UIControlState, URL: NSURL, placeHolderImage: UIImage? = nil) {
-        af_setBackgroundImageForState(state, URLRequest: URLRequestWithURL(URL), placeholderImage: placeHolderImage)
+    public func af_setBackgroundImageForState(
+        state: UIControlState,
+        URL: NSURL,
+        placeHolderImage: UIImage? = nil,
+        completion: (Response<UIImage, NSError> -> Void)? = nil)
+    {
+        af_setBackgroundImageForState(state,
+            URLRequest: URLRequestWithURL(URL),
+            placeholderImage: placeHolderImage,
+            completion: completion)
     }
 
     /**
-        Asynchronously downloads an image from the specified URL and sets it once the request is finished.
+        Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
 
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
         set immediately, and then the remote image will be set once the image request is finished.
 
-        - parameter URLRequest:       The URL request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      background image will not change its image until the image request finishes.
-                                      `nil` by default.
-        - parameter completion:       A closure to be executed when the image request finishes. The closure
-                                      has no return value and takes three arguments: the original request,
-                                      the response from the server and the result containing either the
-                                      image or the error that occurred. If the image was returned from the
-                                      image cache, the response will be `nil`.
+        - parameter URLRequest:         The URL request.
+        - parameter placeholderImage:   The image to be set initially until the image request finished. If `nil`, the
+                                        background image will not change its image until the image request finishes.
+                                        Defaults to `nil`.
+        - parameter completion:         A closure to be executed when the image request finishes. The closure
+                                        has no return value and takes three arguments: the original request,
+                                        the response from the server and the result containing either the
+                                        image or the error that occurred. If the image was returned from the
+                                        image cache, the response will be `nil`. Defaults to `nil`.
     */
     public func af_setBackgroundImageForState(
         state: UIControlState,
         URLRequest: URLRequestConvertible,
-        placeholderImage: UIImage?,
+        placeholderImage: UIImage? = nil,
         completion: (Response<UIImage, NSError> -> Void)? = nil)
     {
         guard !isImageURLRequest(URLRequest, equalToActiveRequestURLForState: state) else { return }
