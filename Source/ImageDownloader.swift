@@ -56,8 +56,8 @@ public class ImageDownloader {
     /// The completion handler closure used when an image download completes.
     public typealias CompletionHandler = Response<Image, NSError> -> Void
 
-    /// The progress handler closure called periodically during an image download .
-    public typealias ProgressHandler = (Int64, Int64, Int64) -> Void
+    /// The progress handler closure called periodically during an image download.
+    public typealias ProgressHandler = (bytesSent: Int64, totalBytesSent: Int64, totalExpectedBytes: Int64) -> Void
 
     /**
         Defines the order prioritization of incoming download requests being inserted into the queue.
@@ -254,7 +254,7 @@ public class ImageDownloader {
         - returns: The request receipt for the download request if available. `nil` if the image is stored in the image
                    cache and the URL request cache policy allows the cache to be used.
     */
-    func downloadImage(
+    public func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
         receiptID: String = NSUUID().UUIDString,
         filter: ImageFilter? = nil,
@@ -309,7 +309,9 @@ public class ImageDownloader {
             request.validate()
             request.progress() { bytesSent, totalBytesSent, totalExpectedBytes in
                 dispatch_sync(progressQueue) {
-                    progress?(bytesSent, totalBytesSent, totalExpectedBytes)
+                    progress?(bytesSent: bytesSent,
+                        totalBytesSent: totalBytesSent,
+                        totalExpectedBytes: totalExpectedBytes)
                 }
             }
             request.response(
