@@ -56,6 +56,9 @@ public class ImageDownloader {
     /// The completion handler closure used when an image download completes.
     public typealias CompletionHandler = Response<Image, NSError> -> Void
 
+    /// The progress handler closure called periodically during an image download.
+    public typealias ProgressHandler = (bytesSent: Int64, totalBytesSent: Int64, totalExpectedBytes: Int64) -> Void
+
     /**
         Defines the order prioritization of incoming download requests being inserted into the queue.
 
@@ -241,32 +244,23 @@ public class ImageDownloader {
         returned request receipt to allow the `ImageDownloader` to optimize the cancellation on behalf of all active
         callers.
 
-        - parameter URLRequest: The URL request.
-        - parameter filter      The image filter to apply to the image after the download is complete. Defaults to `nil`.
-        - parameter completion: The closure called when the download request is complete.
+        - parameter URLRequest:     The URL request.
+        - parameter receiptID:      The `identifier` for the `RequestReceipt` returned. Defaults to a new, randomly generated UUID.
+        - parameter filter:         The image filter to apply to the image after the download is complete. Defaults to `nil`.
+        - parameter progress:       The closure to be executed periodically during the lifecycle of the request. Defaults to `nil`.
+        - parameter progressQueue:  The dispatch queue to call the progress closure on. Defaults to the main queue.
+        - parameter completion:     The closure called when the download request is complete. Defaults to `nil`.
 
         - returns: The request receipt for the download request if available. `nil` if the image is stored in the image
                    cache and the URL request cache policy allows the cache to be used.
     */
     public func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
+        receiptID: String = NSUUID().UUIDString,
         filter: ImageFilter? = nil,
+        progress: ProgressHandler? = nil,
+        progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
         completion: CompletionHandler? = nil)
-        -> RequestReceipt?
-    {
-        return downloadImage(
-            URLRequest: URLRequest,
-            receiptID: NSUUID().UUIDString,
-            filter: filter,
-            completion: completion
-        )
-    }
-
-    func downloadImage(
-        URLRequest URLRequest: URLRequestConvertible,
-        receiptID: String,
-        filter: ImageFilter?,
-        completion: CompletionHandler?)
         -> RequestReceipt?
     {
         var request: Request!
@@ -313,6 +307,13 @@ public class ImageDownloader {
             }
 
             request.validate()
+            request.progress() { bytesSent, totalBytesSent, totalExpectedBytes in
+                dispatch_sync(progressQueue) {
+                    progress?(bytesSent: bytesSent,
+                        totalBytesSent: totalBytesSent,
+                        totalExpectedBytes: totalExpectedBytes)
+                }
+            }
             request.response(
                 queue: self.responseQueue,
                 responseSerializer: Request.imageResponseSerializer(),
@@ -407,9 +408,11 @@ public class ImageDownloader {
         `cancelRequestForRequestReceipt` with the returned request receipt to allow the `ImageDownloader` to optimize
         the cancellation on behalf of all active callers.
 
-        - parameter URLRequests: The URL requests.
-        - parameter filter       The image filter to apply to the image after each download is complete.
-        - parameter completion:  The closure called when each download request is complete.
+        - parameter URLRequests:    The URL requests.
+        - parameter filter:         The image filter to apply to the image after each download is complete.
+        - parameter progress:       The closure to be executed periodically during the lifecycle of the request. Defaults to `nil`.
+        - parameter progressQueue:  The dispatch queue to call the progress closure on. Defaults to the main queue.
+        - parameter completion:     The closure called when each download request is complete.
 
         - returns: The request receipts for the download requests if available. If an image is stored in the image
                    cache and the URL request cache policy allows the cache to be used, a receipt will not be returned
@@ -418,10 +421,18 @@ public class ImageDownloader {
     public func downloadImages(
         URLRequests URLRequests: [URLRequestConvertible],
         filter: ImageFilter? = nil,
+        progress: ProgressHandler? = nil,
+        progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
         completion: CompletionHandler? = nil)
         -> [RequestReceipt]
     {
-        return URLRequests.flatMap { downloadImage(URLRequest: $0, filter: filter, completion: completion) }
+        return URLRequests.flatMap {
+            downloadImage(URLRequest: $0,
+                filter: filter,
+                progress: progress,
+                progressQueue: progressQueue,
+                completion: completion)
+        }
     }
 
     /**

@@ -409,6 +409,72 @@ class ImageDownloaderTestCase: BaseTestCase {
     }
 
 #endif
+    
+    // MARK: - Progress Closure Tests
+    
+    func testThatItCallsTheProgressHandlerOnTheMainQueueByDefault() {
+        // Given
+        let downloader = ImageDownloader()
+        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        
+        let progressExpectation = expectationWithDescription("progress closure should be called")
+        let completedExpectation = expectationWithDescription("download request should succeed")
+        
+        var progressCalled = false
+        var calledOnMainQueue = false
+        
+        // When
+        downloader.downloadImage(URLRequest: download,
+            progress: { _, _, _ in
+                if progressCalled == false {
+                    calledOnMainQueue = NSThread.isMainThread()
+                    progressExpectation.fulfill()
+                    progressCalled = true
+                }
+                
+            }) { _ in
+                completedExpectation.fulfill()
+        }
+        
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+        
+        // Then
+        XCTAssertTrue(calledOnMainQueue, "progress handler should be called on main queue")
+    }
+    
+    func testThatItCallsTheProgressHandlerOnTheProgressQueue() {
+        // Given
+        let downloader = ImageDownloader()
+        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        
+        let progressExpectation = expectationWithDescription("progress closure should be called")
+        let completedExpectation = expectationWithDescription("download request should succeed")
+        
+        var progressCalled = false
+        var calledOnExpectedQueue = false
+        
+        let expectedQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        
+        // When
+        downloader.downloadImage(URLRequest: download,
+            progress: { _, _, _ in
+                if progressCalled == false {
+                    calledOnExpectedQueue = (dispatch_queue_get_label(expectedQueue) ==
+                        dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL))
+
+                    progressExpectation.fulfill()
+                    progressCalled = true
+                }
+                
+            }, progressQueue: expectedQueue) { _ in
+                completedExpectation.fulfill()
+        }
+        
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+        
+        // Then
+        XCTAssertTrue(calledOnExpectedQueue, "progress handler should be called on expected queue")
+    }
 
     // MARK: - Cancellation Tests
 
