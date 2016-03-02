@@ -56,6 +56,9 @@ public class ImageDownloader {
     /// The completion handler closure used when an image download completes.
     public typealias CompletionHandler = Response<Image, NSError> -> Void
 
+    /// The progress handler closure called periodically during an image download .
+    public typealias ProgressHandler = (Int64, Int64, Int64) -> Void
+
     /**
         Defines the order prioritization of incoming download requests being inserted into the queue.
 
@@ -227,6 +230,7 @@ public class ImageDownloader {
 
     // MARK: - Download
 
+    //TODO: Update documentation parameters
     /**
         Creates a download request using the internal Alamofire `Manager` instance for the specified URL request.
     
@@ -248,25 +252,13 @@ public class ImageDownloader {
         - returns: The request receipt for the download request if available. `nil` if the image is stored in the image
                    cache and the URL request cache policy allows the cache to be used.
     */
-    public func downloadImage(
-        URLRequest URLRequest: URLRequestConvertible,
-        filter: ImageFilter? = nil,
-        completion: CompletionHandler? = nil)
-        -> RequestReceipt?
-    {
-        return downloadImage(
-            URLRequest: URLRequest,
-            receiptID: NSUUID().UUIDString,
-            filter: filter,
-            completion: completion
-        )
-    }
-
     func downloadImage(
         URLRequest URLRequest: URLRequestConvertible,
-        receiptID: String,
-        filter: ImageFilter?,
-        completion: CompletionHandler?)
+        receiptID: String = NSUUID().UUIDString,
+        filter: ImageFilter? = nil,
+        progress: ProgressHandler? = nil,
+        progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
+        completion: CompletionHandler? = nil)
         -> RequestReceipt?
     {
         var request: Request!
@@ -313,6 +305,11 @@ public class ImageDownloader {
             }
 
             request.validate()
+            request.progress() { bytesSent, totalBytesSent, totalExpectedBytes in
+                dispatch_sync(progressQueue) {
+                    progress?(bytesSent, totalBytesSent, totalExpectedBytes)
+                }
+            }
             request.response(
                 queue: self.responseQueue,
                 responseSerializer: Request.imageResponseSerializer(),
@@ -393,6 +390,7 @@ public class ImageDownloader {
         return nil
     }
 
+    // TODO: Add other parameters to this function
     /**
         Creates a download request using the internal Alamofire `Manager` instance for each specified URL request.
 
