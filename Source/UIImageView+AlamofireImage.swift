@@ -183,7 +183,11 @@ extension UIImageView {
                                                 request finishes. Defaults to `nil`.
         - parameter filter:                     The image filter applied to the image after the image request is
                                                 finished. Defaults to `nil`.
-        - parameter imageTransition:            The image transition animation applied to the image when set. 
+        - parameter progress:                   The closure to be executed periodically during the lifecycle of the 
+                                                request. Defaults to `nil`.
+        - parameter progressQueue:              The dispatch queue to call the progress closure on. Defaults to the 
+                                                main queue.
+        - parameter imageTransition:            The image transition animation applied to the image when set.
                                                 Defaults to `.None`.
         - parameter runImageTransitionIfCached: Whether to run the image transition if the image is cached. Defaults
                                                 to `false`.
@@ -197,6 +201,8 @@ extension UIImageView {
         URL: NSURL,
         placeholderImage: UIImage? = nil,
         filter: ImageFilter? = nil,
+        progress: ImageDownloader.ProgressHandler? = nil,
+        progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
         imageTransition: ImageTransition = .None,
         runImageTransitionIfCached: Bool = false,
         completion: (Response<UIImage, NSError> -> Void)? = nil)
@@ -205,6 +211,8 @@ extension UIImageView {
             URLRequestWithURL(URL),
             placeholderImage: placeholderImage,
             filter: filter,
+            progress: progress,
+            progressQueue: progressQueue,
             imageTransition: imageTransition,
             runImageTransitionIfCached: runImageTransitionIfCached,
             completion: completion
@@ -230,6 +238,10 @@ extension UIImageView {
                                                 request finishes. Defaults to `nil`.
         - parameter filter:                     The image filter applied to the image after the image request is
                                                 finished. Defaults to `nil`.
+        - parameter progress:                   The closure to be executed periodically during the lifecycle of the
+                                                request. Defaults to `nil`.
+        - parameter progressQueue:              The dispatch queue to call the progress closure on. Defaults to the
+                                                main queue.
         - parameter imageTransition:            The image transition animation applied to the image when set.
                                                 Defaults to `.None`.
         - parameter runImageTransitionIfCached: Whether to run the image transition if the image is cached. Defaults
@@ -244,6 +256,8 @@ extension UIImageView {
         URLRequest: URLRequestConvertible,
         placeholderImage: UIImage? = nil,
         filter: ImageFilter? = nil,
+        progress: ImageDownloader.ProgressHandler? = nil,
+        progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
         imageTransition: ImageTransition = .None,
         runImageTransitionIfCached: Bool = false,
         completion: (Response<UIImage, NSError> -> Void)? = nil)
@@ -291,6 +305,8 @@ extension UIImageView {
             URLRequest: URLRequest,
             receiptID: downloadID,
             filter: filter,
+            progress: progress,
+            progressQueue: progressQueue,
             completion: { [weak self] response in
                 guard let strongSelf = self else { return }
 
