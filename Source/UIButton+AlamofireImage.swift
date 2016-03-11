@@ -179,8 +179,8 @@ extension UIButton {
                 result: .Success(image)
             )
 
-            completion?(response)
             setImage(image, forState: state)
+            completion?(response)
 
             return
         }
@@ -201,8 +201,6 @@ extension UIButton {
             completion: { [weak self] response in
                 guard let strongSelf = self else { return }
 
-                completion?(response)
-
                 guard
                     strongSelf.isImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
                     strongSelf.imageRequestReceiptForState(state)?.receiptID == downloadID
@@ -213,6 +211,8 @@ extension UIButton {
                 if let image = response.result.value {
                     strongSelf.setImage(image, forState: state)
                 }
+                
+                completion?(response)
 
                 strongSelf.setImageRequestReceipt(nil, forState: state)
             }
