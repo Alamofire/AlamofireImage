@@ -474,6 +474,7 @@
 		4CEBB5411B93C622001391DE /* ImageCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBB53F1B93C622001391DE /* ImageCacheTests.swift */; };
 		4CFC0A061AB4FEC90004D0B8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
 		4CFC0A091AB52BD90004D0B8 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; };
+		AF06ABBB1C930B1400710B95 /* UIButton+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF411C253CB100904E85 /* UIButton+AlamofireImage.swift */; };
 		CF24CF421C253CB100904E85 /* UIButton+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF411C253CB100904E85 /* UIButton+AlamofireImage.swift */; };
 		CF24CF461C253D4F00904E85 /* UIButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF3C1C253CA000904E85 /* UIButtonTests.swift */; };
 /* End PBXBuildFile section */
@@ -1918,6 +1919,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF06ABBB1C930B1400710B95 /* UIButton+AlamofireImage.swift in Sources */,
 				4C16B3A11BA93AB700A66EF0 /* ImageCache.swift in Sources */,
 				4C16B3A61BA93AB700A66EF0 /* UIImageView+AlamofireImage.swift in Sources */,
 				4C16B3A41BA93AB700A66EF0 /* Request+AlamofireImage.swift in Sources */,
