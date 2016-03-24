@@ -32,7 +32,7 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Dependencies
 
-- [Alamofire 3.2+](https://github.com/Alamofire/Alamofire)
+- [Alamofire 3.3+](https://github.com/Alamofire/Alamofire)
 
 ## Communication
 
