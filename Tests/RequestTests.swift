@@ -166,7 +166,7 @@ class RequestTestCase: BaseTestCase {
         }
     }
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 
     // MARK: - Image Inflation Tests
 
