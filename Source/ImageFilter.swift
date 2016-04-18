@@ -332,6 +332,56 @@ public struct BlurFilter: ImageFilter {
 	}
 }
 
+/**
+	Filter an image using a `CIColorControls` filter with the specified values.
+**/
+public struct ColorControlsFilter: ImageFilter {
+	/// The saturation of the filter.
+	let saturation: Float
+
+	/// The brightness of the filter.
+	let brightness: Float!
+
+	/// The contrast of the filter.
+	let contrast: Float!
+
+	/**
+	Initializes the `ColorControlsFilter` instance.
+	To create a gray scaled image simply call ColorControlsFilter(saturation: 0)
+
+	- parameter saturation: The saturation.
+	- parameter brightness: The saturation.
+	- parameter contrast: The saturation.
+
+	- returns: The new `ColorControlsFilter` instance.
+	*/
+	public init(saturation: Float = 1, brightness: Float! = nil, contrast: Float! = nil) {
+		self.saturation = saturation
+		self.contrast = contrast
+		self.brightness = brightness
+	}
+
+	/// The filter closure used to create the modified representation of the given image.
+	public var filter: Image -> Image {
+		return { image in
+			var parameters = ["inputSaturation": self.saturation]
+			if self.brightness != nil {
+				parameters["inputBrightness"] = self.brightness
+			}
+			if self.contrast != nil {
+				parameters["inputContrast"] = self.contrast
+			}
+
+			return image.af_imageWithAppliedCoreImageFilter("CIColorControls", filterParameters: parameters) ?? image
+		}
+	}
+
+	/// The unique idenitifier for an `ColorControlsFilter`.
+	public var identifier: String {
+		return "\(self.dynamicType)-saturation:(\(saturation))-contrast:(\(contrast))-brightness:(\(brightness))"
+	}
+}
+
 #endif
 
 // MARK: - Composite Image Filters (iOS, tvOS and watchOS only) -
