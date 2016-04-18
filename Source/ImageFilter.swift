@@ -325,6 +325,11 @@ public struct BlurFilter: ImageFilter {
             return image.af_imageWithAppliedCoreImageFilter("CIGaussianBlur", filterParameters: parameters) ?? image
         }
     }
+
+	/// The unique idenitifier for an `BlurFilter`.
+	public var identifier: String {
+		return "\(self.dynamicType)-blurRadius:(\(blurRadius))"
+	}
 }
 
 #endif
