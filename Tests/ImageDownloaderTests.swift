@@ -40,7 +40,7 @@ private class ThreadCheckFilter: ImageFilter {
 
 // MARK: -
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 
 private class TestCircleFilter: ImageFilter {
     var filterOperationCompleted = false
@@ -286,9 +286,9 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isSuccess ?? false, "result should be a success case")
     }
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 
-    // MARK: - Image Download Tests (iOS Only)
+    // MARK: - Image Download Tests (iOS and tvOS Only)
 
     func testThatItCanDownloadImageAndApplyImageFilter() {
         // Given
@@ -409,6 +409,81 @@ class ImageDownloaderTestCase: BaseTestCase {
     }
 
 #endif
+
+    // MARK: - Progress Closure Tests
+
+    func testThatItCallsTheProgressHandlerOnTheMainQueueByDefault() {
+        // Given
+        let downloader = ImageDownloader()
+        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+
+        let progressExpectation = expectationWithDescription("progress closure should be called")
+        let completedExpectation = expectationWithDescription("download request should succeed")
+
+        var progressCalled = false
+        var calledOnMainQueue = false
+
+        // When
+        downloader.downloadImage(
+            URLRequest: download,
+            progress: { _, _, _ in
+                if progressCalled == false {
+                    progressCalled = true
+                    calledOnMainQueue = NSThread.isMainThread()
+                    progressExpectation.fulfill()
+                }
+            },
+            completion: { _ in
+                completedExpectation.fulfill()
+            }
+        )
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(calledOnMainQueue, "progress handler should be called on main queue")
+    }
+
+    func testThatItCallsTheProgressHandlerOnTheProgressQueue() {
+        // Given
+        let downloader = ImageDownloader()
+        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+
+        let progressExpectation = expectationWithDescription("progress closure should be called")
+        let completedExpectation = expectationWithDescription("download request should succeed")
+
+        var progressCalled = false
+        var calledOnExpectedQueue = false
+
+        let expectedQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+
+        // When
+        downloader.downloadImage(
+            URLRequest: download,
+            progress: { _, _, _ in
+                if progressCalled == false {
+                    progressCalled = true
+
+                    calledOnExpectedQueue = {
+                        let expectedLabel = dispatch_queue_get_label(expectedQueue)
+                        let actualLabel = dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL)
+                        return expectedLabel == actualLabel
+                    }()
+
+                    progressExpectation.fulfill()
+                }
+            },
+            progressQueue: expectedQueue,
+            completion: { _ in
+                completedExpectation.fulfill()
+            }
+        )
+
+        waitForExpectationsWithTimeout(timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(calledOnExpectedQueue, "progress handler should be called on expected queue")
+    }
 
     // MARK: - Cancellation Tests
 
@@ -719,7 +794,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         }
     }
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 
     func testThatFilteredImageIsStoredInCacheIfCacheIsAvailable() {
         // Given

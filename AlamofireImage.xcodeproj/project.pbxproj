@@ -472,6 +472,8 @@
 		4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
 		4CEBB5401B93C622001391DE /* ImageCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBB53F1B93C622001391DE /* ImageCacheTests.swift */; };
 		4CEBB5411B93C622001391DE /* ImageCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBB53F1B93C622001391DE /* ImageCacheTests.swift */; };
+		4CFB865F1CA3655F007CE085 /* UIButton+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF411C253CB100904E85 /* UIButton+AlamofireImage.swift */; };
+		4CFB86631CA3656F007CE085 /* UIButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF3C1C253CA000904E85 /* UIButtonTests.swift */; };
 		4CFC0A061AB4FEC90004D0B8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
 		4CFC0A091AB52BD90004D0B8 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; };
 		CF24CF421C253CB100904E85 /* UIButton+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF411C253CB100904E85 /* UIButton+AlamofireImage.swift */; };
@@ -1918,6 +1920,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CFB865F1CA3655F007CE085 /* UIButton+AlamofireImage.swift in Sources */,
 				4C16B3A11BA93AB700A66EF0 /* ImageCache.swift in Sources */,
 				4C16B3A61BA93AB700A66EF0 /* UIImageView+AlamofireImage.swift in Sources */,
 				4C16B3A41BA93AB700A66EF0 /* Request+AlamofireImage.swift in Sources */,
@@ -1933,6 +1936,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C16B3AB1BA93ADB00A66EF0 /* RequestTests.swift in Sources */,
+				4CFB86631CA3656F007CE085 /* UIButtonTests.swift in Sources */,
 				4C16B3A81BA93ADB00A66EF0 /* ImageCacheTests.swift in Sources */,
 				4C16B3AE1BA93ADB00A66EF0 /* UIImage+AlamofireImageTests.swift in Sources */,
 				4C16B3AA1BA93ADB00A66EF0 /* ImageFilterTests.swift in Sources */,

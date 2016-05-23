@@ -52,8 +52,8 @@ class RequestTestCase: BaseTestCase {
         let afterCount = Request.acceptableImageContentTypes.count
 
         // Then
-        XCTAssertEqual(beforeCount, 10, "before count should be 10")
-        XCTAssertEqual(afterCount, 12, "after count should be 12")
+        XCTAssertEqual(beforeCount, 11, "before count should be 11")
+        XCTAssertEqual(afterCount, 13, "after count should be 13")
     }
 
     // MARK: - Image Serialization Tests
@@ -166,7 +166,7 @@ class RequestTestCase: BaseTestCase {
         }
     }
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
 
     // MARK: - Image Inflation Tests
 
