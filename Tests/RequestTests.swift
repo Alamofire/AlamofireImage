@@ -284,8 +284,12 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+            XCTAssertEqual(error.domain,
+                           AlamofireImage.Error.Domain,
+                           "error domain should be com.alamofire-image.error")
+            XCTAssertEqual(error.code,
+                           AlamofireImage.Error.Code.ContentTypeValidationFailed.rawValue,
+                           "error code should be -9000")
         }
     }
 
@@ -312,8 +316,12 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+            XCTAssertEqual(error.domain,
+                           AlamofireImage.Error.Domain,
+                           "error domain should be com.alamofire-image.error")
+            XCTAssertEqual(error.code,
+                           AlamofireImage.Error.Code.ImageDataSerializationFailed.rawValue,
+                           "error code should be -9001")
         }
     }
 
@@ -341,8 +349,12 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+            XCTAssertEqual(error.domain,
+                           AlamofireImage.Error.Domain,
+                           "error domain should be com.alamofire-image.error")
+            XCTAssertEqual(error.code,
+                           AlamofireImage.Error.Code.ContentTypeValidationFailed.rawValue,
+                           "error code should be -9000")
         }
     }
 
@@ -369,8 +381,12 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+            XCTAssertEqual(error.domain,
+                           AlamofireImage.Error.Domain,
+                           "error domain should be com.alamofire-image.error")
+            XCTAssertEqual(error.code,
+                           AlamofireImage.Error.Code.ContentTypeValidationFailed.rawValue,
+                           "error code should be -9000")
         }
     }
 }
