@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -28,6 +28,36 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4C9043811AABBFC5001B4E60"
+               BuildableName = "AlamofireImage iOS Tests.xctest"
+               BlueprintName = "AlamofireImage iOS Tests"
+               ReferencedContainer = "container:AlamofireImage.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4CE611461AABC5C900D35044"
+               BuildableName = "AlamofireImage OSX Tests.xctest"
+               BlueprintName = "AlamofireImage OSX Tests"
+               ReferencedContainer = "container:AlamofireImage.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4C16B3851BA9399500A66EF0"
+               BuildableName = "AlamofireImage tvOS Tests.xctest"
+               BlueprintName = "AlamofireImage tvOS Tests"
+               ReferencedContainer = "container:AlamofireImage.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

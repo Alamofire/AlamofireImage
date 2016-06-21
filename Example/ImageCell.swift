@@ -35,8 +35,8 @@ class ImageCell : UICollectionViewCell {
         imageView = {
             let imageView = UIImageView(frame: frame)
 
-            imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            imageView.contentMode = .Center
+            imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            imageView.contentMode = .center
             imageView.clipsToBounds = true
 
             return imageView
@@ -55,14 +55,14 @@ class ImageCell : UICollectionViewCell {
 
     // MARK: - Lifecycle Methods
 
-    func configureCellWithURLString(URLString: String, placeholderImage: UIImage) {
+    func configureCellWithURLString(_ URLString: String, placeholderImage: UIImage) {
         let size = imageView.frame.size
 
         imageView.af_setImageWithURL(
-            NSURL(string: URLString)!,
+            URL(string: URLString)!,
             placeholderImage: placeholderImage,
             filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-            imageTransition: .CrossDissolve(0.2)
+            imageTransition: .crossDissolve(0.2)
         )
     }
 
