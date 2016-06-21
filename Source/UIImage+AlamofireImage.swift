@@ -106,7 +106,11 @@ extension UIImage {
         guard !af_inflated else { return }
 
         af_inflated = true
+        #if swift(>=2.3)
+        CGDataProviderCopyData(CGImageGetDataProvider(CGImage!)!)
+        #else
         CGDataProviderCopyData(CGImageGetDataProvider(CGImage))
+        #endif
     }
 }
 
@@ -115,7 +119,11 @@ extension UIImage {
 extension UIImage {
     /// Returns whether the image contains an alpha component.
     public var af_containsAlphaComponent: Bool {
+        #if swift(>=2.3)
+        let alphaInfo = CGImageGetAlphaInfo(CGImage!)
+        #else
         let alphaInfo = CGImageGetAlphaInfo(CGImage)
+        #endif
 
         return (
             alphaInfo == .First ||
@@ -146,7 +154,11 @@ extension UIImage {
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
+        #if swift(>=2.3)
+        return scaledImage!
+        #else
         return scaledImage
+        #endif
     }
 
     /**
@@ -183,7 +195,11 @@ extension UIImage {
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
+        #if swift(>=2.3)
+        return scaledImage!
+        #else
         return scaledImage
+        #endif
     }
 
     /**
@@ -215,7 +231,11 @@ extension UIImage {
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
+        #if swift(>=2.3)
+        return scaledImage!
+        #else
         return scaledImage
+        #endif
     }
 }
 
@@ -247,7 +267,11 @@ extension UIImage {
         let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
+        #if swift(>=2.3)
+        return roundedImage!
+        #else
         return roundedImage
+        #endif
     }
 
     /**
@@ -279,7 +303,11 @@ extension UIImage {
         let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
+        #if swift(>=2.3)
+        return roundedImage!
+        #else
         return roundedImage
+        #endif
     }
 }
 
@@ -316,7 +344,11 @@ extension UIImage {
         guard let filter = CIFilter(name: filterName, withInputParameters: parameters) else { return nil }
         guard let outputImage = filter.outputImage else { return nil }
 
+        #if swift(>=2.3)
+        let cgImageRef = context.createCGImage(outputImage, fromRect: outputImage.extent)!
+        #else
         let cgImageRef = context.createCGImage(outputImage, fromRect: outputImage.extent)
+        #endif
 
         return UIImage(CGImage: cgImageRef, scale: scale, orientation: imageOrientation)
     }
