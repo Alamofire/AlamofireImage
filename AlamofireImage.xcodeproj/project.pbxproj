@@ -1362,12 +1362,18 @@
 					};
 					4C9043761AABBFC5001B4E60 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0800;
 					};
 					4C9043811AABBFC5001B4E60 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0800;
+					};
+					4CE611281AABC24E00D35044 = {
+						LastSwiftMigration = 0800;
 					};
 					4CE611461AABC5C900D35044 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -2292,6 +2298,7 @@
 				PRODUCT_NAME = AlamofireImage;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -2315,6 +2322,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alamofire.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AlamofireImage;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -2332,6 +2340,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alamofire.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -2345,6 +2354,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alamofire.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -2411,6 +2421,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alamofire.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AlamofireImage;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = ReleaseTest;
 		};
@@ -2424,6 +2435,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alamofire.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = ReleaseTest;
 		};
@@ -2449,6 +2461,7 @@
 				PRODUCT_NAME = AlamofireImage;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = ReleaseTest;
 		};
@@ -2469,6 +2482,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alamofire.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = ReleaseTest;
 		};
@@ -2555,6 +2569,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -2580,6 +2595,7 @@
 				PRODUCT_NAME = AlamofireImage;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -2603,6 +2619,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alamofire.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -2623,6 +2640,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alamofire.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

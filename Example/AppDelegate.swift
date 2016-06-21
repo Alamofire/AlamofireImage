@@ -29,12 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Application State Methods
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         window = {
-            let window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            let window = UIWindow(frame: UIScreen.main().bounds)
 
             window.rootViewController = UINavigationController(rootViewController: ImagesViewController())
-            window.backgroundColor = UIColor.whiteColor()
+            window.backgroundColor = UIColor.white()
             window.makeKeyAndVisible()
 
             return window
