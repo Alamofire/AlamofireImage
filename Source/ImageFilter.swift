@@ -33,7 +33,7 @@ import Cocoa
 /// The `ImageFilter` protocol defines properties for filtering an image as well as identification of the filter.
 public protocol ImageFilter {
     /// A closure used to create an alternative representation of the given image.
-    var filter: Image -> Image { get }
+    var filter: (Image) -> Image { get }
 
     /// The string used to uniquely identify the filter operation.
     var identifier: String { get }
@@ -86,7 +86,7 @@ public struct DynamicImageFilter: ImageFilter {
     public let identifier: String
 
     /// A closure used to create an alternative representation of the given image.
-    public let filter: Image -> Image
+    public let filter: (Image) -> Image
 
     /**
         Initializes the `DynamicImageFilter` instance with the specified identifier and filter closure.
@@ -96,7 +96,7 @@ public struct DynamicImageFilter: ImageFilter {
 
         - returns: The new `DynamicImageFilter` instance.
     */
-    public init(_ identifier: String, filter: Image -> Image) {
+    public init(_ identifier: String, filter: (Image) -> Image) {
         self.identifier = identifier
         self.filter = filter
     }
@@ -113,11 +113,11 @@ public protocol CompositeImageFilter: ImageFilter {
 public extension CompositeImageFilter {
     /// The unique idenitifier for any `CompositeImageFilter` type.
     var identifier: String {
-        return filters.map { $0.identifier }.joinWithSeparator("_")
+        return filters.map { $0.identifier }.joined(separator: "_")
     }
 
     /// The filter closure for any `CompositeImageFilter` type.
-    var filter: Image -> Image {
+    var filter: (Image) -> Image {
         return { image in
             return self.filters.reduce(image) { $1.filter($0) }
         }
@@ -175,7 +175,7 @@ public struct ScaledToSizeFilter: ImageFilter, Sizable {
     }
 
     /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
+    public var filter: (Image) -> Image {
         return { image in
             return image.af_imageScaledToSize(self.size)
         }
@@ -201,7 +201,7 @@ public struct AspectScaledToFitSizeFilter: ImageFilter, Sizable {
     }
 
     /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
+    public var filter: (Image) -> Image {
         return { image in
             return image.af_imageAspectScaledToFitSize(self.size)
         }
@@ -228,7 +228,7 @@ public struct AspectScaledToFillSizeFilter: ImageFilter, Sizable {
     }
 
     /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
+    public var filter: (Image) -> Image {
         return { image in
             return image.af_imageAspectScaledToFillSize(self.size)
         }
@@ -263,7 +263,7 @@ public struct RoundedCornersFilter: ImageFilter, Roundable {
     }
 
     /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
+    public var filter: (Image) -> Image {
         return { image in
             return image.af_imageWithRoundedCornerRadius(
                 self.radius,
@@ -291,7 +291,7 @@ public struct CircleFilter: ImageFilter {
     public init() {}
 
     /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
+    public var filter: (Image) -> Image {
         return { image in
             return image.af_imageRoundedIntoCircle()
         }
@@ -319,7 +319,7 @@ public struct BlurFilter: ImageFilter {
     }
 
     /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
+    public var filter: (Image) -> Image {
         return { image in
             let parameters = ["inputRadius": self.blurRadius]
             return image.af_imageWithAppliedCoreImageFilter("CIGaussianBlur", filterParameters: parameters) ?? image

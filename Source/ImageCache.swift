@@ -34,29 +34,29 @@ import Cocoa
 /// The `ImageCache` protocol defines a set of APIs for adding, removing and fetching images from a cache.
 public protocol ImageCache {
     /// Adds the image to the cache with the given identifier.
-    func addImage(image: Image, withIdentifier identifier: String)
+    func addImage(_ image: Image, withIdentifier identifier: String)
 
     /// Removes the image from the cache matching the given identifier.
-    func removeImageWithIdentifier(identifier: String) -> Bool
+    func removeImageWithIdentifier(_ identifier: String) -> Bool
 
     /// Removes all images stored in the cache.
     func removeAllImages() -> Bool
 
     /// Returns the image in the cache associated with the given identifier.
-    func imageWithIdentifier(identifier: String) -> Image?
+    func imageWithIdentifier(_ identifier: String) -> Image?
 }
 
 /// The `ImageRequestCache` protocol extends the `ImageCache` protocol by adding methods for adding, removing and
 /// fetching images from a cache given an `NSURLRequest` and additional identifier.
 public protocol ImageRequestCache: ImageCache {
     /// Adds the image to the cache using an identifier created from the request and additional identifier.
-    func addImage(image: Image, forRequest request: NSURLRequest, withAdditionalIdentifier identifier: String?)
+    func addImage(_ image: Image, forRequest request: URLRequest, withAdditionalIdentifier identifier: String?)
 
     /// Removes the image from the cache using an identifier created from the request and additional identifier.
-    func removeImageForRequest(request: NSURLRequest, withAdditionalIdentifier identifier: String?) -> Bool
+    func removeImageForRequest(_ request: URLRequest, withAdditionalIdentifier identifier: String?) -> Bool
 
     /// Returns the image from the cache associated with an identifier created from the request and additional identifier.
-    func imageForRequest(request: NSURLRequest, withAdditionalIdentifier identifier: String?) -> Image?
+    func imageForRequest(_ request: URLRequest, withAdditionalIdentifier identifier: String?) -> Image?
 }
 
 // MARK: -
@@ -70,12 +70,12 @@ public class AutoPurgingImageCache: ImageRequestCache {
         let image: Image
         let identifier: String
         let totalBytes: UInt64
-        var lastAccessDate: NSDate
+        var lastAccessDate: Date
 
         init(_ image: Image, identifier: String) {
             self.image = image
             self.identifier = identifier
-            self.lastAccessDate = NSDate()
+            self.lastAccessDate = Date()
 
             self.totalBytes = {
                 #if os(iOS) || os(tvOS) || os(watchOS)
@@ -93,7 +93,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
         }
 
         func accessImage() -> Image {
-            lastAccessDate = NSDate()
+            lastAccessDate = Date()
             return image
         }
     }
@@ -103,7 +103,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     /// The current total memory usage in bytes of all images stored within the cache.
     public var memoryUsage: UInt64 {
         var memoryUsage: UInt64 = 0
-        dispatch_sync(synchronizationQueue) { memoryUsage = self.currentMemoryUsage }
+        synchronizationQueue.sync { memoryUsage = self.currentMemoryUsage }
 
         return memoryUsage
     }
@@ -115,7 +115,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     /// capacity drops below this limit.
     public let preferredMemoryUsageAfterPurge: UInt64
 
-    private let synchronizationQueue: dispatch_queue_t
+    private let synchronizationQueue: DispatchQueue
     private var cachedImages: [String: CachedImage]
     private var currentMemoryUsage: UInt64
 
@@ -146,21 +146,21 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
         self.synchronizationQueue = {
             let name = String(format: "com.alamofire.autopurgingimagecache-%08%08", arc4random(), arc4random())
-            return dispatch_queue_create(name, DISPATCH_QUEUE_CONCURRENT)
+            return DispatchQueue(label: name, attributes: DispatchQueueAttributes.concurrent)
         }()
 
         #if os(iOS) || os(tvOS)
-            NSNotificationCenter.defaultCenter().addObserver(
+            NotificationCenter.default().addObserver(
                 self,
                 selector: #selector(AutoPurgingImageCache.removeAllImages),
-                name: UIApplicationDidReceiveMemoryWarningNotification,
+                name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning,
                 object: nil
             )
         #endif
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
     }
 
     // MARK: Add Image to Cache
@@ -172,7 +172,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
         - parameter request:    The request used to generate the image's unique identifier.
         - parameter identifier: The additional identifier to append to the image's unique identifier.
     */
-    public func addImage(image: Image, forRequest request: NSURLRequest, withAdditionalIdentifier identifier: String? = nil) {
+    public func addImage(_ image: Image, forRequest request: URLRequest, withAdditionalIdentifier identifier: String? = nil) {
         let requestIdentifier = imageCacheKeyFromURLRequest(request, withAdditionalIdentifier: identifier)
         addImage(image, withIdentifier: requestIdentifier)
     }
@@ -183,8 +183,8 @@ public class AutoPurgingImageCache: ImageRequestCache {
         - parameter image:      The image to add to the cache.
         - parameter identifier: The identifier to use to uniquely identify the image.
     */
-    public func addImage(image: Image, withIdentifier identifier: String) {
-        dispatch_barrier_async(synchronizationQueue) {
+    public func addImage(_ image: Image, withIdentifier identifier: String) {
+        synchronizationQueue.async {
             let cachedImage = CachedImage(image, identifier: identifier)
 
             if let previousCachedImage = self.cachedImages[identifier] {
@@ -195,22 +195,22 @@ public class AutoPurgingImageCache: ImageRequestCache {
             self.currentMemoryUsage += cachedImage.totalBytes
         }
 
-        dispatch_barrier_async(synchronizationQueue) {
+        synchronizationQueue.async {
             if self.currentMemoryUsage > self.memoryCapacity {
                 let bytesToPurge = self.currentMemoryUsage - self.preferredMemoryUsageAfterPurge
 
                 var sortedImages = [CachedImage](self.cachedImages.values)
-                sortedImages.sortInPlace {
+                sortedImages.sort {
                     let date1 = $0.lastAccessDate
                     let date2 = $1.lastAccessDate
 
-                    return date1.timeIntervalSinceDate(date2) < 0.0
+                    return date1.timeIntervalSince(date2) < 0.0
                 }
 
                 var bytesPurged = UInt64(0)
 
                 for cachedImage in sortedImages {
-                    self.cachedImages.removeValueForKey(cachedImage.identifier)
+                    self.cachedImages.removeValue(forKey: cachedImage.identifier)
                     bytesPurged += cachedImage.totalBytes
 
                     if bytesPurged >= bytesToPurge {
@@ -233,7 +233,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
         - returns: `true` if the image was removed, `false` otherwise.
     */
-    public func removeImageForRequest(request: NSURLRequest, withAdditionalIdentifier identifier: String?) -> Bool {
+    public func removeImageForRequest(_ request: URLRequest, withAdditionalIdentifier identifier: String?) -> Bool {
         let requestIdentifier = imageCacheKeyFromURLRequest(request, withAdditionalIdentifier: identifier)
         return removeImageWithIdentifier(requestIdentifier)
     }
@@ -245,11 +245,11 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
         - returns: `true` if the image was removed, `false` otherwise.
     */
-    public func removeImageWithIdentifier(identifier: String) -> Bool {
+    public func removeImageWithIdentifier(_ identifier: String) -> Bool {
         var removed = false
 
-        dispatch_barrier_async(synchronizationQueue) {
-            if let cachedImage = self.cachedImages.removeValueForKey(identifier) {
+        synchronizationQueue.async {
+            if let cachedImage = self.cachedImages.removeValue(forKey: identifier) {
                 self.currentMemoryUsage -= cachedImage.totalBytes
                 removed = true
             }
@@ -266,7 +266,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     @objc public func removeAllImages() -> Bool {
         var removed = false
 
-        dispatch_sync(synchronizationQueue) {
+        synchronizationQueue.sync {
             if !self.cachedImages.isEmpty {
                 self.cachedImages.removeAll()
                 self.currentMemoryUsage = 0
@@ -288,7 +288,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
         - returns: The image if it is stored in the cache, `nil` otherwise.
     */
-    public func imageForRequest(request: NSURLRequest, withAdditionalIdentifier identifier: String? = nil) -> Image? {
+    public func imageForRequest(_ request: URLRequest, withAdditionalIdentifier identifier: String? = nil) -> Image? {
         let requestIdentifier = imageCacheKeyFromURLRequest(request, withAdditionalIdentifier: identifier)
         return imageWithIdentifier(requestIdentifier)
     }
@@ -300,10 +300,10 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
         - returns: The image if it is stored in the cache, `nil` otherwise.
     */
-    public func imageWithIdentifier(identifier: String) -> Image? {
+    public func imageWithIdentifier(_ identifier: String) -> Image? {
         var image: Image?
 
-        dispatch_sync(synchronizationQueue) {
+        synchronizationQueue.sync {
             if let cachedImage = self.cachedImages[identifier] {
                 image = cachedImage.accessImage()
             }
@@ -315,11 +315,11 @@ public class AutoPurgingImageCache: ImageRequestCache {
     // MARK: Private - Helper Methods
 
     private func imageCacheKeyFromURLRequest(
-        request: NSURLRequest,
+        _ request: URLRequest,
         withAdditionalIdentifier identifier: String?)
         -> String
     {
-        var key = request.URLString
+        var key = request.urlString
 
         if let identifier = identifier {
             key += "-\(identifier)"
