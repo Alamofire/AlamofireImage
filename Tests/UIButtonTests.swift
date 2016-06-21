@@ -202,7 +202,7 @@ class UIButtonTests: BaseTestCase {
 
         let expectation2 = expectationWithDescription("background image should download successfully")
         var selectedStateImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
         button.af_setImageForState(.Selected, URL: _URL)
         button.imageObserver = {
@@ -214,7 +214,7 @@ class UIButtonTests: BaseTestCase {
 
         let expectation3 = expectationWithDescription("background image should download successfully")
         var highlightedStateImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
         button.af_setImageForState(.Highlighted, URL: _URL)
         button.imageObserver = {
@@ -226,7 +226,7 @@ class UIButtonTests: BaseTestCase {
 
         let expectation4 = expectationWithDescription("background image should download successfully")
         var disabledStateImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
         button.af_setImageForState(.Disabled, URL: _URL)
         button.imageObserver = {
@@ -267,7 +267,7 @@ class UIButtonTests: BaseTestCase {
         waitForExpectationsWithTimeout(timeout, handler: nil)
         let expectation2 = expectationWithDescription("background image should download successfully")
         var selectedStateBackgroundImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
         button.af_setBackgroundImageForState(.Selected, URL: _URL)
         button.imageObserver = {
@@ -279,7 +279,7 @@ class UIButtonTests: BaseTestCase {
 
         let expectation3 = expectationWithDescription("background image should download successfully")
         var highlightedStateBackgroundImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
         button.af_setBackgroundImageForState(.Highlighted, URL: _URL)
         button.imageObserver = {
@@ -291,7 +291,7 @@ class UIButtonTests: BaseTestCase {
 
         let expectation4 = expectationWithDescription("background image should download successfully")
         var disabledStateBackgroundImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
         button.af_setBackgroundImageForState(.Disabled, URL: _URL)
         button.imageObserver = {
