@@ -114,6 +114,8 @@ extension UIButton {
     ///                               to `nil`.
     /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
     ///                               Defaults to `nil`.
+    /// - parameter filter:           The image filter applied to the image after the image request is
+    ///                               finished. Defaults to `nil`.
     /// - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
     /// - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
     ///                               single response value containing either the image or the error that occurred. If
@@ -123,6 +125,7 @@ extension UIButton {
         for state: UIControlState,
         url: URL,
         placeHolderImage: UIImage? = nil,
+        filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
@@ -131,6 +134,7 @@ extension UIButton {
             for: state,
             urlRequest: urlRequest(with: url),
             placeholderImage: placeHolderImage,
+            filter: filter,
             progress: progress,
             progressQueue: progressQueue,
             completion: completion
@@ -149,6 +153,8 @@ extension UIButton {
     ///                               to `nil`.
     /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
     ///                               Defaults to `nil`.
+    /// - parameter filter:           The image filter applied to the image after the image request is
+    ///                               finished. Defaults to `nil`.
     /// - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
     /// - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
     ///                               single response value containing either the image or the error that occurred. If
@@ -158,6 +164,7 @@ extension UIButton {
         for state: UIControlState,
         urlRequest: URLRequestConvertible,
         placeholderImage: UIImage? = nil,
+        filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
@@ -172,7 +179,7 @@ extension UIButton {
         // Use the image from the image cache if it exists
         if
             let request = urlRequest.urlRequest,
-            let image = imageCache?.image(for: request, withIdentifier: nil)
+            let image = imageCache?.image(for: request, withIdentifier: filter?.identifier)
         {
             let response = DataResponse<UIImage>(
                 request: urlRequest.urlRequest,
@@ -197,7 +204,7 @@ extension UIButton {
         let requestReceipt = imageDownloader.download(
             urlRequest,
             receiptID: downloadID,
-            filter: nil,
+            filter: filter,
             progress: progress,
             progressQueue: progressQueue,
             completion: { [weak self] response in
