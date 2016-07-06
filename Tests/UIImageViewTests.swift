@@ -139,7 +139,7 @@ class UIImageViewTestCase: BaseTestCase {
             expectation.fulfill()
         }
 
-        let configuration = URLSessionConfiguration.ephemeral()
+        let configuration = URLSessionConfiguration.ephemeral
         let imageDownloader = ImageDownloader(configuration: configuration)
         imageView.af_imageDownloader = imageDownloader
 

@@ -32,7 +32,7 @@ private class ThreadCheckFilter: ImageFilter {
 
     var filter: (Image) -> Image {
         return { image in
-            self.calledOnMainQueue = Thread.isMainThread()
+            self.calledOnMainQueue = Thread.isMainThread
             return image
         }
     }
@@ -257,7 +257,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader: ImageDownloader = {
             let configuration: URLSessionConfiguration = {
-                let configuration = URLSessionConfiguration.default()
+                let configuration = URLSessionConfiguration.default
                 configuration.urlCache = nil
 
                 return configuration
@@ -429,7 +429,7 @@ class ImageDownloaderTestCase: BaseTestCase {
             progress: { _, _, _ in
                 if progressCalled == false {
                     progressCalled = true
-                    calledOnMainQueue = Thread.isMainThread()
+                    calledOnMainQueue = Thread.isMainThread
                     progressExpectation.fulfill()
                 }
             },
@@ -641,7 +641,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         // When
         downloader.downloadImage(urlRequest: download) { _ in
-            calledOnMainQueue = Thread.isMainThread()
+            calledOnMainQueue = Thread.isMainThread
             expectation.fulfill()
         }
 

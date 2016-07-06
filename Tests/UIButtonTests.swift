@@ -327,7 +327,7 @@ class UIButtonTests: BaseTestCase {
             expectation.fulfill()
         }
 
-        let configuration = URLSessionConfiguration.ephemeral()
+        let configuration = URLSessionConfiguration.ephemeral
         let imageDownloader = ImageDownloader(configuration: configuration)
         button.af_imageDownloader = imageDownloader
 
