@@ -24,33 +24,32 @@ import Foundation
 import UIKit
 
 extension UIImage {
-    func af_isEqualToImage(image: UIImage, withinTolerance tolerance: UInt8 = 3) -> Bool {
-        guard CGSizeEqualToSize(size, image.size) else { return false }
+    func af_isEqualToImage(_ image: UIImage, withinTolerance tolerance: UInt8 = 3) -> Bool {
+        guard size.equalTo(image.size) else { return false }
 
         let image1 = af_imageWithPNGRepresentation().af_renderedImage()
         let image2 = image.af_imageWithPNGRepresentation().af_renderedImage()
 
         guard let rendered1 = image1, let rendered2 = image2 else { return false }
 
-        let pixelData1 = CGDataProviderCopyData(CGImageGetDataProvider(rendered1.CGImage))
-        let pixelData2 = CGDataProviderCopyData(CGImageGetDataProvider(rendered2.CGImage))
+        let pixelData1 = rendered1.cgImage?.dataProvider?.data
+        let pixelData2 = rendered2.cgImage?.dataProvider?.data
 
         guard let validPixelData1 = pixelData1, let validPixelData2 = pixelData2 else { return false }
 
-        let data1: UnsafePointer<UInt8> = CFDataGetBytePtr(validPixelData1)
-        let data2: UnsafePointer<UInt8> = CFDataGetBytePtr(validPixelData2)
+        let data1 = Data(bytes: CFDataGetBytePtr(validPixelData1), count: CFDataGetLength(validPixelData1))
+        let data2 = Data(bytes: CFDataGetBytePtr(validPixelData2), count: CFDataGetLength(validPixelData2))
 
-        let length1: Int = CFDataGetLength(validPixelData1)
-        let length2: Int = CFDataGetLength(validPixelData2)
+        guard data1.count == data2.count else { return false }
 
-        guard length1 == length2 else { return false }
-
-        for index in 0..<length1 {
+        for index in 0..<data1.count {
             let byte1 = data1[index]
             let byte2 = data2[index]
             let delta = UInt8(abs(Int(byte1) - Int(byte2)))
-
-            guard delta <= tolerance else { return false }
+            guard delta <= tolerance else {
+                print("\(String(format:"0x%2X", byte1)) \(String(format:"0x%2X", byte2)) : Delta: \(delta) Tolerance: \(tolerance)")
+                return false
+            }
         }
 
         return true
@@ -61,38 +60,38 @@ extension UIImage {
         guard images == nil else { return nil }
 
         // Do not attempt to render if not backed by a CGImage
-        guard let imageRef = CGImageCreateCopy(CGImage) else { return nil }
+        guard let imageRef = CGImage(copy: cgImage!) else { return nil }
 
-        let width = CGImageGetWidth(imageRef)
-        let height = CGImageGetHeight(imageRef)
-        let bitsPerComponent = CGImageGetBitsPerComponent(imageRef)
+        let width = imageRef.width
+        let height = imageRef.height
+        let bitsPerComponent = imageRef.bitsPerComponent
 
         // Do not attempt to render if too large or has more than 8-bit components
         guard width * height <= 4096 * 4096 && bitsPerComponent <= 8 else { return nil }
 
         let bytesPerRow: Int = 0
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        var bitmapInfo = CGImageGetBitmapInfo(imageRef)
+        var bitmapInfo = imageRef.bitmapInfo
 
         // Fix alpha channel issues if necessary
-        let alpha = (bitmapInfo.rawValue & CGBitmapInfo.AlphaInfoMask.rawValue)
+        let alpha = (bitmapInfo.rawValue & CGBitmapInfo.alphaInfoMask.rawValue)
 
-        if alpha == CGImageAlphaInfo.None.rawValue {
-            bitmapInfo.remove(.AlphaInfoMask)
-            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.NoneSkipFirst.rawValue)
-        } else if !(alpha == CGImageAlphaInfo.NoneSkipFirst.rawValue) || !(alpha == CGImageAlphaInfo.NoneSkipLast.rawValue) {
-            bitmapInfo.remove(.AlphaInfoMask)
-            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.PremultipliedFirst.rawValue)
+        if alpha == CGImageAlphaInfo.none.rawValue {
+            bitmapInfo.remove(.alphaInfoMask)
+            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.noneSkipFirst.rawValue)
+        } else if !(alpha == CGImageAlphaInfo.noneSkipFirst.rawValue) || !(alpha == CGImageAlphaInfo.noneSkipLast.rawValue) {
+            bitmapInfo.remove(.alphaInfoMask)
+            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.premultipliedFirst.rawValue)
         }
 
         // Render the image
-        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
-        CGContextDrawImage(context, CGRectMake(0.0, 0.0, CGFloat(width), CGFloat(height)), imageRef)
+        let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
+        context?.draw(in: CGRect(x: 0.0, y: 0.0, width: CGFloat(width), height: CGFloat(height)), image: imageRef)
 
         // Make sure the inflation was successful
-        guard let renderedImageRef = CGBitmapContextCreateImage(context) else { return nil }
+        guard let renderedImageRef = context?.makeImage() else { return nil }
 
-        let renderedImage = UIImage(CGImage: renderedImageRef, scale: scale, orientation: imageOrientation)
+        let renderedImage = UIImage(cgImage: renderedImageRef, scale: scale, orientation: imageOrientation)
 
         return renderedImage
     }
@@ -108,7 +107,7 @@ extension UIImage {
     */
     func af_imageWithPNGRepresentation() -> UIImage {
         let data = UIImagePNGRepresentation(self)!
-        let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)!
+        let image = UIImage(data: data, scale: UIScreen.main().scale)!
 
         return image
     }

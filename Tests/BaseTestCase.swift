@@ -35,11 +35,11 @@ class BaseTestCase : XCTestCase {
         super.setUp()
 
         manager = {
-            let configuration: NSURLSessionConfiguration = {
-                let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
+            let configuration: URLSessionConfiguration = {
+                let configuration = URLSessionConfiguration.ephemeral
 
-                let defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
-                configuration.HTTPAdditionalHeaders = defaultHeaders
+                let defaultHeaders = Manager.sharedInstance.session.configuration.httpAdditionalHeaders
+                configuration.httpAdditionalHeaders = defaultHeaders
 
                 return configuration
             }()
@@ -57,16 +57,16 @@ class BaseTestCase : XCTestCase {
 
     // MARK: - Resources
 
-    func URLForResource(fileName: String, withExtension: String) -> NSURL {
-        let bundle = NSBundle(forClass: BaseTestCase.self)
-        return bundle.URLForResource(fileName, withExtension: withExtension)!
+    func URLForResource(_ fileName: String, withExtension: String) -> URL {
+        let bundle = Bundle(for: BaseTestCase.self)
+        return bundle.urlForResource(fileName, withExtension: withExtension)!
     }
 
-    func imageForResource(fileName: String, withExtension ext: String) -> Image {
-        let URL = URLForResource(fileName, withExtension: ext)
-        let data = NSData(contentsOfURL: URL)!
+    func imageForResource(_ fileName: String, withExtension ext: String) -> Image {
+        let resourceURL = URLForResource(fileName, withExtension: ext)
+        let data = try! Data(contentsOf: resourceURL)
         #if os(iOS) || os(tvOS)
-            let image = Image.af_threadSafeImageWithData(data, scale: UIScreen.mainScreen().scale)!
+            let image = Image.af_threadSafeImageWithData(data, scale: UIScreen.main().scale)!
         #elseif os(OSX)
             let image = Image(data: data)!
         #endif

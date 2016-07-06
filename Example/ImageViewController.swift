@@ -41,26 +41,26 @@ class ImageViewController : UIViewController {
 
     private func setUpInstanceProperties() {
         title = gravatar.email
-        edgesForExtendedLayout = UIRectEdge.None
+        edgesForExtendedLayout = UIRectEdge()
         view.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
     }
 
     private func setUpImageView() {
         imageView = UIImageView()
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .scaleAspectFit
 
-        let URL = gravatar.URL(size: view.bounds.size.width)
+        let URL = gravatar.url(size: view.bounds.size.width)
 
         imageView.af_setImageWithURL(
             URL,
             placeholderImage: nil,
             filter: CircleFilter(),
-            imageTransition: .FlipFromBottom(0.5)
+            imageTransition: .flipFromBottom(0.5)
         )
 
         view.addSubview(imageView)
 
         imageView.frame = view.bounds
-        imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 }

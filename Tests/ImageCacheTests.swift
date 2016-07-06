@@ -198,8 +198,8 @@ class ImageCacheTestCase: BaseTestCase {
         cache.addImage(image, withIdentifier: identifier)
         let cachedImageExists = cache.imageWithIdentifier(identifier) != nil
 
-        NSNotificationCenter.defaultCenter().postNotificationName(
-            UIApplicationDidReceiveMemoryWarningNotification,
+        NotificationCenter.default.post(
+            name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning,
             object: nil
         )
 
@@ -348,7 +348,7 @@ class ImageCacheTestCase: BaseTestCase {
             cache.addImage(image, withIdentifier: "\(identifier)-\(index)")
         }
 
-        cache.imageWithIdentifier("\(identifier)-1")
+        _ = cache.imageWithIdentifier("\(identifier)-1")
         cache.addImage(image, withIdentifier: "\(identifier)-640")
 
         // Then
