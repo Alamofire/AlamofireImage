@@ -152,7 +152,7 @@ extension Request {
         #if os(iOS) || os(tvOS)
             return UIScreen.main().scale
         #elseif os(watchOS)
-            return WKInterfaceDevice.currentDevice().screenScale
+            return WKInterfaceDevice.current().screenScale
         #endif
     }
 
@@ -167,24 +167,24 @@ extension Request {
     */
     public class func imageResponseSerializer() -> ResponseSerializer<NSImage, NSError> {
         return ResponseSerializer { request, response, data, error in
-            guard error == nil else { return .Failure(error!) }
+            guard error == nil else { return .failure(error!) }
 
-            guard let validData = data where validData.length > 0 else {
-                return .Failure(Request.imageDataError())
+            guard let validData = data where validData.count > 0 else {
+                return .failure(Request.imageDataError())
             }
 
             guard Request.validateContentTypeForRequest(request, response: response) else {
-                return .Failure(Request.contentTypeValidationError())
+                return .failure(Request.contentTypeValidationError())
             }
 
             guard let bitmapImage = NSBitmapImageRep(data: validData) else {
-                return .Failure(Request.imageDataError())
+                return .failure(Request.imageDataError())
             }
 
             let image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
             image.addRepresentation(bitmapImage)
 
-            return .Success(image)
+            return .success(image)
         }
     }
 

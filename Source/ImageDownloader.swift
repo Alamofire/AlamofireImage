@@ -120,7 +120,7 @@ public class ImageDownloader {
         - returns: The default `NSURLSessionConfiguration` instance.
     */
     public class func defaultURLSessionConfiguration() -> URLSessionConfiguration {
-        let configuration = URLSessionConfiguration.default()
+        let configuration = URLSessionConfiguration.default
 
         configuration.httpAdditionalHeaders = Manager.defaultHTTPHeaders
         configuration.httpShouldSetCookies = true
