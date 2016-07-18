@@ -106,7 +106,7 @@ extension UIImage {
         guard !af_inflated else { return }
 
         af_inflated = true
-        CGDataProviderCopyData(CGImageGetDataProvider(CGImage))
+        CGDataProviderCopyData(CGImageGetDataProvider(CGImage!)!)
     }
 }
 
@@ -115,7 +115,7 @@ extension UIImage {
 extension UIImage {
     /// Returns whether the image contains an alpha component.
     public var af_containsAlphaComponent: Bool {
-        let alphaInfo = CGImageGetAlphaInfo(CGImage)
+        let alphaInfo = CGImageGetAlphaInfo(CGImage!)
 
         return (
             alphaInfo == .First ||
@@ -143,7 +143,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         drawInRect(CGRect(origin: CGPointZero, size: size))
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -180,7 +180,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         drawInRect(CGRect(origin: origin, size: scaledSize))
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -212,7 +212,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         drawInRect(CGRect(origin: origin, size: scaledSize))
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -244,7 +244,7 @@ extension UIImage {
 
         drawInRect(CGRect(origin: CGPointZero, size: size))
 
-        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return roundedImage
@@ -276,7 +276,7 @@ extension UIImage {
 
         squareImage.drawInRect(CGRect(origin: CGPointZero, size: squareImage.size))
 
-        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return roundedImage
@@ -316,7 +316,7 @@ extension UIImage {
         guard let filter = CIFilter(name: filterName, withInputParameters: parameters) else { return nil }
         guard let outputImage = filter.outputImage else { return nil }
 
-        let cgImageRef = context.createCGImage(outputImage, fromRect: outputImage.extent)
+        let cgImageRef = context.createCGImage(outputImage, fromRect: outputImage.extent)!
 
         return UIImage(CGImage: cgImageRef, scale: scale, orientation: imageOrientation)
     }
