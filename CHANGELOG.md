@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 2.x Releases
-- `2.4.x` Releases - [2.4.0](#240)
+- `2.4.x` Releases - [2.4.0](#240) | [2.4.1](#241)
 - `2.3.x` Releases - [2.3.0](#230) | [2.3.1](#231)
 - `2.2.x` Releases - [2.2.0](#220)
 - `2.1.x` Releases - [2.1.0](#210) | [2.1.1](#211)
@@ -17,6 +17,26 @@ All notable changes to this project will be documented in this file.
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+
+## [2.4.1](https://github.com/Alamofire/AlamofireImage/releases/tag/2.4.1)
+Released on 2016-07-18. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/16?closed=1).
+
+#### Updated
+- The dependency requirement in the README to Alamofire 3.3+.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The Alamofire submodule to the 3.4.1 release.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The Travis CI yaml file to use the `xcode7.3` build.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+
+#### Fixed
+- Issue where queue names were not using hex formatters properly.
+  - Fixed by [消失的旅人](https://github.com/xsdlr) in Pull Request
+  [#119](https://github.com/Alamofire/AlamofireImage/pull/119).
+- Deprecation warning from `errorWithCode` usage by switching to explicit `NSError`
+  creation logic.
+  - Fixed by [Christian Noon](https://github.com/cnoon).
 
 ## [2.4.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.4.0)
 Released on 2016-03-23. All issues associated with this milestone can be found using this
