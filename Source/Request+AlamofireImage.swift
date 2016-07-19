@@ -226,11 +226,11 @@ extension Request {
 
     private class func contentTypeValidationError() -> NSError {
         let failureReason = "Failed to validate response due to unacceptable content type"
-        return Error.errorWithCode(NSURLErrorCannotDecodeContentData, failureReason: failureReason)
+        return Error.errorWithCode(Error.Code.ContentTypeValidationFailed, failureReason: failureReason)
     }
 
     private class func imageDataError() -> NSError {
         let failureReason = "Failed to create a valid Image from the response data"
-        return Error.errorWithCode(NSURLErrorCannotDecodeContentData, failureReason: failureReason)
+        return Error.errorWithCode(Error.Code.ImageDataSerializationFailed, failureReason: failureReason)
     }
 }

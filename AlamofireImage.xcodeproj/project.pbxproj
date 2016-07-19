@@ -476,6 +476,10 @@
 		4CFB86631CA3656F007CE085 /* UIButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF3C1C253CA000904E85 /* UIButtonTests.swift */; };
 		4CFC0A061AB4FEC90004D0B8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
 		4CFC0A091AB52BD90004D0B8 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; };
+		92C0E5251CFD061B00F064B0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C0E5241CFD061B00F064B0 /* Error.swift */; };
+		92C0E5261CFD061B00F064B0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C0E5241CFD061B00F064B0 /* Error.swift */; };
+		92C0E5271CFD061B00F064B0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C0E5241CFD061B00F064B0 /* Error.swift */; };
+		92C0E5281CFD061B00F064B0 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C0E5241CFD061B00F064B0 /* Error.swift */; };
 		CF24CF421C253CB100904E85 /* UIButton+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF411C253CB100904E85 /* UIButton+AlamofireImage.swift */; };
 		CF24CF461C253D4F00904E85 /* UIButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF3C1C253CA000904E85 /* UIButtonTests.swift */; };
 /* End PBXBuildFile section */
@@ -746,6 +750,7 @@
 		4CEBB53F1B93C622001391DE /* ImageCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacheTests.swift; sourceTree = "<group>"; };
 		4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilter.swift; sourceTree = "<group>"; };
+		92C0E5241CFD061B00F064B0 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		CF24CF3C1C253CA000904E85 /* UIButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonTests.swift; sourceTree = "<group>"; };
 		CF24CF411C253CB100904E85 /* UIButton+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+AlamofireImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -848,6 +853,7 @@
 				4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */,
 				4C5D84571AAD958A00A42375 /* Extensions */,
 				4C54EE931AABC05100CD894C /* Supporting Files */,
+				92C0E5241CFD061B00F064B0 /* Error.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1927,6 +1933,7 @@
 				4C16B3A51BA93AB700A66EF0 /* UIImage+AlamofireImage.swift in Sources */,
 				4C16B3A31BA93AB700A66EF0 /* ImageFilter.swift in Sources */,
 				4C16B3A21BA93AB700A66EF0 /* ImageDownloader.swift in Sources */,
+				92C0E5271CFD061B00F064B0 /* Error.swift in Sources */,
 				4C16B3A01BA93AB700A66EF0 /* Image.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1956,6 +1963,7 @@
 				4C4D4ECF1B9297BB00C96855 /* UIImage+AlamofireImage.swift in Sources */,
 				4C4D4ECD1B9297BB00C96855 /* ImageFilter.swift in Sources */,
 				4C4D4ECC1B9297BB00C96855 /* ImageDownloader.swift in Sources */,
+				92C0E5281CFD061B00F064B0 /* Error.swift in Sources */,
 				4C4D4ECA1B9297BB00C96855 /* Image.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1971,6 +1979,7 @@
 				4C78EA721AACD28C002C0569 /* UIImageView+AlamofireImage.swift in Sources */,
 				4C5308501AB561BF0051DBAC /* UIImage+AlamofireImage.swift in Sources */,
 				4CFC0A061AB4FEC90004D0B8 /* ImageCache.swift in Sources */,
+				92C0E5251CFD061B00F064B0 /* Error.swift in Sources */,
 				4CE611551AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1999,6 +2008,7 @@
 				4C82907D1B927DA9005E24C8 /* ImageFilter.swift in Sources */,
 				4C82907B1B927CE6005E24C8 /* Image.swift in Sources */,
 				4C82907C1B927D13005E24C8 /* ImageDownloader.swift in Sources */,
+				92C0E5261CFD061B00F064B0 /* Error.swift in Sources */,
 				4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
