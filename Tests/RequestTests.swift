@@ -284,7 +284,7 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
+            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be com.alamofire.error")
             XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
         }
     }
@@ -312,8 +312,8 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be com.alamofire.error")
+            XCTAssertEqual(error.code, NSURLErrorCannotDecodeRawData, "error code should be -1015")
         }
     }
 
@@ -341,7 +341,7 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
+            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be com.alamofire.error")
             XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
         }
     }
@@ -369,7 +369,7 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, Error.Domain, "error domain should be com.alamofire.error")
+            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be com.alamofire.error")
             XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
         }
     }
