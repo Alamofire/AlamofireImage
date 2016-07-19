@@ -100,12 +100,12 @@ public class ImageDownloader {
     var responseHandlers: [String: ResponseHandler] = [:]
 
     private let synchronizationQueue: dispatch_queue_t = {
-        let name = String(format: "com.alamofire.imagedownloader.synchronizationqueue-%08%08", arc4random(), arc4random())
+        let name = String(format: "com.alamofire.imagedownloader.synchronizationqueue-%08x%08x", arc4random(), arc4random())
         return dispatch_queue_create(name, DISPATCH_QUEUE_SERIAL)
     }()
 
     private let responseQueue: dispatch_queue_t = {
-        let name = String(format: "com.alamofire.imagedownloader.responsequeue-%08%08", arc4random(), arc4random())
+        let name = String(format: "com.alamofire.imagedownloader.responsequeue-%08x%08x", arc4random(), arc4random())
         return dispatch_queue_create(name, DISPATCH_QUEUE_CONCURRENT)
     }()
 
