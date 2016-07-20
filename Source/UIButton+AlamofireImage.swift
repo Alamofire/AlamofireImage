@@ -327,9 +327,9 @@ extension UIButton {
         let requestReceipt = imageDownloader.downloadImage(
             urlRequest: urlRequest,
             receiptID: downloadID,
+            filter: nil,
             progress: progress,
             progressQueue: progressQueue,
-            filter: nil,
             completion: { [weak self] response in
                 guard let strongSelf = self else { return }
 
