@@ -32,8 +32,20 @@ extension UIImage {
 
         guard let rendered1 = image1, let rendered2 = image2 else { return false }
 
-        let pixelData1 = CGDataProviderCopyData(CGImageGetDataProvider(rendered1.CGImage))
-        let pixelData2 = CGDataProviderCopyData(CGImageGetDataProvider(rendered2.CGImage))
+        #if swift(>=2.3)
+            guard
+                let CGImage1 = rendered1.CGImage,
+                let CGImage2 = rendered2.CGImage,
+                let dataProvider1 = CGImageGetDataProvider(CGImage1),
+                let dataProvider2 = CGImageGetDataProvider(CGImage2)
+            else { return false }
+
+            let pixelData1 = CGDataProviderCopyData(dataProvider1)
+            let pixelData2 = CGDataProviderCopyData(dataProvider2)
+        #else
+            let pixelData1 = CGDataProviderCopyData(CGImageGetDataProvider(rendered1.CGImage))
+            let pixelData2 = CGDataProviderCopyData(CGImageGetDataProvider(rendered2.CGImage))
+        #endif
 
         guard let validPixelData1 = pixelData1, let validPixelData2 = pixelData2 else { return false }
 
@@ -61,7 +73,11 @@ extension UIImage {
         guard images == nil else { return nil }
 
         // Do not attempt to render if not backed by a CGImage
-        guard let imageRef = CGImageCreateCopy(CGImage) else { return nil }
+        #if swift(>=2.3)
+            guard let CGImage = self.CGImage, let imageRef = CGImageCreateCopy(CGImage) else { return nil }
+        #else
+            guard let imageRef = CGImageCreateCopy(CGImage) else { return nil }
+        #endif
 
         let width = CGImageGetWidth(imageRef)
         let height = CGImageGetHeight(imageRef)
@@ -86,7 +102,22 @@ extension UIImage {
         }
 
         // Render the image
-        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
+        #if swift(>=2.3)
+            let optionalContext = CGBitmapContextCreate(
+                nil,
+                width,
+                height,
+                bitsPerComponent,
+                bytesPerRow,
+                colorSpace,
+                bitmapInfo.rawValue
+            )
+
+            guard let context = optionalContext else { return nil }
+        #else
+            let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
+        #endif
+
         CGContextDrawImage(context, CGRectMake(0.0, 0.0, CGFloat(width), CGFloat(height)), imageRef)
 
         // Make sure the inflation was successful
