@@ -103,7 +103,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         var downloader: ImageDownloader? = ImageDownloader()
 
         // When
-        downloader?.downloadImage(urlRequest: URLRequest(.GET, "https://httpbin.org/image/png")) { _ in
+        let _ = downloader?.downloadImage(urlRequest: URLRequest(.GET, "https://httpbin.org/image/png")) { _ in
             // No-op
         }
 
