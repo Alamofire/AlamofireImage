@@ -173,7 +173,7 @@ extension Request {
                 return .failure(Request.imageDataError())
             }
 
-            guard Request.validateContentTypeForRequest(request, response: response) else {
+            guard Request.validateContentType(forRequest: request, response: response) else {
                 return .failure(Request.contentTypeValidationError())
             }
 
@@ -198,6 +198,7 @@ extension Request {
 
         - returns: The request.
     */
+    @discardableResult
     public func responseImage(completionHandler: (Response<Image, NSError>) -> Void) -> Self {
         return response(
             responseSerializer: Request.imageResponseSerializer(),

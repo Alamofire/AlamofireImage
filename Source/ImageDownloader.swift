@@ -535,6 +535,7 @@ public class ImageDownloader {
         }
     }
 
+    @discardableResult
     func dequeueRequest() -> Request? {
         var request: Request?
 
