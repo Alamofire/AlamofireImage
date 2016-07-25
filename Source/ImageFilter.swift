@@ -359,7 +359,7 @@ public struct ScaledToSizeWithRoundedCornersFilter: CompositeImageFilter {
 
 // MARK: -
 
-/// Scales an image from the center while maintaining the aspect ratio to fit within a specified size, then rounds the 
+/// Scales an image from the center while maintaining the aspect ratio to fit within a specified size, then rounds the
 /// corners to the specified radius.
 public struct AspectScaledToFillSizeWithRoundedCornersFilter: CompositeImageFilter {
     /**

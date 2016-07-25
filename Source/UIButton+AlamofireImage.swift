@@ -114,9 +114,9 @@ extension UIButton {
         - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
                                       Defaults to `nil`.
         - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
-        - parameter completion:       A closure to be executed when the image request finishes. The closure takes a 
-                                      single response value containing either the image or the error that occurred. If 
-                                      the image was returned from the image cache, the response will be `nil`. Defaults 
+        - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
+                                      single response value containing either the image or the error that occurred. If
+                                      the image was returned from the image cache, the response will be `nil`. Defaults
                                       to `nil`.
     */
     public func af_setImageForState(
@@ -145,7 +145,7 @@ extension UIButton {
         - parameter state:            The control state of the button to set the image on.
         - parameter URLRequest:       The URL request.
         - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image will not change its image until the image request finishes. Defaults 
+                                      image will not change its image until the image request finishes. Defaults
                                       to `nil`.
         - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
                                       Defaults to `nil`.

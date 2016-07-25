@@ -136,7 +136,7 @@ extension UIImageView {
         }
     }
 
-    /// The shared image downloader used to download all images. By default, this is the default `ImageDownloader` 
+    /// The shared image downloader used to download all images. By default, this is the default `ImageDownloader`
     /// instance backed with an `AutoPurgingImageCache` which automatically evicts images from the cache when the memory
     /// capacity is reached or memory warning notifications occur. The shared image downloader is only used if the
     /// `af_imageDownloader` is `nil`.
@@ -183,9 +183,9 @@ extension UIImageView {
                                                 request finishes. Defaults to `nil`.
         - parameter filter:                     The image filter applied to the image after the image request is
                                                 finished. Defaults to `nil`.
-        - parameter progress:                   The closure to be executed periodically during the lifecycle of the 
+        - parameter progress:                   The closure to be executed periodically during the lifecycle of the
                                                 request. Defaults to `nil`.
-        - parameter progressQueue:              The dispatch queue to call the progress closure on. Defaults to the 
+        - parameter progressQueue:              The dispatch queue to call the progress closure on. Defaults to the
                                                 main queue.
         - parameter imageTransition:            The image transition animation applied to the image when set.
                                                 Defaults to `.None`.
@@ -226,10 +226,10 @@ extension UIImageView {
         If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
         set immediately, and then the remote image will be set once the image request is finished.
 
-        The `completion` closure is called after the image download and filtering are complete, but before the start of 
-        the image transition. Please note it is no longer the responsibility of the `completion` closure to set the 
-        image. It will be set automatically. If you require a second notification after the image transition completes, 
-        use a `.Custom` image transition with a `completion` closure. The `.Custom` `completion` closure is called when 
+        The `completion` closure is called after the image download and filtering are complete, but before the start of
+        the image transition. Please note it is no longer the responsibility of the `completion` closure to set the
+        image. It will be set automatically. If you require a second notification after the image transition completes,
+        use a `.Custom` image transition with a `completion` closure. The `.Custom` `completion` closure is called when
         the image transition is finished.
 
         - parameter URLRequest:                 The URL request.
