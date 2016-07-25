@@ -84,7 +84,7 @@ extension Request {
         return ResponseSerializer { request, response, data, error in
             guard error == nil else { return .failure(error!) }
 
-            guard let validData = data where validData.count > 0 else {
+            guard let validData = data, validData.count > 0 else {
                 return .failure(Request.imageDataError())
             }
 
@@ -169,7 +169,7 @@ extension Request {
         return ResponseSerializer { request, response, data, error in
             guard error == nil else { return .failure(error!) }
 
-            guard let validData = data where validData.count > 0 else {
+            guard let validData = data, validData.count > 0 else {
                 return .failure(Request.imageDataError())
             }
 
@@ -214,11 +214,11 @@ extension Request {
         response:HTTPURLResponse?)
         -> Bool
     {
-        if let url = request?.url where url.isFileURL {
+        if let url = request?.url, url.isFileURL {
             return true
         }
 
-        if let mimeType = response?.mimeType where Request.acceptableImageContentTypes.contains(mimeType) {
+        if let mimeType = response?.mimeType, Request.acceptableImageContentTypes.contains(mimeType) {
             return true
         }
 

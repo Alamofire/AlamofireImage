@@ -327,9 +327,9 @@ extension UIButton {
         let requestReceipt = imageDownloader.downloadImage(
             urlRequest: urlRequest,
             receiptID: downloadID,
+            filter: nil,
             progress: progress,
             progressQueue: progressQueue,
-            filter: nil,
             completion: { [weak self] response in
                 guard let strongSelf = self else { return }
 
@@ -400,9 +400,9 @@ extension UIButton {
         equalToActiveRequestURLForState state: UIControlState)
         -> Bool
     {
-        if let
-            currentRequest = imageRequestReceiptForState(state)?.request.task.originalRequest
-            where currentRequest.urlString == urlRequest?.urlRequest.urlString
+        if
+            let currentRequest = imageRequestReceiptForState(state)?.request.task.originalRequest,
+            currentRequest.urlString == urlRequest?.urlRequest.urlString
         {
             return true
         }
@@ -415,9 +415,9 @@ extension UIButton {
         equalToActiveRequestURLForState state: UIControlState)
         -> Bool
     {
-        if let
-            currentRequest = backgroundImageRequestReceiptForState(state)?.request.task.originalRequest
-            where currentRequest.urlString == urlRequest?.urlRequest.urlString
+        if
+            let currentRequest = backgroundImageRequestReceiptForState(state)?.request.task.originalRequest,
+            currentRequest.urlString == urlRequest?.urlRequest.urlString
         {
             return true
         }

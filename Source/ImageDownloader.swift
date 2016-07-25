@@ -502,8 +502,8 @@ public class ImageDownloader {
         synchronizationQueue.sync {
             guard self.isActiveRequestCountBelowMaximumLimit() else { return }
 
-            while (!self.queuedRequests.isEmpty) {
-                if let request = self.dequeueRequest() where request.task.state == .suspended {
+            while !self.queuedRequests.isEmpty {
+                if let request = self.dequeueRequest(), request.task.state == .suspended {
                     self.startRequest(request)
                     break
                 }
