@@ -88,7 +88,7 @@ extension Request {
                 return .failure(Request.imageDataError())
             }
 
-            guard Request.validateContentTypeForRequest(request, response: response) else {
+            guard Request.validateContentType(forRequest: request, response: response) else {
                 return .failure(Request.contentTypeValidationError())
             }
 
@@ -126,7 +126,7 @@ extension Request {
     */
     @discardableResult
     public func responseImage(
-        _ imageScale: CGFloat = Request.imageScale,
+        imageScale: CGFloat = Request.imageScale,
         inflateResponseImage: Bool = true,
         completionHandler: (Response<Image, NSError>) -> Void)
         -> Self
@@ -198,7 +198,7 @@ extension Request {
 
         - returns: The request.
     */
-    public func responseImage(_ completionHandler: (Response<Image, NSError>) -> Void) -> Self {
+    public func responseImage(completionHandler: (Response<Image, NSError>) -> Void) -> Self {
         return response(
             responseSerializer: Request.imageResponseSerializer(),
             completionHandler: completionHandler
@@ -209,8 +209,8 @@ extension Request {
 
     // MARK: - Private - Shared Helper Methods
 
-    private class func validateContentTypeForRequest(
-        _ request: URLRequest?,
+    private class func validateContentType(
+        forRequest request: URLRequest?,
         response:HTTPURLResponse?)
         -> Bool
     {

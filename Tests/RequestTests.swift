@@ -61,7 +61,7 @@ class RequestTestCase: BaseTestCase {
     func testThatImageResponseSerializerCanDownloadPNGImage() {
         // Given
         let URLString = "https://httpbin.org/image/png"
-        let expectation = self.expectation(withDescription: "Request should return PNG response image")
+        let expectation = self.expectation(description: "Request should return PNG response image")
 
         var response: Response<Image, NSError>?
 
@@ -72,7 +72,7 @@ class RequestTestCase: BaseTestCase {
                 expectation.fulfill()
             }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -97,7 +97,7 @@ class RequestTestCase: BaseTestCase {
     func testThatImageResponseSerializerCanDownloadJPGImage() {
         // Given
         let URLString = "https://httpbin.org/image/jpeg"
-        let expectation = self.expectation(withDescription: "Request should return JPG response image")
+        let expectation = self.expectation(description: "Request should return JPG response image")
 
         var response: Response<Image, NSError>?
 
@@ -108,7 +108,7 @@ class RequestTestCase: BaseTestCase {
                 expectation.fulfill()
             }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -133,7 +133,7 @@ class RequestTestCase: BaseTestCase {
     func testThatImageResponseSerializerCanDownloadImageFromFileURL() {
         // Given
         let URL = URLForResource("apple", withExtension: "jpg")
-        let expectation = self.expectation(withDescription: "Request should return JPG response image")
+        let expectation = self.expectation(description: "Request should return JPG response image")
 
         var response: Response<Image, NSError>?
 
@@ -144,7 +144,7 @@ class RequestTestCase: BaseTestCase {
                 expectation.fulfill()
             }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -173,7 +173,7 @@ class RequestTestCase: BaseTestCase {
     func testThatImageResponseSerializerCanDownloadAndInflatePNGImage() {
         // Given
         let URLString = "https://httpbin.org/image/png"
-        let expectation = self.expectation(withDescription: "Request should return PNG response image")
+        let expectation = self.expectation(description: "Request should return PNG response image")
 
         var response: Response<Image, NSError>?
 
@@ -184,7 +184,7 @@ class RequestTestCase: BaseTestCase {
                 expectation.fulfill()
             }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -205,7 +205,7 @@ class RequestTestCase: BaseTestCase {
     func testThatImageResponseSerializerCanDownloadAndInflateJPGImage() {
         // Given
         let URLString = "https://httpbin.org/image/jpeg"
-        let expectation = self.expectation(withDescription: "Request should return JPG response image")
+        let expectation = self.expectation(description: "Request should return JPG response image")
 
         var response: Response<Image, NSError>?
 
@@ -216,7 +216,7 @@ class RequestTestCase: BaseTestCase {
                 expectation.fulfill()
             }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -241,7 +241,7 @@ class RequestTestCase: BaseTestCase {
     func testThatAttemptingToDownloadImageFromBadURLReturnsFailureResult() {
         // Given
         let URLString = "https://invalid.for.sure"
-        let expectation = self.expectation(withDescription: "Request should fail with bad URL")
+        let expectation = self.expectation(description: "Request should fail with bad URL")
 
         var response: Response<Image, NSError>?
 
@@ -252,7 +252,7 @@ class RequestTestCase: BaseTestCase {
                 expectation.fulfill()
             }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -264,7 +264,7 @@ class RequestTestCase: BaseTestCase {
     func testThatAttemptingToDownloadUnsupportedImageTypeReturnsFailureResult() {
         // Given
         let URLString = "https://httpbin.org/image/webp"
-        let expectation = self.expectation(withDescription: "Request should return webp response image")
+        let expectation = self.expectation(description: "Request should return webp response image")
 
         var response: Response<Image, NSError>?
 
@@ -275,7 +275,7 @@ class RequestTestCase: BaseTestCase {
                 expectation.fulfill()
             }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -292,7 +292,7 @@ class RequestTestCase: BaseTestCase {
     func testThatAttemptingToSerializeEmptyDataReturnsFailureResult() {
         // Given
         let URLString = "https://httpbin.org/bytes/0"
-        let expectation = self.expectation(withDescription: "Request should download no bytes")
+        let expectation = self.expectation(description: "Request should download no bytes")
 
         var response: Response<Image, NSError>?
 
@@ -303,7 +303,7 @@ class RequestTestCase: BaseTestCase {
                 expectation.fulfill()
             }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -321,7 +321,7 @@ class RequestTestCase: BaseTestCase {
         // Given
         let randomBytes = 4 * 1024 * 1024
         let URLString = "https://httpbin.org/bytes/\(randomBytes)"
-        let expectation = self.expectation(withDescription: "Request should download random bytes")
+        let expectation = self.expectation(description: "Request should download random bytes")
 
         var response: Response<Image, NSError>?
 
@@ -332,7 +332,7 @@ class RequestTestCase: BaseTestCase {
                 expectation.fulfill()
             }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -349,7 +349,7 @@ class RequestTestCase: BaseTestCase {
     func testThatAttemptingToSerializeJSONResponseIntoImageReturnsFailureResult() {
         // Given
         let URLString = "https://httpbin.org/get"
-        let expectation = self.expectation(withDescription: "Request should return JSON")
+        let expectation = self.expectation(description: "Request should return JSON")
 
         var response: Response<Image, NSError>?
 
@@ -360,7 +360,7 @@ class RequestTestCase: BaseTestCase {
                 expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")

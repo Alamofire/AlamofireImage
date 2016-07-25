@@ -53,7 +53,7 @@ class UIImageTestCase: BaseTestCase {
 
         // When
         for _ in 0..<totalIterations {
-            let expectation = self.expectation(withDescription: "image should be created successfully")
+            let expectation = self.expectation(description: "image should be created successfully")
 
             DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
                 let image = UIImage(data: data)
@@ -68,7 +68,7 @@ class UIImageTestCase: BaseTestCase {
             }
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         images.forEach {
@@ -87,7 +87,7 @@ class UIImageTestCase: BaseTestCase {
 
         // When
         for _ in 0..<totalIterations {
-            let expectation = self.expectation(withDescription: "image should be created successfully")
+            let expectation = self.expectation(description: "image should be created successfully")
 
             DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
                 let image = UIImage.af_threadSafeImageWithData(data)
@@ -102,7 +102,7 @@ class UIImageTestCase: BaseTestCase {
             }
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         images.forEach {

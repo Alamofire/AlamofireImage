@@ -67,7 +67,7 @@ class UIButtonTests: BaseTestCase {
 
     func testThatImageCanBeDownloadedFromURL() {
         // Given
-        let expectation = self.expectation(withDescription: "image should download successfully")
+        let expectation = self.expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -77,7 +77,7 @@ class UIButtonTests: BaseTestCase {
 
         // When
         button.af_setImageForState([], url: url)
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(imageDownloadComplete)
@@ -85,7 +85,7 @@ class UIButtonTests: BaseTestCase {
 
     func testThatBackgroundImageCanBeDownloadedFromURL() {
         // Given
-        let expectation = self.expectation(withDescription: "background image should download successfully")
+        let expectation = self.expectation(description: "background image should download successfully")
         var backgroundImageDownloadComplete = false
 
         let button = TestButton {
@@ -95,7 +95,7 @@ class UIButtonTests: BaseTestCase {
 
         // When
         button.af_setBackgroundImageForState([], url: url)
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(backgroundImageDownloadComplete)
@@ -103,7 +103,7 @@ class UIButtonTests: BaseTestCase {
 
     func testThatImageCanBeCancelledAndDownloadedFromURL () {
         // Given
-        let expectation = self.expectation(withDescription: "image should cancel and download successfully")
+        let expectation = self.expectation(description: "image should cancel and download successfully")
         let button = UIButton()
         var result: Result<UIImage, NSError>?
 
@@ -119,13 +119,13 @@ class UIButtonTests: BaseTestCase {
         }
 
         // Then
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
         XCTAssertNotNil(result?.value)
     }
 
     func testThatBackgroundImageCanBeCancelledAndDownloadedFromURL () {
         // Given
-        let expectation = self.expectation(withDescription: "background image should cancel and download successfully")
+        let expectation = self.expectation(description: "background image should cancel and download successfully")
         let button = UIButton()
         var result: Result<UIImage, NSError>?
 
@@ -140,7 +140,7 @@ class UIButtonTests: BaseTestCase {
                 expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(result?.value)
@@ -148,7 +148,7 @@ class UIButtonTests: BaseTestCase {
 
     func testThatActiveImageRequestReceiptIsNilAfterImageDownloadCompletes() {
         // Given
-        let expectation = self.expectation(withDescription: "image should download successfully")
+        let expectation = self.expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -158,7 +158,7 @@ class UIButtonTests: BaseTestCase {
 
         // When
         button.af_setImageForState([], url: url)
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(imageDownloadComplete)
@@ -167,7 +167,7 @@ class UIButtonTests: BaseTestCase {
 
     func testThatActiveBackgroundImageRequestReceiptIsNilAfterImageDownloadCompletes() {
         // Given
-        let expectation = self.expectation(withDescription: "background image should download successfully")
+        let expectation = self.expectation(description: "background image should download successfully")
         var backgroundImageDownloadComplete = false
 
         let button = TestButton {
@@ -177,7 +177,7 @@ class UIButtonTests: BaseTestCase {
 
         // When
         button.af_setBackgroundImageForState([], url: url)
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(backgroundImageDownloadComplete)
@@ -190,7 +190,7 @@ class UIButtonTests: BaseTestCase {
         var _url = url
 
         // When
-        let expectation1 = expectation(withDescription: "background image should download successfully")
+        let expectation1 = expectation(description: "background image should download successfully")
         var normalStateImageDownloadComplete = false
         button.af_setImageForState([], url: _url)
         button.imageObserver = {
@@ -198,9 +198,9 @@ class UIButtonTests: BaseTestCase {
             expectation1.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
-        let expectation2 = expectation(withDescription: "background image should download successfully")
+        let expectation2 = expectation(description: "background image should download successfully")
         var selectedStateImageDownloadComplete = false
         _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
@@ -210,9 +210,9 @@ class UIButtonTests: BaseTestCase {
             expectation2.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
-        let expectation3 = expectation(withDescription: "background image should download successfully")
+        let expectation3 = expectation(description: "background image should download successfully")
         var highlightedStateImageDownloadComplete = false
         _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
@@ -222,9 +222,9 @@ class UIButtonTests: BaseTestCase {
             expectation3.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
-        let expectation4 = expectation(withDescription: "background image should download successfully")
+        let expectation4 = expectation(description: "background image should download successfully")
         var disabledStateImageDownloadComplete = false
         _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
@@ -234,7 +234,7 @@ class UIButtonTests: BaseTestCase {
             expectation4.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(normalStateImageDownloadComplete)
@@ -256,7 +256,7 @@ class UIButtonTests: BaseTestCase {
         var _url = url
 
         // When
-        let expectation1 = expectation(withDescription: "background image should download successfully")
+        let expectation1 = expectation(description: "background image should download successfully")
         var normalStateBackgroundImageDownloadComplete = false
         button.af_setBackgroundImageForState([], url: _url)
         button.imageObserver = {
@@ -264,8 +264,8 @@ class UIButtonTests: BaseTestCase {
             expectation1.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
-        let expectation2 = expectation(withDescription: "background image should download successfully")
+        waitForExpectations(timeout: timeout, handler: nil)
+        let expectation2 = expectation(description: "background image should download successfully")
         var selectedStateBackgroundImageDownloadComplete = false
         _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
@@ -275,9 +275,9 @@ class UIButtonTests: BaseTestCase {
             expectation2.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
-        let expectation3 = expectation(withDescription: "background image should download successfully")
+        let expectation3 = expectation(description: "background image should download successfully")
         var highlightedStateBackgroundImageDownloadComplete = false
         _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
@@ -287,9 +287,9 @@ class UIButtonTests: BaseTestCase {
             expectation3.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
-        let expectation4 = expectation(withDescription: "background image should download successfully")
+        let expectation4 = expectation(description: "background image should download successfully")
         var disabledStateBackgroundImageDownloadComplete = false
         _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
@@ -299,7 +299,7 @@ class UIButtonTests: BaseTestCase {
             expectation4.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(normalStateBackgroundImageDownloadComplete)
@@ -319,7 +319,7 @@ class UIButtonTests: BaseTestCase {
 
     func testThatImageDownloaderOverridesSharedImageDownloader() {
         // Given
-        let expectation = self.expectation(withDescription: "image should download successfully")
+        let expectation = self.expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -335,7 +335,7 @@ class UIButtonTests: BaseTestCase {
         button.af_setImageForState([], url: url)
         let activeRequestCount = imageDownloader.activeRequestCount
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(imageDownloadComplete)
@@ -351,13 +351,13 @@ class UIButtonTests: BaseTestCase {
 
         let downloader = ImageDownloader.defaultInstance
         let download = URLRequest(.GET, url.absoluteString!)
-        let expectation = self.expectation(withDescription: "image download should succeed")
+        let expectation = self.expectation(description: "image download should succeed")
 
         downloader.downloadImage(urlRequest: download) { _ in
             expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // When
         button.af_setImageForState([], url: url)
@@ -386,7 +386,7 @@ class UIButtonTests: BaseTestCase {
     func testThatPlaceholderImageIsDisplayedUntilImageIsDownloadedFromURL() {
         // Given
         let placeholderImage = imageForResource("pirate", withExtension: "jpg")
-        let expectation = self.expectation(withDescription: "image should download successfully")
+        let expectation = self.expectation(description: "image should download successfully")
 
         var imageDownloadComplete = false
         var finalImageEqualsPlaceholderImage = false
@@ -403,7 +403,7 @@ class UIButtonTests: BaseTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(imageDownloadComplete)
@@ -414,7 +414,7 @@ class UIButtonTests: BaseTestCase {
     func testThatBackgroundPlaceholderImageIsDisplayedUntilImageIsDownloadedFromURL() {
         // Given
         let placeholderImage = imageForResource("pirate", withExtension: "jpg")
-        let expectation = self.expectation(withDescription: "image should download successfully")
+        let expectation = self.expectation(description: "image should download successfully")
 
         var backgroundImageDownloadComplete = false
         var finalBackgroundImageEqualsPlaceholderImage = false
@@ -431,7 +431,7 @@ class UIButtonTests: BaseTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(backgroundImageDownloadComplete)
@@ -446,13 +446,13 @@ class UIButtonTests: BaseTestCase {
 
         let downloader = ImageDownloader.defaultInstance
         let download = URLRequest(.GET, url.absoluteString!)
-        let expectation = self.expectation(withDescription: "image download should succeed")
+        let expectation = self.expectation(description: "image download should succeed")
 
         downloader.downloadImage(urlRequest: download) { _ in
             expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // When
         button.af_setImageForState([], url: url, placeHolderImage: placeholderImage)
@@ -469,13 +469,13 @@ class UIButtonTests: BaseTestCase {
 
         let downloader = ImageDownloader.defaultInstance
         let download = URLRequest(.GET, url.absoluteString!)
-        let expectation = self.expectation(withDescription: "image download should succeed")
+        let expectation = self.expectation(description: "image download should succeed")
 
         downloader.downloadImage(urlRequest: download) { _ in
             expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // When
         button.af_setBackgroundImageForState([], url: url, placeHolderImage: placeholderImage)
@@ -497,7 +497,7 @@ class UIButtonTests: BaseTestCase {
             return request
         }()
 
-        let expectation = self.expectation(withDescription: "image download should succeed")
+        let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
         var result: Result<UIImage, NSError>?
@@ -509,7 +509,7 @@ class UIButtonTests: BaseTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
@@ -527,7 +527,7 @@ class UIButtonTests: BaseTestCase {
             return request
         }()
 
-        let expectation = self.expectation(withDescription: "image download should succeed")
+        let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
         var result: Result<UIImage, NSError>?
@@ -539,7 +539,7 @@ class UIButtonTests: BaseTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
@@ -552,7 +552,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
         let urlRequest = Foundation.URLRequest(url: Foundation.URL(string: "really-bad-domain")!)
 
-        let expectation = self.expectation(withDescription: "image download should succeed")
+        let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
         var result: Result<UIImage, NSError>?
@@ -564,7 +564,7 @@ class UIButtonTests: BaseTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
@@ -577,7 +577,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
         let urlRequest = Foundation.URLRequest(url: Foundation.URL(string: "really-bad-domain")!)
 
-        let expectation = self.expectation(withDescription: "image download should succeed")
+        let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
         var result: Result<UIImage, NSError>?
@@ -589,7 +589,7 @@ class UIButtonTests: BaseTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
@@ -604,7 +604,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
         let urlRequest = Foundation.URLRequest(url: Foundation.URL(string: "domain-name-does-not-exist")!)
 
-        let expectation = self.expectation(withDescription: "image download should succeed")
+        let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
         var result: Result<UIImage, NSError>?
@@ -622,7 +622,7 @@ class UIButtonTests: BaseTestCase {
         )
 
         button.af_cancelImageRequestForState([])
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(completionHandlerCalled)
@@ -635,7 +635,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
         let urlRequest = Foundation.URLRequest(url: Foundation.URL(string: "domain-name-does-not-exist")!)
 
-        let expectation = self.expectation(withDescription: "background image download should succeed")
+        let expectation = self.expectation(description: "background image download should succeed")
 
         var completionHandlerCalled = false
         var result: Result<UIImage, NSError>?
@@ -653,7 +653,7 @@ class UIButtonTests: BaseTestCase {
         )
 
         button.af_cancelBackgroundImageRequestForState([])
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(completionHandlerCalled)
@@ -664,7 +664,7 @@ class UIButtonTests: BaseTestCase {
     func testThatActiveImageRequestIsAutomaticallyCancelledBySettingNewURL() {
         // Given
         let button = UIButton()
-        let expectation = self.expectation(withDescription: "image download should succeed")
+        let expectation = self.expectation(description: "image download should succeed")
 
         var completion1Called = false
         var completion2Called = false
@@ -691,7 +691,7 @@ class UIButtonTests: BaseTestCase {
             }
         )
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(completion1Called)
@@ -703,7 +703,7 @@ class UIButtonTests: BaseTestCase {
     func testThatActiveBackgroundImageRequestIsAutomaticallyCancelledBySettingNewURL() {
         // Given
         let button = UIButton()
-        let expectation = self.expectation(withDescription: "background image download should succeed")
+        let expectation = self.expectation(description: "background image download should succeed")
 
         var completion1Called = false
         var completion2Called = false
@@ -730,7 +730,7 @@ class UIButtonTests: BaseTestCase {
             }
         )
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(completion1Called)
@@ -742,7 +742,7 @@ class UIButtonTests: BaseTestCase {
     func testThatActiveImageRequestCanBeCancelledAndRestartedSuccessfully() {
         // Given
         let button = UIButton()
-        let expectation = self.expectation(withDescription: "image download should succeed")
+        let expectation = self.expectation(description: "image download should succeed")
 
         var completion1Called = false
         var completion2Called = false
@@ -771,7 +771,7 @@ class UIButtonTests: BaseTestCase {
             }
         )
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(completion1Called)
@@ -783,7 +783,7 @@ class UIButtonTests: BaseTestCase {
     func testThatActiveBackgroundImageRequestCanBeCancelledAndRestartedSuccessfully() {
         // Given
         let button = UIButton()
-        let expectation = self.expectation(withDescription: "background image download should succeed")
+        let expectation = self.expectation(description: "background image download should succeed")
 
         var completion1Called = false
         var completion2Called = false
@@ -812,7 +812,7 @@ class UIButtonTests: BaseTestCase {
             }
         )
 
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(completion1Called)
@@ -828,7 +828,7 @@ class UIButtonTests: BaseTestCase {
         let redirectURLString = "https://httpbin.org/image/png"
         let url = Foundation.URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
 
-        let expectation = self.expectation(withDescription: "image should download successfully")
+        let expectation = self.expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -838,7 +838,7 @@ class UIButtonTests: BaseTestCase {
 
         // When
         button.af_setImageForState([], url: url)
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
@@ -850,7 +850,7 @@ class UIButtonTests: BaseTestCase {
         let redirectURLString = "https://httpbin.org/image/png"
         let url = Foundation.URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
 
-        let expectation = self.expectation(withDescription: "image should download successfully")
+        let expectation = self.expectation(description: "image should download successfully")
         var backgroundImageDownloadComplete = false
 
         let button = TestButton {
@@ -860,7 +860,7 @@ class UIButtonTests: BaseTestCase {
 
         // When
         button.af_setBackgroundImageForState([], url: url)
-        waitForExpectations(withTimeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(backgroundImageDownloadComplete, "image download complete should be true")
