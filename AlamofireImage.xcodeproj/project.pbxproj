@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4CD589AB1D45B0F500ADEF90 /* Cleanup Whitespace */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4CD589B21D45B0F500ADEF90 /* Build configuration list for PBXAggregateTarget "Cleanup Whitespace" */;
+			buildPhases = (
+				4CD589B31D45B0FD00ADEF90 /* Cleanup Whitespace */,
+			);
+			dependencies = (
+			);
+			name = "Cleanup Whitespace";
+			productName = "Cleanup Whitespace";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		4C0893EC1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */; };
 		4C0893F51B937404005125D9 /* UIImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893F41B937404005125D9 /* UIImageTests.swift */; };
@@ -1366,6 +1380,9 @@
 					4C9043811AABBFC5001B4E60 = {
 						CreatedOnToolsVersion = 6.2;
 					};
+					4CD589AB1D45B0F500ADEF90 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					4CE611461AABC5C900D35044 = {
 						CreatedOnToolsVersion = 6.2;
 					};
@@ -1396,6 +1413,7 @@
 				4C16B37C1BA9399500A66EF0 /* AlamofireImage tvOS */,
 				4C16B3851BA9399500A66EF0 /* AlamofireImage tvOS Tests */,
 				4C4D4EC01B92976900C96855 /* AlamofireImage watchOS */,
+				4CD589AB1D45B0F500ADEF90 /* Cleanup Whitespace */,
 			);
 		};
 /* End PBXProject section */
@@ -1914,6 +1932,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4CD589B31D45B0FD00ADEF90 /* Cleanup Whitespace */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Cleanup Whitespace";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\ndirectories=(Example Source Tests)\n\nfor directory in \"${directories[@]}\"\ndo\necho \"Cleaning whitespace in directory: $directory\"\nfind $directory -iregex '.*\\.swift' -exec sed -E -i '' -e 's/[[:blank:]]*$//' {} \\;\ndone\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4C16B3781BA9399500A66EF0 /* Sources */ = {
@@ -2538,6 +2573,27 @@
 			};
 			name = ReleaseTest;
 		};
+		4CD589AC1D45B0F500ADEF90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4CD589AD1D45B0F500ADEF90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		4CD589AE1D45B0F500ADEF90 /* ReleaseTest */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = ReleaseTest;
+		};
 		4CE611301AABC24E00D35044 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2696,6 +2752,15 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		4CD589B21D45B0F500ADEF90 /* Build configuration list for PBXAggregateTarget "Cleanup Whitespace" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CD589AC1D45B0F500ADEF90 /* Debug */,
+				4CD589AD1D45B0F500ADEF90 /* Release */,
+				4CD589AE1D45B0F500ADEF90 /* ReleaseTest */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		4CE6112F1AABC24E00D35044 /* Build configuration list for PBXNativeTarget "AlamofireImage OSX" */ = {
 			isa = XCConfigurationList;
