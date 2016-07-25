@@ -100,12 +100,12 @@ public class ImageDownloader {
     var responseHandlers: [String: ResponseHandler] = [:]
 
     private let synchronizationQueue: DispatchQueue = {
-        let name = String(format: "com.alamofire.imagedownloader.synchronizationqueue-%08x%08x", arc4random(), arc4random())
+        let name = String(format: "org.alamofire.imagedownloader.synchronizationqueue-%08x%08x", arc4random(), arc4random())
         return DispatchQueue(label: name, attributes: .serial)
     }()
 
     private let responseQueue: DispatchQueue = {
-        let name = String(format: "com.alamofire.imagedownloader.responsequeue-%08x%08x", arc4random(), arc4random())
+        let name = String(format: "org.alamofire.imagedownloader.responsequeue-%08x%08x", arc4random(), arc4random())
         return DispatchQueue(label: name, attributes: .concurrent)
     }()
 
@@ -144,7 +144,7 @@ public class ImageDownloader {
         return URLCache(
             memoryCapacity: 20 * 1024 * 1024, // 20 MB
             diskCapacity: 150 * 1024 * 1024,  // 150 MB
-            diskPath: "com.alamofire.imagedownloader"
+            diskPath: "org.alamofire.imagedownloader"
         )
     }
 

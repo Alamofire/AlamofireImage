@@ -146,7 +146,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
         self.currentMemoryUsage = 0
 
         self.synchronizationQueue = {
-            let name = String(format: "com.alamofire.autopurgingimagecache-%08x%08x", arc4random(), arc4random())
+            let name = String(format: "org.alamofire.autopurgingimagecache-%08x%08x", arc4random(), arc4random())
             return DispatchQueue(label: name, attributes: .concurrent)
         }()
 

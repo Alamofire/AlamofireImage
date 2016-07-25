@@ -26,7 +26,7 @@ import Foundation
 import UIKit
 
 class ImageCell : UICollectionViewCell {
-    class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
+    class var ReuseIdentifier: String { return "org.alamofire.identifier.\(self.dynamicType)" }
     let imageView: UIImageView
 
     // MARK: - Initialization
