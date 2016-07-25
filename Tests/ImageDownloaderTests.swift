@@ -446,48 +446,39 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(calledOnMainQueue, "progress handler should be called on main queue")
     }
 
-// REMOVED FOR NOW TO ACCOMODATE ISSUE WITH GCD MIGRATION
-//    func testThatItCallsTheProgressHandlerOnTheProgressQueue() {
-//        // Given
-//        let downloader = ImageDownloader()
-//        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-//
-//        let progressExpectation = expectation(withDescription: "progress closure should be called")
-//        let completedExpectation = expectation(withDescription: "download request should succeed")
-//
-//        var progressCalled = false
-//        var calledOnExpectedQueue = false
-//
-//        let attributes: DispatchQueue.GlobalAttributes = [DispatchQueue.GlobalAttributes.qosBackground]
-//        let expectedQueue = DispatchQueue.global(attributes:attributes)
-//
-//        // When
-//        downloader.downloadImage(
-//            urlRequest: download,
-//            progress: { _, _, _ in
-//                if progressCalled == false {
-//                    progressCalled = true
-//
-//                    calledOnExpectedQueue = {
-//                        let expectedLabel = expectedQueue.label
-//                        let actualLabel = dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL)
-//                        return expectedLabel == actualLabel
-//                    }()
-//
-//                    progressExpectation.fulfill()
-//                }
-//            },
-//            progressQueue: expectedQueue,
-//            completion: { _ in
-//                completedExpectation.fulfill()
-//            }
-//        )
-//
-//        waitForExpectations(withTimeout: timeout, handler: nil)
-//
-//        // Then
-//        XCTAssertTrue(calledOnExpectedQueue, "progress handler should be called on expected queue")
-//    }
+    func testThatItCallsTheProgressHandlerOnTheProgressQueue() {
+        // Given
+        let downloader = ImageDownloader()
+        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+
+        let progressExpectation = expectation(description: "progress closure should be called")
+        let completedExpectation = expectation(description: "download request should succeed")
+
+        var progressCalled = false
+        var calledOnExpectedQueue = false
+
+        // When
+        downloader.downloadImage(
+            urlRequest: download,
+            progress: { _, _, _ in
+                if progressCalled == false {
+                    progressCalled = true
+                    calledOnExpectedQueue = !Thread.isMainThread
+
+                    progressExpectation.fulfill()
+                }
+            },
+            progressQueue: DispatchQueue.global(attributes: .qosUtility),
+            completion: { _ in
+                completedExpectation.fulfill()
+            }
+        )
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(calledOnExpectedQueue, "progress handler should be called on expected queue")
+    }
 
     // MARK: - Cancellation Tests
 

@@ -57,7 +57,7 @@ class UIImageTestCase: BaseTestCase {
         for _ in 0..<totalIterations {
             let expectation = self.expectation(description: "image should be created successfully")
 
-            DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
+            DispatchQueue.global(attributes: .qosUtility).async {
                 let image = UIImage(data: data)
                 let imageWithScale = UIImage(data: data, scale: CGFloat(self.scale))
 
@@ -91,7 +91,7 @@ class UIImageTestCase: BaseTestCase {
         for _ in 0..<totalIterations {
             let expectation = self.expectation(description: "image should be created successfully")
 
-            DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
+            DispatchQueue.global(attributes: .qosUtility).async {
                 let image = UIImage.af_threadSafeImageWithData(data)
                 let imageWithScale = UIImage.af_threadSafeImageWithData(data, scale: CGFloat(self.scale))
 
