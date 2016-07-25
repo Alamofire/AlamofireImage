@@ -36,8 +36,8 @@ extension UIImage {
     /**
         Initializes and returns the image object with the specified data in a thread-safe manner.
 
-        It has been reported that there are thread-safety issues when initializing large amounts of images 
-        simultaneously. In the event of these issues occurring, this method can be used in place of 
+        It has been reported that there are thread-safety issues when initializing large amounts of images
+        simultaneously. In the event of these issues occurring, this method can be used in place of
         the `init?(data:)` method.
 
         - parameter data: The data object containing the image data.
@@ -60,8 +60,8 @@ extension UIImage {
         the `init?(data:scale:)` method.
 
         - parameter data:  The data object containing the image data.
-        - parameter scale: The scale factor to assume when interpreting the image data. Applying a scale factor of 1.0 
-                           results in an image whose size matches the pixel-based dimensions of the image. Applying a 
+        - parameter scale: The scale factor to assume when interpreting the image data. Applying a scale factor of 1.0
+                           results in an image whose size matches the pixel-based dimensions of the image. Applying a
                            different scale factor changes the size of the image as reported by the size property.
 
         - returns: An initialized `UIImage` object, or `nil` if the method failed.
@@ -161,7 +161,7 @@ extension UIImage {
     }
 
     /**
-        Returns a new version of the image scaled from the center while maintaining the aspect ratio to fit within 
+        Returns a new version of the image scaled from the center while maintaining the aspect ratio to fit within
         a specified size.
 
         The resulting image contains an alpha component used to pad the width or height with the necessary transparent
@@ -237,10 +237,10 @@ extension UIImage {
         Returns a new version of the image with the corners rounded to the specified radius.
 
         - parameter radius:                   The radius to use when rounding the new image.
-        - parameter divideRadiusByImageScale: Whether to divide the radius by the image scale. Set to `true` when the 
-                                              image has the same resolution for all screen scales such as @1x, @2x and 
-                                              @3x (i.e. single image from web server). Set to `false` for images loaded 
-                                              from an asset catalog with varying resolutions for each screen scale. 
+        - parameter divideRadiusByImageScale: Whether to divide the radius by the image scale. Set to `true` when the
+                                              image has the same resolution for all screen scales such as @1x, @2x and
+                                              @3x (i.e. single image from web server). Set to `false` for images loaded
+                                              from an asset catalog with varying resolutions for each screen scale.
                                               `false` by default.
 
         - returns: A new image object.
