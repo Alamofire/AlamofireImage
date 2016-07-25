@@ -61,9 +61,9 @@ public protocol ImageRequestCache: ImageCache {
 
 // MARK: -
 
-/// The `AutoPurgingImageCache` in an in-memory image cache used to store images up to a given memory capacity. When 
-/// the memory capacity is reached, the image cache is sorted by last access date, then the oldest image is continuously 
-/// purged until the preferred memory usage after purge is met. Each time an image is accessed through the cache, the 
+/// The `AutoPurgingImageCache` in an in-memory image cache used to store images up to a given memory capacity. When
+/// the memory capacity is reached, the image cache is sorted by last access date, then the oldest image is continuously
+/// purged until the preferred memory usage after purge is met. Each time an image is accessed through the cache, the
 /// internal access date of the image is updated.
 public class AutoPurgingImageCache: ImageRequestCache {
     private class CachedImage {
@@ -111,7 +111,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     /// The total memory capacity of the cache in bytes.
     public let memoryCapacity: UInt64
 
-    /// The preferred memory usage after purge in bytes. During a purge, images will be purged until the memory 
+    /// The preferred memory usage after purge in bytes. During a purge, images will be purged until the memory
     /// capacity drops below this limit.
     public let preferredMemoryUsageAfterPurge: UInt64
 
@@ -122,7 +122,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     // MARK: Initialization
 
     /**
-        Initialies the `AutoPurgingImageCache` instance with the given memory capacity and preferred memory usage 
+        Initialies the `AutoPurgingImageCache` instance with the given memory capacity and preferred memory usage
         after purge limit.
 
         Please note, the memory capacity must always be greater than or equal to the preferred memory usage after purge.
