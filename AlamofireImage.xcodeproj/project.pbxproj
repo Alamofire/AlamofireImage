@@ -1362,7 +1362,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Alamofire;
 				TargetAttributes = {
 					4C16B37C1BA9399500A66EF0 = {
@@ -1382,11 +1382,11 @@
 						CreatedOnToolsVersion = 6.2;
 						LastSwiftMigration = 0800;
 					};
-					4CE611281AABC24E00D35044 = {
-						LastSwiftMigration = 0800;
-					};
 					4CD589AB1D45B0F500ADEF90 = {
 						CreatedOnToolsVersion = 7.3.1;
+					};
+					4CE611281AABC24E00D35044 = {
+						LastSwiftMigration = 0800;
 					};
 					4CE611461AABC5C900D35044 = {
 						CreatedOnToolsVersion = 6.2;
