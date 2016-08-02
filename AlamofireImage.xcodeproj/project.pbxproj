@@ -2761,6 +2761,7 @@
 				4CD589AE1D45B0F500ADEF90 /* ReleaseTest */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4CE6112F1AABC24E00D35044 /* Build configuration list for PBXNativeTarget "AlamofireImage OSX" */ = {
 			isa = XCConfigurationList;
