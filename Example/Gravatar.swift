@@ -31,7 +31,7 @@ private extension String  {
         let utf8String = trimmedString.cString(using: String.Encoding.utf8)!
         let stringLength = CC_LONG(trimmedString.lengthOfBytes(using: String.Encoding.utf8))
         let digestLength = Int(CC_MD5_DIGEST_LENGTH)
-        let result = UnsafeMutablePointer<CUnsignedChar>(allocatingCapacity: digestLength)
+        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLength)
 
         CC_MD5(utf8String, stringLength, result)
 
@@ -41,7 +41,7 @@ private extension String  {
             hash += String(format: "%02x", result[i])
         }
 
-        result.deallocateCapacity(digestLength)
+        result.deallocate(capacity: digestLength)
 
         return String(format: hash)
     }
@@ -100,8 +100,8 @@ public struct Gravatar {
         self.rating = rating
     }
 
-    public func url(size: CGFloat, scale: CGFloat = UIScreen.main().scale) -> Foundation.URL {
-        let url = try! Gravatar.baseURL.appendingPathComponent(email.md5_hash)
+    public func url(size: CGFloat, scale: CGFloat = UIScreen.main.scale) -> Foundation.URL {
+        let url = Gravatar.baseURL.appendingPathComponent(email.md5_hash)
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
 
         var queryItems = [defaultImage.queryItem, rating.queryItem]

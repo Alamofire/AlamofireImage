@@ -468,7 +468,7 @@ class ImageDownloaderTestCase: BaseTestCase {
                     progressExpectation.fulfill()
                 }
             },
-            progressQueue: DispatchQueue.global(attributes: .qosUtility),
+            progressQueue: DispatchQueue.global(qos: .utility),
             completion: { _ in
                 completedExpectation.fulfill()
             }
@@ -509,7 +509,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isFailure ?? false, "result should be a failure case")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, Error.Domain, "error domain should be org.alamofire.error")
+            XCTAssertEqual(error.domain, ErrorDomain, "error domain should be org.alamofire.error")
             XCTAssertEqual(error.code, NSURLErrorCancelled, "error code should be cancelled")
         }
     }
@@ -552,7 +552,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(response1?.result.isFailure ?? false, "response 1 result should be a failure case")
 
         if let error = response1?.result.error {
-            XCTAssertEqual(error.domain, Error.Domain, "error domain should be org.alamofire.error")
+            XCTAssertEqual(error.domain, ErrorDomain, "error domain should be org.alamofire.error")
             XCTAssertEqual(error.code, NSURLErrorCancelled, "error code should be cancelled")
         }
 

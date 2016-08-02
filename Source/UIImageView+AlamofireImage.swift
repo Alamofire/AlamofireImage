@@ -50,23 +50,23 @@ extension UIImageView {
         /// The duration of the image transition in seconds.
         public var duration: TimeInterval {
             switch self {
-            case none:
+            case .none:
                 return 0.0
-            case crossDissolve(let duration):
+            case .crossDissolve(let duration):
                 return duration
-            case curlDown(let duration):
+            case .curlDown(let duration):
                 return duration
-            case curlUp(let duration):
+            case .curlUp(let duration):
                 return duration
-            case flipFromBottom(let duration):
+            case .flipFromBottom(let duration):
                 return duration
-            case flipFromLeft(let duration):
+            case .flipFromLeft(let duration):
                 return duration
-            case flipFromRight(let duration):
+            case .flipFromRight(let duration):
                 return duration
-            case flipFromTop(let duration):
+            case .flipFromTop(let duration):
                 return duration
-            case custom(let duration, _, _, _):
+            case .custom(let duration, _, _, _):
                 return duration
             }
         }
@@ -74,23 +74,23 @@ extension UIImageView {
         /// The animation options of the image transition.
         public var animationOptions: UIViewAnimationOptions {
             switch self {
-            case none:
+            case .none:
                 return UIViewAnimationOptions()
-            case crossDissolve:
+            case .crossDissolve:
                 return .transitionCrossDissolve
-            case curlDown:
+            case .curlDown:
                 return .transitionCurlDown
-            case curlUp:
+            case .curlUp:
                 return .transitionCurlUp
-            case flipFromBottom:
+            case .flipFromBottom:
                 return .transitionFlipFromBottom
-            case flipFromLeft:
+            case .flipFromLeft:
                 return .transitionFlipFromLeft
-            case flipFromRight:
+            case .flipFromRight:
                 return .transitionFlipFromRight
-            case flipFromTop:
+            case .flipFromTop:
                 return .transitionFlipFromTop
-            case custom(_, let animationOptions, _, _):
+            case .custom(_, let animationOptions, _, _):
                 return animationOptions
             }
         }
@@ -98,7 +98,7 @@ extension UIImageView {
         /// The animation options of the image transition.
         public var animations: ((UIImageView, Image) -> Void) {
             switch self {
-            case custom(_, _, let animations, _):
+            case .custom(_, _, let animations, _):
                 return animations
             default:
                 return { $0.image = $1 }
@@ -108,7 +108,7 @@ extension UIImageView {
         /// The completion closure associated with the image transition.
         public var completion: ((Bool) -> Void)? {
             switch self {
-            case custom(_, _, _, let completion):
+            case .custom(_, _, _, let completion):
                 return completion
             default:
                 return nil
@@ -286,7 +286,7 @@ extension UIImageView {
                 let tinyDelay = DispatchTime.now() + Double(Int64(0.001 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
 
                 // Need to let the runloop cycle for the placeholder image to take affect
-                DispatchQueue.main.after(when: tinyDelay) {
+                DispatchQueue.main.asyncAfter(deadline: tinyDelay) {
                     self.runImageTransition(imageTransition, withImage: image)
                 }
             } else {

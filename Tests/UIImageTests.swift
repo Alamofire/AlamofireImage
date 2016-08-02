@@ -36,7 +36,7 @@ class UIImageTestCase: BaseTestCase {
     var rainbowImage: UIImage { return imageForResource("rainbow", withExtension: "jpg") }
     var unicornImage: UIImage { return imageForResource("unicorn", withExtension: "png") }
 
-    let scale = Int(round(UIScreen.main().scale))
+    let scale = Int(round(UIScreen.main.scale))
 
     let squareSize = CGSize(width: 50, height: 50)
     let horizontalRectangularSize = CGSize(width: 60, height: 30)
@@ -49,7 +49,7 @@ class UIImageTestCase: BaseTestCase {
         let URL = URLForResource("huge_map", withExtension: "jpg")
         let data = try! Data(contentsOf: URL)
 
-        let lock = Lock()
+        let lock = NSLock()
         var images: [UIImage?] = []
         let totalIterations = 1_500
 
@@ -57,7 +57,7 @@ class UIImageTestCase: BaseTestCase {
         for _ in 0..<totalIterations {
             let expectation = self.expectation(description: "image should be created successfully")
 
-            DispatchQueue.global(attributes: .qosUtility).async {
+            DispatchQueue.global(qos: .utility).async {
                 let image = UIImage(data: data)
                 let imageWithScale = UIImage(data: data, scale: CGFloat(self.scale))
 
@@ -83,7 +83,7 @@ class UIImageTestCase: BaseTestCase {
         let URL = URLForResource("huge_map", withExtension: "jpg")
         let data = try! Data(contentsOf: URL)
 
-        let lock = Lock()
+        let lock = NSLock()
         var images: [UIImage?] = []
         let totalIterations = 1_500
 
@@ -91,7 +91,7 @@ class UIImageTestCase: BaseTestCase {
         for _ in 0..<totalIterations {
             let expectation = self.expectation(description: "image should be created successfully")
 
-            DispatchQueue.global(attributes: .qosUtility).async {
+            DispatchQueue.global(qos: .utility).async {
                 let image = UIImage.af_threadSafeImageWithData(data)
                 let imageWithScale = UIImage.af_threadSafeImageWithData(data, scale: CGFloat(self.scale))
 

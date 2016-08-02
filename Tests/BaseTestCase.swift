@@ -61,14 +61,14 @@ class BaseTestCase : XCTestCase {
 
     func URLForResource(_ fileName: String, withExtension: String) -> URL {
         let bundle = Bundle(for: BaseTestCase.self)
-        return bundle.urlForResource(fileName, withExtension: withExtension)!
+        return bundle.url(forResource: fileName, withExtension: withExtension)!
     }
 
     func imageForResource(_ fileName: String, withExtension ext: String) -> Image {
         let resourceURL = URLForResource(fileName, withExtension: ext)
         let data = try! Data(contentsOf: resourceURL)
         #if os(iOS) || os(tvOS)
-            let image = Image.af_threadSafeImageWithData(data, scale: UIScreen.main().scale)!
+            let image = Image.af_threadSafeImageWithData(data, scale: UIScreen.main.scale)!
         #elseif os(OSX)
             let image = Image(data: data)!
         #endif

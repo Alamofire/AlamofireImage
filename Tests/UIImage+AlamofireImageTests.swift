@@ -109,7 +109,7 @@ extension UIImage {
     */
     func af_imageWithPNGRepresentation() -> UIImage {
         let data = UIImagePNGRepresentation(self)!
-        let image = UIImage(data: data, scale: UIScreen.main().scale)!
+        let image = UIImage(data: data, scale: UIScreen.main.scale)!
 
         return image
     }

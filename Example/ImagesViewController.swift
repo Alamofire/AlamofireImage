@@ -64,7 +64,7 @@ class ImagesViewController: UIViewController {
 
     private func setUpCollectionView() {
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = UIColor.white()
+        collectionView.backgroundColor = UIColor.white
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -82,7 +82,7 @@ class ImagesViewController: UIViewController {
 
         var cellWidth = (viewWidth - 4 * 8) / 3.0
 
-        if UIDevice.current().userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             cellWidth = (viewWidth - 7 * 8) / 6.0
         }
 

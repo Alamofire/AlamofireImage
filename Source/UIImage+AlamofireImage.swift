@@ -32,7 +32,7 @@ import CoreImage
 
 // MARK: Initialization
 
-private let lock = Lock()
+private let lock = NSLock()
 
 extension UIImage {
     /**

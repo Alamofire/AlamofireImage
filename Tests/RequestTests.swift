@@ -83,7 +83,7 @@ class RequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.main().scale
+                let screenScale = UIScreen.main.scale
                 let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
                 XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
@@ -119,7 +119,7 @@ class RequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.main().scale
+                let screenScale = UIScreen.main.scale
                 let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
                 XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
@@ -155,7 +155,7 @@ class RequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.main().scale
+                let screenScale = UIScreen.main.scale
                 let expectedSize = CGSize(width: CGFloat(180) / screenScale, height: CGFloat(260) / screenScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
                 XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
@@ -194,7 +194,7 @@ class RequestTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
         if let image = response?.result.value {
-            let screenScale = UIScreen.main().scale
+            let screenScale = UIScreen.main.scale
             let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
 
             XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
@@ -226,7 +226,7 @@ class RequestTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
         if let image = response?.result.value {
-            let screenScale = UIScreen.main().scale
+            let screenScale = UIScreen.main.scale
             let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
 
             XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")

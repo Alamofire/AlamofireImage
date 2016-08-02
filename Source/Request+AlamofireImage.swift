@@ -152,7 +152,7 @@ extension Request {
 
     private class var imageScale: CGFloat {
         #if os(iOS) || os(tvOS)
-            return UIScreen.main().scale
+            return UIScreen.main.scale
         #elseif os(watchOS)
             return WKInterfaceDevice.current().screenScale
         #endif

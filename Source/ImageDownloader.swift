@@ -103,7 +103,7 @@ public class ImageDownloader {
 
     private let synchronizationQueue: DispatchQueue = {
         let name = String(format: "org.alamofire.imagedownloader.synchronizationqueue-%08x%08x", arc4random(), arc4random())
-        return DispatchQueue(label: name, attributes: .serial)
+        return DispatchQueue(label: name)
     }()
 
     private let responseQueue: DispatchQueue = {
@@ -473,7 +473,7 @@ public class ImageDownloader {
                     let error: NSError = {
                         let failureReason = "ImageDownloader cancelled URL request: \(urlRequest.urlString)"
                         let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
-                        return NSError(domain: Error.Domain, code: NSURLErrorCancelled, userInfo: userInfo)
+                        return NSError(domain: ErrorDomain, code: NSURLErrorCancelled, userInfo: userInfo)
                     }()
 
                     return Response(request: urlRequest, response: nil, data: nil, result: .failure(error))

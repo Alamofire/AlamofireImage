@@ -33,10 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         window = {
-            let window = UIWindow(frame: UIScreen.main().bounds)
+            let window = UIWindow(frame: UIScreen.main.bounds)
 
             window.rootViewController = UINavigationController(rootViewController: ImagesViewController())
-            window.backgroundColor = UIColor.white()
+            window.backgroundColor = UIColor.white
             window.makeKeyAndVisible()
 
             return window
