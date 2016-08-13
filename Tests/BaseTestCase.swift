@@ -40,13 +40,13 @@ class BaseTestCase : XCTestCase {
             let configuration: URLSessionConfiguration = {
                 let configuration = URLSessionConfiguration.ephemeral
 
-                let defaultHeaders = SessionManger.sharedInstance.session.configuration.httpAdditionalHeaders
+                let defaultHeaders = SessionManager.sharedInstance.session.configuration.httpAdditionalHeaders
                 configuration.httpAdditionalHeaders = defaultHeaders
 
                 return configuration
             }()
 
-            return SessionManger(configuration: configuration)
+            return SessionManager(configuration: configuration)
         }()
     }
 
