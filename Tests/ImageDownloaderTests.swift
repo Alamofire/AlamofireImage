@@ -91,7 +91,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
     func testThatImageDownloaderCanBeInitializedWithManagerInstanceAndDeinitialized() {
         // Given
-        var downloader: ImageDownloader? = ImageDownloader(sessionManager: Manager())
+        var downloader: ImageDownloader? = ImageDownloader(sessionManager: SessionManger())
 
         // When
         downloader = nil

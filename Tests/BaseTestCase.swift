@@ -29,7 +29,7 @@ import XCTest
 
 class BaseTestCase : XCTestCase {
     let timeout = 5.0
-    var manager: Manager!
+    var manager: SessionManager!
 
     // MARK: - Setup and Teardown
 
@@ -40,13 +40,13 @@ class BaseTestCase : XCTestCase {
             let configuration: URLSessionConfiguration = {
                 let configuration = URLSessionConfiguration.ephemeral
 
-                let defaultHeaders = Manager.sharedInstance.session.configuration.httpAdditionalHeaders
+                let defaultHeaders = SessionManger.sharedInstance.session.configuration.httpAdditionalHeaders
                 configuration.httpAdditionalHeaders = defaultHeaders
 
                 return configuration
             }()
 
-            return Manager(configuration: configuration)
+            return SessionManger(configuration: configuration)
         }()
     }
 
