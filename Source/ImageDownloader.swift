@@ -168,7 +168,7 @@ public class ImageDownloader {
         maximumActiveDownloads: Int = 4,
         imageCache: ImageRequestCache? = AutoPurgingImageCache())
     {
-        self.sessionSessionManger = Alamofire.SessionManager(configuration: configuration)
+        self.sessionManager = Alamofire.SessionManager(configuration: configuration)
         self.sessionManager.startRequestsImmediately = false
 
         self.downloadPrioritization = downloadPrioritization
