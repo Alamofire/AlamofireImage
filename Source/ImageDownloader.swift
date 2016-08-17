@@ -59,7 +59,7 @@ public class ImageDownloader {
     public typealias CompletionHandler = (Response<Image, NSError>) -> Void
 
     /// The progress handler closure called periodically during an image download.
-    public typealias ProgressHandler = (bytesRead: Int64, totalBytesRead: Int64, totalExpectedBytesToRead: Int64) -> Void
+    public typealias ProgressHandler = (_ bytesRead: Int64, _ totalBytesRead: Int64, _ totalExpectedBytesToRead: Int64) -> Void
 
     /**
         Defines the order prioritization of incoming download requests being inserted into the queue.
