@@ -59,7 +59,7 @@ public class ImageDownloader {
     public typealias CompletionHandler = (Response<Image, NSError>) -> Void
 
     /// The progress handler closure called periodically during an image download.
-    public typealias ProgressHandler = (bytesRead: Int64, totalBytesRead: Int64, totalExpectedBytesToRead: Int64) -> Void
+    public typealias ProgressHandler = (_ bytesRead: Int64, _ totalBytesRead: Int64, _ totalExpectedBytesToRead: Int64) -> Void
 
     /**
         Defines the order prioritization of incoming download requests being inserted into the queue.
@@ -91,8 +91,8 @@ public class ImageDownloader {
     /// The credential used for authenticating each download request.
     public private(set) var credential: URLCredential?
 
-    /// The underlying Alamofire `Manager` instance used to handle all download requests.
-    public let sessionManager: Alamofire.Manager
+    /// The underlying Alamofire `SessionManager` instance used to handle all download requests.
+    public let sessionManager: Alamofire.SessionManager
 
     let downloadPrioritization: DownloadPrioritization
     let maximumActiveDownloads: Int
@@ -124,7 +124,7 @@ public class ImageDownloader {
     public class func defaultURLSessionConfiguration() -> URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
 
-        configuration.httpAdditionalHeaders = Manager.defaultHTTPHeaders
+        configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
         configuration.httpShouldSetCookies = true
         configuration.httpShouldUsePipelining = false
 
@@ -155,7 +155,7 @@ public class ImageDownloader {
         download count and image cache.
 
         - parameter configuration:          The `NSURLSessionConfiguration` to use to create the underlying Alamofire
-                                            `Manager` instance.
+                                            `SessionManager` instance.
         - parameter downloadPrioritization: The download prioritization of the download queue. `.FIFO` by default.
         - parameter maximumActiveDownloads: The maximum number of active downloads allowed at any given time.
         - parameter imageCache:             The image cache used to store all downloaded images in.
@@ -168,7 +168,7 @@ public class ImageDownloader {
         maximumActiveDownloads: Int = 4,
         imageCache: ImageRequestCache? = AutoPurgingImageCache())
     {
-        self.sessionManager = Alamofire.Manager(configuration: configuration)
+        self.sessionManager = Alamofire.SessionManager(configuration: configuration)
         self.sessionManager.startRequestsImmediately = false
 
         self.downloadPrioritization = downloadPrioritization
@@ -180,7 +180,7 @@ public class ImageDownloader {
         Initializes the `ImageDownloader` instance with the given sesion manager, download prioritization, maximum
         active download count and image cache.
 
-        - parameter sessionManager:         The Alamofire `Manager` instance to handle all download requests.
+        - parameter sessionManager:         The Alamofire `SessionManager` instance to handle all download requests.
         - parameter downloadPrioritization: The download prioritization of the download queue. `.FIFO` by default.
         - parameter maximumActiveDownloads: The maximum number of active downloads allowed at any given time.
         - parameter imageCache:             The image cache used to store all downloaded images in.
@@ -188,7 +188,7 @@ public class ImageDownloader {
         - returns: The new `ImageDownloader` instance.
     */
     public init(
-        sessionManager: Manager,
+        sessionManager: SessionManager,
         downloadPrioritization: DownloadPrioritization = .fifo,
         maximumActiveDownloads: Int = 4,
         imageCache: ImageRequestCache? = AutoPurgingImageCache())
@@ -233,7 +233,7 @@ public class ImageDownloader {
     // MARK: - Download
 
     /**
-        Creates a download request using the internal Alamofire `Manager` instance for the specified URL request.
+        Creates a download request using the internal Alamofire `SessionManager` instance for the specified URL request.
 
         If the same download request is already in the queue or currently being downloaded, the filter and completion
         handler are appended to the already existing request. Once the request completes, all filters and completion
@@ -407,7 +407,7 @@ public class ImageDownloader {
     }
 
     /**
-        Creates a download request using the internal Alamofire `Manager` instance for each specified URL request.
+        Creates a download request using the internal Alamofire `SessionManager` instance for each specified URL request.
 
         For each request, if the same download request is already in the queue or currently being downloaded, the
         filter and completion handler are appended to the already existing request. Once the request completes, all
