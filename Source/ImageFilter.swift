@@ -43,7 +43,7 @@ public protocol ImageFilter {
 
 extension ImageFilter {
     /// The unique identifier for any `ImageFilter` type.
-    public var identifier: String { return "\(self.dynamicType)" }
+    public var identifier: String { return "\(type(of: self))" }
 }
 
 // MARK: - Sizable
@@ -60,7 +60,7 @@ extension ImageFilter where Self: Sizable {
         let width = Int64(round(size.width))
         let height = Int64(round(size.height))
 
-        return "\(self.dynamicType)-size:(\(width)x\(height))"
+        return "\(type(of: self))-size:(\(width)x\(height))"
     }
 }
 
@@ -76,7 +76,7 @@ extension ImageFilter where Self: Roundable {
     /// The unique idenitifier for an `ImageFilter` conforming to the `Roundable` protocol.
     public var identifier: String {
         let radius = Int64(round(self.radius))
-        return "\(self.dynamicType)-radius:(\(radius))"
+        return "\(type(of: self))-radius:(\(radius))"
     }
 }
 
@@ -98,7 +98,7 @@ public struct DynamicImageFilter: ImageFilter {
 
         - returns: The new `DynamicImageFilter` instance.
     */
-    public init(_ identifier: String, filter: (Image) -> Image) {
+    public init(_ identifier: String, filter: @escaping (Image) -> Image) {
         self.identifier = identifier
         self.filter = filter
     }
@@ -277,7 +277,7 @@ public struct RoundedCornersFilter: ImageFilter, Roundable {
     /// The unique idenitifier for an `ImageFilter` conforming to the `Roundable` protocol.
     public var identifier: String {
         let radius = Int64(round(self.radius))
-        return "\(self.dynamicType)-radius:(\(radius))-divided:(\(divideRadiusByImageScale))"
+        return "\(type(of: self))-radius:(\(radius))-divided:(\(divideRadiusByImageScale))"
     }
 }
 

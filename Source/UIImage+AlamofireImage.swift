@@ -300,7 +300,7 @@ extension UIImage {
     */
     public func af_imageWithAppliedCoreImageFilter(
         _ filterName: String,
-        filterParameters: [String: AnyObject]? = nil) -> UIImage?
+        filterParameters: [String: Any]? = nil) -> UIImage?
     {
         var image: CoreImage.CIImage? = ciImage
 
@@ -312,7 +312,7 @@ extension UIImage {
 
         let context = CIContext(options: [kCIContextPriorityRequestLow: true])
 
-        var parameters: [String: AnyObject] = filterParameters ?? [:]
+        var parameters: [String: Any] = filterParameters ?? [:]
         parameters[kCIInputImageKey] = coreImage
 
         guard let filter = CIFilter(name: filterName, withInputParameters: parameters) else { return nil }

@@ -77,7 +77,7 @@ class ImagesViewController: UIViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
-    private func sizeForCollectionViewItem() -> CGSize {
+    fileprivate func sizeForCollectionViewItem() -> CGSize {
         let viewWidth = view.bounds.size.width
 
         var cellWidth = (viewWidth - 4 * 8) / 3.0
