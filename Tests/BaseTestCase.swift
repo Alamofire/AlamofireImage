@@ -29,43 +29,43 @@ import XCTest
 
 class BaseTestCase : XCTestCase {
     let timeout = 5.0
-    var manager: Manager!
+    var sessionManager: SessionManager!
 
     // MARK: - Setup and Teardown
 
     override func setUp() {
         super.setUp()
 
-        manager = {
+        sessionManager = {
             let configuration: URLSessionConfiguration = {
                 let configuration = URLSessionConfiguration.ephemeral
 
-                let defaultHeaders = Manager.sharedInstance.session.configuration.httpAdditionalHeaders
+                let defaultHeaders = SessionManager.default.session.configuration.httpAdditionalHeaders
                 configuration.httpAdditionalHeaders = defaultHeaders
 
                 return configuration
             }()
 
-            return Manager(configuration: configuration)
+            return SessionManager(configuration: configuration)
         }()
     }
 
     override func tearDown() {
         super.tearDown()
 
-        manager.session.finishTasksAndInvalidate()
-        manager = nil
+        sessionManager.session.finishTasksAndInvalidate()
+        sessionManager = nil
     }
 
     // MARK: - Resources
 
-    func URLForResource(_ fileName: String, withExtension: String) -> URL {
+    func urlForResource(_ fileName: String, withExtension ext: String) -> URL {
         let bundle = Bundle(for: BaseTestCase.self)
-        return bundle.url(forResource: fileName, withExtension: withExtension)!
+        return bundle.url(forResource: fileName, withExtension: ext)!
     }
 
     func imageForResource(_ fileName: String, withExtension ext: String) -> Image {
-        let resourceURL = URLForResource(fileName, withExtension: ext)
+        let resourceURL = urlForResource(fileName, withExtension: ext)
         let data = try! Data(contentsOf: resourceURL)
         #if os(iOS) || os(tvOS)
             let image = Image.af_threadSafeImageWithData(data, scale: UIScreen.main.scale)!

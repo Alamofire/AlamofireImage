@@ -46,8 +46,8 @@ class UIImageTestCase: BaseTestCase {
 
     func testThatHundredsOfLargeImagesCanBeInitializedAcrossMultipleThreads() {
         // Given
-        let URL = URLForResource("huge_map", withExtension: "jpg")
-        let data = try! Data(contentsOf: URL)
+        let url = urlForResource("huge_map", withExtension: "jpg")
+        let data = try! Data(contentsOf: url)
 
         let lock = NSLock()
         var images: [UIImage?] = []
@@ -80,8 +80,8 @@ class UIImageTestCase: BaseTestCase {
 
     func testThatHundredsOfLargeImagesCanBeInitializedAcrossMultipleThreadsWithThreadSafeInitializers() {
         // Given
-        let URL = URLForResource("huge_map", withExtension: "jpg")
-        let data = try! Data(contentsOf: URL)
+        let url = urlForResource("huge_map", withExtension: "jpg")
+        let data = try! Data(contentsOf: url)
 
         let lock = NSLock()
         var images: [UIImage?] = []
@@ -343,7 +343,7 @@ class UIImageTestCase: BaseTestCase {
 
     func testThatImageWithAppliedGaussianBlurFilterReturnsBlurredImage() {
         // Given
-        let parameters: [String: AnyObject] = ["inputRadius": 8]
+        let parameters: [String: Any] = ["inputRadius": 8]
 
         // When
         let blurredImage = unicornImage.af_imageWithAppliedCoreImageFilter("CIGaussianBlur", filterParameters: parameters)

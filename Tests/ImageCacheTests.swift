@@ -78,7 +78,7 @@ class ImageCacheTestCase: BaseTestCase {
     func testThatItCanAddImageToCacheWithRequestIdentifier() {
         // Given
         let image = imageForResource("unicorn", withExtension: "png")
-        let request = URLRequest(.GET, "https://images.example.com/animals")
+        let request = URLRequest(urlString: "https://images.example.com/animals", method: .get)
         let identifier = "-unicorn"
 
         // When
@@ -116,7 +116,7 @@ class ImageCacheTestCase: BaseTestCase {
         // Given
         let unicornImage = imageForResource("unicorn", withExtension: "png")
         let pirateImage = imageForResource("pirate", withExtension: "jpg")
-        let request = URLRequest(.GET, "https://images.example.com/animals")
+        let request = URLRequest(urlString: "https://images.example.com/animals", method: .get)
         let identifier = "animal"
 
         // When
@@ -157,7 +157,7 @@ class ImageCacheTestCase: BaseTestCase {
     func testThatItCanRemoveImageFromCacheWithRequestIdentifier() {
         // Given
         let image = imageForResource("unicorn", withExtension: "png")
-        let request = URLRequest(.GET, "https://images.example.com/animals")
+        let request = URLRequest(urlString: "https://images.example.com/animals", method: .get)
         let identifier = "unicorn"
 
         // When
@@ -234,7 +234,7 @@ class ImageCacheTestCase: BaseTestCase {
     func testThatItCanFetchImageFromCacheWithRequestIdentifier() {
         // Given
         let image = imageForResource("unicorn", withExtension: "png")
-        let request = URLRequest(.GET, "https://images.example.com/animals")
+        let request = URLRequest(urlString: "https://images.example.com/animals", method: .get)
         let identifier = "unicorn"
 
         // When

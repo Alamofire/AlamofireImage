@@ -130,7 +130,7 @@ extension Request {
     public func responseImage(
         imageScale: CGFloat = Request.imageScale,
         inflateResponseImage: Bool = true,
-        completionHandler: (Response<Image, NSError>) -> Void)
+        completionHandler: @escaping (Response<Image, NSError>) -> Void)
         -> Self
     {
         return response(
@@ -201,7 +201,7 @@ extension Request {
         - returns: The request.
     */
     @discardableResult
-    public func responseImage(completionHandler: (Response<Image, NSError>) -> Void) -> Self {
+    public func responseImage(completionHandler: @escaping (Response<Image, NSError>) -> Void) -> Self {
         return response(
             responseSerializer: Request.imageResponseSerializer(),
             completionHandler: completionHandler

@@ -91,7 +91,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
     func testThatImageDownloaderCanBeInitializedWithManagerInstanceAndDeinitialized() {
         // Given
-        var downloader: ImageDownloader? = ImageDownloader(sessionManager: Manager())
+        var downloader: ImageDownloader? = ImageDownloader(sessionManager: SessionManager())
 
         // When
         downloader = nil
@@ -102,10 +102,11 @@ class ImageDownloaderTestCase: BaseTestCase {
 
     func testThatImageDownloaderCanBeInitializedAndDeinitializedWithActiveDownloads() {
         // Given
+        let urlRequest = URLRequest(urlString: "https://httpbin.org/image/png", method: .get)
         var downloader: ImageDownloader? = ImageDownloader()
 
         // When
-        let _ = downloader?.downloadImage(urlRequest: URLRequest(.GET, "https://httpbin.org/image/png")) { _ in
+        let _ = downloader?.downloadImage(urlRequest: urlRequest) { _ in
             // No-op
         }
 
@@ -120,7 +121,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCanDownloadAnImage() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
         var response: Response<Image, NSError>?
@@ -144,8 +145,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-        let download2 = URLRequest(.GET, "https://httpbin.org/image/png")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let download2 = URLRequest(urlString: "https://httpbin.org/image/png", method: .get)
 
         let expectation1 = expectation(description: "download 1 should succeed")
         let expectation2 = expectation(description: "download 2 should succeed")
@@ -182,8 +183,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-        let download2 = URLRequest(.GET, "https://httpbin.org/image/png")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let download2 = URLRequest(urlString: "https://httpbin.org/image/png", method: .get)
 
         let expectation = self.expectation(description: "both downloads should succeed")
         var completedDownloads = 0
@@ -213,8 +214,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader(maximumActiveDownloads: 1)
 
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-        let download2 = URLRequest(.GET, "https://httpbin.org/image/png")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let download2 = URLRequest(urlString: "https://httpbin.org/image/png", method: .get)
 
         // When
         let requestReceipt1 = downloader.downloadImage(urlRequest: download1) { _ in
@@ -236,7 +237,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCallsTheCompletionHandlerEvenWhenDownloadFails() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/get")
+        let download = URLRequest(urlString: "https://httpbin.org/get", method: .get)
         let expectation = self.expectation(description: "download request should fail")
 
         var response: Response<Image, NSError>?
@@ -269,7 +270,7 @@ class ImageDownloaderTestCase: BaseTestCase {
             return downloader
         }()
 
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
         var response: Response<Image, NSError>?
@@ -295,7 +296,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCanDownloadImageAndApplyImageFilter() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let scaledSize = CGSize(width: 100, height: 60)
         let filter = ScaledToSizeFilter(size: scaledSize)
 
@@ -325,8 +326,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-        let download2 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let download2 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         let filter1 = ScaledToSizeFilter(size: CGSize(width: 50, height: 50))
         let filter2 = ScaledToSizeFilter(size: CGSize(width: 75, height: 75))
@@ -372,8 +373,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-        let download2 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let download2 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         let filter1 = TestCircleFilter()
         let filter2 = TestCircleFilter()
@@ -417,7 +418,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCallsTheProgressHandlerOnTheMainQueueByDefault() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         let progressExpectation = expectation(description: "progress closure should be called")
         let completedExpectation = expectation(description: "download request should succeed")
@@ -449,7 +450,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCallsTheProgressHandlerOnTheProgressQueue() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         let progressExpectation = expectation(description: "progress closure should be called")
         let completedExpectation = expectation(description: "download request should succeed")
@@ -485,7 +486,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatCancellingDownloadCallsCompletionWithCancellationError() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         let expectation = self.expectation(description: "download request should succeed")
 
@@ -518,8 +519,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-        let download2 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let download2 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         let expectation1 = expectation(description: "download request 1 should succeed")
         let expectation2 = expectation(description: "download request 2 should succeed")
@@ -568,7 +569,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItDoesNotAttachAuthenticationCredentialToRequestIfItDoesNotExist() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         // When
         let requestReceipt = downloader.downloadImage(urlRequest: download) { _ in
@@ -585,7 +586,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItAttachsUsernamePasswordCredentialToRequestIfItExists() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         // When
         downloader.addAuthentication(user: "foo", password: "bar")
@@ -604,7 +605,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItAttachsAuthenticationCredentialToRequestIfItExists() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         // When
         let credential = URLCredential(user: "foo", password: "bar", persistence: .forSession)
@@ -626,7 +627,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItAlwaysCallsTheCompletionHandlerOnTheMainQueue() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         let expectation = self.expectation(description: "download request should succeed")
 
@@ -647,7 +648,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItNeverCallsTheImageFilterOnTheMainQueue() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let filter = ThreadCheckFilter()
 
         let expectation = self.expectation(description: "download request should succeed")
@@ -668,7 +669,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatCachedImageIsReturnedIfAllowedByCachePolicy() {
         // Given
         let downloader = ImageDownloader()
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         let expectation1 = expectation(description: "image download should succeed")
 
@@ -679,7 +680,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         waitForExpectations(timeout: timeout, handler: nil)
 
-        var download2 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        var download2 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         download2.cachePolicy = .returnCacheDataElseLoad
 
         let expectation2 = expectation(description: "image download should succeed")
@@ -698,7 +699,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatCachedImageIsNotReturnedIfNotAllowedByCachePolicy() {
         // Given
         let downloader = ImageDownloader()
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         let expectation1 = expectation(description: "image download should succeed")
 
@@ -709,7 +710,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         waitForExpectations(timeout: timeout, handler: nil)
 
-        var download2 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        var download2 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         download2.cachePolicy = .reloadIgnoringLocalCacheData
 
         let expectation2 = expectation(description: "image download should succeed")
@@ -728,7 +729,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCanDownloadImagesWhenNoImageCacheIsAvailable() {
         // Given
         let downloader = ImageDownloader(imageCache: nil)
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
         var response: Response<Image, NSError>?
@@ -750,7 +751,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatItAutomaticallyCachesDownloadedImageIfCacheIsAvailable() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
 
         let expectation1 = expectation(description: "image download should succeed")
 
@@ -794,7 +795,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatFilteredImageIsStoredInCacheIfCacheIsAvailable() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let size  = CGSize(width: 20, height: 20)
         let filter = ScaledToSizeFilter(size: size)
 
@@ -846,7 +847,7 @@ class ImageDownloaderTestCase: BaseTestCase {
     func testThatStartingRequestIncrementsActiveRequestCount() {
         // Given
         let downloader = ImageDownloader()
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let download = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let request = downloader.sessionManager.request(download)
 
         // When
@@ -865,8 +866,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-        let download2 = URLRequest(.GET, "https://httpbin.org/image/png")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let download2 = URLRequest(urlString: "https://httpbin.org/image/png", method: .get)
 
         let request1 = downloader.sessionManager.request(download1)
         let request2 = downloader.sessionManager.request(download2)
@@ -887,8 +888,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader(downloadPrioritization: .lifo)
 
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-        let download2 = URLRequest(.GET, "https://httpbin.org/image/png")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let download2 = URLRequest(urlString: "https://httpbin.org/image/png", method: .get)
 
         let request1 = downloader.sessionManager.request(download1)
         let request2 = downloader.sessionManager.request(download2)
@@ -909,8 +910,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader(downloadPrioritization: .fifo)
 
-        let download1 = URLRequest(.GET, "https://httpbin.org/image/jpeg")
-        let download2 = URLRequest(.GET, "https://httpbin.org/image/png")
+        let download1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let download2 = URLRequest(urlString: "https://httpbin.org/image/png", method: .get)
 
         let request1 = downloader.sessionManager.request(download1)
         let request2 = downloader.sessionManager.request(download2)
