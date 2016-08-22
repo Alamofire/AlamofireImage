@@ -35,17 +35,15 @@ import CoreImage
 private let lock = NSLock()
 
 extension UIImage {
-    /**
-        Initializes and returns the image object with the specified data in a thread-safe manner.
-
-        It has been reported that there are thread-safety issues when initializing large amounts of images
-        simultaneously. In the event of these issues occurring, this method can be used in place of
-        the `init?(data:)` method.
-
-        - parameter data: The data object containing the image data.
-
-        - returns: An initialized `UIImage` object, or `nil` if the method failed.
-    */
+    /// Initializes and returns the image object with the specified data in a thread-safe manner.
+    ///
+    /// It has been reported that there are thread-safety issues when initializing large amounts of images
+    /// simultaneously. In the event of these issues occurring, this method can be used in place of
+    /// the `init?(data:)` method.
+    ///
+    /// - parameter data: The data object containing the image data.
+    ///
+    /// - returns: An initialized `UIImage` object, or `nil` if the method failed.
     public static func af_threadSafeImage(with data: Data) -> UIImage? {
         lock.lock()
         let image = UIImage(data: data)
@@ -54,20 +52,18 @@ extension UIImage {
         return image
     }
 
-    /**
-        Initializes and returns the image object with the specified data and scale in a thread-safe manner.
-
-        It has been reported that there are thread-safety issues when initializing large amounts of images
-        simultaneously. In the event of these issues occurring, this method can be used in place of
-        the `init?(data:scale:)` method.
-
-        - parameter data:  The data object containing the image data.
-        - parameter scale: The scale factor to assume when interpreting the image data. Applying a scale factor of 1.0
-                           results in an image whose size matches the pixel-based dimensions of the image. Applying a
-                           different scale factor changes the size of the image as reported by the size property.
-
-        - returns: An initialized `UIImage` object, or `nil` if the method failed.
-    */
+    /// Initializes and returns the image object with the specified data and scale in a thread-safe manner.
+    ///
+    /// It has been reported that there are thread-safety issues when initializing large amounts of images
+    /// simultaneously. In the event of these issues occurring, this method can be used in place of
+    /// the `init?(data:scale:)` method.
+    ///
+    /// - parameter data:  The data object containing the image data.
+    /// - parameter scale: The scale factor to assume when interpreting the image data. Applying a scale factor of 1.0
+    ///                    results in an image whose size matches the pixel-based dimensions of the image. Applying a
+    ///                    different scale factor changes the size of the image as reported by the size property.
+    ///
+    /// - returns: An initialized `UIImage` object, or `nil` if the method failed.
     public static func af_threadSafeImage(with data: Data, scale: CGFloat) -> UIImage? {
         lock.lock()
         let image = UIImage(data: data, scale: scale)
@@ -98,12 +94,10 @@ extension UIImage {
         }
     }
 
-    /**
-        Inflates the underlying compressed image data to be backed by an uncompressed bitmap representation.
-
-        Inflating compressed image formats (such as PNG or JPEG) can significantly improve drawing performance as it
-        allows a bitmap representation to be constructed in the background rather than on the main thread.
-    */
+    /// Inflates the underlying compressed image data to be backed by an uncompressed bitmap representation.
+    ///
+    /// Inflating compressed image formats (such as PNG or JPEG) can significantly improve drawing performance as it
+    /// allows a bitmap representation to be constructed in the background rather than on the main thread.
     public func af_inflate() {
         guard !af_inflated else { return }
 
@@ -134,13 +128,11 @@ extension UIImage {
 // MARK: - Scaling
 
 extension UIImage {
-    /**
-        Returns a new version of the image scaled to the specified size.
-
-        - parameter size: The size to use when scaling the new image.
-
-        - returns: A new image object.
-    */
+    /// Returns a new version of the image scaled to the specified size.
+    ///
+    /// - parameter size: The size to use when scaling the new image.
+    ///
+    /// - returns: A new image object.
     public func af_imageScaledTo(_ size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         draw(in: CGRect(origin: CGPoint.zero, size: size))
@@ -151,19 +143,17 @@ extension UIImage {
         return scaledImage!
     }
 
-    /**
-        Returns a new version of the image scaled from the center while maintaining the aspect ratio to fit within
-        a specified size.
-
-        The resulting image contains an alpha component used to pad the width or height with the necessary transparent
-        pixels to fit the specified size. In high performance critical situations, this may not be the optimal approach.
-        To maintain an opaque image, you could compute the `scaledSize` manually, then use the `af_imageScaledToSize`
-        method in conjunction with a `.Center` content mode to achieve the same visual result.
-
-        - parameter size: The size to use when scaling the new image.
-
-        - returns: A new image object.
-    */
+    /// Returns a new version of the image scaled from the center while maintaining the aspect ratio to fit within
+    /// a specified size.
+    ///
+    /// The resulting image contains an alpha component used to pad the width or height with the necessary transparent
+    /// pixels to fit the specified size. In high performance critical situations, this may not be the optimal approach.
+    /// To maintain an opaque image, you could compute the `scaledSize` manually, then use the `af_imageScaledToSize`
+    /// method in conjunction with a `.Center` content mode to achieve the same visual result.
+    ///
+    /// - parameter size: The size to use when scaling the new image.
+    ///
+    /// - returns: A new image object.
     public func af_imageAspectScaledToFit(_ size: CGSize) -> UIImage {
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
@@ -188,14 +178,12 @@ extension UIImage {
         return scaledImage!
     }
 
-    /**
-        Returns a new version of the image scaled from the center while maintaining the aspect ratio to fill a
-        specified size. Any pixels that fall outside the specified size are clipped.
-
-        - parameter size: The size to use when scaling the new image.
-
-        - returns: A new image object.
-    */
+    /// Returns a new version of the image scaled from the center while maintaining the aspect ratio to fill a
+    /// specified size. Any pixels that fall outside the specified size are clipped.
+    ///
+    /// - parameter size: The size to use when scaling the new image.
+    ///
+    /// - returns: A new image object.
     public func af_imageAspectScaledToFill(_ size: CGSize) -> UIImage {
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
@@ -224,18 +212,16 @@ extension UIImage {
 // MARK: - Rounded Corners
 
 extension UIImage {
-    /**
-        Returns a new version of the image with the corners rounded to the specified radius.
-
-        - parameter radius:                   The radius to use when rounding the new image.
-        - parameter divideRadiusByImageScale: Whether to divide the radius by the image scale. Set to `true` when the
-                                              image has the same resolution for all screen scales such as @1x, @2x and
-                                              @3x (i.e. single image from web server). Set to `false` for images loaded
-                                              from an asset catalog with varying resolutions for each screen scale.
-                                              `false` by default.
-
-        - returns: A new image object.
-    */
+    /// Returns a new version of the image with the corners rounded to the specified radius.
+    ///
+    /// - parameter radius:                   The radius to use when rounding the new image.
+    /// - parameter divideRadiusByImageScale: Whether to divide the radius by the image scale. Set to `true` when the
+    ///                                       image has the same resolution for all screen scales such as @1x, @2x and
+    ///                                       @3x (i.e. single image from web server). Set to `false` for images loaded
+    ///                                       from an asset catalog with varying resolutions for each screen scale.
+    ///                                       `false` by default.
+    ///
+    /// - returns: A new image object.
     public func af_imageWithRoundedCornerRadius(_ radius: CGFloat, divideRadiusByImageScale: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
 
@@ -252,11 +238,9 @@ extension UIImage {
         return roundedImage!
     }
 
-    /**
-        Returns a new version of the image rounded into a circle.
-
-        - returns: A new image object.
-    */
+    /// Returns a new version of the image rounded into a circle.
+    ///
+    /// - returns: A new image object.
     public func af_imageRoundedIntoCircle() -> UIImage {
         let radius = min(size.width, size.height) / 2.0
         var squareImage = self
@@ -290,14 +274,12 @@ extension UIImage {
 // MARK: - Core Image Filters
 
 extension UIImage {
-    /**
-        Returns a new version of the image using a CoreImage filter with the specified name and parameters.
-
-        - parameter filterName:       The name of the CoreImage filter to use on the new image.
-        - parameter filterParameters: The parameters to apply to the CoreImage filter.
-
-        - returns: A new image object, or `nil` if the filter failed for any reason.
-    */
+    /// Returns a new version of the image using a CoreImage filter with the specified name and parameters.
+    ///
+    /// - parameter filterName:       The name of the CoreImage filter to use on the new image.
+    /// - parameter filterParameters: The parameters to apply to the CoreImage filter.
+    ///
+    /// - returns: A new image object, or `nil` if the filter failed for any reason.
     public func af_imageWithAppliedCoreImageFilter(
         _ filterName: String,
         filterParameters: [String: Any]? = nil)

@@ -102,25 +102,23 @@ extension UIButton {
 
     // MARK: - Image Downloads
 
-    /**
-        Asynchronously downloads an image from the specified URL and sets it once the request is finished.
-
-        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
-        set immediately, and then the remote image will be set once the image request is finished.
-
-        - parameter state:            The control state of the button to set the image on.
-        - parameter URL:              The URL used for your image request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image will not change its image until the image request finishes. Defaults
-                                      to `nil`.
-        - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
-                                      Defaults to `nil`.
-        - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
-        - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
-                                      single response value containing either the image or the error that occurred. If
-                                      the image was returned from the image cache, the response will be `nil`. Defaults
-                                      to `nil`.
-    */
+    /// Asynchronously downloads an image from the specified URL and sets it once the request is finished.
+    ///
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// set immediately, and then the remote image will be set once the image request is finished.
+    ///
+    /// - parameter state:            The control state of the button to set the image on.
+    /// - parameter url:              The URL used for your image request.
+    /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
+    ///                               image will not change its image until the image request finishes. Defaults
+    ///                               to `nil`.
+    /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
+    ///                               Defaults to `nil`.
+    /// - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
+    /// - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
+    ///                               single response value containing either the image or the error that occurred. If
+    ///                               the image was returned from the image cache, the response will be `nil`. Defaults
+    ///                               to `nil`.
     public func af_setImage(
         for state: UIControlState,
         url: URL,
@@ -139,25 +137,23 @@ extension UIButton {
         )
     }
 
-    /**
-        Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
-
-        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
-        set immediately, and then the remote image will be set once the image request is finished.
-
-        - parameter state:            The control state of the button to set the image on.
-        - parameter URLRequest:       The URL request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      image will not change its image until the image request finishes. Defaults
-                                      to `nil`.
-        - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
-                                      Defaults to `nil`.
-        - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
-        - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
-                                      single response value containing either the image or the error that occurred. If
-                                      the image was returned from the image cache, the response will be `nil`. Defaults
-                                      to `nil`.
-    */
+    /// Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
+    ///
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// set immediately, and then the remote image will be set once the image request is finished.
+    ///
+    /// - parameter state:            The control state of the button to set the image on.
+    /// - parameter urlRequest:       The URL request.
+    /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
+    ///                               image will not change its image until the image request finishes. Defaults
+    ///                               to `nil`.
+    /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
+    ///                               Defaults to `nil`.
+    /// - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
+    /// - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
+    ///                               single response value containing either the image or the error that occurred. If
+    ///                               the image was returned from the image cache, the response will be `nil`. Defaults
+    ///                               to `nil`.
     public func af_setImage(
         for state: UIControlState,
         urlRequest: URLRequestConvertible,
@@ -224,9 +220,7 @@ extension UIButton {
         setImageRequestReceipt(requestReceipt, for: state)
     }
 
-    /**
-        Cancels the active download request for the image, if one exists.
-    */
+    /// Cancels the active download request for the image, if one exists.
     public func af_cancelImageRequest(for state: UIControlState) {
         guard let receipt = imageRequestReceipt(for: state) else { return }
 
@@ -238,25 +232,23 @@ extension UIButton {
 
     // MARK: - Background Image Downloads
 
-    /**
-        Asynchronously downloads an image from the specified URL and sets it once the request is finished.
-
-        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
-        set immediately, and then the remote image will be set once the image request is finished.
-
-        - parameter state:            The control state of the button to set the image on.
-        - parameter URL:              The URL used for the image request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      background image will not change its image until the image request finishes.
-                                      Defaults to `nil`.
-        - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
-                                      Defaults to `nil`.
-        - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
-        - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
-                                      single response value containing either the image or the error that occurred. If
-                                      the image was returned from the image cache, the response will be `nil`. Defaults
-                                      to `nil`.
-    */
+    /// Asynchronously downloads an image from the specified URL and sets it once the request is finished.
+    ///
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// set immediately, and then the remote image will be set once the image request is finished.
+    ///
+    /// - parameter state:            The control state of the button to set the image on.
+    /// - parameter url:              The URL used for the image request.
+    /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
+    ///                               background image will not change its image until the image request finishes.
+    ///                               Defaults to `nil`.
+    /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
+    ///                               Defaults to `nil`.
+    /// - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
+    /// - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
+    ///                               single response value containing either the image or the error that occurred. If
+    ///                               the image was returned from the image cache, the response will be `nil`. Defaults
+    ///                               to `nil`.
     public func af_setBackgroundImage(
         for state: UIControlState,
         url: URL,
@@ -272,25 +264,23 @@ extension UIButton {
             completion: completion)
     }
 
-    /**
-        Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
-
-        If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
-        set immediately, and then the remote image will be set once the image request is finished.
-
-        - parameter state:            The control state of the button to set the image on.
-        - parameter URLRequest:       The URL request.
-        - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
-                                      background image will not change its image until the image request finishes.
-                                      Defaults to `nil`.
-        - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
-                                      Defaults to `nil`.
-        - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
-        - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
-                                      single response value containing either the image or the error that occurred. If
-                                      the image was returned from the image cache, the response will be `nil`. Defaults
-                                      to `nil`.
-    */
+    /// Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
+    ///
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// set immediately, and then the remote image will be set once the image request is finished.
+    ///
+    /// - parameter state:            The control state of the button to set the image on.
+    /// - parameter urlRequest:       The URL request.
+    /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
+    ///                               background image will not change its image until the image request finishes.
+    ///                               Defaults to `nil`.
+    /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
+    ///                               Defaults to `nil`.
+    /// - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
+    /// - parameter completion:       A closure to be executed when the image request finishes. The closure takes a
+    ///                               single response value containing either the image or the error that occurred. If
+    ///                               the image was returned from the image cache, the response will be `nil`. Defaults
+    ///                               to `nil`.
     public func af_setBackgroundImage(
         for state: UIControlState,
         urlRequest: URLRequestConvertible,
@@ -357,9 +347,7 @@ extension UIButton {
         setBackgroundImageRequestReceipt(requestReceipt, for: state)
     }
 
-    /**
-        Cancels the active download request for the background image, if one exists.
-    */
+    /// Cancels the active download request for the background image, if one exists.
     public func af_cancelBackgroundImageRequest(for state: UIControlState) {
         guard let receipt = backgroundImageRequestReceipt(for: state) else { return }
 
