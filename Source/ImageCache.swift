@@ -181,7 +181,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     /// - parameter image:      The image to add to the cache.
     /// - parameter identifier: The identifier to use to uniquely identify the image.
     public func add(_ image: Image, withIdentifier identifier: String) {
-        let cacheWork = DispatchWorkItem(flags: [DispatchWorkItemFlags.barrier]) {
+        synchronizationQueue.async(flags: [.barrier]) {
             let cachedImage = CachedImage(image, identifier: identifier)
 
             if let previousCachedImage = self.cachedImages[identifier] {
@@ -192,9 +192,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
             self.currentMemoryUsage += cachedImage.totalBytes
         }
 
-        synchronizationQueue.async(execute: cacheWork)
-
-        let cleanupWork = DispatchWorkItem(flags: [DispatchWorkItemFlags.barrier]) {
+        synchronizationQueue.async(flags: [.barrier]) {
             if self.currentMemoryUsage > self.memoryCapacity {
                 let bytesToPurge = self.currentMemoryUsage - self.preferredMemoryUsageAfterPurge
 
@@ -221,7 +219,6 @@ public class AutoPurgingImageCache: ImageRequestCache {
                 self.currentMemoryUsage -= bytesPurged
             }
         }
-        synchronizationQueue.async(execute: cleanupWork)
     }
 
     // MARK: Remove Image from Cache
