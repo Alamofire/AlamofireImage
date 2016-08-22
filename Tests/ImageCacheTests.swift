@@ -146,11 +146,12 @@ class ImageCacheTestCase: BaseTestCase {
         cache.add(image, withIdentifier: identifier)
         let cachedImageExists = cache.image(withIdentifier: identifier) != nil
 
-        cache.removeImage(withIdentifier: identifier)
+        let removedImage = cache.removeImage(withIdentifier: identifier)
         let cachedImageExistsAfterRemoval = cache.image(withIdentifier: identifier) != nil
 
         // Then
         XCTAssertTrue(cachedImageExists, "cached image exists should be true")
+        XCTAssertTrue(removedImage, "removed image should be true")
         XCTAssertFalse(cachedImageExistsAfterRemoval, "cached image exists after removal should be false")
     }
 
@@ -164,11 +165,12 @@ class ImageCacheTestCase: BaseTestCase {
         cache.add(image, for: request, withIdentifier: identifier)
         let cachedImageExists = cache.image(for: request, withIdentifier: identifier) != nil
 
-        cache.removeImage(for: request, withIdentifier: identifier)
+        let removedImage = cache.removeImage(for: request, withIdentifier: identifier)
         let cachedImageExistsAfterRemoval = cache.image(for: request, withIdentifier: identifier) != nil
 
         // Then
         XCTAssertTrue(cachedImageExists, "cached image exists should be true")
+        XCTAssertTrue(removedImage, "removed image should be true")
         XCTAssertFalse(cachedImageExistsAfterRemoval, "cached image exists after removal should be false")
     }
 
@@ -181,11 +183,12 @@ class ImageCacheTestCase: BaseTestCase {
         cache.add(image, withIdentifier: identifier)
         let cachedImageExists = cache.image(withIdentifier: identifier) != nil
 
-        cache.removeAllImages()
+        let removedImages = cache.removeAllImages()
         let cachedImageExistsAfterRemoval = cache.image(withIdentifier: identifier) != nil
 
         // Then
         XCTAssertTrue(cachedImageExists, "cached image exists should be true")
+        XCTAssertTrue(removedImages, "removed images should be true")
         XCTAssertFalse(cachedImageExistsAfterRemoval, "cached image exists after removal should be false")
     }
 

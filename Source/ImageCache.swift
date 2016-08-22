@@ -247,14 +247,12 @@ public class AutoPurgingImageCache: ImageRequestCache {
     public func removeImage(withIdentifier identifier: String) -> Bool {
         var removed = false
 
-        let removeWork = DispatchWorkItem(flags: [DispatchWorkItemFlags.barrier]) {
+        synchronizationQueue.sync {
             if let cachedImage = self.cachedImages.removeValue(forKey: identifier) {
                 self.currentMemoryUsage -= cachedImage.totalBytes
                 removed = true
             }
         }
-
-        synchronizationQueue.async(execute: removeWork)
 
         return removed
     }
