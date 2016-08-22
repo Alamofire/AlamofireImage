@@ -59,16 +59,17 @@ class BaseTestCase : XCTestCase {
 
     // MARK: - Resources
 
-    func urlForResource(_ fileName: String, withExtension ext: String) -> URL {
+    func url(forResource fileName: String, withExtension ext: String) -> URL {
         let bundle = Bundle(for: BaseTestCase.self)
         return bundle.url(forResource: fileName, withExtension: ext)!
     }
 
-    func imageForResource(_ fileName: String, withExtension ext: String) -> Image {
-        let resourceURL = urlForResource(fileName, withExtension: ext)
+    func image(forResource fileName: String, withExtension ext: String) -> Image {
+        let resourceURL = url(forResource: fileName, withExtension: ext)
         let data = try! Data(contentsOf: resourceURL)
+
         #if os(iOS) || os(tvOS)
-            let image = Image.af_threadSafeImageWithData(data, scale: UIScreen.main.scale)!
+            let image = Image.af_threadSafeImage(with: data, scale: UIScreen.main.scale)!
         #elseif os(OSX)
             let image = Image(data: data)!
         #endif

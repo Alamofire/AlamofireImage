@@ -134,7 +134,7 @@ class RequestTestCase: BaseTestCase {
 
     func testThatImageResponseSerializerCanDownloadImageFromFileURL() {
         // Given
-        let url = urlForResource("apple", withExtension: "jpg")
+        let url = self.url(forResource: "apple", withExtension: "jpg")
         let expectation = self.expectation(description: "Request should return JPG response image")
 
         var response: Response<Image, NSError>?

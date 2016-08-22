@@ -90,12 +90,12 @@ extension Request {
                 return .failure(Request.imageDataError())
             }
 
-            guard Request.validateContentType(forRequest: request, response: response) else {
+            guard Request.validateContentType(for: request, response: response) else {
                 return .failure(Request.contentTypeValidationError())
             }
 
             do {
-                let image = try Request.imageFromResponseData(validData, imageScale: imageScale)
+                let image = try Request.image(from: validData, withImageScale: imageScale)
                 if inflateResponseImage { image.af_inflate() }
 
                 return .success(image)
@@ -142,8 +142,8 @@ extension Request {
         )
     }
 
-    private class func imageFromResponseData(_ data: Data, imageScale: CGFloat) throws -> UIImage {
-        if let image = UIImage.af_threadSafeImageWithData(data, scale: imageScale) {
+    private class func image(from data: Data, withImageScale imageScale: CGFloat) throws -> UIImage {
+        if let image = UIImage.af_threadSafeImage(with: data, scale: imageScale) {
             return image
         }
 
@@ -175,7 +175,7 @@ extension Request {
                 return .failure(Request.imageDataError())
             }
 
-            guard Request.validateContentType(forRequest: request, response: response) else {
+            guard Request.validateContentType(for: request, response: response) else {
                 return .failure(Request.contentTypeValidationError())
             }
 
@@ -212,11 +212,7 @@ extension Request {
 
     // MARK: - Private - Shared Helper Methods
 
-    private class func validateContentType(
-        forRequest request: URLRequest?,
-        response:HTTPURLResponse?)
-        -> Bool
-    {
+    private class func validateContentType(for request: URLRequest?, response: HTTPURLResponse?) -> Bool {
         if let url = request?.url, url.isFileURL {
             return true
         }

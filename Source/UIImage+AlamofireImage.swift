@@ -46,7 +46,7 @@ extension UIImage {
 
         - returns: An initialized `UIImage` object, or `nil` if the method failed.
     */
-    public static func af_threadSafeImageWithData(_ data: Data) -> UIImage? {
+    public static func af_threadSafeImage(with data: Data) -> UIImage? {
         lock.lock()
         let image = UIImage(data: data)
         lock.unlock()
@@ -68,7 +68,7 @@ extension UIImage {
 
         - returns: An initialized `UIImage` object, or `nil` if the method failed.
     */
-    public static func af_threadSafeImageWithData(_ data: Data, scale: CGFloat) -> UIImage? {
+    public static func af_threadSafeImage(with data: Data, scale: CGFloat) -> UIImage? {
         lock.lock()
         let image = UIImage(data: data, scale: scale)
         lock.unlock()
@@ -80,21 +80,21 @@ extension UIImage {
 // MARK: - Inflation
 
 extension UIImage {
-    private struct AssociatedKeys {
-        static var InflatedKey = "af_UIImage.Inflated"
+    private struct AssociatedKey {
+        static var Inflated = "af_UIImage.Inflated"
     }
 
     /// Returns whether the image is inflated.
     public var af_inflated: Bool {
         get {
-            if let inflated = objc_getAssociatedObject(self, &AssociatedKeys.InflatedKey) as? Bool {
+            if let inflated = objc_getAssociatedObject(self, &AssociatedKey.Inflated) as? Bool {
                 return inflated
             } else {
                 return false
             }
         }
-        set(inflated) {
-            objc_setAssociatedObject(self, &AssociatedKeys.InflatedKey, inflated, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        set {
+            objc_setAssociatedObject(self, &AssociatedKey.Inflated, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -141,7 +141,7 @@ extension UIImage {
 
         - returns: A new image object.
     */
-    public func af_imageScaledToSize(_ size: CGSize) -> UIImage {
+    public func af_imageScaledTo(_ size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         draw(in: CGRect(origin: CGPoint.zero, size: size))
 
@@ -164,7 +164,7 @@ extension UIImage {
 
         - returns: A new image object.
     */
-    public func af_imageAspectScaledToFitSize(_ size: CGSize) -> UIImage {
+    public func af_imageAspectScaledToFit(_ size: CGSize) -> UIImage {
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
 
@@ -196,7 +196,7 @@ extension UIImage {
 
         - returns: A new image object.
     */
-    public func af_imageAspectScaledToFillSize(_ size: CGSize) -> UIImage {
+    public func af_imageAspectScaledToFill(_ size: CGSize) -> UIImage {
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
 
@@ -264,7 +264,7 @@ extension UIImage {
         if size.width != size.height {
             let squareDimension = min(size.width, size.height)
             let squareSize = CGSize(width: squareDimension, height: squareDimension)
-            squareImage = af_imageAspectScaledToFillSize(squareSize)
+            squareImage = af_imageAspectScaledToFill(squareSize)
         }
 
         UIGraphicsBeginImageContextWithOptions(squareImage.size, false, 0.0)
@@ -300,7 +300,8 @@ extension UIImage {
     */
     public func af_imageWithAppliedCoreImageFilter(
         _ filterName: String,
-        filterParameters: [String: Any]? = nil) -> UIImage?
+        filterParameters: [String: Any]? = nil)
+        -> UIImage?
     {
         var image: CoreImage.CIImage? = ciImage
 

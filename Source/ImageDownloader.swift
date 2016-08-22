@@ -78,7 +78,7 @@ public class ImageDownloader {
 
         init(request: Request, id: String, filter: ImageFilter?, completion: CompletionHandler?) {
             self.request = request
-            self.identifier = ImageDownloader.identifierForURLRequest(request.request!)
+            self.identifier = ImageDownloader.identifier(for: request.request!)
             self.operations = [(id: id, filter: filter, completion: completion)]
         }
     }
@@ -114,7 +114,7 @@ public class ImageDownloader {
     // MARK: - Initialization
 
     /// The default instance of `ImageDownloader` initialized with default values.
-    public static let defaultInstance = ImageDownloader()
+    public static let `default` = ImageDownloader()
 
     /**
         Creates a default `NSURLSessionConfiguration` with common usage parameter values.
@@ -260,8 +260,8 @@ public class ImageDownloader {
                    cache and the URL request cache policy allows the cache to be used.
     */
     @discardableResult
-    public func downloadImage(
-        urlRequest: URLRequestConvertible,
+    public func download(
+        _ urlRequest: URLRequestConvertible,
         receiptID: String = UUID().uuidString,
         filter: ImageFilter? = nil,
         progress: ProgressHandler? = nil,
@@ -273,7 +273,7 @@ public class ImageDownloader {
 
         synchronizationQueue.sync {
             // 1) Append the filter and completion handler to a pre-existing request if it already exists
-            let identifier = ImageDownloader.identifierForURLRequest(urlRequest)
+            let identifier = ImageDownloader.identifier(for: urlRequest)
 
             if let responseHandler = self.responseHandlers[identifier] {
                 responseHandler.operations.append(id: receiptID, filter: filter, completion: completion)
@@ -284,10 +284,7 @@ public class ImageDownloader {
             // 2) Attempt to load the image from the image cache if the cache policy allows it
             switch urlRequest.urlRequest.cachePolicy {
             case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
-                if let image = self.imageCache?.imageForRequest(
-                    urlRequest.urlRequest,
-                    withAdditionalIdentifier: filter?.identifier)
-                {
+                if let image = self.imageCache?.image(for: urlRequest.urlRequest, withIdentifier: filter?.identifier) {
                     DispatchQueue.main.async {
                         let response = Response<Image, NSError>(
                             request: urlRequest.urlRequest,
@@ -326,7 +323,7 @@ public class ImageDownloader {
                 completionHandler: { [weak self] response in
                     guard let strongSelf = self, let request = response.request else { return }
 
-                    let responseHandler = strongSelf.safelyRemoveResponseHandlerWithIdentifier(identifier)
+                    let responseHandler = strongSelf.safelyRemoveResponseHandler(withIdentifier: identifier)
 
                     switch response.result {
                     case .success(let image):
@@ -346,11 +343,7 @@ public class ImageDownloader {
                                 filteredImage = image
                             }
 
-                            strongSelf.imageCache?.addImage(
-                                filteredImage,
-                                forRequest: request,
-                                withAdditionalIdentifier: filter?.identifier
-                            )
+                            strongSelf.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
 
                             DispatchQueue.main.async {
                                 let response = Response<Image, NSError>(
@@ -387,9 +380,9 @@ public class ImageDownloader {
 
             // 5) Either start the request or enqueue it depending on the current active request count
             if self.isActiveRequestCountBelowMaximumLimit() {
-                self.startRequest(request)
+                self.start(request)
             } else {
-                self.enqueueRequest(request)
+                self.enqueue(request)
             }
         }
 
@@ -426,8 +419,8 @@ public class ImageDownloader {
                    for that request.
     */
     @discardableResult
-    public func downloadImages(
-        urlRequests: [URLRequestConvertible],
+    public func download(
+        _ urlRequests: [URLRequestConvertible],
         filter: ImageFilter? = nil,
         progress: ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
@@ -435,13 +428,7 @@ public class ImageDownloader {
         -> [RequestReceipt]
     {
         return urlRequests.flatMap {
-            downloadImage(
-                urlRequest: $0,
-                filter: filter,
-                progress: progress,
-                progressQueue: progressQueue,
-                completion: completion
-            )
+            download($0, filter: filter, progress: progress, progressQueue: progressQueue, completion: completion)
         }
     }
 
@@ -454,9 +441,9 @@ public class ImageDownloader {
 
         - parameter requestReceipt: The request receipt to cancel.
     */
-    public func cancelRequestForRequestReceipt(_ requestReceipt: RequestReceipt) {
+    public func cancelRequest(with requestReceipt: RequestReceipt) {
         synchronizationQueue.sync {
-            let identifier = ImageDownloader.identifierForURLRequest(requestReceipt.request.request!)
+            let identifier = ImageDownloader.identifier(for: requestReceipt.request.request!)
             guard let responseHandler = self.responseHandlers[identifier] else { return }
 
             if let index = responseHandler.operations.index(where: { $0.id == requestReceipt.receiptID }) {
@@ -484,7 +471,7 @@ public class ImageDownloader {
 
     // MARK: - Internal - Thread-Safe Request Methods
 
-    func safelyRemoveResponseHandlerWithIdentifier(_ identifier: String) -> ResponseHandler {
+    func safelyRemoveResponseHandler(withIdentifier identifier: String) -> ResponseHandler {
         var responseHandler: ResponseHandler!
 
         synchronizationQueue.sync {
@@ -499,8 +486,8 @@ public class ImageDownloader {
             guard self.isActiveRequestCountBelowMaximumLimit() else { return }
 
             while !self.queuedRequests.isEmpty {
-                if let request = self.dequeueRequest(), request.task.state == .suspended {
-                    self.startRequest(request)
+                if let request = self.dequeue(), request.task.state == .suspended {
+                    self.start(request)
                     break
                 }
             }
@@ -517,12 +504,12 @@ public class ImageDownloader {
 
     // MARK: - Internal - Non Thread-Safe Request Methods
 
-    func startRequest(_ request: Request) {
+    func start(_ request: Request) {
         request.resume()
         activeRequestCount += 1
     }
 
-    func enqueueRequest(_ request: Request) {
+    func enqueue(_ request: Request) {
         switch downloadPrioritization {
         case .fifo:
             queuedRequests.append(request)
@@ -532,7 +519,7 @@ public class ImageDownloader {
     }
 
     @discardableResult
-    func dequeueRequest() -> Request? {
+    func dequeue() -> Request? {
         var request: Request?
 
         if !queuedRequests.isEmpty {
@@ -546,7 +533,7 @@ public class ImageDownloader {
         return activeRequestCount < maximumActiveDownloads
     }
 
-    static func identifierForURLRequest(_ urlRequest: URLRequestConvertible) -> String {
+    static func identifier(for urlRequest: URLRequestConvertible) -> String {
         return urlRequest.urlRequest.urlString
     }
 }

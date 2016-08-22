@@ -63,12 +63,12 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanAddImageToCacheWithIdentifier() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
-        cache.addImage(image, withIdentifier: identifier)
-        let cachedImage = cache.imageWithIdentifier(identifier)
+        cache.add(image, withIdentifier: identifier)
+        let cachedImage = cache.image(withIdentifier: identifier)
 
         // Then
         XCTAssertNotNil(cachedImage, "cached image should not be nil")
@@ -77,13 +77,13 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanAddImageToCacheWithRequestIdentifier() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let request = URLRequest(urlString: "https://images.example.com/animals", method: .get)
         let identifier = "-unicorn"
 
         // When
-        cache.addImage(image, forRequest: request, withAdditionalIdentifier: identifier)
-        let cachedImage = cache.imageForRequest(request, withAdditionalIdentifier: identifier)
+        cache.add(image, for: request, withIdentifier: identifier)
+        let cachedImage = cache.image(for: request, withIdentifier: identifier)
 
         // Then
         XCTAssertNotNil(cachedImage, "cached image should not be nil")
@@ -92,16 +92,16 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatAddingImageToCacheWithDuplicateIdentifierReplacesCachedImage() {
         // Given
-        let unicornImage = imageForResource("unicorn", withExtension: "png")
-        let pirateImage = imageForResource("pirate", withExtension: "jpg")
+        let unicornImage = image(forResource: "unicorn", withExtension: "png")
+        let pirateImage = image(forResource: "pirate", withExtension: "jpg")
         let identifier = "animal"
 
         // When
-        cache.addImage(unicornImage, withIdentifier: identifier)
-        let cachedImage1 = cache.imageWithIdentifier(identifier)
+        cache.add(unicornImage, withIdentifier: identifier)
+        let cachedImage1 = cache.image(withIdentifier: identifier)
 
-        cache.addImage(pirateImage, withIdentifier: identifier)
-        let cachedImage2 = cache.imageWithIdentifier(identifier)
+        cache.add(pirateImage, withIdentifier: identifier)
+        let cachedImage2 = cache.image(withIdentifier: identifier)
 
         // Then
         XCTAssertNotNil(cachedImage1, "cached image 1 should not be nil")
@@ -114,17 +114,17 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatAddingImageToCacheWithDuplicateRequestIdentifierReplacesCachedImage() {
         // Given
-        let unicornImage = imageForResource("unicorn", withExtension: "png")
-        let pirateImage = imageForResource("pirate", withExtension: "jpg")
+        let unicornImage = image(forResource: "unicorn", withExtension: "png")
+        let pirateImage = image(forResource: "pirate", withExtension: "jpg")
         let request = URLRequest(urlString: "https://images.example.com/animals", method: .get)
         let identifier = "animal"
 
         // When
-        cache.addImage(unicornImage, forRequest: request, withAdditionalIdentifier: identifier)
-        let cachedImage1 = cache.imageForRequest(request, withAdditionalIdentifier: identifier)
+        cache.add(unicornImage, for: request, withIdentifier: identifier)
+        let cachedImage1 = cache.image(for: request, withIdentifier: identifier)
 
-        cache.addImage(pirateImage, forRequest: request, withAdditionalIdentifier: identifier)
-        let cachedImage2 = cache.imageForRequest(request, withAdditionalIdentifier: identifier)
+        cache.add(pirateImage, for: request, withIdentifier: identifier)
+        let cachedImage2 = cache.image(for: request, withIdentifier: identifier)
 
         // Then
         XCTAssertNotNil(cachedImage1, "cached image 1 should not be nil")
@@ -139,15 +139,15 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanRemoveImageFromCacheWithIdentifier() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
-        cache.addImage(image, withIdentifier: identifier)
-        let cachedImageExists = cache.imageWithIdentifier(identifier) != nil
+        cache.add(image, withIdentifier: identifier)
+        let cachedImageExists = cache.image(withIdentifier: identifier) != nil
 
-        cache.removeImageWithIdentifier(identifier)
-        let cachedImageExistsAfterRemoval = cache.imageWithIdentifier(identifier) != nil
+        cache.removeImage(withIdentifier: identifier)
+        let cachedImageExistsAfterRemoval = cache.image(withIdentifier: identifier) != nil
 
         // Then
         XCTAssertTrue(cachedImageExists, "cached image exists should be true")
@@ -156,16 +156,16 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanRemoveImageFromCacheWithRequestIdentifier() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let request = URLRequest(urlString: "https://images.example.com/animals", method: .get)
         let identifier = "unicorn"
 
         // When
-        cache.addImage(image, forRequest: request, withAdditionalIdentifier: identifier)
-        let cachedImageExists = cache.imageForRequest(request, withAdditionalIdentifier: identifier) != nil
+        cache.add(image, for: request, withIdentifier: identifier)
+        let cachedImageExists = cache.image(for: request, withIdentifier: identifier) != nil
 
-        cache.removeImageForRequest(request, withAdditionalIdentifier: identifier)
-        let cachedImageExistsAfterRemoval = cache.imageForRequest(request, withAdditionalIdentifier: identifier) != nil
+        cache.removeImage(for: request, withIdentifier: identifier)
+        let cachedImageExistsAfterRemoval = cache.image(for: request, withIdentifier: identifier) != nil
 
         // Then
         XCTAssertTrue(cachedImageExists, "cached image exists should be true")
@@ -174,15 +174,15 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanRemoveAllImagesFromCache() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
-        cache.addImage(image, withIdentifier: identifier)
-        let cachedImageExists = cache.imageWithIdentifier(identifier) != nil
+        cache.add(image, withIdentifier: identifier)
+        let cachedImageExists = cache.image(withIdentifier: identifier) != nil
 
         cache.removeAllImages()
-        let cachedImageExistsAfterRemoval = cache.imageWithIdentifier(identifier) != nil
+        let cachedImageExistsAfterRemoval = cache.image(withIdentifier: identifier) != nil
 
         // Then
         XCTAssertTrue(cachedImageExists, "cached image exists should be true")
@@ -193,19 +193,19 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItRemovesAllImagesFromCacheWhenReceivingMemoryWarningNotification() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
-        cache.addImage(image, withIdentifier: identifier)
-        let cachedImageExists = cache.imageWithIdentifier(identifier) != nil
+        cache.add(image, withIdentifier: identifier)
+        let cachedImageExists = cache.image(withIdentifier: identifier) != nil
 
         NotificationCenter.default.post(
             name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning,
             object: nil
         )
 
-        let cachedImageExistsAfterNotification = cache.imageWithIdentifier(identifier) != nil
+        let cachedImageExistsAfterNotification = cache.image(withIdentifier: identifier) != nil
 
         // Then
         XCTAssertTrue(cachedImageExists, "cached image exists should be true")
@@ -218,13 +218,13 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanFetchImageFromCacheWithIdentifier() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
-        let cachedImageBeforeAdd = cache.imageWithIdentifier(identifier)
-        cache.addImage(image, withIdentifier: identifier)
-        let cachedImageAfterAdd = cache.imageWithIdentifier(identifier)
+        let cachedImageBeforeAdd = cache.image(withIdentifier: identifier)
+        cache.add(image, withIdentifier: identifier)
+        let cachedImageAfterAdd = cache.image(withIdentifier: identifier)
 
         // Then
         XCTAssertNil(cachedImageBeforeAdd, "cached image before add should be nil")
@@ -233,14 +233,14 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanFetchImageFromCacheWithRequestIdentifier() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let request = URLRequest(urlString: "https://images.example.com/animals", method: .get)
         let identifier = "unicorn"
 
         // When
-        let cachedImageBeforeAdd = cache.imageForRequest(request, withAdditionalIdentifier: identifier)
-        cache.addImage(image, forRequest: request, withAdditionalIdentifier: identifier)
-        let cachedImageAfterAdd = cache.imageForRequest(request, withAdditionalIdentifier: identifier)
+        let cachedImageBeforeAdd = cache.image(for: request, withIdentifier: identifier)
+        cache.add(image, for: request, withIdentifier: identifier)
+        let cachedImageAfterAdd = cache.image(for: request, withIdentifier: identifier)
 
         // Then
         XCTAssertNil(cachedImageBeforeAdd, "cached image before add should be nil")
@@ -251,12 +251,12 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItIncrementsMemoryUsageWhenAddingImageToCache() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
         let initialMemoryUsage = cache.memoryUsage
-        cache.addImage(image, withIdentifier: identifier)
+        cache.add(image, withIdentifier: identifier)
         let currentMemoryUsage = cache.memoryUsage
 
         // Then
@@ -266,13 +266,13 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItDecrementsMemoryUsageWhenRemovingImageFromCache() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
-        cache.addImage(image, withIdentifier: identifier)
+        cache.add(image, withIdentifier: identifier)
         let initialMemoryUsage = cache.memoryUsage
-        cache.removeImageWithIdentifier(identifier)
+        cache.removeImage(withIdentifier: identifier)
         let currentMemoryUsage = cache.memoryUsage
 
         // Then
@@ -282,11 +282,11 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItDecrementsMemoryUsageWhenRemovingAllImagesFromCache() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
-        cache.addImage(image, withIdentifier: identifier)
+        cache.add(image, withIdentifier: identifier)
         let initialMemoryUsage = cache.memoryUsage
         cache.removeAllImages()
         let currentMemoryUsage = cache.memoryUsage
@@ -300,14 +300,14 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItPurgesImagesWhenMemoryCapacityIsReached() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         var memoryUsage: [UInt64] = []
 
         // When
         for index in 1...640 {
-            cache.addImage(image, withIdentifier: "\(identifier)-\(index)")
+            cache.add(image, withIdentifier: "\(identifier)-\(index)")
             memoryUsage.append(cache.memoryUsage)
         }
 
@@ -320,50 +320,50 @@ class ImageCacheTestCase: BaseTestCase {
 
     func testThatItPrioritizesImagesWithOldestLastAccessDatesDuringPurge() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
         for index in 1...640 {
-            cache.addImage(image, withIdentifier: "\(identifier)-\(index)")
+            cache.add(image, withIdentifier: "\(identifier)-\(index)")
         }
 
         // Then
         for index in 1...257 {
-            let cachedImage = cache.imageWithIdentifier("\(identifier)-\(index)")
+            let cachedImage = cache.image(withIdentifier: "\(identifier)-\(index)")
             XCTAssertNil(cachedImage, "cached image with identifier: \"\(identifier)-\(index)\" should be nil")
         }
 
         for index in 258...640 {
-            let cachedImage = cache.imageWithIdentifier("\(identifier)-\(index)")
+            let cachedImage = cache.image(withIdentifier: "\(identifier)-\(index)")
             XCTAssertNotNil(cachedImage, "cached image with identifier: \"\(identifier)-\(index)\" should not be nil")
         }
     }
 
     func testThatAccessingCachedImageUpdatesLastAccessDate() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
         for index in 1...639 {
-            cache.addImage(image, withIdentifier: "\(identifier)-\(index)")
+            cache.add(image, withIdentifier: "\(identifier)-\(index)")
         }
 
-        _ = cache.imageWithIdentifier("\(identifier)-1")
-        cache.addImage(image, withIdentifier: "\(identifier)-640")
+        _ = cache.image(withIdentifier: "\(identifier)-1")
+        cache.add(image, withIdentifier: "\(identifier)-640")
 
         // Then
-        let firstCachedImage = cache.imageWithIdentifier("\(identifier)-1")
+        let firstCachedImage = cache.image(withIdentifier: "\(identifier)-1")
         XCTAssertNotNil(firstCachedImage, "first cached image should not be nil")
 
         for index in 2...258 {
-            let cachedImage = cache.imageWithIdentifier("\(identifier)-\(index)")
+            let cachedImage = cache.image(withIdentifier: "\(identifier)-\(index)")
             XCTAssertNil(cachedImage, "cached image with identifier: \"\(identifier)-\(index)\" should be nil")
         }
 
         for index in 259...640 {
-            let cachedImage = cache.imageWithIdentifier("\(identifier)-\(index)")
+            let cachedImage = cache.image(withIdentifier: "\(identifier)-\(index)")
             XCTAssertNotNil(cachedImage, "cached image with identifier: \"\(identifier)-\(index)\" should not be nil")
         }
     }

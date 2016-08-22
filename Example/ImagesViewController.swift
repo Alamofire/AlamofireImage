@@ -54,7 +54,7 @@ class ImagesViewController: UIViewController {
         for _ in 1...1_000 {
             let gravatar = Gravatar(
                 emailAddress: UUID().uuidString,
-                defaultImage: Gravatar.DefaultImage.Identicon,
+                defaultImage: Gravatar.DefaultImage.identicon,
                 forceDefault: true
             )
 
@@ -101,9 +101,17 @@ extension ImagesViewController : UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.ReuseIdentifier, for: indexPath) as! ImageCell
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ImageCell.ReuseIdentifier,
+            for: indexPath
+        ) as! ImageCell
+
         let gravatar = gravatars[(indexPath as NSIndexPath).row]
-        cell.configureCellWithURLString(gravatar.url(size: sizeForCollectionViewItem().width).urlString, placeholderImage: placeholderImage)
+
+        cell.configureCell(
+            with: gravatar.url(size: sizeForCollectionViewItem().width).urlString,
+            placeholderImage: placeholderImage
+        )
 
         return cell
     }

@@ -97,16 +97,16 @@ class ImageFilterTestCase: BaseTestCase {
 
     func testThatDynamicImageFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = DynamicImageFilter("DynamicScaleToSizeFilter") { image in
-            return image.af_imageScaledToSize(CGSize(width: 50.0, height: 50.0))
+            return image.af_imageScaledTo(CGSize(width: 50.0, height: 50.0))
         }
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource("pirate-scaled-50x50-@\(scale)x", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "pirate-scaled-50x50-@\(scale)x", withExtension: "png")
         XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
@@ -114,7 +114,7 @@ class ImageFilterTestCase: BaseTestCase {
 
     func testThatDynamicCompositeImageFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = DynamicCompositeImageFilter(
             ScaledToSizeFilter(size: largeSquareSize),
             RoundedCornersFilter(radius: 20)
@@ -124,8 +124,8 @@ class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource(
-            "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
+        let expectedFilteredImage = self.image(
+            forResource: "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
             withExtension: "png"
         )
 
@@ -136,53 +136,53 @@ class ImageFilterTestCase: BaseTestCase {
 
     func testThatScaledToSizeFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = ScaledToSizeFilter(size: squareSize)
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource("pirate-scaled-50x50-@\(scale)x", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "pirate-scaled-50x50-@\(scale)x", withExtension: "png")
         XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     func testThatAspectScaledToFitSizeFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = AspectScaledToFitSizeFilter(size: squareSize)
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource("pirate-aspect.scaled.to.fit-50x50-@\(scale)x", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fit-50x50-@\(scale)x", withExtension: "png")
         XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     func testThatAspectScaledToFillSizeFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = AspectScaledToFillSizeFilter(size: squareSize)
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource("pirate-aspect.scaled.to.fill-50x50-@\(scale)x", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fill-50x50-@\(scale)x", withExtension: "png")
         XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     func testThatRoundedCornersFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = RoundedCornersFilter(radius: 20, divideRadiusByImageScale: true)
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource("pirate-radius-20", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "pirate-radius-20", withExtension: "png")
         XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
 
         let expectedIdentifier = "RoundedCornersFilter-radius:(20)-divided:(true)"
@@ -191,27 +191,27 @@ class ImageFilterTestCase: BaseTestCase {
 
     func testThatCircleFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = CircleFilter()
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource("pirate-circle", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "pirate-circle", withExtension: "png")
         XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     func testThatBlurFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("unicorn", withExtension: "png")
+        let image = self.image(forResource: "unicorn", withExtension: "png")
         let filter = BlurFilter(blurRadius: 8)
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource("unicorn-blurred-8", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "unicorn-blurred-8", withExtension: "png")
         let pixelsMatch = filteredImage.af_isEqualToImage(expectedFilteredImage)
 
         XCTAssertTrue(pixelsMatch, "pixels match should be true")
@@ -221,15 +221,15 @@ class ImageFilterTestCase: BaseTestCase {
 
     func testThatScaledToSizeWithRoundedCornersFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = ScaledToSizeWithRoundedCornersFilter(size: largeSquareSize, radius: 20)
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource(
-            "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
+        let expectedFilteredImage = self.image(
+            forResource: "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
             withExtension: "png"
         )
 
@@ -238,15 +238,15 @@ class ImageFilterTestCase: BaseTestCase {
 
     func testThatAspectScaledToFillSizeWithRoundedCornersFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = AspectScaledToFillSizeWithRoundedCornersFilter(size: largeSquareSize, radius: 20)
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource(
-            "pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@\(scale)x",
+        let expectedFilteredImage = self.image(
+            forResource: "pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@\(scale)x",
             withExtension: "png"
         )
 
@@ -255,15 +255,15 @@ class ImageFilterTestCase: BaseTestCase {
 
     func testThatScaledToSizeCircleFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = ScaledToSizeCircleFilter(size: largeSquareSize)
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource(
-            "pirate-scaled.to.size.circle-100x100-@\(scale)x",
+        let expectedFilteredImage = self.image(
+            forResource: "pirate-scaled.to.size.circle-100x100-@\(scale)x",
             withExtension: "png"
         )
 
@@ -272,15 +272,15 @@ class ImageFilterTestCase: BaseTestCase {
 
     func testThatAspectScaledToFillSizeCircleFilterReturnsCorrectFilteredImage() {
         // Given
-        let image = imageForResource("pirate", withExtension: "jpg")
+        let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = AspectScaledToFillSizeCircleFilter(size: largeSquareSize)
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = imageForResource(
-            "pirate-aspect.scaled.to.fill.size.circle-100x100-@\(scale)x",
+        let expectedFilteredImage = self.image(
+            forResource: "pirate-aspect.scaled.to.fill.size.circle-100x100-@\(scale)x",
             withExtension: "png"
         )
 

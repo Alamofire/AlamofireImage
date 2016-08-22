@@ -30,11 +30,11 @@ extension UIButton {
 
     // MARK: - Private - AssociatedKeys
 
-    private struct AssociatedKeys {
-        static var ImageDownloaderKey = "af_UIButton.ImageDownloader"
-        static var SharedImageDownloaderKey = "af_UIButton.SharedImageDownloader"
-        static var ImageReceiptsKey = "af_UIButton.ImageReceipts"
-        static var BackgroundImageReceiptsKey = "af_UIButton.BackgroundImageReceipts"
+    private struct AssociatedKey {
+        static var ImageDownloader = "af_UIButton.ImageDownloader"
+        static var SharedImageDownloader = "af_UIButton.SharedImageDownloader"
+        static var ImageReceipts = "af_UIButton.ImageReceipts"
+        static var BackgroundImageReceipts = "af_UIButton.BackgroundImageReceipts"
     }
 
     // MARK: - Properties
@@ -44,10 +44,10 @@ extension UIButton {
     /// custom instance image downloader is when images are behind different basic auth credentials.
     public var af_imageDownloader: ImageDownloader? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.ImageDownloaderKey) as? ImageDownloader
+            return objc_getAssociatedObject(self, &AssociatedKey.ImageDownloader) as? ImageDownloader
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKeys.ImageDownloaderKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.ImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -58,22 +58,22 @@ extension UIButton {
     public class var af_sharedImageDownloader: ImageDownloader {
         get {
             guard let
-                downloader = objc_getAssociatedObject(self, &AssociatedKeys.SharedImageDownloaderKey) as? ImageDownloader
+                downloader = objc_getAssociatedObject(self, &AssociatedKey.SharedImageDownloader) as? ImageDownloader
             else {
-                return ImageDownloader.defaultInstance
+                return ImageDownloader.default
             }
 
             return downloader
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKeys.SharedImageDownloaderKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.SharedImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     private var imageRequestReceipts: [UInt: RequestReceipt] {
         get {
             guard let
-                receipts = objc_getAssociatedObject(self, &AssociatedKeys.ImageReceiptsKey) as? [UInt: RequestReceipt]
+                receipts = objc_getAssociatedObject(self, &AssociatedKey.ImageReceipts) as? [UInt: RequestReceipt]
             else {
                 return [:]
             }
@@ -81,14 +81,14 @@ extension UIButton {
             return receipts
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKeys.ImageReceiptsKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.ImageReceipts, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     private var backgroundImageRequestReceipts: [UInt: RequestReceipt] {
         get {
             guard let
-                receipts = objc_getAssociatedObject(self, &AssociatedKeys.BackgroundImageReceiptsKey) as? [UInt: RequestReceipt]
+                receipts = objc_getAssociatedObject(self, &AssociatedKey.BackgroundImageReceipts) as? [UInt: RequestReceipt]
             else {
                 return [:]
             }
@@ -96,7 +96,7 @@ extension UIButton {
             return receipts
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKeys.BackgroundImageReceiptsKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.BackgroundImageReceipts, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -121,16 +121,17 @@ extension UIButton {
                                       the image was returned from the image cache, the response will be `nil`. Defaults
                                       to `nil`.
     */
-    public func af_setImageForState(
-        _ state: UIControlState,
-        url: Foundation.URL,
+    public func af_setImage(
+        for state: UIControlState,
+        url: URL,
         placeHolderImage: UIImage? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
         completion: ((Response<UIImage, NSError>) -> Void)? = nil)
     {
-        af_setImageForState(state,
-            urlRequest: URLRequestWithURL(url),
+        af_setImage(
+            for: state,
+            urlRequest: urlRequest(with: url),
             placeholderImage: placeHolderImage,
             progress: progress,
             progressQueue: progressQueue,
@@ -157,8 +158,8 @@ extension UIButton {
                                       the image was returned from the image cache, the response will be `nil`. Defaults
                                       to `nil`.
     */
-    public func af_setImageForState(
-        _ state: UIControlState,
+    public func af_setImage(
+        for state: UIControlState,
         urlRequest: URLRequestConvertible,
         placeholderImage: UIImage? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
@@ -167,13 +168,13 @@ extension UIButton {
     {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else { return }
 
-        af_cancelImageRequestForState(state)
+        af_cancelImageRequest(for: state)
 
         let imageDownloader = af_imageDownloader ?? UIButton.af_sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
-        if let image = imageCache?.imageForRequest(urlRequest.urlRequest, withAdditionalIdentifier: nil) {
+        if let image = imageCache?.image(for: urlRequest.urlRequest, withIdentifier: nil) {
             let response = Response<UIImage, NSError>(
                 request: urlRequest.urlRequest,
                 response: nil,
@@ -194,8 +195,8 @@ extension UIButton {
         let downloadID = UUID().uuidString
 
         // Download the image, then set the image for the control state
-        let requestReceipt = imageDownloader.downloadImage(
-            urlRequest: urlRequest,
+        let requestReceipt = imageDownloader.download(
+            urlRequest,
             receiptID: downloadID,
             filter: nil,
             progress: progress,
@@ -207,7 +208,7 @@ extension UIButton {
 
                 guard
                     strongSelf.isImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
-                    strongSelf.imageRequestReceiptForState(state)?.receiptID == downloadID
+                    strongSelf.imageRequestReceipt(for: state)?.receiptID == downloadID
                 else {
                     return
                 }
@@ -216,23 +217,23 @@ extension UIButton {
                     strongSelf.setImage(image, for: state)
                 }
 
-                strongSelf.setImageRequestReceipt(nil, forState: state)
+                strongSelf.setImageRequestReceipt(nil, for: state)
             }
         )
 
-        setImageRequestReceipt(requestReceipt, forState: state)
+        setImageRequestReceipt(requestReceipt, for: state)
     }
 
     /**
         Cancels the active download request for the image, if one exists.
     */
-    public func af_cancelImageRequestForState(_ state: UIControlState) {
-        guard let receipt = imageRequestReceiptForState(state) else { return }
+    public func af_cancelImageRequest(for state: UIControlState) {
+        guard let receipt = imageRequestReceipt(for: state) else { return }
 
         let imageDownloader = af_imageDownloader ?? UIButton.af_sharedImageDownloader
-        imageDownloader.cancelRequestForRequestReceipt(receipt)
+        imageDownloader.cancelRequest(with: receipt)
 
-        setImageRequestReceipt(nil, forState: state)
+        setImageRequestReceipt(nil, for: state)
     }
 
     // MARK: - Background Image Downloads
@@ -256,16 +257,17 @@ extension UIButton {
                                       the image was returned from the image cache, the response will be `nil`. Defaults
                                       to `nil`.
     */
-    public func af_setBackgroundImageForState(
-        _ state: UIControlState,
-        url: Foundation.URL,
+    public func af_setBackgroundImage(
+        for state: UIControlState,
+        url: URL,
         placeHolderImage: UIImage? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
         completion: ((Response<UIImage, NSError>) -> Void)? = nil)
     {
-        af_setBackgroundImageForState(state,
-            urlRequest: URLRequestWithURL(url),
+        af_setBackgroundImage(
+            for: state,
+            urlRequest: urlRequest(with: url),
             placeholderImage: placeHolderImage,
             completion: completion)
     }
@@ -289,8 +291,8 @@ extension UIButton {
                                       the image was returned from the image cache, the response will be `nil`. Defaults
                                       to `nil`.
     */
-    public func af_setBackgroundImageForState(
-        _ state: UIControlState,
+    public func af_setBackgroundImage(
+        for state: UIControlState,
         urlRequest: URLRequestConvertible,
         placeholderImage: UIImage? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
@@ -299,13 +301,13 @@ extension UIButton {
     {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else { return }
 
-        af_cancelBackgroundImageRequestForState(state)
+        af_cancelBackgroundImageRequest(for: state)
 
         let imageDownloader = af_imageDownloader ?? UIButton.af_sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
-        if let image = imageCache?.imageForRequest(urlRequest.urlRequest, withAdditionalIdentifier: nil) {
+        if let image = imageCache?.image(for: urlRequest.urlRequest, withIdentifier: nil) {
             let response = Response<UIImage, NSError>(
                 request: urlRequest.urlRequest,
                 response: nil,
@@ -326,8 +328,8 @@ extension UIButton {
         let downloadID = UUID().uuidString
 
         // Download the image, then set the image for the control state
-        let requestReceipt = imageDownloader.downloadImage(
-            urlRequest: urlRequest,
+        let requestReceipt = imageDownloader.download(
+            urlRequest,
             receiptID: downloadID,
             filter: nil,
             progress: progress,
@@ -339,7 +341,7 @@ extension UIButton {
 
                 guard
                     strongSelf.isBackgroundImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
-                    strongSelf.backgroundImageRequestReceiptForState(state)?.receiptID == downloadID
+                    strongSelf.backgroundImageRequestReceipt(for: state)?.receiptID == downloadID
                 else {
                     return
                 }
@@ -348,33 +350,33 @@ extension UIButton {
                     strongSelf.setBackgroundImage(image, for: state)
                 }
 
-                strongSelf.setBackgroundImageRequestReceipt(nil, forState: state)
+                strongSelf.setBackgroundImageRequestReceipt(nil, for: state)
             }
         )
 
-        setBackgroundImageRequestReceipt(requestReceipt, forState: state)
+        setBackgroundImageRequestReceipt(requestReceipt, for: state)
     }
 
     /**
         Cancels the active download request for the background image, if one exists.
     */
-    public func af_cancelBackgroundImageRequestForState(_ state: UIControlState) {
-        guard let receipt = backgroundImageRequestReceiptForState(state) else { return }
+    public func af_cancelBackgroundImageRequest(for state: UIControlState) {
+        guard let receipt = backgroundImageRequestReceipt(for: state) else { return }
 
         let imageDownloader = af_imageDownloader ?? UIButton.af_sharedImageDownloader
-        imageDownloader.cancelRequestForRequestReceipt(receipt)
+        imageDownloader.cancelRequest(with: receipt)
 
-        setBackgroundImageRequestReceipt(nil, forState: state)
+        setBackgroundImageRequestReceipt(nil, for: state)
     }
 
     // MARK: - Internal - Image Request Receipts
 
-    func imageRequestReceiptForState(_ state: UIControlState) -> RequestReceipt? {
+    func imageRequestReceipt(for state: UIControlState) -> RequestReceipt? {
         guard let receipt = imageRequestReceipts[state.rawValue] else { return nil }
         return receipt
     }
 
-    func setImageRequestReceipt(_ receipt: RequestReceipt?, forState state: UIControlState) {
+    func setImageRequestReceipt(_ receipt: RequestReceipt?, for state: UIControlState) {
         var receipts = imageRequestReceipts
         receipts[state.rawValue] = receipt
 
@@ -383,12 +385,12 @@ extension UIButton {
 
     // MARK: - Internal - Background Image Request Receipts
 
-    func backgroundImageRequestReceiptForState(_ state: UIControlState) -> RequestReceipt? {
+    func backgroundImageRequestReceipt(for state: UIControlState) -> RequestReceipt? {
         guard let receipt = backgroundImageRequestReceipts[state.rawValue] else { return nil }
         return receipt
     }
 
-    func setBackgroundImageRequestReceipt(_ receipt: RequestReceipt?, forState state: UIControlState) {
+    func setBackgroundImageRequestReceipt(_ receipt: RequestReceipt?, for state: UIControlState) {
         var receipts = backgroundImageRequestReceipts
         receipts[state.rawValue] = receipt
 
@@ -403,7 +405,7 @@ extension UIButton {
         -> Bool
     {
         if
-            let currentRequest = imageRequestReceiptForState(state)?.request.task.originalRequest,
+            let currentRequest = imageRequestReceipt(for: state)?.request.task.originalRequest,
             currentRequest.urlString == urlRequest?.urlRequest.urlString
         {
             return true
@@ -418,7 +420,7 @@ extension UIButton {
         -> Bool
     {
         if
-            let currentRequest = backgroundImageRequestReceiptForState(state)?.request.task.originalRequest,
+            let currentRequest = backgroundImageRequestReceipt(for: state)?.request.task.originalRequest,
             currentRequest.urlString == urlRequest?.urlRequest.urlString
         {
             return true
@@ -427,13 +429,13 @@ extension UIButton {
         return false
     }
 
-    private func URLRequestWithURL(_ url: Foundation.URL) -> URLRequest {
-        let mutableURLRequest = NSMutableURLRequest(url: url)
+    private func urlRequest(with url: URL) -> URLRequest {
+        var urlRequest = URLRequest(url: url)
 
         for mimeType in Request.acceptableImageContentTypes {
-            mutableURLRequest.addValue(mimeType, forHTTPHeaderField: "Accept")
+            urlRequest.addValue(mimeType, forHTTPHeaderField: "Accept")
         }
 
-        return mutableURLRequest as URLRequest
+        return urlRequest
     }
 }

@@ -179,7 +179,7 @@ public struct ScaledToSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageScaledToSize(self.size)
+            return image.af_imageScaledTo(self.size)
         }
     }
 }
@@ -205,7 +205,7 @@ public struct AspectScaledToFitSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageAspectScaledToFitSize(self.size)
+            return image.af_imageAspectScaledToFit(self.size)
         }
     }
 }
@@ -232,7 +232,7 @@ public struct AspectScaledToFillSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageAspectScaledToFillSize(self.size)
+            return image.af_imageAspectScaledToFill(self.size)
         }
     }
 }
