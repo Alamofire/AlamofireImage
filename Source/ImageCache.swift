@@ -50,7 +50,7 @@ public protocol ImageCache {
 }
 
 /// The `ImageRequestCache` protocol extends the `ImageCache` protocol by adding methods for adding, removing and
-/// fetching images from a cache given an `NSURLRequest` and additional identifier.
+/// fetching images from a cache given an `URLRequest` and additional identifier.
 public protocol ImageRequestCache: ImageCache {
     /// Adds the image to the cache using an identifier created from the request and identifier.
     func add(_ image: Image, for request: URLRequest, withIdentifier identifier: String?)
@@ -154,7 +154,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(AutoPurgingImageCache.removeAllImages),
-                name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning,
+                name: Notification.Name.UIApplicationDidReceiveMemoryWarning,
                 object: nil
             )
         #endif

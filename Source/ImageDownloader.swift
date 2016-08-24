@@ -114,9 +114,9 @@ public class ImageDownloader {
     /// The default instance of `ImageDownloader` initialized with default values.
     public static let `default` = ImageDownloader()
 
-    /// Creates a default `NSURLSessionConfiguration` with common usage parameter values.
+    /// Creates a default `URLSessionConfiguration` with common usage parameter values.
     ///
-    /// - returns: The default `NSURLSessionConfiguration` instance.
+    /// - returns: The default `URLSessionConfiguration` instance.
     public class func defaultURLSessionConfiguration() -> URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
 
@@ -133,9 +133,9 @@ public class ImageDownloader {
         return configuration
     }
 
-    /// Creates a default `NSURLCache` with common usage parameter values.
+    /// Creates a default `URLCache` with common usage parameter values.
     ///
-    /// - returns: The default `NSURLCache` instance.
+    /// - returns: The default `URLCache` instance.
     public class func defaultURLCache() -> URLCache {
         return URLCache(
             memoryCapacity: 20 * 1024 * 1024, // 20 MB
