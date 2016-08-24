@@ -26,7 +26,7 @@ import Foundation
 import UIKit
 
 private extension String  {
-    var md5_hash: String {
+    var md5Hash: String {
         let trimmedString = lowercased().trimmingCharacters(in: CharacterSet.whitespaces)
         let utf8String = trimmedString.cString(using: String.Encoding.utf8)!
         let stringLength = CC_LONG(trimmedString.lengthOfBytes(using: String.Encoding.utf8))
@@ -57,13 +57,13 @@ private protocol QueryItemConvertible {
 
 public struct Gravatar {
     public enum DefaultImage: String, QueryItemConvertible {
-        case HTTP404 = "404"
-        case MysteryMan = "mm"
-        case Identicon = "identicon"
-        case MonsterID = "monsterid"
-        case Wavatar = "wavatar"
-        case Retro = "retro"
-        case Blank = "blank"
+        case http404 = "404"
+        case mysteryMan = "mm"
+        case identicon = "identicon"
+        case monsterID = "monsterid"
+        case wavatar = "wavatar"
+        case retro = "retro"
+        case blank = "blank"
 
         var queryItem: URLQueryItem {
             return URLQueryItem(name: "d", value: rawValue)
@@ -71,10 +71,10 @@ public struct Gravatar {
     }
 
     public enum Rating: String, QueryItemConvertible {
-        case G = "g"
-        case PG = "pg"
-        case R = "r"
-        case X = "x"
+        case g = "g"
+        case pg = "pg"
+        case r = "r"
+        case x = "x"
 
         var queryItem: URLQueryItem {
             return URLQueryItem(name: "r", value: rawValue)
@@ -86,13 +86,13 @@ public struct Gravatar {
     public let defaultImage: DefaultImage
     public let rating: Rating
 
-    private static let baseURL = Foundation.URL(string: "https://secure.gravatar.com/avatar")!
+    private static let baseURL = URL(string: "https://secure.gravatar.com/avatar")!
 
     public init(
         emailAddress: String,
-        defaultImage: DefaultImage = .MysteryMan,
+        defaultImage: DefaultImage = .mysteryMan,
         forceDefault: Bool = false,
-        rating: Rating = .PG)
+        rating: Rating = .pg)
     {
         self.email = emailAddress
         self.defaultImage = defaultImage
@@ -100,8 +100,8 @@ public struct Gravatar {
         self.rating = rating
     }
 
-    public func url(size: CGFloat, scale: CGFloat = UIScreen.main.scale) -> Foundation.URL {
-        let url = Gravatar.baseURL.appendingPathComponent(email.md5_hash)
+    public func url(size: CGFloat, scale: CGFloat = UIScreen.main.scale) -> URL {
+        let url = Gravatar.baseURL.appendingPathComponent(email.md5Hash)
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
 
         var queryItems = [defaultImage.queryItem, rating.queryItem]

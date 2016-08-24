@@ -58,7 +58,7 @@ private class TestImageView: UIImageView {
 // MARK: -
 
 class UIImageViewTestCase: BaseTestCase {
-    let url = Foundation.URL(string: "https://httpbin.org/image/jpeg")!
+    let url = URL(string: "https://httpbin.org/image/jpeg")!
 
     // MARK: - Setup and Teardown
 
@@ -66,8 +66,8 @@ class UIImageViewTestCase: BaseTestCase {
         super.setUp()
 
         ImageDownloader.defaultURLCache().removeAllCachedResponses()
-        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
-        UIImageView.af_sharedImageDownloader = ImageDownloader.defaultInstance
+        ImageDownloader.default.imageCache?.removeAllImages()
+        UIImageView.af_sharedImageDownloader = ImageDownloader.default
     }
 
     // MARK: - Image Download
@@ -83,7 +83,7 @@ class UIImageViewTestCase: BaseTestCase {
         }
 
         // When
-        imageView.af_setImageWithURL(url)
+        imageView.af_setImage(withURL: url)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -101,8 +101,8 @@ class UIImageViewTestCase: BaseTestCase {
         }
 
         // When
-        imageView.af_setImageWithURL(url)
-        imageView.af_setImageWithURL(url)
+        imageView.af_setImage(withURL: url)
+        imageView.af_setImage(withURL: url)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -121,7 +121,7 @@ class UIImageViewTestCase: BaseTestCase {
         }
 
         // When
-        imageView.af_setImageWithURL(url)
+        imageView.af_setImage(withURL: url)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -146,7 +146,7 @@ class UIImageViewTestCase: BaseTestCase {
         imageView.af_imageDownloader = imageDownloader
 
         // When
-        imageView.af_setImageWithURL(url)
+        imageView.af_setImage(withURL: url)
         let activeRequestCount = imageDownloader.activeRequestCount
 
         waitForExpectations(timeout: timeout, handler: nil)
@@ -163,18 +163,18 @@ class UIImageViewTestCase: BaseTestCase {
         // Given
         let imageView = UIImageView()
 
-        let downloader = ImageDownloader.defaultInstance
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let downloader = ImageDownloader.default
+        let urlRequest = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.downloadImage(urlRequest: download) { _ in
+        downloader.download(urlRequest) { _ in
             expectation.fulfill()
         }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // When
-        imageView.af_setImageWithURL(url)
+        imageView.af_setImage(withURL: url)
         imageView.af_cancelImageRequest()
 
         // Then
@@ -185,18 +185,18 @@ class UIImageViewTestCase: BaseTestCase {
         // Given
         let imageView = UIImageView()
 
-        let downloader = ImageDownloader.defaultInstance
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let downloader = ImageDownloader.default
+        let urlRequest = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.downloadImage(urlRequest: download, filter: CircleFilter()) { _ in
+        downloader.download(urlRequest, filter: CircleFilter()) { _ in
             expectation.fulfill()
         }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // When
-        imageView.af_setImageWithURL(url, filter: CircleFilter())
+        imageView.af_setImage(withURL: url, filter: CircleFilter())
         imageView.af_cancelImageRequest()
 
         // Then
@@ -221,7 +221,7 @@ class UIImageViewTestCase: BaseTestCase {
 
     func testThatPlaceholderImageIsDisplayedUntilImageIsDownloadedFromURL() {
         // Given
-        let placeholderImage = imageForResource("pirate", withExtension: "jpg")
+        let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
         let expectation = self.expectation(description: "image should download successfully")
 
         var imageDownloadComplete = false
@@ -230,7 +230,7 @@ class UIImageViewTestCase: BaseTestCase {
         let imageView = TestImageView()
 
         // When
-        imageView.af_setImageWithURL(url, placeholderImage: placeholderImage)
+        imageView.af_setImage(withURL: url, placeholderImage: placeholderImage)
         let initialImageEqualsPlaceholderImage = imageView.image === placeholderImage
 
         imageView.imageObserver = {
@@ -249,20 +249,20 @@ class UIImageViewTestCase: BaseTestCase {
 
     func testThatPlaceholderIsNeverDisplayedIfCachedImageIsAvailable() {
         // Given
-        let placeholderImage = imageForResource("pirate", withExtension: "jpg")
+        let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
         let imageView = UIImageView()
 
-        let downloader = ImageDownloader.defaultInstance
-        let download = URLRequest(.GET, "https://httpbin.org/image/jpeg")
+        let downloader = ImageDownloader.default
+        let urlRequest = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
-        downloader.downloadImage(urlRequest: download) { _ in
+        downloader.download(urlRequest) { _ in
             expectation.fulfill()
         }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // When
-        imageView.af_setImageWithURL(url, placeholderImage: placeholderImage)
+        imageView.af_setImage(withURL: url, placeholderImage: placeholderImage)
 
         // Then
         XCTAssertNotNil(imageView.image, "image view image should not be nil")
@@ -285,7 +285,7 @@ class UIImageViewTestCase: BaseTestCase {
         }
 
         // When
-        imageView.af_setImageWithURL(url, filter: filter)
+        imageView.af_setImage(withURL: url, filter: filter)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -310,7 +310,7 @@ class UIImageViewTestCase: BaseTestCase {
         }
 
         // When
-        imageView.af_setImageWithURL(url, placeholderImage: nil, filter: nil, imageTransition: .crossDissolve(0.5))
+        imageView.af_setImage(withURL: url, placeholderImage: nil, filter: nil, imageTransition: .crossDissolve(0.5))
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -326,51 +326,51 @@ class UIImageViewTestCase: BaseTestCase {
         // When
         let expectation1 = expectation(description: "image download should succeed")
         imageView.imageObserver = { expectation1.fulfill() }
-        imageView.af_setImageWithURL(url, imageTransition: .none)
+        imageView.af_setImage(withURL: url, imageTransition: .noTransition)
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation2 = expectation(description: "image download should succeed")
         imageView.imageObserver = { expectation2.fulfill() }
-        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
-        imageView.af_setImageWithURL(url, imageTransition: .crossDissolve(0.1))
+        ImageDownloader.default.imageCache?.removeAllImages()
+        imageView.af_setImage(withURL: url, imageTransition: .crossDissolve(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation3 = expectation(description: "image download should succeed")
         imageView.imageObserver = { expectation3.fulfill() }
-        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
-        imageView.af_setImageWithURL(url, imageTransition: .curlDown(0.1))
+        ImageDownloader.default.imageCache?.removeAllImages()
+        imageView.af_setImage(withURL: url, imageTransition: .curlDown(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation4 = expectation(description: "image download should succeed")
         imageView.imageObserver = { expectation4.fulfill() }
-        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
-        imageView.af_setImageWithURL(url, imageTransition: .curlUp(0.1))
+        ImageDownloader.default.imageCache?.removeAllImages()
+        imageView.af_setImage(withURL: url, imageTransition: .curlUp(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation5 = expectation(description: "image download should succeed")
         imageView.imageObserver = { expectation5.fulfill() }
-        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
-        imageView.af_setImageWithURL(url, imageTransition: .flipFromBottom(0.1))
+        ImageDownloader.default.imageCache?.removeAllImages()
+        imageView.af_setImage(withURL: url, imageTransition: .flipFromBottom(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation6 = expectation(description: "image download should succeed")
         imageView.imageObserver = { expectation6.fulfill() }
-        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
-        imageView.af_setImageWithURL(url, imageTransition: .flipFromLeft(0.1))
+        ImageDownloader.default.imageCache?.removeAllImages()
+        imageView.af_setImage(withURL: url, imageTransition: .flipFromLeft(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation7 = expectation(description: "image download should succeed")
         imageView.imageObserver = { expectation7.fulfill() }
-        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
-        imageView.af_setImageWithURL(url, imageTransition: .flipFromRight(0.1))
+        ImageDownloader.default.imageCache?.removeAllImages()
+        imageView.af_setImage(withURL: url, imageTransition: .flipFromRight(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation8 = expectation(description: "image download should succeed")
         imageView.imageObserver = {
             expectation8.fulfill()
         }
-        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
-        imageView.af_setImageWithURL(url, imageTransition: .flipFromTop(0.1))
+        ImageDownloader.default.imageCache?.removeAllImages()
+        imageView.af_setImage(withURL: url, imageTransition: .flipFromTop(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation9 = expectation(description: "image download should succeed")
@@ -378,9 +378,9 @@ class UIImageViewTestCase: BaseTestCase {
             imageTransitionsComplete = true
             expectation9.fulfill()
         }
-        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
-        imageView.af_setImageWithURL(
-            url,
+        ImageDownloader.default.imageCache?.removeAllImages()
+        imageView.af_setImage(
+            withURL: url,
             imageTransition: .custom(
                 duration: 0.5,
                 animationOptions: UIViewAnimationOptions(),
@@ -401,7 +401,7 @@ class UIImageViewTestCase: BaseTestCase {
         // Given
         let imageView = UIImageView()
 
-        let urlRequest: Foundation.URLRequest = {
+        let urlRequest: URLRequest = {
             var request = URLRequest(url: url)
             request.addValue("image/*", forHTTPHeaderField: "Accept")
             return request
@@ -413,11 +413,11 @@ class UIImageViewTestCase: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        imageView.af_setImageWithURLRequest(
-            urlRequest,
+        imageView.af_setImage(
+            withURLRequest: urlRequest,
             placeholderImage: nil,
             filter: nil,
-            imageTransition: .none,
+            imageTransition: .noTransition,
             completion: { closureResponse in
                 completionHandlerCalled = true
                 result = closureResponse.result
@@ -436,7 +436,7 @@ class UIImageViewTestCase: BaseTestCase {
     func testThatCompletionHandlerIsCalledWhenImageDownloadFails() {
         // Given
         let imageView = UIImageView()
-        let URLRequest = Foundation.URLRequest(url: Foundation.URL(string: "domain-name-does-not-exist")!)
+        let urlRequest = URLRequest(url: URL(string: "domain-name-does-not-exist")!)
 
         let expectation = self.expectation(description: "image download should succeed")
 
@@ -444,11 +444,11 @@ class UIImageViewTestCase: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        imageView.af_setImageWithURLRequest(
-            URLRequest,
+        imageView.af_setImage(
+            withURLRequest: urlRequest,
             placeholderImage: nil,
             filter: nil,
-            imageTransition: .none,
+            imageTransition: .noTransition,
             completion: { closureResponse in
                 completionHandlerCalled = true
                 result = closureResponse.result
@@ -477,8 +477,8 @@ class UIImageViewTestCase: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        imageView.af_setImageWithURL(
-            url,
+        imageView.af_setImage(
+            withURL: url,
             placeholderImage: nil,
             filter: nil,
             imageTransition: .custom(
@@ -510,7 +510,7 @@ class UIImageViewTestCase: BaseTestCase {
     func testThatImageIsSetWhenReturnedFromCacheAndCompletionHandlerSet() {
         // Given
         let imageView = UIImageView()
-        let urlRequest: Foundation.URLRequest = {
+        let urlRequest: URLRequest = {
             var request = URLRequest(url: url)
             request.addValue("image/*", forHTTPHeaderField: "Accept")
             return request
@@ -519,7 +519,7 @@ class UIImageViewTestCase: BaseTestCase {
         let downloadExpectation = expectation(description: "image download should succeed")
 
         // When
-        UIImageView.af_sharedImageDownloader.downloadImage(urlRequest: urlRequest) { _ in
+        UIImageView.af_sharedImageDownloader.download(urlRequest) { _ in
             downloadExpectation.fulfill()
         }
 
@@ -528,11 +528,11 @@ class UIImageViewTestCase: BaseTestCase {
         let cachedExpectation = expectation(description: "image should be cached")
         var result: Result<UIImage, NSError>?
 
-        imageView.af_setImageWithURLRequest(
-            urlRequest,
+        imageView.af_setImage(
+            withURLRequest: urlRequest,
             placeholderImage: nil,
             filter: nil,
-            imageTransition: .none,
+            imageTransition: .noTransition,
             completion: { closureResponse in
                 result = closureResponse.result
                 cachedExpectation.fulfill()
@@ -551,7 +551,7 @@ class UIImageViewTestCase: BaseTestCase {
     func testThatImageDownloadCanBeCancelled() {
         // Given
         let imageView = UIImageView()
-        let urlRequest = Foundation.URLRequest(url: Foundation.URL(string: "domain-name-does-not-exist")!)
+        let urlRequest = URLRequest(url: URL(string: "domain-name-does-not-exist")!)
 
         let expectation = self.expectation(description: "image download should succeed")
 
@@ -559,11 +559,11 @@ class UIImageViewTestCase: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        imageView.af_setImageWithURLRequest(
-            urlRequest,
+        imageView.af_setImage(
+            withURLRequest: urlRequest,
             placeholderImage: nil,
             filter: nil,
-            imageTransition: .none,
+            imageTransition: .noTransition,
             completion: { closureResponse in
                 completionHandlerCalled = true
                 result = closureResponse.result
@@ -590,21 +590,21 @@ class UIImageViewTestCase: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        imageView.af_setImageWithURLRequest(
-            URLRequest(url: url),
+        imageView.af_setImage(
+            withURLRequest: URLRequest(url: url),
             placeholderImage: nil,
             filter: nil,
-            imageTransition: .none,
+            imageTransition: .noTransition,
             completion: { _ in
                 completion1Called = true
             }
         )
 
-        imageView.af_setImageWithURLRequest(
-            URLRequest(url: Foundation.URL(string: "https://httpbin.org/image/png")!),
+        imageView.af_setImage(
+            withURLRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
             placeholderImage: nil,
             filter: nil,
-            imageTransition: .none,
+            imageTransition: .noTransition,
             completion: { closureResponse in
                 completion2Called = true
                 result = closureResponse.result
@@ -631,11 +631,11 @@ class UIImageViewTestCase: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        imageView.af_setImageWithURLRequest(
-            URLRequest(url: url),
+        imageView.af_setImage(
+            withURLRequest: URLRequest(url: url),
             placeholderImage: nil,
             filter: nil,
-            imageTransition: .none,
+            imageTransition: .noTransition,
             completion: { _ in
                 completion1Called = true
             }
@@ -643,11 +643,11 @@ class UIImageViewTestCase: BaseTestCase {
 
         imageView.af_cancelImageRequest()
 
-        imageView.af_setImageWithURLRequest(
-            URLRequest(url: url),
+        imageView.af_setImage(
+            withURLRequest: URLRequest(url: url),
             placeholderImage: nil,
             filter: nil,
-            imageTransition: .none,
+            imageTransition: .noTransition,
             completion: { closureResponse in
                 completion2Called = true
                 result = closureResponse.result
@@ -669,7 +669,7 @@ class UIImageViewTestCase: BaseTestCase {
     func testThatImageBehindRedirectCanBeDownloaded() {
         // Given
         let redirectURLString = "https://httpbin.org/image/png"
-        let url = Foundation.URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
+        let url = URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
 
         let expectation = self.expectation(description: "image should download successfully")
         var imageDownloadComplete = false
@@ -680,7 +680,7 @@ class UIImageViewTestCase: BaseTestCase {
         }
 
         // When
-        imageView.af_setImageWithURL(url)
+        imageView.af_setImage(withURL: url)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -695,7 +695,7 @@ class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
 
         // When
-        imageView.af_setImageWithURL(url)
+        imageView.af_setImage(withURL: url)
         let acceptField = imageView.af_activeRequestReceipt?.request.request?.allHTTPHeaderFields?["Accept"]
         imageView.af_cancelImageRequest()
 

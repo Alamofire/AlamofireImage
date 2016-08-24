@@ -49,11 +49,9 @@ extension Request {
         "image/x-win-bitmap"
     ]
 
-    /**
-        Adds the content types specified to the list of acceptable images content types for validation.
-
-        - parameter contentTypes: The additional content types.
-    */
+    /// Adds the content types specified to the list of acceptable images content types for validation.
+    ///
+    /// - parameter contentTypes: The additional content types.
     public class func addAcceptableImageContentTypes(_ contentTypes: Set<String>) {
         Request.acceptableImageContentTypes.formUnion(contentTypes)
     }
@@ -62,22 +60,20 @@ extension Request {
 
 #if os(iOS) || os(tvOS) || os(watchOS)
 
-    /**
-        Creates a response serializer that returns an image initialized from the response data using the specified
-        image options.
-
-        - parameter imageScale:           The scale factor used when interpreting the image data to construct
-                                          `responseImage`. Specifying a scale factor of 1.0 results in an image whose
-                                          size matches the pixel-based dimensions of the image. Applying a different
-                                          scale factor changes the size of the image as reported by the size property.
-                                          `Screen.scale` by default.
-        - parameter inflateResponseImage: Whether to automatically inflate response image data for compressed formats
-                                          (such as PNG or JPEG). Enabling this can significantly improve drawing
-                                          performance as it allows a bitmap representation to be constructed in the
-                                          background rather than on the main thread. `true` by default.
-
-        - returns: An image response serializer.
-    */
+    /// Creates a response serializer that returns an image initialized from the response data using the specified
+    /// image options.
+    ///
+    /// - parameter imageScale:           The scale factor used when interpreting the image data to construct
+    ///                                   `responseImage`. Specifying a scale factor of 1.0 results in an image whose
+    ///                                   size matches the pixel-based dimensions of the image. Applying a different
+    ///                                   scale factor changes the size of the image as reported by the size property.
+    ///                                   `Screen.scale` by default.
+    /// - parameter inflateResponseImage: Whether to automatically inflate response image data for compressed formats
+    ///                                   (such as PNG or JPEG). Enabling this can significantly improve drawing
+    ///                                   performance as it allows a bitmap representation to be constructed in the
+    ///                                   background rather than on the main thread. `true` by default.
+    ///
+    /// - returns: An image response serializer.
     public class func imageResponseSerializer(
         imageScale: CGFloat = Request.imageScale,
         inflateResponseImage: Bool = true)
@@ -90,12 +86,12 @@ extension Request {
                 return .failure(Request.imageDataError())
             }
 
-            guard Request.validateContentType(forRequest: request, response: response) else {
+            guard Request.validateContentType(for: request, response: response) else {
                 return .failure(Request.contentTypeValidationError())
             }
 
             do {
-                let image = try Request.imageFromResponseData(validData, imageScale: imageScale)
+                let image = try Request.image(from: validData, withImageScale: imageScale)
                 if inflateResponseImage { image.af_inflate() }
 
                 return .success(image)
@@ -105,32 +101,30 @@ extension Request {
         }
     }
 
-    /**
-        Adds a handler to be called once the request has finished.
-
-        - parameter imageScale:           The scale factor used when interpreting the image data to construct
-                                          `responseImage`. Specifying a scale factor of 1.0 results in an image whose
-                                          size matches the pixel-based dimensions of the image. Applying a different
-                                          scale factor changes the size of the image as reported by the size property.
-                                          This is set to the value of scale of the main screen by default, which
-                                          automatically scales images for retina displays, for instance.
-                                          `Screen.scale` by default.
-        - parameter inflateResponseImage: Whether to automatically inflate response image data for compressed formats
-                                          (such as PNG or JPEG). Enabling this can significantly improve drawing
-                                          performance as it allows a bitmap representation to be constructed in the
-                                          background rather than on the main thread. `true` by default.
-        - parameter completionHandler:    A closure to be executed once the request has finished. The closure takes 4
-                                          arguments: the URL request, the URL response, if one was received, the image,
-                                          if one could be created from the URL response and data, and any error produced
-                                          while creating the image.
-
-        - returns: The request.
-    */
+    /// Adds a handler to be called once the request has finished.
+    ///
+    /// - parameter imageScale:           The scale factor used when interpreting the image data to construct
+    ///                                   `responseImage`. Specifying a scale factor of 1.0 results in an image whose
+    ///                                   size matches the pixel-based dimensions of the image. Applying a different
+    ///                                   scale factor changes the size of the image as reported by the size property.
+    ///                                   This is set to the value of scale of the main screen by default, which
+    ///                                   automatically scales images for retina displays, for instance.
+    ///                                   `Screen.scale` by default.
+    /// - parameter inflateResponseImage: Whether to automatically inflate response image data for compressed formats
+    ///                                   (such as PNG or JPEG). Enabling this can significantly improve drawing
+    ///                                   performance as it allows a bitmap representation to be constructed in the
+    ///                                   background rather than on the main thread. `true` by default.
+    /// - parameter completionHandler:    A closure to be executed once the request has finished. The closure takes 4
+    ///                                   arguments: the URL request, the URL response, if one was received, the image,
+    ///                                   if one could be created from the URL response and data, and any error produced
+    ///                                   while creating the image.
+    ///
+    /// - returns: The request.
     @discardableResult
     public func responseImage(
         imageScale: CGFloat = Request.imageScale,
         inflateResponseImage: Bool = true,
-        completionHandler: (Response<Image, NSError>) -> Void)
+        completionHandler: @escaping (Response<Image, NSError>) -> Void)
         -> Self
     {
         return response(
@@ -142,8 +136,8 @@ extension Request {
         )
     }
 
-    private class func imageFromResponseData(_ data: Data, imageScale: CGFloat) throws -> UIImage {
-        if let image = UIImage.af_threadSafeImageWithData(data, scale: imageScale) {
+    private class func image(from data: Data, withImageScale imageScale: CGFloat) throws -> UIImage {
+        if let image = UIImage.af_threadSafeImage(with: data, scale: imageScale) {
             return image
         }
 
@@ -162,11 +156,9 @@ extension Request {
 
     // MARK: - OSX
 
-    /**
-        Creates a response serializer that returns an image initialized from the response data.
-
-        - returns: An image response serializer.
-    */
+    /// Creates a response serializer that returns an image initialized from the response data.
+    ///
+    /// - returns: An image response serializer.
     public class func imageResponseSerializer() -> ResponseSerializer<NSImage, NSError> {
         return ResponseSerializer { request, response, data, error in
             guard error == nil else { return .failure(error!) }
@@ -175,7 +167,7 @@ extension Request {
                 return .failure(Request.imageDataError())
             }
 
-            guard Request.validateContentType(forRequest: request, response: response) else {
+            guard Request.validateContentType(for: request, response: response) else {
                 return .failure(Request.contentTypeValidationError())
             }
 
@@ -190,18 +182,16 @@ extension Request {
         }
     }
 
-    /**
-        Adds a handler to be called once the request has finished.
-
-        - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4
-                                       arguments: the URL request, the URL response, if one was received, the image, if
-                                       one could be created from the URL response and data, and any error produced while
-                                       creating the image.
-
-        - returns: The request.
-    */
+    /// Adds a handler to be called once the request has finished.
+    ///
+    /// - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4
+    ///                                arguments: the URL request, the URL response, if one was received, the image, if
+    ///                                one could be created from the URL response and data, and any error produced while
+    ///                                creating the image.
+    ///
+    /// - returns: The request.
     @discardableResult
-    public func responseImage(completionHandler: (Response<Image, NSError>) -> Void) -> Self {
+    public func responseImage(completionHandler: @escaping (Response<Image, NSError>) -> Void) -> Self {
         return response(
             responseSerializer: Request.imageResponseSerializer(),
             completionHandler: completionHandler
@@ -212,11 +202,7 @@ extension Request {
 
     // MARK: - Private - Shared Helper Methods
 
-    private class func validateContentType(
-        forRequest request: URLRequest?,
-        response:HTTPURLResponse?)
-        -> Bool
-    {
+    private class func validateContentType(for request: URLRequest?, response: HTTPURLResponse?) -> Bool {
         if let url = request?.url, url.isFileURL {
             return true
         }

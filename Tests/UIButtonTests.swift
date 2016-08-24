@@ -53,7 +53,7 @@ private class TestButton: UIButton {
 // MARK: -
 
 class UIButtonTests: BaseTestCase {
-    let url = Foundation.URL(string: "https://httpbin.org/image/jpeg")!
+    let url = URL(string: "https://httpbin.org/image/jpeg")!
 
     // MARK: - Setup and Teardown
 
@@ -61,8 +61,8 @@ class UIButtonTests: BaseTestCase {
         super.setUp()
 
         ImageDownloader.defaultURLCache().removeAllCachedResponses()
-        ImageDownloader.defaultInstance.imageCache?.removeAllImages()
-        UIButton.af_sharedImageDownloader = ImageDownloader.defaultInstance
+        ImageDownloader.default.imageCache?.removeAllImages()
+        UIButton.af_sharedImageDownloader = ImageDownloader.default
     }
 
     // MARK: - Image Download
@@ -78,7 +78,7 @@ class UIButtonTests: BaseTestCase {
         }
 
         // When
-        button.af_setImageForState([], url: url)
+        button.af_setImage(for: [], url: url)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -96,7 +96,7 @@ class UIButtonTests: BaseTestCase {
         }
 
         // When
-        button.af_setBackgroundImageForState([], url: url)
+        button.af_setBackgroundImage(for: [], url: url)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -110,15 +110,17 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setImageForState([], url: url)
-        button.af_cancelImageRequestForState([])
-        button.af_setImageForState(
-            [],
+        button.af_setImage(for: [], url: url)
+        button.af_cancelImageRequest(for: [])
+        button.af_setImage(
+            for: [],
             urlRequest: URLRequest(url: url),
-            placeholderImage: nil) { response in
+            placeholderImage: nil,
+            completion: { response in
                 result = response.result
                 expectation.fulfill()
-        }
+            }
+        )
 
         // Then
         waitForExpectations(timeout: timeout, handler: nil)
@@ -132,15 +134,17 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setBackgroundImageForState([], url: url)
-        button.af_cancelBackgroundImageRequestForState([])
-        button.af_setBackgroundImageForState(
-            [],
+        button.af_setBackgroundImage(for: [], url: url)
+        button.af_cancelBackgroundImageRequest(for: [])
+        button.af_setBackgroundImage(
+            for: [],
             urlRequest: URLRequest(url: url),
-            placeholderImage: nil) { response in
+            placeholderImage: nil,
+            completion: { response in
                 result = response.result
                 expectation.fulfill()
-        }
+            }
+        )
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -159,12 +163,12 @@ class UIButtonTests: BaseTestCase {
         }
 
         // When
-        button.af_setImageForState([], url: url)
+        button.af_setImage(for: [], url: url)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(imageDownloadComplete)
-        XCTAssertNil(button.backgroundImageRequestReceiptForState([]))
+        XCTAssertNil(button.backgroundImageRequestReceipt(for: []))
     }
 
     func testThatActiveBackgroundImageRequestReceiptIsNilAfterImageDownloadCompletes() {
@@ -178,23 +182,23 @@ class UIButtonTests: BaseTestCase {
         }
 
         // When
-        button.af_setBackgroundImageForState([], url: url)
+        button.af_setBackgroundImage(for: [], url: url)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(backgroundImageDownloadComplete)
-        XCTAssertNil(button.backgroundImageRequestReceiptForState([]))
+        XCTAssertNil(button.backgroundImageRequestReceipt(for: []))
     }
 
     func testThatMultipleImageRequestReceiptStatesCanBeDownloadedInParallel() {
         // Given
         let button = TestButton()
-        var _url = url
+        var url = self.url
 
         // When
         let expectation1 = expectation(description: "background image should download successfully")
         var normalStateImageDownloadComplete = false
-        button.af_setImageForState([], url: _url)
+        button.af_setImage(for: [], url: url)
         button.imageObserver = {
             normalStateImageDownloadComplete = true
             expectation1.fulfill()
@@ -204,9 +208,9 @@ class UIButtonTests: BaseTestCase {
 
         let expectation2 = expectation(description: "background image should download successfully")
         var selectedStateImageDownloadComplete = false
-        _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setImageForState([.selected], url: _url)
+        button.af_setImage(for: [.selected], url: url)
         button.imageObserver = {
             selectedStateImageDownloadComplete = true
             expectation2.fulfill()
@@ -216,9 +220,9 @@ class UIButtonTests: BaseTestCase {
 
         let expectation3 = expectation(description: "background image should download successfully")
         var highlightedStateImageDownloadComplete = false
-        _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setImageForState([.highlighted], url: _url)
+        button.af_setImage(for: [.highlighted], url: url)
         button.imageObserver = {
             highlightedStateImageDownloadComplete = true
             expectation3.fulfill()
@@ -228,9 +232,9 @@ class UIButtonTests: BaseTestCase {
 
         let expectation4 = expectation(description: "background image should download successfully")
         var disabledStateImageDownloadComplete = false
-        _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setImageForState([.disabled], url: _url)
+        button.af_setImage(for: [.disabled], url: url)
         button.imageObserver = {
             disabledStateImageDownloadComplete = true
             expectation4.fulfill()
@@ -255,12 +259,12 @@ class UIButtonTests: BaseTestCase {
     func testThatMultipleBackgroundImageRequestReceiptStatesCanBeDownloadedInParallel() {
         // Given
         let button = TestButton()
-        var _url = url
+        var url = self.url
 
         // When
         let expectation1 = expectation(description: "background image should download successfully")
         var normalStateBackgroundImageDownloadComplete = false
-        button.af_setBackgroundImageForState([], url: _url)
+        button.af_setBackgroundImage(for: [], url: url)
         button.imageObserver = {
             normalStateBackgroundImageDownloadComplete = true
             expectation1.fulfill()
@@ -269,9 +273,9 @@ class UIButtonTests: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
         let expectation2 = expectation(description: "background image should download successfully")
         var selectedStateBackgroundImageDownloadComplete = false
-        _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setBackgroundImageForState([.selected], url: _url)
+        button.af_setBackgroundImage(for: [.selected], url: url)
         button.imageObserver = {
             selectedStateBackgroundImageDownloadComplete = true
             expectation2.fulfill()
@@ -281,9 +285,9 @@ class UIButtonTests: BaseTestCase {
 
         let expectation3 = expectation(description: "background image should download successfully")
         var highlightedStateBackgroundImageDownloadComplete = false
-        _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setBackgroundImageForState([.highlighted], url: _url)
+        button.af_setBackgroundImage(for: [.highlighted], url: url)
         button.imageObserver = {
             highlightedStateBackgroundImageDownloadComplete = true
             expectation3.fulfill()
@@ -293,9 +297,9 @@ class UIButtonTests: BaseTestCase {
 
         let expectation4 = expectation(description: "background image should download successfully")
         var disabledStateBackgroundImageDownloadComplete = false
-        _url = Foundation.URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setBackgroundImageForState([.disabled], url: _url)
+        button.af_setBackgroundImage(for: [.disabled], url: url)
         button.imageObserver = {
             disabledStateBackgroundImageDownloadComplete = true
             expectation4.fulfill()
@@ -334,14 +338,14 @@ class UIButtonTests: BaseTestCase {
         button.af_imageDownloader = imageDownloader
 
         // When
-        button.af_setImageForState([], url: url)
+        button.af_setImage(for: [], url: url)
         let activeRequestCount = imageDownloader.activeRequestCount
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertTrue(imageDownloadComplete)
-        XCTAssertNil(button.imageRequestReceiptForState([]), "active request receipt should be nil after download completes")
+        XCTAssertNil(button.imageRequestReceipt(for: []), "active request receipt should be nil after download completes")
         XCTAssertEqual(activeRequestCount, 1, "active request count should be 1")
     }
 
@@ -351,19 +355,19 @@ class UIButtonTests: BaseTestCase {
         // Given
         let button = UIButton()
 
-        let downloader = ImageDownloader.defaultInstance
-        let download = URLRequest(.GET, url.absoluteString)
+        let downloader = ImageDownloader.default
+        let urlRequest = URLRequest(urlString: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.downloadImage(urlRequest: download) { _ in
+        downloader.download(urlRequest) { _ in
             expectation.fulfill()
         }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // When
-        button.af_setImageForState([], url: url)
-        button.af_cancelImageRequestForState([])
+        button.af_setImage(for: [], url: url)
+        button.af_cancelImageRequest(for: [])
 
         // Then
         XCTAssertNotNil(button.image(for: UIControlState()), "button image should not be nil")
@@ -387,7 +391,7 @@ class UIButtonTests: BaseTestCase {
 
     func testThatPlaceholderImageIsDisplayedUntilImageIsDownloadedFromURL() {
         // Given
-        let placeholderImage = imageForResource("pirate", withExtension: "jpg")
+        let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
         let expectation = self.expectation(description: "image should download successfully")
 
         var imageDownloadComplete = false
@@ -396,7 +400,7 @@ class UIButtonTests: BaseTestCase {
         let button = TestButton ()
 
         // When
-        button.af_setImageForState([], url: url, placeHolderImage: placeholderImage)
+        button.af_setImage(for: [], url: url, placeHolderImage: placeholderImage)
         let initialImageEqualsPlaceholderImage = button.image(for:[]) === placeholderImage
 
         button.imageObserver = {
@@ -415,7 +419,7 @@ class UIButtonTests: BaseTestCase {
 
     func testThatBackgroundPlaceholderImageIsDisplayedUntilImageIsDownloadedFromURL() {
         // Given
-        let placeholderImage = imageForResource("pirate", withExtension: "jpg")
+        let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
         let expectation = self.expectation(description: "image should download successfully")
 
         var backgroundImageDownloadComplete = false
@@ -424,7 +428,7 @@ class UIButtonTests: BaseTestCase {
         let button = TestButton ()
 
         // When
-        button.af_setBackgroundImageForState([], url: url, placeHolderImage: placeholderImage)
+        button.af_setBackgroundImage(for: [], url: url, placeHolderImage: placeholderImage)
         let initialImageEqualsPlaceholderImage = button.backgroundImage(for:[]) === placeholderImage
 
         button.imageObserver = {
@@ -443,21 +447,21 @@ class UIButtonTests: BaseTestCase {
 
     func testThatImagePlaceholderIsNeverDisplayedIfCachedImageIsAvailable() {
         // Given
-        let placeholderImage = imageForResource("pirate", withExtension: "jpg")
+        let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
         let button = UIButton()
 
-        let downloader = ImageDownloader.defaultInstance
-        let download = URLRequest(.GET, url.absoluteString)
+        let downloader = ImageDownloader.default
+        let urlRequest = URLRequest(urlString: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.downloadImage(urlRequest: download) { _ in
+        downloader.download(urlRequest) { _ in
             expectation.fulfill()
         }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // When
-        button.af_setImageForState([], url: url, placeHolderImage: placeholderImage)
+        button.af_setImage(for: [], url: url, placeHolderImage: placeholderImage)
 
         // Then
         XCTAssertNotNil(button.image(for: UIControlState()), "button image should not be nil")
@@ -466,21 +470,21 @@ class UIButtonTests: BaseTestCase {
 
     func testThatBackgroundPlaceholderIsNeverDisplayedIfCachedImageIsAvailable() {
         // Given
-        let placeholderImage = imageForResource("pirate", withExtension: "jpg")
+        let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
         let button = UIButton()
 
-        let downloader = ImageDownloader.defaultInstance
-        let download = URLRequest(.GET, url.absoluteString)
+        let downloader = ImageDownloader.default
+        let urlRequest = URLRequest(urlString: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.downloadImage(urlRequest: download) { _ in
+        downloader.download(urlRequest) { _ in
             expectation.fulfill()
         }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // When
-        button.af_setBackgroundImageForState([], url: url, placeHolderImage: placeholderImage)
+        button.af_setBackgroundImage(for: [], url: url, placeHolderImage: placeholderImage)
 
         // Then
         XCTAssertNotNil(button.backgroundImage(for: UIControlState()), "button background image should not be nil")
@@ -493,7 +497,7 @@ class UIButtonTests: BaseTestCase {
         // Given
         let button = UIButton()
 
-        let urlRequest: Foundation.URLRequest = {
+        let urlRequest: URLRequest = {
             var request = URLRequest(url: url)
             request.addValue("image/*", forHTTPHeaderField: "Accept")
             return request
@@ -505,7 +509,7 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setImageForState([], urlRequest: urlRequest, placeholderImage: nil) { response in
+        button.af_setImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
             completionHandlerCalled = true
             result = response.result
             expectation.fulfill()
@@ -523,7 +527,7 @@ class UIButtonTests: BaseTestCase {
         // Given
         let button = UIButton()
 
-        let urlRequest: Foundation.URLRequest = {
+        let urlRequest: URLRequest = {
             var request = URLRequest(url: url)
             request.addValue("image/*", forHTTPHeaderField: "Accept")
             return request
@@ -535,7 +539,7 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setBackgroundImageForState([], urlRequest: urlRequest, placeholderImage: nil) { response in
+        button.af_setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
             completionHandlerCalled = true
             result = response.result
             expectation.fulfill()
@@ -552,7 +556,7 @@ class UIButtonTests: BaseTestCase {
     func testThatCompletionHandlerIsCalledWhenImageDownloadFails() {
         // Given
         let button = UIButton()
-        let urlRequest = Foundation.URLRequest(url: Foundation.URL(string: "really-bad-domain")!)
+        let urlRequest = URLRequest(url: URL(string: "really-bad-domain")!)
 
         let expectation = self.expectation(description: "image download should succeed")
 
@@ -560,7 +564,7 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setImageForState([], urlRequest: urlRequest, placeholderImage: nil) { response in
+        button.af_setImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
             completionHandlerCalled = true
             result = response.result
             expectation.fulfill()
@@ -577,7 +581,7 @@ class UIButtonTests: BaseTestCase {
     func testThatCompletionHandlerIsCalledWhenBackgroundImageDownloadFails() {
         // Given
         let button = UIButton()
-        let urlRequest = Foundation.URLRequest(url: Foundation.URL(string: "really-bad-domain")!)
+        let urlRequest = URLRequest(url: URL(string: "really-bad-domain")!)
 
         let expectation = self.expectation(description: "image download should succeed")
 
@@ -585,7 +589,7 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setBackgroundImageForState([], urlRequest: urlRequest, placeholderImage: nil) { response in
+        button.af_setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
             completionHandlerCalled = true
             result = response.result
             expectation.fulfill()
@@ -604,7 +608,7 @@ class UIButtonTests: BaseTestCase {
     func testThatImageDownloadCanBeCancelled() {
         // Given
         let button = UIButton()
-        let urlRequest = Foundation.URLRequest(url: Foundation.URL(string: "domain-name-does-not-exist")!)
+        let urlRequest = URLRequest(url: URL(string: "domain-name-does-not-exist")!)
 
         let expectation = self.expectation(description: "image download should succeed")
 
@@ -612,8 +616,8 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setImageForState(
-            [],
+        button.af_setImage(
+            for: [],
             urlRequest: urlRequest,
             placeholderImage: nil,
             completion: { closureResponse in
@@ -623,7 +627,7 @@ class UIButtonTests: BaseTestCase {
             }
         )
 
-        button.af_cancelImageRequestForState([])
+        button.af_cancelImageRequest(for: [])
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -635,7 +639,7 @@ class UIButtonTests: BaseTestCase {
     func testThatBackgroundImageDownloadCanBeCancelled() {
         // Given
         let button = UIButton()
-        let urlRequest = Foundation.URLRequest(url: Foundation.URL(string: "domain-name-does-not-exist")!)
+        let urlRequest = URLRequest(url: URL(string: "domain-name-does-not-exist")!)
 
         let expectation = self.expectation(description: "background image download should succeed")
 
@@ -643,8 +647,8 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setBackgroundImageForState(
-            [],
+        button.af_setBackgroundImage(
+            for: [],
             urlRequest: urlRequest,
             placeholderImage: nil,
             completion: { closureResponse in
@@ -654,7 +658,7 @@ class UIButtonTests: BaseTestCase {
             }
         )
 
-        button.af_cancelBackgroundImageRequestForState([])
+        button.af_cancelBackgroundImageRequest(for: [])
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -673,8 +677,8 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setImageForState(
-            [],
+        button.af_setImage(
+            for: [],
             urlRequest: URLRequest(url: url),
             placeholderImage: nil,
             completion: { closureResponse in
@@ -682,9 +686,9 @@ class UIButtonTests: BaseTestCase {
             }
         )
 
-        button.af_setImageForState(
-            [],
-            urlRequest: URLRequest(url: Foundation.URL(string: "https://httpbin.org/image/png")!),
+        button.af_setImage(
+            for: [],
+            urlRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
             placeholderImage: nil,
             completion: { closureResponse in
                 completion2Called = true
@@ -712,8 +716,8 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setBackgroundImageForState(
-            [],
+        button.af_setBackgroundImage(
+            for: [],
             urlRequest: URLRequest(url: url),
             placeholderImage: nil,
             completion: { closureResponse in
@@ -721,9 +725,9 @@ class UIButtonTests: BaseTestCase {
             }
         )
 
-        button.af_setBackgroundImageForState(
-            [],
-            urlRequest: URLRequest(url: Foundation.URL(string: "https://httpbin.org/image/png")!),
+        button.af_setBackgroundImage(
+            for: [],
+            urlRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
             placeholderImage: nil,
             completion: { closureResponse in
                 completion2Called = true
@@ -751,8 +755,8 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setImageForState(
-            [],
+        button.af_setImage(
+            for: [],
             urlRequest: URLRequest(url: url),
             placeholderImage: nil,
             completion: { closureResponse in
@@ -760,10 +764,10 @@ class UIButtonTests: BaseTestCase {
             }
         )
 
-        button.af_cancelImageRequestForState([])
+        button.af_cancelImageRequest(for: [])
 
-        button.af_setImageForState(
-            [],
+        button.af_setImage(
+            for: [],
             urlRequest: URLRequest(url: url),
             placeholderImage: nil,
             completion: { closureResponse in
@@ -792,8 +796,8 @@ class UIButtonTests: BaseTestCase {
         var result: Result<UIImage, NSError>?
 
         // When
-        button.af_setBackgroundImageForState(
-            [],
+        button.af_setBackgroundImage(
+            for: [],
             urlRequest: URLRequest(url: url),
             placeholderImage: nil,
             completion: { closureResponse in
@@ -801,10 +805,10 @@ class UIButtonTests: BaseTestCase {
             }
         )
 
-        button.af_cancelBackgroundImageRequestForState([])
+        button.af_cancelBackgroundImageRequest(for: [])
 
-        button.af_setBackgroundImageForState(
-            [],
+        button.af_setBackgroundImage(
+            for: [],
             urlRequest: URLRequest(url: url),
             placeholderImage: nil,
             completion: { closureResponse in
@@ -828,7 +832,7 @@ class UIButtonTests: BaseTestCase {
     func testThatImageBehindRedirectCanBeDownloaded() {
         // Given
         let redirectURLString = "https://httpbin.org/image/png"
-        let url = Foundation.URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
+        let url = URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
 
         let expectation = self.expectation(description: "image should download successfully")
         var imageDownloadComplete = false
@@ -839,7 +843,7 @@ class UIButtonTests: BaseTestCase {
         }
 
         // When
-        button.af_setImageForState([], url: url)
+        button.af_setImage(for: [], url: url)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -850,7 +854,7 @@ class UIButtonTests: BaseTestCase {
     func testThatBackgroundImageBehindRedirectCanBeDownloaded() {
         // Given
         let redirectURLString = "https://httpbin.org/image/png"
-        let url = Foundation.URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
+        let url = URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
 
         let expectation = self.expectation(description: "image should download successfully")
         var backgroundImageDownloadComplete = false
@@ -861,7 +865,7 @@ class UIButtonTests: BaseTestCase {
         }
 
         // When
-        button.af_setBackgroundImageForState([], url: url)
+        button.af_setBackgroundImage(for: [], url: url)
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -876,9 +880,9 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
 
         // When
-        button.af_setImageForState([], url: url)
-        let acceptField = button.imageRequestReceiptForState([])?.request.request?.allHTTPHeaderFields?["Accept"]
-        button.af_cancelImageRequestForState([])
+        button.af_setImage(for: [], url: url)
+        let acceptField = button.imageRequestReceipt(for: [])?.request.request?.allHTTPHeaderFields?["Accept"]
+        button.af_cancelImageRequest(for: [])
 
         // Then
         XCTAssertNotNil(acceptField)
