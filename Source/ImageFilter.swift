@@ -171,7 +171,7 @@ public struct ScaledToSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageScaledTo(self.size)
+            return image.af_imageScaled(to: self.size)
         }
     }
 }
@@ -195,7 +195,7 @@ public struct AspectScaledToFitSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageAspectScaledToFit(self.size)
+            return image.af_imageAspectScaled(toFit: self.size)
         }
     }
 }
@@ -220,7 +220,7 @@ public struct AspectScaledToFillSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageAspectScaledToFill(self.size)
+            return image.af_imageAspectScaled(toFill: self.size)
         }
     }
 }
@@ -253,8 +253,8 @@ public struct RoundedCornersFilter: ImageFilter, Roundable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageWithRoundedCornerRadius(
-                self.radius,
+            return image.af_imageRounded(
+                withCornerRadius: self.radius,
                 divideRadiusByImageScale: self.divideRadiusByImageScale
             )
         }
@@ -306,7 +306,7 @@ public struct BlurFilter: ImageFilter {
     public var filter: (Image) -> Image {
         return { image in
             let parameters: [String: Any] = ["inputRadius": self.blurRadius]
-            return image.af_imageWithAppliedCoreImageFilter("CIGaussianBlur", filterParameters: parameters) ?? image
+            return image.af_imageFiltered(withCoreImageFilter: "CIGaussianBlur", parameters: parameters) ?? image
         }
     }
 }

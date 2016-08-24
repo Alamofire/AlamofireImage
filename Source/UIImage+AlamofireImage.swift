@@ -133,7 +133,7 @@ extension UIImage {
     /// - parameter size: The size to use when scaling the new image.
     ///
     /// - returns: A new image object.
-    public func af_imageScaledTo(_ size: CGSize) -> UIImage {
+    public func af_imageScaled(to size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         draw(in: CGRect(origin: CGPoint.zero, size: size))
 
@@ -154,7 +154,7 @@ extension UIImage {
     /// - parameter size: The size to use when scaling the new image.
     ///
     /// - returns: A new image object.
-    public func af_imageAspectScaledToFit(_ size: CGSize) -> UIImage {
+    public func af_imageAspectScaled(toFit size: CGSize) -> UIImage {
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
 
@@ -184,7 +184,7 @@ extension UIImage {
     /// - parameter size: The size to use when scaling the new image.
     ///
     /// - returns: A new image object.
-    public func af_imageAspectScaledToFill(_ size: CGSize) -> UIImage {
+    public func af_imageAspectScaled(toFill size: CGSize) -> UIImage {
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
 
@@ -222,7 +222,7 @@ extension UIImage {
     ///                                       `false` by default.
     ///
     /// - returns: A new image object.
-    public func af_imageWithRoundedCornerRadius(_ radius: CGFloat, divideRadiusByImageScale: Bool = false) -> UIImage {
+    public func af_imageRounded(withCornerRadius radius: CGFloat, divideRadiusByImageScale: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
 
         let scaledRadius = divideRadiusByImageScale ? radius / scale : radius
@@ -248,7 +248,7 @@ extension UIImage {
         if size.width != size.height {
             let squareDimension = min(size.width, size.height)
             let squareSize = CGSize(width: squareDimension, height: squareDimension)
-            squareImage = af_imageAspectScaledToFill(squareSize)
+            squareImage = af_imageAspectScaled(toFill: squareSize)
         }
 
         UIGraphicsBeginImageContextWithOptions(squareImage.size, false, 0.0)
@@ -276,15 +276,11 @@ extension UIImage {
 extension UIImage {
     /// Returns a new version of the image using a CoreImage filter with the specified name and parameters.
     ///
-    /// - parameter filterName:       The name of the CoreImage filter to use on the new image.
-    /// - parameter filterParameters: The parameters to apply to the CoreImage filter.
+    /// - parameter name:       The name of the CoreImage filter to use on the new image.
+    /// - parameter parameters: The parameters to apply to the CoreImage filter.
     ///
     /// - returns: A new image object, or `nil` if the filter failed for any reason.
-    public func af_imageWithAppliedCoreImageFilter(
-        _ filterName: String,
-        filterParameters: [String: Any]? = nil)
-        -> UIImage?
-    {
+    public func af_imageFiltered(withCoreImageFilter name: String, parameters: [String: Any]? = nil) -> UIImage? {
         var image: CoreImage.CIImage? = ciImage
 
         if image == nil, let CGImage = self.cgImage {
@@ -295,10 +291,10 @@ extension UIImage {
 
         let context = CIContext(options: [kCIContextPriorityRequestLow: true])
 
-        var parameters: [String: Any] = filterParameters ?? [:]
+        var parameters: [String: Any] = parameters ?? [:]
         parameters[kCIInputImageKey] = coreImage
 
-        guard let filter = CIFilter(name: filterName, withInputParameters: parameters) else { return nil }
+        guard let filter = CIFilter(name: name, withInputParameters: parameters) else { return nil }
         guard let outputImage = filter.outputImage else { return nil }
 
         let cgImageRef = context.createCGImage(outputImage, from: outputImage.extent)

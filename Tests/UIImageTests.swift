@@ -168,10 +168,10 @@ class UIImageTestCase: BaseTestCase {
         let h = Int(round(size.height))
 
         // When
-        let scaledAppleImage = appleImage.af_imageScaledTo(size)
-        let scaledPirateImage = pirateImage.af_imageScaledTo(size)
-        let scaledRainbowImage = rainbowImage.af_imageScaledTo(size)
-        let scaledUnicornImage = unicornImage.af_imageScaledTo(size)
+        let scaledAppleImage = appleImage.af_imageScaled(to: size)
+        let scaledPirateImage = pirateImage.af_imageScaled(to: size)
+        let scaledRainbowImage = rainbowImage.af_imageScaled(to: size)
+        let scaledUnicornImage = unicornImage.af_imageScaled(to: size)
 
         // Then
         let expectedAppleImage = image(forResource: "apple-scaled-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -208,10 +208,10 @@ class UIImageTestCase: BaseTestCase {
         let h = Int(round(size.height))
 
         // When
-        let scaledAppleImage = appleImage.af_imageAspectScaledToFit(size)
-        let scaledPirateImage = pirateImage.af_imageAspectScaledToFit(size)
-        let scaledRainbowImage = rainbowImage.af_imageAspectScaledToFit(size)
-        let scaledUnicornImage = unicornImage.af_imageAspectScaledToFit(size)
+        let scaledAppleImage = appleImage.af_imageAspectScaled(toFit: size)
+        let scaledPirateImage = pirateImage.af_imageAspectScaled(toFit: size)
+        let scaledRainbowImage = rainbowImage.af_imageAspectScaled(toFit: size)
+        let scaledUnicornImage = unicornImage.af_imageAspectScaled(toFit: size)
 
         // Then
         let expectedAppleImage = image(forResource: "apple-aspect.scaled.to.fit-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -248,10 +248,10 @@ class UIImageTestCase: BaseTestCase {
         let h = Int(round(size.height))
 
         // When
-        let scaledAppleImage = appleImage.af_imageAspectScaledToFill(size)
-        let scaledPirateImage = pirateImage.af_imageAspectScaledToFill(size)
-        let scaledRainbowImage = rainbowImage.af_imageAspectScaledToFill(size)
-        let scaledUnicornImage = unicornImage.af_imageAspectScaledToFill(size)
+        let scaledAppleImage = appleImage.af_imageAspectScaled(toFill: size)
+        let scaledPirateImage = pirateImage.af_imageAspectScaled(toFill: size)
+        let scaledRainbowImage = rainbowImage.af_imageAspectScaled(toFill: size)
+        let scaledUnicornImage = unicornImage.af_imageAspectScaled(toFill: size)
 
         // Then
         let expectedAppleImage = image(forResource: "apple-aspect.scaled.to.fill-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -278,10 +278,10 @@ class UIImageTestCase: BaseTestCase {
         let r = Int(round(radius))
 
         // When
-        let roundedAppleImage = appleImage.af_imageWithRoundedCornerRadius(radius, divideRadiusByImageScale: true)
-        let roundedPirateImage = pirateImage.af_imageWithRoundedCornerRadius(radius, divideRadiusByImageScale: true)
-        let roundedRainbowImage = rainbowImage.af_imageWithRoundedCornerRadius(radius, divideRadiusByImageScale: true)
-        let roundedUnicornImage = unicornImage.af_imageWithRoundedCornerRadius(radius, divideRadiusByImageScale: true)
+        let roundedAppleImage = appleImage.af_imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
+        let roundedPirateImage = pirateImage.af_imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
+        let roundedRainbowImage = rainbowImage.af_imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
+        let roundedUnicornImage = unicornImage.af_imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
 
         // Then
         let expectedAppleImage = image(forResource: "apple-radius-\(r)", withExtension: "png")
@@ -346,7 +346,7 @@ class UIImageTestCase: BaseTestCase {
         let parameters: [String: Any] = ["inputRadius": 8]
 
         // When
-        let blurredImage = unicornImage.af_imageWithAppliedCoreImageFilter("CIGaussianBlur", filterParameters: parameters)
+        let blurredImage = unicornImage.af_imageFiltered(withCoreImageFilter: "CIGaussianBlur", parameters: parameters)
 
         // Then
         if let blurredImage = blurredImage {
@@ -361,7 +361,7 @@ class UIImageTestCase: BaseTestCase {
 
     func testThatImageWithAppliedSepiaToneFilterReturnsSepiaImage() {
         // Given, When
-        let sepiaImage = unicornImage.af_imageWithAppliedCoreImageFilter("CISepiaTone")
+        let sepiaImage = unicornImage.af_imageFiltered(withCoreImageFilter: "CISepiaTone")
 
         // Then
         if let sepiaImage = sepiaImage {
@@ -377,7 +377,7 @@ class UIImageTestCase: BaseTestCase {
         let filterName = "SomeFilterThatDoesNotExist"
 
         // When
-        let filteredImage = unicornImage.af_imageWithAppliedCoreImageFilter(filterName)
+        let filteredImage = unicornImage.af_imageFiltered(withCoreImageFilter: filterName)
 
         // Then
         XCTAssertNil(filteredImage, "filtered image should be nil")
