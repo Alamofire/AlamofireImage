@@ -119,9 +119,9 @@ extension UIImageView {
     // MARK: - Private - AssociatedKeys
 
     private struct AssociatedKey {
-        static var ImageDownloader = "af_UIImageView.ImageDownloader"
-        static var SharedImageDownloader = "af_UIImageView.SharedImageDownloader"
-        static var ActiveRequestReceipt = "af_UIImageView.ActiveRequestReceipt"
+        static var imageDownloader = "af_UIImageView.ImageDownloader"
+        static var sharedImageDownloader = "af_UIImageView.SharedImageDownloader"
+        static var activeRequestReceipt = "af_UIImageView.ActiveRequestReceipt"
     }
 
     // MARK: - Associated Properties
@@ -131,10 +131,10 @@ extension UIImageView {
     /// custom instance image downloader is when images are behind different basic auth credentials.
     public var af_imageDownloader: ImageDownloader? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKey.ImageDownloader) as? ImageDownloader
+            return objc_getAssociatedObject(self, &AssociatedKey.imageDownloader) as? ImageDownloader
         }
         set(downloader) {
-            objc_setAssociatedObject(self, &AssociatedKey.ImageDownloader, downloader, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.imageDownloader, downloader, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -144,23 +144,23 @@ extension UIImageView {
     /// `af_imageDownloader` is `nil`.
     public class var af_sharedImageDownloader: ImageDownloader {
         get {
-            if let downloader = objc_getAssociatedObject(self, &AssociatedKey.SharedImageDownloader) as? ImageDownloader {
+            if let downloader = objc_getAssociatedObject(self, &AssociatedKey.sharedImageDownloader) as? ImageDownloader {
                 return downloader
             } else {
                 return ImageDownloader.default
             }
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKey.SharedImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.sharedImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     var af_activeRequestReceipt: RequestReceipt? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKey.ActiveRequestReceipt) as? RequestReceipt
+            return objc_getAssociatedObject(self, &AssociatedKey.activeRequestReceipt) as? RequestReceipt
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKey.ActiveRequestReceipt, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.activeRequestReceipt, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 

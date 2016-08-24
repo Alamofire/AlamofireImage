@@ -77,20 +77,20 @@ extension UIImage {
 
 extension UIImage {
     private struct AssociatedKey {
-        static var Inflated = "af_UIImage.Inflated"
+        static var inflated = "af_UIImage.Inflated"
     }
 
     /// Returns whether the image is inflated.
     public var af_inflated: Bool {
         get {
-            if let inflated = objc_getAssociatedObject(self, &AssociatedKey.Inflated) as? Bool {
+            if let inflated = objc_getAssociatedObject(self, &AssociatedKey.inflated) as? Bool {
                 return inflated
             } else {
                 return false
             }
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKey.Inflated, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.inflated, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 

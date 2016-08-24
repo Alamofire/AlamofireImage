@@ -31,10 +31,10 @@ extension UIButton {
     // MARK: - Private - AssociatedKeys
 
     private struct AssociatedKey {
-        static var ImageDownloader = "af_UIButton.ImageDownloader"
-        static var SharedImageDownloader = "af_UIButton.SharedImageDownloader"
-        static var ImageReceipts = "af_UIButton.ImageReceipts"
-        static var BackgroundImageReceipts = "af_UIButton.BackgroundImageReceipts"
+        static var imageDownloader = "af_UIButton.ImageDownloader"
+        static var sharedImageDownloader = "af_UIButton.SharedImageDownloader"
+        static var imageReceipts = "af_UIButton.ImageReceipts"
+        static var backgroundImageReceipts = "af_UIButton.BackgroundImageReceipts"
     }
 
     // MARK: - Properties
@@ -44,10 +44,10 @@ extension UIButton {
     /// custom instance image downloader is when images are behind different basic auth credentials.
     public var af_imageDownloader: ImageDownloader? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKey.ImageDownloader) as? ImageDownloader
+            return objc_getAssociatedObject(self, &AssociatedKey.imageDownloader) as? ImageDownloader
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKey.ImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.imageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -58,7 +58,7 @@ extension UIButton {
     public class var af_sharedImageDownloader: ImageDownloader {
         get {
             guard let
-                downloader = objc_getAssociatedObject(self, &AssociatedKey.SharedImageDownloader) as? ImageDownloader
+                downloader = objc_getAssociatedObject(self, &AssociatedKey.sharedImageDownloader) as? ImageDownloader
             else {
                 return ImageDownloader.default
             }
@@ -66,14 +66,14 @@ extension UIButton {
             return downloader
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKey.SharedImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.sharedImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     private var imageRequestReceipts: [UInt: RequestReceipt] {
         get {
             guard let
-                receipts = objc_getAssociatedObject(self, &AssociatedKey.ImageReceipts) as? [UInt: RequestReceipt]
+                receipts = objc_getAssociatedObject(self, &AssociatedKey.imageReceipts) as? [UInt: RequestReceipt]
             else {
                 return [:]
             }
@@ -81,14 +81,14 @@ extension UIButton {
             return receipts
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKey.ImageReceipts, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.imageReceipts, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     private var backgroundImageRequestReceipts: [UInt: RequestReceipt] {
         get {
             guard let
-                receipts = objc_getAssociatedObject(self, &AssociatedKey.BackgroundImageReceipts) as? [UInt: RequestReceipt]
+                receipts = objc_getAssociatedObject(self, &AssociatedKey.backgroundImageReceipts) as? [UInt: RequestReceipt]
             else {
                 return [:]
             }
@@ -96,7 +96,7 @@ extension UIButton {
             return receipts
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKey.BackgroundImageReceipts, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKey.backgroundImageReceipts, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
