@@ -111,6 +111,8 @@ extension UIButton {
         - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
                                       image will not change its image until the image request finishes. Defaults
                                       to `nil`.
+        - parameter filter:           The image filter applied to the image after the image request is
+                                      finished. Defaults to `nil`.
         - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
                                       Defaults to `nil`.
         - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
@@ -123,6 +125,7 @@ extension UIButton {
         state: UIControlState,
         URL: NSURL,
         placeHolderImage: UIImage? = nil,
+        filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
         completion: (Response<UIImage, NSError> -> Void)? = nil)
@@ -130,6 +133,7 @@ extension UIButton {
         af_setImageForState(state,
             URLRequest: URLRequestWithURL(URL),
             placeholderImage: placeHolderImage,
+            filter: filter,
             progress: progress,
             progressQueue: progressQueue,
             completion: completion
@@ -147,6 +151,8 @@ extension UIButton {
         - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
                                       image will not change its image until the image request finishes. Defaults
                                       to `nil`.
+        - parameter filter:           The image filter applied to the image after the image request is
+                                      finished. Defaults to `nil`.
         - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
                                       Defaults to `nil`.
         - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
@@ -159,6 +165,7 @@ extension UIButton {
         state: UIControlState,
         URLRequest: URLRequestConvertible,
         placeholderImage: UIImage? = nil,
+        filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: dispatch_queue_t = dispatch_get_main_queue(),
         completion: (Response<UIImage, NSError> -> Void)? = nil)
@@ -171,7 +178,7 @@ extension UIButton {
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
-        if let image = imageCache?.imageForRequest(URLRequest.URLRequest, withAdditionalIdentifier: nil) {
+        if let image = imageCache?.imageForRequest(URLRequest.URLRequest, withAdditionalIdentifier: filter?.identifier) {
             let response = Response<UIImage, NSError>(
                 request: URLRequest.URLRequest,
                 response: nil,
@@ -195,7 +202,7 @@ extension UIButton {
         let requestReceipt = imageDownloader.downloadImage(
             URLRequest: URLRequest,
             receiptID: downloadID,
-            filter: nil,
+            filter: filter,
             progress: progress,
             progressQueue: progressQueue,
             completion: { [weak self] response in
