@@ -34,7 +34,7 @@ import WatchKit
 import Cocoa
 #endif
 
-extension Request {
+extension DataRequest {
     static var acceptableImageContentTypes: Set<String> = [
         "image/tiff",
         "image/jpeg",
@@ -53,7 +53,7 @@ extension Request {
     ///
     /// - parameter contentTypes: The additional content types.
     public class func addAcceptableImageContentTypes(_ contentTypes: Set<String>) {
-        Request.acceptableImageContentTypes.formUnion(contentTypes)
+        DataRequest.acceptableImageContentTypes.formUnion(contentTypes)
     }
 
     // MARK: - iOS, tvOS and watchOS
@@ -75,23 +75,23 @@ extension Request {
     ///
     /// - returns: An image response serializer.
     public class func imageResponseSerializer(
-        imageScale: CGFloat = Request.imageScale,
+        imageScale: CGFloat = DataRequest.imageScale,
         inflateResponseImage: Bool = true)
-        -> ResponseSerializer<UIImage, NSError>
+        -> DataResponseSerializer<UIImage>
     {
-        return ResponseSerializer { request, response, data, error in
+        return DataResponseSerializer { request, response, data, error in
             guard error == nil else { return .failure(error!) }
 
             guard let validData = data, validData.count > 0 else {
-                return .failure(Request.imageDataError())
+                return .failure(DataRequest.imageDataError())
             }
 
-            guard Request.validateContentType(for: request, response: response) else {
-                return .failure(Request.contentTypeValidationError())
+            guard DataRequest.validateContentType(for: request, response: response) else {
+                return .failure(DataRequest.contentTypeValidationError())
             }
 
             do {
-                let image = try Request.image(from: validData, withImageScale: imageScale)
+                let image = try DataRequest.image(from: validData, withImageScale: imageScale)
                 if inflateResponseImage { image.af_inflate() }
 
                 return .success(image)
@@ -122,13 +122,13 @@ extension Request {
     /// - returns: The request.
     @discardableResult
     public func responseImage(
-        imageScale: CGFloat = Request.imageScale,
+        imageScale: CGFloat = DataRequest.imageScale,
         inflateResponseImage: Bool = true,
-        completionHandler: @escaping (Response<Image, NSError>) -> Void)
+        completionHandler: @escaping (DataResponse<Image>) -> Void)
         -> Self
     {
         return response(
-            responseSerializer: Request.imageResponseSerializer(
+            responseSerializer: DataRequest.imageResponseSerializer(
                 imageScale: imageScale,
                 inflateResponseImage: inflateResponseImage
             ),
@@ -159,20 +159,20 @@ extension Request {
     /// Creates a response serializer that returns an image initialized from the response data.
     ///
     /// - returns: An image response serializer.
-    public class func imageResponseSerializer() -> ResponseSerializer<NSImage, NSError> {
-        return ResponseSerializer { request, response, data, error in
+    public class func imageResponseSerializer() -> DataResponseSerializer<NSImage> {
+        return DataResponseSerializer { request, response, data, error in
             guard error == nil else { return .failure(error!) }
 
             guard let validData = data, validData.count > 0 else {
-                return .failure(Request.imageDataError())
+                return .failure(DataRequest.imageDataError())
             }
 
-            guard Request.validateContentType(for: request, response: response) else {
-                return .failure(Request.contentTypeValidationError())
+            guard DataRequest.validateContentType(for: request, response: response) else {
+                return .failure(DataRequest.contentTypeValidationError())
             }
 
             guard let bitmapImage = NSBitmapImageRep(data: validData) else {
-                return .failure(Request.imageDataError())
+                return .failure(DataRequest.imageDataError())
             }
 
             let image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
@@ -191,9 +191,9 @@ extension Request {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseImage(completionHandler: @escaping (Response<Image, NSError>) -> Void) -> Self {
+    public func responseImage(completionHandler: @escaping (DataResponse<Image>) -> Void) -> Self {
         return response(
-            responseSerializer: Request.imageResponseSerializer(),
+            responseSerializer: DataRequest.imageResponseSerializer(),
             completionHandler: completionHandler
         )
     }
@@ -207,7 +207,7 @@ extension Request {
             return true
         }
 
-        if let mimeType = response?.mimeType, Request.acceptableImageContentTypes.contains(mimeType) {
+        if let mimeType = response?.mimeType, DataRequest.acceptableImageContentTypes.contains(mimeType) {
             return true
         }
 

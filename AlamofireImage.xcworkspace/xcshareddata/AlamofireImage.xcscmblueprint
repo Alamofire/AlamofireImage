@@ -5,12 +5,14 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "67620B5EFA902936DF04070AF595B76AB0333747" : 0,
+    "C9532DB34657C9B197EE3CA2A5C379A9162E6DF6" : 9223372036854775807,
     "D2AD29AE1B693121D0EDBB4855C96B75ECBB0D86" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7F9607B6-9202-46E7-BEBE-95D4C2A36284",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "67620B5EFA902936DF04070AF595B76AB0333747" : "AlamofireImage\/Carthage\/Checkouts\/Alamofire",
-    "D2AD29AE1B693121D0EDBB4855C96B75ECBB0D86" : "AlamofireImage"
+    "67620B5EFA902936DF04070AF595B76AB0333747" : "AlamofireImage\/Carthage\/Checkouts\/Alamofire\/",
+    "C9532DB34657C9B197EE3CA2A5C379A9162E6DF6" : "..\/..",
+    "D2AD29AE1B693121D0EDBB4855C96B75ECBB0D86" : "AlamofireImage\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "AlamofireImage",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -20,6 +22,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Alamofire\/Alamofire.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "67620B5EFA902936DF04070AF595B76AB0333747"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:5UMU\/sumu_ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C9532DB34657C9B197EE3CA2A5C379A9162E6DF6"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:cnoon\/AlamofireImage.git",
