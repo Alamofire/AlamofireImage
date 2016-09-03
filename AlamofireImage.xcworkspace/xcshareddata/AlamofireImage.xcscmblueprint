@@ -9,8 +9,8 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7F9607B6-9202-46E7-BEBE-95D4C2A36284",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "67620B5EFA902936DF04070AF595B76AB0333747" : "AlamofireImage\/Carthage\/Checkouts\/Alamofire",
-    "D2AD29AE1B693121D0EDBB4855C96B75ECBB0D86" : "AlamofireImage"
+    "67620B5EFA902936DF04070AF595B76AB0333747" : "AlamofireImage\/Carthage\/Checkouts\/Alamofire\/",
+    "D2AD29AE1B693121D0EDBB4855C96B75ECBB0D86" : "AlamofireImage\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "AlamofireImage",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,

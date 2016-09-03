@@ -65,7 +65,7 @@ class RequestTestCase: BaseTestCase {
         let urlString = "https://httpbin.org/image/png"
         let expectation = self.expectation(description: "Request should return PNG response image")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         sessionManager.request(urlString, withMethod: .get)
@@ -101,7 +101,7 @@ class RequestTestCase: BaseTestCase {
         let urlString = "https://httpbin.org/image/jpeg"
         let expectation = self.expectation(description: "Request should return JPG response image")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         sessionManager.request(urlString, withMethod: .get)
@@ -137,7 +137,7 @@ class RequestTestCase: BaseTestCase {
         let url = self.url(forResource: "apple", withExtension: "jpg")
         let expectation = self.expectation(description: "Request should return JPG response image")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         sessionManager.request(url, withMethod: .get)
@@ -177,7 +177,7 @@ class RequestTestCase: BaseTestCase {
         let urlString = "https://httpbin.org/image/png"
         let expectation = self.expectation(description: "Request should return PNG response image")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         sessionManager.request(urlString, withMethod: .get)
@@ -209,7 +209,7 @@ class RequestTestCase: BaseTestCase {
         let urlString = "https://httpbin.org/image/jpeg"
         let expectation = self.expectation(description: "Request should return JPG response image")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         sessionManager.request(urlString, withMethod: .get)
@@ -245,7 +245,7 @@ class RequestTestCase: BaseTestCase {
         let urlString = "https://invalid.for.sure"
         let expectation = self.expectation(description: "Request should fail with bad URL")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         sessionManager.request(urlString, withMethod: .get)
@@ -268,7 +268,7 @@ class RequestTestCase: BaseTestCase {
         let urlString = "https://httpbin.org/image/webp"
         let expectation = self.expectation(description: "Request should return webp response image")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         sessionManager.request(urlString, withMethod: .get)
@@ -286,8 +286,8 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be org.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+            XCTAssertEqual(error._domain, NSURLErrorDomain, "error domain should be org.alamofire.error")
+            XCTAssertEqual(error._code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
         }
     }
 
@@ -296,7 +296,7 @@ class RequestTestCase: BaseTestCase {
         let urlString = "https://httpbin.org/bytes/0"
         let expectation = self.expectation(description: "Request should download no bytes")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         sessionManager.request(urlString, withMethod: .get)
@@ -314,8 +314,8 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be org.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeRawData, "error code should be -1015")
+            XCTAssertEqual(error._domain, NSURLErrorDomain, "error domain should be org.alamofire.error")
+            XCTAssertEqual(error._code, NSURLErrorCannotDecodeRawData, "error code should be -1015")
         }
     }
 
@@ -325,7 +325,7 @@ class RequestTestCase: BaseTestCase {
         let urlString = "https://httpbin.org/bytes/\(randomBytes)"
         let expectation = self.expectation(description: "Request should download random bytes")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         sessionManager.request(urlString, withMethod: .get)
@@ -343,8 +343,8 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be org.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+            XCTAssertEqual(error._domain, NSURLErrorDomain, "error domain should be org.alamofire.error")
+            XCTAssertEqual(error._code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
         }
     }
 
@@ -353,7 +353,7 @@ class RequestTestCase: BaseTestCase {
         let urlString = "https://httpbin.org/get"
         let expectation = self.expectation(description: "Request should return JSON")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         sessionManager.request(urlString, withMethod: .get)
@@ -371,8 +371,8 @@ class RequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be org.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+            XCTAssertEqual(error._domain, NSURLErrorDomain, "error domain should be org.alamofire.error")
+            XCTAssertEqual(error._code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
         }
     }
 }

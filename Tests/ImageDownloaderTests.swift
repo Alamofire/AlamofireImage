@@ -124,7 +124,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         downloader.download(urlRequest) { closureResponse in
@@ -151,8 +151,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectation(description: "download 1 should succeed")
         let expectation2 = expectation(description: "download 2 should succeed")
 
-        var result1: Result<Image, NSError>?
-        var result2: Result<Image, NSError>?
+        var result1: Result<Image>?
+        var result2: Result<Image>?
 
         // When
         downloader.download(urlRequest1) { closureResponse in
@@ -189,7 +189,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation = self.expectation(description: "both downloads should succeed")
         var completedDownloads = 0
 
-        var results: [Result<Image, NSError>] = []
+        var results: [Result<Image>] = []
 
         // When
         downloader.download([urlRequest1, urlRequest2], filter: nil) { closureResponse in
@@ -240,7 +240,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest = URLRequest(urlString: "https://httpbin.org/get", method: .get)
         let expectation = self.expectation(description: "download request should fail")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         downloader.download(urlRequest) { closureResponse in
@@ -273,7 +273,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         downloader.download(urlRequest) { closureResponse in
@@ -302,7 +302,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation = self.expectation(description: "image download should succeed")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         downloader.download(urlRequest, filter: filter) { closureResponse in
@@ -335,8 +335,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectation(description: "download request 1 should succeed")
         let expectation2 = expectation(description: "download request 2 should succeed")
 
-        var result1: Result<Image, NSError>?
-        var result2: Result<Image, NSError>?
+        var result1: Result<Image>?
+        var result2: Result<Image>?
 
         // When
         let requestReceipt1 = downloader.download(urlRequest1, filter: filter1) { closureResponse in
@@ -382,8 +382,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectation(description: "download request 1 should succeed")
         let expectation2 = expectation(description: "download request 2 should succeed")
 
-        var result1: Result<Image, NSError>?
-        var result2: Result<Image, NSError>?
+        var result1: Result<Image>?
+        var result2: Result<Image>?
 
         // When
         let requestReceipt1 = downloader.download(urlRequest1, filter: filter1) { closureResponse in
@@ -490,7 +490,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation = self.expectation(description: "download request should succeed")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         let requestReceipt = downloader.download(urlRequest) { closureResponse in
@@ -510,8 +510,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isFailure ?? false, "result should be a failure case")
 
         if let error = response?.result.error {
-            XCTAssertEqual(error.domain, ErrorDomain, "error domain should be org.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCancelled, "error code should be cancelled")
+            XCTAssertEqual(error._domain, NSURLErrorDomain, "error domain should be org.alamofire.error")
+            XCTAssertEqual(error._code, NSURLErrorCancelled, "error code should be cancelled")
         }
     }
 
@@ -525,8 +525,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectation(description: "download request 1 should succeed")
         let expectation2 = expectation(description: "download request 2 should succeed")
 
-        var response1: Response<Image, NSError>?
-        var response2: Response<Image, NSError>?
+        var response1: Response<Image>?
+        var response2: Response<Image>?
 
         // When
         let requestReceipt1 = downloader.download(urlRequest1) { closureResponse in
@@ -553,8 +553,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(response1?.result.isFailure ?? false, "response 1 result should be a failure case")
 
         if let error = response1?.result.error {
-            XCTAssertEqual(error.domain, ErrorDomain, "error domain should be org.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCancelled, "error code should be cancelled")
+            XCTAssertEqual(error._domain, NSURLErrorDomain, "error domain should be org.alamofire.error")
+            XCTAssertEqual(error._code, NSURLErrorCancelled, "error code should be cancelled")
         }
 
         XCTAssertNotNil(response2, "response 2 should not be nil")
@@ -732,7 +732,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        var response: Response<Image, NSError>?
+        var response: Response<Image>?
 
         // When
         downloader.download(urlRequest) { closureResponse in
@@ -755,8 +755,8 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation1 = expectation(description: "image download should succeed")
 
-        var result1: Result<Image, NSError>?
-        var result2: Result<Image, NSError>?
+        var result1: Result<Image>?
+        var result2: Result<Image>?
 
         // When
         let requestReceipt1 = downloader.download(urlRequest) { closureResponse in
@@ -801,8 +801,8 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation1 = expectation(description: "image download should succeed")
 
-        var result1: Result<Image, NSError>?
-        var result2: Result<Image, NSError>?
+        var result1: Result<Image>?
+        var result2: Result<Image>?
 
         // When
         let requestReceipt1 = downloader.download(urlRequest, filter: filter) { closureResponse in

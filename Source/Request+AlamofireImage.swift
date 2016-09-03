@@ -77,7 +77,7 @@ extension Request {
     public class func imageResponseSerializer(
         imageScale: CGFloat = Request.imageScale,
         inflateResponseImage: Bool = true)
-        -> ResponseSerializer<UIImage, NSError>
+        -> ResponseSerializer<UIImage>
     {
         return ResponseSerializer { request, response, data, error in
             guard error == nil else { return .failure(error!) }
@@ -124,7 +124,7 @@ extension Request {
     public func responseImage(
         imageScale: CGFloat = Request.imageScale,
         inflateResponseImage: Bool = true,
-        completionHandler: @escaping (Response<Image, NSError>) -> Void)
+        completionHandler: @escaping (Response<Image>) -> Void)
         -> Self
     {
         return response(
@@ -159,7 +159,7 @@ extension Request {
     /// Creates a response serializer that returns an image initialized from the response data.
     ///
     /// - returns: An image response serializer.
-    public class func imageResponseSerializer() -> ResponseSerializer<NSImage, NSError> {
+    public class func imageResponseSerializer() -> ResponseSerializer<NSImage> {
         return ResponseSerializer { request, response, data, error in
             guard error == nil else { return .failure(error!) }
 
@@ -191,7 +191,7 @@ extension Request {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseImage(completionHandler: @escaping (Response<Image, NSError>) -> Void) -> Self {
+    public func responseImage(completionHandler: @escaping (Response<Image>) -> Void) -> Self {
         return response(
             responseSerializer: Request.imageResponseSerializer(),
             completionHandler: completionHandler
