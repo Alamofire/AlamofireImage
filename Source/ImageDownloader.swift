@@ -56,7 +56,7 @@ public class RequestReceipt {
 /// handlers for a single request.
 public class ImageDownloader {
     /// The completion handler closure used when an image download completes.
-    public typealias CompletionHandler = (Response<Image, NSError>) -> Void
+    public typealias CompletionHandler = (Response<Image>) -> Void
 
     /// The progress handler closure called periodically during an image download.
     public typealias ProgressHandler = (_ bytesRead: Int64, _ totalBytesRead: Int64, _ totalExpectedBytesToRead: Int64) -> Void
@@ -270,7 +270,7 @@ public class ImageDownloader {
             case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
                 if let image = self.imageCache?.image(for: urlRequest.urlRequest, withIdentifier: filter?.identifier) {
                     DispatchQueue.main.async {
-                        let response = Response<Image, NSError>(
+                        let response = Response<Image>(
                             request: urlRequest.urlRequest,
                             response: nil,
                             data: nil,
@@ -330,7 +330,7 @@ public class ImageDownloader {
                             strongSelf.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
 
                             DispatchQueue.main.async {
-                                let response = Response<Image, NSError>(
+                                let response = Response<Image>(
                                     request: response.request,
                                     response: response.response,
                                     data: response.data,
@@ -429,12 +429,12 @@ public class ImageDownloader {
             if let index = responseHandler.operations.index(where: { $0.id == requestReceipt.receiptID }) {
                 let operation = responseHandler.operations.remove(at: index)
 
-                let response: Response<Image, NSError> = {
+                let response: Response<Image> = {
                     let urlRequest = requestReceipt.request.request!
                     let error: NSError = {
                         let failureReason = "ImageDownloader cancelled URL request: \(urlRequest.urlString)"
                         let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
-                        return NSError(domain: ErrorDomain, code: NSURLErrorCancelled, userInfo: userInfo)
+                        return NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: userInfo)
                     }()
 
                     return Response(request: urlRequest, response: nil, data: nil, result: .failure(error))
