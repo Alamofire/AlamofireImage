@@ -36,6 +36,7 @@ extension Request {
     static var acceptableImageContentTypes: Set<String> = [
         "image/tiff",
         "image/jpeg",
+        "image/jpg",
         "image/gif",
         "image/png",
         "image/ico",
