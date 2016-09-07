@@ -70,14 +70,16 @@ public class ImageDownloader {
     }
 
     class ResponseHandler {
-        let identifier: String
+        let urlID: String
+        let handlerID: String
         let request: Request
-        var operations: [(id: String, filter: ImageFilter?, completion: CompletionHandler?)]
+        var operations: [(receiptID: String, filter: ImageFilter?, completion: CompletionHandler?)]
 
-        init(request: Request, id: String, filter: ImageFilter?, completion: CompletionHandler?) {
+        init(request: Request, handlerIdentifier: String, receiptID: String, filter: ImageFilter?, completion: CompletionHandler?) {
             self.request = request
-            self.identifier = ImageDownloader.identifierForURLRequest(request.request!)
-            self.operations = [(id: id, filter: filter, completion: completion)]
+            self.urlID = ImageDownloader.urlIdentifierForURLRequest(request.request!)
+            self.handlerID = handlerIdentifier
+            self.operations = [(receiptID: receiptID, filter: filter, completion: completion)]
         }
     }
 
@@ -270,10 +272,10 @@ public class ImageDownloader {
 
         dispatch_sync(synchronizationQueue) {
             // 1) Append the filter and completion handler to a pre-existing request if it already exists
-            let identifier = ImageDownloader.identifierForURLRequest(URLRequest)
+            let urlID = ImageDownloader.urlIdentifierForURLRequest(URLRequest)
 
-            if let responseHandler = self.responseHandlers[identifier] {
-                responseHandler.operations.append(id: receiptID, filter: filter, completion: completion)
+            if let responseHandler = self.responseHandlers[urlID] {
+                responseHandler.operations.append(receiptID: receiptID, filter: filter, completion: completion)
                 request = responseHandler.request
                 return
             }
@@ -323,13 +325,25 @@ public class ImageDownloader {
                 }
             }
 
+            // Generate a unique handler id to check whether the active request has changed while downloading
+            let handlerID = NSUUID().UUIDString
+
             request.response(
                 queue: self.responseQueue,
                 responseSerializer: Request.imageResponseSerializer(),
                 completionHandler: { [weak self] response in
                     guard let strongSelf = self, let request = response.request else { return }
 
-                    let responseHandler = strongSelf.safelyRemoveResponseHandlerWithIdentifier(identifier)
+                    defer {
+                        strongSelf.safelyDecrementActiveRequestCount()
+                        strongSelf.safelyStartNextRequestIfNecessary()
+                    }
+
+                    // Early out if the request has changed out from under us
+                    let handler = strongSelf.safelyFetchResponseHandlerWithURLIdentifier(urlID)
+                    guard handler?.handlerID == handlerID else { return }
+
+                    guard let responseHandler = strongSelf.safelyRemoveResponseHandlerWithURLIdentifier(urlID) else { return }
 
                     switch response.result {
                     case .Success(let image):
@@ -372,21 +386,19 @@ public class ImageDownloader {
                             dispatch_async(dispatch_get_main_queue()) { completion?(response) }
                         }
                     }
-
-                    strongSelf.safelyDecrementActiveRequestCount()
-                    strongSelf.safelyStartNextRequestIfNecessary()
                 }
             )
 
             // 4) Store the response handler for use when the request completes
             let responseHandler = ResponseHandler(
                 request: request,
-                id: receiptID,
+                handlerIdentifier: handlerID,
+                receiptID: receiptID,
                 filter: filter,
                 completion: completion
             )
 
-            self.responseHandlers[identifier] = responseHandler
+            self.responseHandlers[urlID] = responseHandler
 
             // 5) Either start the request or enqueue it depending on the current active request count
             if self.isActiveRequestCountBelowMaximumLimit() {
@@ -458,10 +470,10 @@ public class ImageDownloader {
     */
     public func cancelRequestForRequestReceipt(requestReceipt: RequestReceipt) {
         dispatch_sync(synchronizationQueue) {
-            let identifier = ImageDownloader.identifierForURLRequest(requestReceipt.request.request!)
-            guard let responseHandler = self.responseHandlers[identifier] else { return }
+            let urlID = ImageDownloader.urlIdentifierForURLRequest(requestReceipt.request.request!)
+            guard let responseHandler = self.responseHandlers[urlID] else { return }
 
-            if let index = responseHandler.operations.indexOf({ $0.id == requestReceipt.receiptID }) {
+            if let index = responseHandler.operations.indexOf({ $0.receiptID == requestReceipt.receiptID }) {
                 let operation = responseHandler.operations.removeAtIndex(index)
 
                 let response: Response<Image, NSError> = {
@@ -480,17 +492,28 @@ public class ImageDownloader {
 
             if responseHandler.operations.isEmpty && requestReceipt.request.task.state == .Suspended {
                 requestReceipt.request.cancel()
+                self.responseHandlers.removeValueForKey(urlID)
             }
         }
     }
 
     // MARK: - Internal - Thread-Safe Request Methods
 
-    func safelyRemoveResponseHandlerWithIdentifier(identifier: String) -> ResponseHandler {
-        var responseHandler: ResponseHandler!
+    func safelyFetchResponseHandlerWithURLIdentifier(urlIdentifier: String) -> ResponseHandler? {
+        var responseHandler: ResponseHandler?
 
         dispatch_sync(synchronizationQueue) {
-            responseHandler = self.responseHandlers.removeValueForKey(identifier)
+            responseHandler = self.responseHandlers[urlIdentifier]
+        }
+
+        return responseHandler
+    }
+
+    func safelyRemoveResponseHandlerWithURLIdentifier(urlIdentifier: String) -> ResponseHandler? {
+        var responseHandler: ResponseHandler?
+
+        dispatch_sync(synchronizationQueue) {
+            responseHandler = self.responseHandlers.removeValueForKey(urlIdentifier)
         }
 
         return responseHandler
@@ -547,7 +570,7 @@ public class ImageDownloader {
         return activeRequestCount < maximumActiveDownloads
     }
 
-    static func identifierForURLRequest(URLRequest: URLRequestConvertible) -> String {
+    static func urlIdentifierForURLRequest(URLRequest: URLRequestConvertible) -> String {
         return URLRequest.URLRequest.URLString
     }
 }
