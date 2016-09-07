@@ -107,7 +107,7 @@ class UIButtonTests: BaseTestCase {
         // Given
         let expectation = self.expectation(description: "image should cancel and download successfully")
         let button = UIButton()
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setImage(for: [], url: url)
@@ -131,7 +131,7 @@ class UIButtonTests: BaseTestCase {
         // Given
         let expectation = self.expectation(description: "background image should cancel and download successfully")
         let button = UIButton()
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setBackgroundImage(for: [], url: url)
@@ -506,7 +506,7 @@ class UIButtonTests: BaseTestCase {
         let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
@@ -536,7 +536,7 @@ class UIButtonTests: BaseTestCase {
         let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
@@ -561,7 +561,7 @@ class UIButtonTests: BaseTestCase {
         let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
@@ -586,7 +586,7 @@ class UIButtonTests: BaseTestCase {
         let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
@@ -613,7 +613,7 @@ class UIButtonTests: BaseTestCase {
         let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setImage(
@@ -644,7 +644,7 @@ class UIButtonTests: BaseTestCase {
         let expectation = self.expectation(description: "background image download should succeed")
 
         var completionHandlerCalled = false
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setBackgroundImage(
@@ -674,7 +674,7 @@ class UIButtonTests: BaseTestCase {
 
         var completion1Called = false
         var completion2Called = false
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setImage(
@@ -713,7 +713,7 @@ class UIButtonTests: BaseTestCase {
 
         var completion1Called = false
         var completion2Called = false
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setBackgroundImage(
@@ -752,7 +752,7 @@ class UIButtonTests: BaseTestCase {
 
         var completion1Called = false
         var completion2Called = false
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setImage(
@@ -793,7 +793,7 @@ class UIButtonTests: BaseTestCase {
 
         var completion1Called = false
         var completion2Called = false
-        var result: Result<UIImage, NSError>?
+        var result: Result<UIImage>?
 
         // When
         button.af_setBackgroundImage(
@@ -888,7 +888,7 @@ class UIButtonTests: BaseTestCase {
         XCTAssertNotNil(acceptField)
 
         if let acceptField = acceptField {
-            XCTAssertEqual(acceptField, Request.acceptableImageContentTypes.joined(separator: ","))
+            XCTAssertEqual(acceptField, DataRequest.acceptableImageContentTypes.joined(separator: ","))
         }
     }
 }

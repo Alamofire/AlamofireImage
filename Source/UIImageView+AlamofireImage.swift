@@ -205,7 +205,7 @@ extension UIImageView {
         progressQueue: DispatchQueue = DispatchQueue.main,
         imageTransition: ImageTransition = .noTransition,
         runImageTransitionIfCached: Bool = false,
-        completion: ((Response<UIImage, NSError>) -> Void)? = nil)
+        completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         af_setImage(
             withURLRequest: urlRequest(with: url),
@@ -258,7 +258,7 @@ extension UIImageView {
         progressQueue: DispatchQueue = DispatchQueue.main,
         imageTransition: ImageTransition = .noTransition,
         runImageTransitionIfCached: Bool = false,
-        completion: ((Response<UIImage, NSError>) -> Void)? = nil)
+        completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isURLRequestURLEqualToActiveRequestURL(urlRequest) else { return }
 
@@ -269,7 +269,7 @@ extension UIImageView {
 
         // Use the image from the image cache if it exists
         if let image = imageCache?.image(for: urlRequest.urlRequest, withIdentifier: filter?.identifier) {
-            let response = Response<UIImage, NSError>(
+            let response = DataResponse<UIImage>(
                 request: urlRequest.urlRequest,
                 response: nil,
                 data: nil,
@@ -363,7 +363,7 @@ extension UIImageView {
     private func urlRequest(with url: URL) -> URLRequest {
         var urlRequest = URLRequest(url: url)
 
-        for mimeType in Request.acceptableImageContentTypes {
+        for mimeType in DataRequest.acceptableImageContentTypes {
             urlRequest.addValue(mimeType, forHTTPHeaderField: "Accept")
         }
 

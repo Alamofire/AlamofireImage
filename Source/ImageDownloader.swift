@@ -56,10 +56,10 @@ public class RequestReceipt {
 /// handlers for a single request.
 public class ImageDownloader {
     /// The completion handler closure used when an image download completes.
-    public typealias CompletionHandler = (Response<Image, NSError>) -> Void
+    public typealias CompletionHandler = (DataResponse<Image>) -> Void
 
     /// The progress handler closure called periodically during an image download.
-    public typealias ProgressHandler = (_ bytesRead: Int64, _ totalBytesRead: Int64, _ totalExpectedBytesToRead: Int64) -> Void
+    public typealias ProgressHandler = DataRequest.ProgressHandler
 
     /// Defines the order prioritization of incoming download requests being inserted into the queue.
     ///
@@ -72,13 +72,19 @@ public class ImageDownloader {
     class ResponseHandler {
         let urlID: String
         let handlerID: String
-        let request: Request
+        let request: DataRequest
         var operations: [(receiptID: String, filter: ImageFilter?, completion: CompletionHandler?)]
 
-        init(request: Request, handlerIdentifier: String, receiptID: String, filter: ImageFilter?, completion: CompletionHandler?) {
+        init(
+            request: DataRequest,
+            handlerID: String,
+            receiptID: String,
+            filter: ImageFilter?,
+            completion: CompletionHandler?)
+        {
             self.request = request
             self.urlID = ImageDownloader.urlIdentifier(for: request.request!)
-            self.handlerID = handlerIdentifier
+            self.handlerID = handlerID
             self.operations = [(receiptID: receiptID, filter: filter, completion: completion)]
         }
     }
@@ -255,7 +261,7 @@ public class ImageDownloader {
         completion: CompletionHandler?)
         -> RequestReceipt?
     {
-        var request: Request!
+        var request: DataRequest!
 
         synchronizationQueue.sync {
             // 1) Append the filter and completion handler to a pre-existing request if it already exists
@@ -272,7 +278,7 @@ public class ImageDownloader {
             case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
                 if let image = self.imageCache?.image(for: urlRequest.urlRequest, withIdentifier: filter?.identifier) {
                     DispatchQueue.main.async {
-                        let response = Response<Image, NSError>(
+                        let response = DataResponse<Image>(
                             request: urlRequest.urlRequest,
                             response: nil,
                             data: nil,
@@ -289,7 +295,7 @@ public class ImageDownloader {
             }
 
             // 3) Create the request and set up authentication, validation and response serialization
-            request = self.sessionManager.request(urlRequest)
+            request = self.sessionManager.request(resource: urlRequest)
 
             if let credential = self.credential {
                 request.authenticate(usingCredential: credential)
@@ -298,9 +304,7 @@ public class ImageDownloader {
             request.validate()
 
             if let progress = progress {
-                request.progress { bytesRead, totalBytesRead, totalExpectedBytesToRead in
-                    progressQueue.async { progress(bytesRead, totalBytesRead, totalExpectedBytesToRead) }
-                }
+                request.downloadProgress(queue: progressQueue, closure: progress)
             }
 
             // Generate a unique handler id to check whether the active request has changed while downloading
@@ -308,7 +312,7 @@ public class ImageDownloader {
 
             request.response(
                 queue: self.responseQueue,
-                responseSerializer: Request.imageResponseSerializer(),
+                responseSerializer: DataRequest.imageResponseSerializer(),
                 completionHandler: { [weak self] response in
                     guard let strongSelf = self, let request = response.request else { return }
 
@@ -346,7 +350,7 @@ public class ImageDownloader {
                             strongSelf.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
 
                             DispatchQueue.main.async {
-                                let response = Response<Image, NSError>(
+                                let response = DataResponse<Image>(
                                     request: response.request,
                                     response: response.response,
                                     data: response.data,
@@ -368,7 +372,7 @@ public class ImageDownloader {
             // 4) Store the response handler for use when the request completes
             let responseHandler = ResponseHandler(
                 request: request,
-                handlerIdentifier: handlerID,
+                handlerID: handlerID,
                 receiptID: receiptID,
                 filter: filter,
                 completion: completion
@@ -443,15 +447,11 @@ public class ImageDownloader {
             if let index = responseHandler.operations.index(where: { $0.receiptID == requestReceipt.receiptID }) {
                 let operation = responseHandler.operations.remove(at: index)
 
-                let response: Response<Image, NSError> = {
+                let response: DataResponse<Image> = {
                     let urlRequest = requestReceipt.request.request!
-                    let error: NSError = {
-                        let failureReason = "ImageDownloader cancelled URL request: \(urlRequest.urlString)"
-                        let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
-                        return NSError(domain: ErrorDomain, code: NSURLErrorCancelled, userInfo: userInfo)
-                    }()
+                    let error = AFIError.requestCancelled
 
-                    return Response(request: urlRequest, response: nil, data: nil, result: .failure(error))
+                    return DataResponse(request: urlRequest, response: nil, data: nil, result: .failure(error))
                 }()
 
                 DispatchQueue.main.async { operation.completion?(response) }

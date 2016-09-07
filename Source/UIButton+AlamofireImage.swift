@@ -125,7 +125,7 @@ extension UIButton {
         placeHolderImage: UIImage? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((Response<UIImage, NSError>) -> Void)? = nil)
+        completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         af_setImage(
             for: state,
@@ -160,7 +160,7 @@ extension UIButton {
         placeholderImage: UIImage? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((Response<UIImage, NSError>) -> Void)? = nil)
+        completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else { return }
 
@@ -171,7 +171,7 @@ extension UIButton {
 
         // Use the image from the image cache if it exists
         if let image = imageCache?.image(for: urlRequest.urlRequest, withIdentifier: nil) {
-            let response = Response<UIImage, NSError>(
+            let response = DataResponse<UIImage>(
                 request: urlRequest.urlRequest,
                 response: nil,
                 data: nil,
@@ -255,7 +255,7 @@ extension UIButton {
         placeHolderImage: UIImage? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((Response<UIImage, NSError>) -> Void)? = nil)
+        completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         af_setBackgroundImage(
             for: state,
@@ -287,7 +287,7 @@ extension UIButton {
         placeholderImage: UIImage? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((Response<UIImage, NSError>) -> Void)? = nil)
+        completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else { return }
 
@@ -298,7 +298,7 @@ extension UIButton {
 
         // Use the image from the image cache if it exists
         if let image = imageCache?.image(for: urlRequest.urlRequest, withIdentifier: nil) {
-            let response = Response<UIImage, NSError>(
+            let response = DataResponse<UIImage>(
                 request: urlRequest.urlRequest,
                 response: nil,
                 data: nil,
@@ -420,7 +420,7 @@ extension UIButton {
     private func urlRequest(with url: URL) -> URLRequest {
         var urlRequest = URLRequest(url: url)
 
-        for mimeType in Request.acceptableImageContentTypes {
+        for mimeType in DataRequest.acceptableImageContentTypes {
             urlRequest.addValue(mimeType, forHTTPHeaderField: "Accept")
         }
 
