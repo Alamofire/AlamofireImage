@@ -564,6 +564,76 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(response2?.result.isSuccess ?? false, "response 2 result should be a success case")
     }
 
+    func testThatItCanDownloadAndCancelAndDownloadAgain() {
+        // Given
+        let downloader = ImageDownloader()
+
+        let imageRequests: [URLRequest] = [
+            "https://secure.gravatar.com/avatar/5a105e8b9d40e1329780d62ea2265d8a?d=identicon",
+            "https://secure.gravatar.com/avatar/6a105e8b9d40e1329780d62ea2265d8a?d=identicon",
+            "https://secure.gravatar.com/avatar/7a105e8b9d40e1329780d62ea2265d8a?d=identicon",
+            "https://secure.gravatar.com/avatar/8a105e8b9d40e1329780d62ea2265d8a?d=identicon",
+            "https://secure.gravatar.com/avatar/9a105e8b9d40e1329780d62ea2265d8a?d=identicon"
+        ].map { URLRequest(url: URL(string: $0)!) }
+
+        var initialResults: [Result<Image, NSError>] = []
+        var finalResults: [Result<Image, NSError>] = []
+
+        // When
+        for (index, imageRequest) in imageRequests.enumerated() {
+            let expectation = self.expectation(description: "Download \(index) should be cancelled: \(imageRequest)")
+
+            let receipt = downloader.download(imageRequest) { response in
+                switch response.result {
+                case .success:
+                    initialResults.append(response.result)
+                    expectation.fulfill()
+                case .failure:
+                    initialResults.append(response.result)
+                    expectation.fulfill()
+                }
+            }
+
+            if let receipt = receipt {
+                downloader.cancelRequest(with: receipt)
+            }
+        }
+
+        for (index, imageRequest) in imageRequests.enumerated() {
+            let expectation = self.expectation(description: "Download \(index) should complete: \(imageRequest)")
+
+            downloader.download(imageRequest) { response in
+                switch response.result {
+                case .success:
+                    finalResults.append(response.result)
+                    expectation.fulfill()
+                case .failure:
+                    finalResults.append(response.result)
+                    expectation.fulfill()
+                }
+            }
+        }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertEqual(initialResults.count, 5)
+        XCTAssertEqual(finalResults.count, 5)
+
+        for result in initialResults {
+            XCTAssertTrue(result.isFailure)
+
+            if case let .failure(error) = result {
+                XCTAssertEqual(error.domain, "org.alamofire.error")
+                XCTAssertEqual(error.code, NSURLErrorCancelled)
+            }
+        }
+
+        for result in finalResults {
+            XCTAssertTrue(result.isSuccess)
+        }
+    }
+
     // MARK: - Authentication Tests
 
     func testThatItDoesNotAttachAuthenticationCredentialToRequestIfItDoesNotExist() {
