@@ -81,14 +81,8 @@ extension DataRequest {
     {
         return DataResponseSerializer { request, response, data, error in
             let result = serializeResponseData(response: response, data: data, error: error)
-            let data: Data
 
-            switch result {
-            case let .success(responseData):
-                data = responseData
-            case let .failure(error):
-                return .failure(error)
-            }
+            guard case let .success(data) = result else { return .failure(result.error!) }
 
             do {
                 try DataRequest.validateContentType(for: request, response: response)
@@ -164,14 +158,8 @@ extension DataRequest {
     public class func imageResponseSerializer() -> DataResponseSerializer<Image> {
         return DataResponseSerializer { request, response, data, error in
             let result = serializeResponseData(response: response, data: data, error: error)
-            let data: Data
 
-            switch result {
-            case let .success(responseData):
-                data = responseData
-            case let .failure(error):
-                return .failure(error)
-            }
+            guard case let .success(data) = result else { return .failure(result.error!) }
 
             do {
                 try DataRequest.validateContentType(for: request, response: response)
