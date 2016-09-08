@@ -628,7 +628,7 @@ class ImageDownloaderTestCase: BaseTestCase {
             XCTAssertTrue(result.isFailure)
 
             if case let .Failure(error) = result {
-                XCTAssertEqual(error.domain, NSURLErrorDomain)
+                XCTAssertEqual(error.domain, "com.alamofire.error")
                 XCTAssertEqual(error.code, NSURLErrorCancelled)
             }
         }
