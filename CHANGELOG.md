@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 2.x Releases
+- `2.5.x` Releases - [2.5.0](#250)
 - `2.4.x` Releases - [2.4.0](#240) | [2.4.1](#241)
 - `2.3.x` Releases - [2.3.0](#230) | [2.3.1](#231)
 - `2.2.x` Releases - [2.2.0](#220)
@@ -15,6 +16,37 @@ All notable changes to this project will be documented in this file.
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
+
+---
+
+## [2.5.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.5.0)
+Released on 2016-09-08. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/15?closed=1).
+
+#### Added
+- Cleanup Whitespace aggregate target and scheme and removed all excess whitespace.
+  - Added by [Christian Noon](https://github.com/cnoon).
+
+#### Updated
+- The source, test and example code along with project settings to support Swift 2.2
+  and Swift 2.3 simultaneously.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Updated the travis yaml file for Swift 2.3 and the new OS target versions.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Updated the Cartfile and Alamofire submodule to the 3.5.0 release.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Updated Xcode project settings based on Xcode 8 GM recommendations.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Code coverage generation is now disabled on framework targets to improve stability.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+
+#### Fixed
+- Issue where image download cancellation error was thrown in incorrect domain.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  [#128](https://github.com/Alamofire/AlamofireImage/issues/128).
+- Image download cancellation and restart race condition.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  [#121](https://github.com/Alamofire/AlamofireImage/issues/121).
 
 ---
 
