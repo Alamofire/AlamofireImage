@@ -302,8 +302,30 @@ public struct CircleFilter: ImageFilter {
 
 #if os(iOS) || os(tvOS)
 
+/// The `CoreImageFilter` protocol defines `parameters`, `filterName` properties used by CoreImage.
+public protocol CoreImageFilter: ImageFilter {
+	/// The image filters parameters passed to coreimage.
+	var filterParameters: [String: AnyObject] { get }
+	/// The CoreImage filter name
+	var filterName: String { get }
+}
+
+public extension ImageFilter where Self: CoreImageFilter {
+	/// The filter closure used to create the modified representation of the given image.
+	public var filter: Image -> Image {
+		return { image in
+			return image.af_imageWithAppliedCoreImageFilter(self.filterName, filterParameters: self.filterParameters) ?? image
+		}
+	}
+
+	/// The unique idenitifier for an `CoreImageFilter`.
+	public var identifier: String {
+		return "\(self.dynamicType)-filterParameters:(\(self.filterParameters))"
+	}
+}
+
 /// Blurs an image using a `CIGaussianBlur` filter with the specified blur radius.
-public struct BlurFilter: ImageFilter {
+public struct BlurFilter: ImageFilter, CoreImageFilter {
     /// The blur radius of the filter.
     let blurRadius: UInt
 
@@ -318,13 +340,62 @@ public struct BlurFilter: ImageFilter {
         self.blurRadius = blurRadius
     }
 
-    /// The filter closure used to create the modified representation of the given image.
-    public var filter: Image -> Image {
-        return { image in
-            let parameters = ["inputRadius": self.blurRadius]
-            return image.af_imageWithAppliedCoreImageFilter("CIGaussianBlur", filterParameters: parameters) ?? image
-        }
-    }
+	/// The image filters parameters passed to coreimage.
+	public var filterParameters: [String: AnyObject] {
+		return ["inputRadius": self.blurRadius]
+	}
+
+	/// The CoreImage filter name
+	public var filterName: String {
+		return "CIGaussianBlur"
+	}
+}
+
+/**
+	Filter an image using a `CIColorControls` filter with the specified values.
+**/
+public struct ColorControlsFilter: ImageFilter, CoreImageFilter {
+	/// The saturation of the filter.
+	let saturation: Float
+
+	/// The brightness of the filter.
+	let brightness: Float!
+
+	/// The contrast of the filter.
+	let contrast: Float!
+
+	/**
+	Initializes the `ColorControlsFilter` instance.
+	To create a gray scaled image simply call ColorControlsFilter(saturation: 0)
+
+	- parameter saturation: The saturation.
+	- parameter brightness: The saturation.
+	- parameter contrast: The saturation.
+
+	- returns: The new `ColorControlsFilter` instance.
+	*/
+	public init(saturation: Float = 1, brightness: Float! = nil, contrast: Float! = nil) {
+		self.saturation = saturation
+		self.contrast = contrast
+		self.brightness = brightness
+	}
+
+	/// The image filters parameters passed to coreimage.
+	public var filterParameters: [String: AnyObject] {
+		var parameters = ["inputSaturation": self.saturation]
+		if self.brightness != nil {
+			parameters["inputBrightness"] = self.brightness
+		}
+		if self.contrast != nil {
+			parameters["inputContrast"] = self.contrast
+		}
+		return parameters
+	}
+
+	/// The CoreImage filter name
+	public var filterName: String {
+		return "CIColorControls"
+	}
 }
 
 #endif
