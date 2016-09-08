@@ -455,7 +455,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         var progressCalled = false
         var calledOnExpectedQueue = false
 
-        let expectedQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        let expectedQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
 
         // When
         downloader.downloadImage(
@@ -628,7 +628,7 @@ class ImageDownloaderTestCase: BaseTestCase {
             XCTAssertTrue(result.isFailure)
 
             if case let .Failure(error) = result {
-                XCTAssertEqual(error.domain, NSURLErrorDomain)
+                XCTAssertEqual(error.domain, "com.alamofire.error")
                 XCTAssertEqual(error.code, NSURLErrorCancelled)
             }
         }

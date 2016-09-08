@@ -99,7 +99,12 @@ public struct Gravatar {
     }
 
     public func URL(size size: CGFloat, scale: CGFloat = UIScreen.mainScreen().scale) -> NSURL {
-        let URL = Gravatar.baseURL.URLByAppendingPathComponent(email.md5_hash)
+        #if swift(>=2.3)
+            let URL = Gravatar.baseURL.URLByAppendingPathComponent(email.md5_hash)!
+        #else
+            let URL = Gravatar.baseURL.URLByAppendingPathComponent(email.md5_hash)
+        #endif
+
         let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: false)!
 
         var queryItems = [defaultImage.queryItem, rating.queryItem]

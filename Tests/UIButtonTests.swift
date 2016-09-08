@@ -50,6 +50,18 @@ private class TestButton: UIButton {
 
 // MARK: -
 
+extension NSURL {
+    private var absoluteStringUnwrapped: String {
+        #if swift(>=2.3)
+            return absoluteString!
+        #else
+            return absoluteString
+        #endif
+    }
+}
+
+// MARK: -
+
 class UIButtonTests: BaseTestCase {
     let URL = NSURL(string: "https://httpbin.org/image/jpeg")!
 
@@ -187,12 +199,12 @@ class UIButtonTests: BaseTestCase {
     func testThatMultipleImageRequestReceiptStatesCanBeDownloadedInParallel() {
         // Given
         let button = TestButton()
-        var _URL = URL
+        var URL = self.URL
 
         // When
         let expectation1 = expectationWithDescription("background image should download successfully")
         var normalStateImageDownloadComplete = false
-        button.af_setImageForState(.Normal, URL: _URL)
+        button.af_setImageForState(.Normal, URL: URL)
         button.imageObserver = {
             normalStateImageDownloadComplete = true
             expectation1.fulfill()
@@ -202,9 +214,9 @@ class UIButtonTests: BaseTestCase {
 
         let expectation2 = expectationWithDescription("background image should download successfully")
         var selectedStateImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setImageForState(.Selected, URL: _URL)
+        button.af_setImageForState(.Selected, URL: URL)
         button.imageObserver = {
             selectedStateImageDownloadComplete = true
             expectation2.fulfill()
@@ -214,9 +226,9 @@ class UIButtonTests: BaseTestCase {
 
         let expectation3 = expectationWithDescription("background image should download successfully")
         var highlightedStateImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setImageForState(.Highlighted, URL: _URL)
+        button.af_setImageForState(.Highlighted, URL: URL)
         button.imageObserver = {
             highlightedStateImageDownloadComplete = true
             expectation3.fulfill()
@@ -226,9 +238,9 @@ class UIButtonTests: BaseTestCase {
 
         let expectation4 = expectationWithDescription("background image should download successfully")
         var disabledStateImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setImageForState(.Disabled, URL: _URL)
+        button.af_setImageForState(.Disabled, URL: URL)
         button.imageObserver = {
             disabledStateImageDownloadComplete = true
             expectation4.fulfill()
@@ -253,12 +265,12 @@ class UIButtonTests: BaseTestCase {
     func testThatMultipleBackgroundImageRequestReceiptStatesCanBeDownloadedInParallel() {
         // Given
         let button = TestButton()
-        var _URL = URL
+        var URL = self.URL
 
         // When
         let expectation1 = expectationWithDescription("background image should download successfully")
         var normalStateBackgroundImageDownloadComplete = false
-        button.af_setBackgroundImageForState(.Normal, URL: _URL)
+        button.af_setBackgroundImageForState(.Normal, URL: URL)
         button.imageObserver = {
             normalStateBackgroundImageDownloadComplete = true
             expectation1.fulfill()
@@ -267,9 +279,9 @@ class UIButtonTests: BaseTestCase {
         waitForExpectationsWithTimeout(timeout, handler: nil)
         let expectation2 = expectationWithDescription("background image should download successfully")
         var selectedStateBackgroundImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setBackgroundImageForState(.Selected, URL: _URL)
+        button.af_setBackgroundImageForState(.Selected, URL: URL)
         button.imageObserver = {
             selectedStateBackgroundImageDownloadComplete = true
             expectation2.fulfill()
@@ -279,9 +291,9 @@ class UIButtonTests: BaseTestCase {
 
         let expectation3 = expectationWithDescription("background image should download successfully")
         var highlightedStateBackgroundImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setBackgroundImageForState(.Highlighted, URL: _URL)
+        button.af_setBackgroundImageForState(.Highlighted, URL: URL)
         button.imageObserver = {
             highlightedStateBackgroundImageDownloadComplete = true
             expectation3.fulfill()
@@ -291,9 +303,9 @@ class UIButtonTests: BaseTestCase {
 
         let expectation4 = expectationWithDescription("background image should download successfully")
         var disabledStateBackgroundImageDownloadComplete = false
-        _URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(random())")!
+        URL = NSURL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
 
-        button.af_setBackgroundImageForState(.Disabled, URL: _URL)
+        button.af_setBackgroundImageForState(.Disabled, URL: URL)
         button.imageObserver = {
             disabledStateBackgroundImageDownloadComplete = true
             expectation4.fulfill()
@@ -350,7 +362,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
 
         let downloader = ImageDownloader.defaultInstance
-        let download = URLRequest(.GET, URL.absoluteString)
+        let download = URLRequest(.GET, URL.absoluteStringUnwrapped)
         let expectation = expectationWithDescription("image download should succeed")
 
         downloader.downloadImage(URLRequest: download) { _ in
@@ -445,7 +457,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
 
         let downloader = ImageDownloader.defaultInstance
-        let download = URLRequest(.GET, URL.absoluteString)
+        let download = URLRequest(.GET, URL.absoluteStringUnwrapped)
         let expectation = expectationWithDescription("image download should succeed")
 
         downloader.downloadImage(URLRequest: download) { _ in
@@ -468,7 +480,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
 
         let downloader = ImageDownloader.defaultInstance
-        let download = URLRequest(.GET, URL.absoluteString)
+        let download = URLRequest(.GET, URL.absoluteStringUnwrapped)
         let expectation = expectationWithDescription("image download should succeed")
 
         downloader.downloadImage(URLRequest: download) { _ in
