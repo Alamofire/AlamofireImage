@@ -1,70 +1,57 @@
-// UIImage+AlamofireImageTests.swift
 //
-// Copyright (c) 2015-2016 Alamofire Software Foundation (http://alamofire.org/)
+//  UIImage+AlamofireImageTests.swift
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Copyright (c) 2015-2016 Alamofire Software Foundation (http://alamofire.org/)
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 import Foundation
 import UIKit
 
 extension UIImage {
-    func af_isEqualToImage(image: UIImage, withinTolerance tolerance: UInt8 = 3) -> Bool {
-        guard CGSizeEqualToSize(size, image.size) else { return false }
+    func af_isEqualToImage(_ image: UIImage, withinTolerance tolerance: UInt8 = 3) -> Bool {
+        guard size.equalTo(image.size) else { return false }
 
         let image1 = af_imageWithPNGRepresentation().af_renderedImage()
         let image2 = image.af_imageWithPNGRepresentation().af_renderedImage()
 
         guard let rendered1 = image1, let rendered2 = image2 else { return false }
 
-        #if swift(>=2.3)
-            guard
-                let CGImage1 = rendered1.CGImage,
-                let CGImage2 = rendered2.CGImage,
-                let dataProvider1 = CGImageGetDataProvider(CGImage1),
-                let dataProvider2 = CGImageGetDataProvider(CGImage2)
-            else { return false }
-
-            let pixelData1 = CGDataProviderCopyData(dataProvider1)
-            let pixelData2 = CGDataProviderCopyData(dataProvider2)
-        #else
-            let pixelData1 = CGDataProviderCopyData(CGImageGetDataProvider(rendered1.CGImage))
-            let pixelData2 = CGDataProviderCopyData(CGImageGetDataProvider(rendered2.CGImage))
-        #endif
+        let pixelData1 = rendered1.cgImage?.dataProvider?.data
+        let pixelData2 = rendered2.cgImage?.dataProvider?.data
 
         guard let validPixelData1 = pixelData1, let validPixelData2 = pixelData2 else { return false }
 
-        let data1: UnsafePointer<UInt8> = CFDataGetBytePtr(validPixelData1)
-        let data2: UnsafePointer<UInt8> = CFDataGetBytePtr(validPixelData2)
+        let data1 = Data(bytes: CFDataGetBytePtr(validPixelData1), count: CFDataGetLength(validPixelData1))
+        let data2 = Data(bytes: CFDataGetBytePtr(validPixelData2), count: CFDataGetLength(validPixelData2))
 
-        let length1: Int = CFDataGetLength(validPixelData1)
-        let length2: Int = CFDataGetLength(validPixelData2)
+        guard data1.count == data2.count else { return false }
 
-        guard length1 == length2 else { return false }
-
-        for index in 0..<length1 {
+        for index in 0..<data1.count {
             let byte1 = data1[index]
             let byte2 = data2[index]
             let delta = UInt8(abs(Int(byte1) - Int(byte2)))
 
             guard delta <= tolerance else { return false }
         }
-
+        
         return true
     }
 
@@ -73,59 +60,47 @@ extension UIImage {
         guard images == nil else { return nil }
 
         // Do not attempt to render if not backed by a CGImage
-        #if swift(>=2.3)
-            guard let CGImage = self.CGImage, let imageRef = CGImageCreateCopy(CGImage) else { return nil }
-        #else
-            guard let imageRef = CGImageCreateCopy(CGImage) else { return nil }
-        #endif
+        guard let image = cgImage?.copy() else { return nil }
 
-        let width = CGImageGetWidth(imageRef)
-        let height = CGImageGetHeight(imageRef)
-        let bitsPerComponent = CGImageGetBitsPerComponent(imageRef)
+        let width = image.width
+        let height = image.height
+        let bitsPerComponent = image.bitsPerComponent
 
         // Do not attempt to render if too large or has more than 8-bit components
         guard width * height <= 4096 * 4096 && bitsPerComponent <= 8 else { return nil }
 
         let bytesPerRow: Int = 0
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        var bitmapInfo = CGImageGetBitmapInfo(imageRef)
+        var bitmapInfo = image.bitmapInfo
 
         // Fix alpha channel issues if necessary
-        let alpha = (bitmapInfo.rawValue & CGBitmapInfo.AlphaInfoMask.rawValue)
+        let alpha = (bitmapInfo.rawValue & CGBitmapInfo.alphaInfoMask.rawValue)
 
-        if alpha == CGImageAlphaInfo.None.rawValue {
-            bitmapInfo.remove(.AlphaInfoMask)
-            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.NoneSkipFirst.rawValue)
-        } else if !(alpha == CGImageAlphaInfo.NoneSkipFirst.rawValue) || !(alpha == CGImageAlphaInfo.NoneSkipLast.rawValue) {
-            bitmapInfo.remove(.AlphaInfoMask)
-            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.PremultipliedFirst.rawValue)
+        if alpha == CGImageAlphaInfo.none.rawValue {
+            bitmapInfo.remove(.alphaInfoMask)
+            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.noneSkipFirst.rawValue)
+        } else if !(alpha == CGImageAlphaInfo.noneSkipFirst.rawValue) || !(alpha == CGImageAlphaInfo.noneSkipLast.rawValue) {
+            bitmapInfo.remove(.alphaInfoMask)
+            bitmapInfo = CGBitmapInfo(rawValue: bitmapInfo.rawValue | CGImageAlphaInfo.premultipliedFirst.rawValue)
         }
 
         // Render the image
-        #if swift(>=2.3)
-            let optionalContext = CGBitmapContextCreate(
-                nil,
-                width,
-                height,
-                bitsPerComponent,
-                bytesPerRow,
-                colorSpace,
-                bitmapInfo.rawValue
-            )
+        let context = CGContext(
+            data: nil,
+            width: width,
+            height: height,
+            bitsPerComponent: bitsPerComponent,
+            bytesPerRow: bytesPerRow,
+            space: colorSpace,
+            bitmapInfo: bitmapInfo.rawValue
+        )
 
-            guard let context = optionalContext else { return nil }
-        #else
-            let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
-        #endif
-
-        CGContextDrawImage(context, CGRectMake(0.0, 0.0, CGFloat(width), CGFloat(height)), imageRef)
+        context?.draw(image, in: CGRect(x: 0.0, y: 0.0, width: CGFloat(width), height: CGFloat(height)))
 
         // Make sure the inflation was successful
-        guard let renderedImageRef = CGBitmapContextCreateImage(context) else { return nil }
+        guard let renderedImage = context?.makeImage() else { return nil }
 
-        let renderedImage = UIImage(CGImage: renderedImageRef, scale: scale, orientation: imageOrientation)
-
-        return renderedImage
+        return UIImage(cgImage: renderedImage, scale: scale, orientation: imageOrientation)
     }
 
     /**
@@ -139,7 +114,7 @@ extension UIImage {
     */
     func af_imageWithPNGRepresentation() -> UIImage {
         let data = UIImagePNGRepresentation(self)!
-        let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)!
+        let image = UIImage(data: data, scale: UIScreen.main.scale)!
 
         return image
     }

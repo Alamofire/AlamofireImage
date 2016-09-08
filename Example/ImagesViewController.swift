@@ -1,24 +1,26 @@
-// ImagesViewController.swift
 //
-// Copyright (c) 2015 Alamofire Software Foundation (http://alamofire.org/)
+//  ImagesViewController.swift
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Copyright (c) 2015-2016 Alamofire Software Foundation (http://alamofire.org/)
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 import Alamofire
 import AlamofireImage
@@ -51,8 +53,8 @@ class ImagesViewController: UIViewController {
 
         for _ in 1...1_000 {
             let gravatar = Gravatar(
-                emailAddress: NSUUID().UUIDString,
-                defaultImage: Gravatar.DefaultImage.Identicon,
+                emailAddress: UUID().uuidString,
+                defaultImage: Gravatar.DefaultImage.identicon,
                 forceDefault: true
             )
 
@@ -61,26 +63,26 @@ class ImagesViewController: UIViewController {
     }
 
     private func setUpCollectionView() {
-        collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = UIColor.whiteColor()
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = UIColor.white
 
         collectionView.delegate = self
         collectionView.dataSource = self
 
-        collectionView.registerClass(ImageCell.self, forCellWithReuseIdentifier: ImageCell.ReuseIdentifier)
+        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.ReuseIdentifier)
 
         view.addSubview(self.collectionView)
 
         collectionView.frame = self.view.bounds
-        collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
-    private func sizeForCollectionViewItem() -> CGSize {
+    fileprivate func sizeForCollectionViewItem() -> CGSize {
         let viewWidth = view.bounds.size.width
 
         var cellWidth = (viewWidth - 4 * 8) / 3.0
 
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             cellWidth = (viewWidth - 7 * 8) / 6.0
         }
 
@@ -91,17 +93,25 @@ class ImagesViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 
 extension ImagesViewController : UICollectionViewDataSource {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return gravatars.count
     }
 
     func collectionView(
-        collectionView: UICollectionView,
-        cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCell.ReuseIdentifier, forIndexPath: indexPath) as! ImageCell
-        let gravatar = gravatars[indexPath.row]
-        cell.configureCellWithURLString(gravatar.URL(size: sizeForCollectionViewItem().width).URLString, placeholderImage: placeholderImage)
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ImageCell.ReuseIdentifier,
+            for: indexPath
+        ) as! ImageCell
+
+        let gravatar = gravatars[(indexPath as NSIndexPath).row]
+
+        cell.configureCell(
+            with: gravatar.url(size: sizeForCollectionViewItem().width).urlString,
+            placeholderImage: placeholderImage
+        )
 
         return cell
     }
@@ -111,33 +121,33 @@ extension ImagesViewController : UICollectionViewDataSource {
 
 extension ImagesViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(
-        collectionView: UICollectionView,
+        _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+        sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         return sizeForCollectionViewItem()
     }
 
     func collectionView(
-        collectionView: UICollectionView,
+        _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAtIndex section: Int) -> UIEdgeInsets
+        insetForSectionAt section: Int) -> UIEdgeInsets
     {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
 
     func collectionView(
-        collectionView: UICollectionView,
+        _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat
+        minimumLineSpacingForSectionAt section: Int) -> CGFloat
     {
         return 8.0
     }
 
     func collectionView(
-        collectionView: UICollectionView,
+        _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat
+        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     {
         return 8.0
     }
@@ -146,8 +156,8 @@ extension ImagesViewController : UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionViewDelegate
 
 extension ImagesViewController : UICollectionViewDelegate {
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let gravatar = self.gravatars[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let gravatar = self.gravatars[(indexPath as NSIndexPath).row]
 
         let imageViewController = ImageViewController()
         imageViewController.gravatar = gravatar

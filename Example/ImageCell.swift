@@ -1,24 +1,26 @@
-// ImageCell.swift
 //
-// Copyright (c) 2015 Alamofire Software Foundation (http://alamofire.org/)
+//  ImageCell.swift
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Copyright (c) 2015-2016 Alamofire Software Foundation (http://alamofire.org/)
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 import Alamofire
 import AlamofireImage
@@ -26,7 +28,7 @@ import Foundation
 import UIKit
 
 class ImageCell : UICollectionViewCell {
-    class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
+    class var ReuseIdentifier: String { return "org.alamofire.identifier.\(type(of: self))" }
     let imageView: UIImageView
 
     // MARK: - Initialization
@@ -35,8 +37,8 @@ class ImageCell : UICollectionViewCell {
         imageView = {
             let imageView = UIImageView(frame: frame)
 
-            imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            imageView.contentMode = .Center
+            imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            imageView.contentMode = .center
             imageView.clipsToBounds = true
 
             return imageView
@@ -55,14 +57,14 @@ class ImageCell : UICollectionViewCell {
 
     // MARK: - Lifecycle Methods
 
-    func configureCellWithURLString(URLString: String, placeholderImage: UIImage) {
+    func configureCell(with URLString: String, placeholderImage: UIImage) {
         let size = imageView.frame.size
 
-        imageView.af_setImageWithURL(
-            NSURL(string: URLString)!,
+        imageView.af_setImage(
+            withURL: URL(string: URLString)!,
             placeholderImage: placeholderImage,
             filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-            imageTransition: .CrossDissolve(0.2)
+            imageTransition: .crossDissolve(0.2)
         )
     }
 

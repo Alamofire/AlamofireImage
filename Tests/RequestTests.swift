@@ -1,43 +1,45 @@
-// RequestTests.swift
 //
-// Copyright (c) 2015-2016 Alamofire Software Foundation (http://alamofire.org/)
+//  RequestTests.swift
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Copyright (c) 2015-2016 Alamofire Software Foundation (http://alamofire.org/)
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 import Alamofire
 @testable import AlamofireImage
 import Foundation
 import XCTest
 
-class RequestTestCase: BaseTestCase {
+class DataRequestTestCase: BaseTestCase {
     var acceptableImageContentTypes: Set<String>!
 
     // MARK: - Setup and Teardown
 
     override func setUp() {
         super.setUp()
-        acceptableImageContentTypes = Request.acceptableImageContentTypes
+        acceptableImageContentTypes = DataRequest.acceptableImageContentTypes
     }
 
     override func tearDown() {
         super.tearDown()
-        Request.acceptableImageContentTypes = acceptableImageContentTypes
+        DataRequest.acceptableImageContentTypes = acceptableImageContentTypes
     }
 
     // MARK: - Image Content Type Tests
@@ -47,9 +49,9 @@ class RequestTestCase: BaseTestCase {
         let contentTypes: Set<String> = ["image/jpg", "binary/octet-stream"]
 
         // When
-        let beforeCount = Request.acceptableImageContentTypes.count
-        Request.addAcceptableImageContentTypes(contentTypes)
-        let afterCount = Request.acceptableImageContentTypes.count
+        let beforeCount = DataRequest.acceptableImageContentTypes.count
+        DataRequest.addAcceptableImageContentTypes(contentTypes)
+        let afterCount = DataRequest.acceptableImageContentTypes.count
 
         // Then
         XCTAssertEqual(beforeCount, 11, "before count should be 11")
@@ -60,19 +62,19 @@ class RequestTestCase: BaseTestCase {
 
     func testThatImageResponseSerializerCanDownloadPNGImage() {
         // Given
-        let URLString = "https://httpbin.org/image/png"
-        let expectation = expectationWithDescription("Request should return PNG response image")
+        let urlString = "https://httpbin.org/image/png"
+        let expectation = self.expectation(description: "Request should return PNG response image")
 
-        var response: Response<Image, NSError>?
+        var response: DataResponse<Image>?
 
         // When
-        manager.request(.GET, URLString)
+        sessionManager.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
             }
 
-        waitForExpectationsWithTimeout(timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -81,7 +83,7 @@ class RequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.mainScreen().scale
+                let screenScale = UIScreen.main.scale
                 let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
                 XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
@@ -96,19 +98,19 @@ class RequestTestCase: BaseTestCase {
 
     func testThatImageResponseSerializerCanDownloadJPGImage() {
         // Given
-        let URLString = "https://httpbin.org/image/jpeg"
-        let expectation = expectationWithDescription("Request should return JPG response image")
+        let urlString = "https://httpbin.org/image/jpeg"
+        let expectation = self.expectation(description: "Request should return JPG response image")
 
-        var response: Response<Image, NSError>?
+        var response: DataResponse<Image>?
 
         // When
-        manager.request(.GET, URLString)
+        sessionManager.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
             }
 
-        waitForExpectationsWithTimeout(timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -117,7 +119,7 @@ class RequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.mainScreen().scale
+                let screenScale = UIScreen.main.scale
                 let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
                 XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
@@ -132,19 +134,19 @@ class RequestTestCase: BaseTestCase {
 
     func testThatImageResponseSerializerCanDownloadImageFromFileURL() {
         // Given
-        let URL = URLForResource("apple", withExtension: "jpg")
-        let expectation = expectationWithDescription("Request should return JPG response image")
+        let url = self.url(forResource: "apple", withExtension: "jpg")
+        let expectation = self.expectation(description: "Request should return JPG response image")
 
-        var response: Response<Image, NSError>?
+        var response: DataResponse<Image>?
 
         // When
-        manager.request(.GET, URL)
+        sessionManager.request(url)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
             }
 
-        waitForExpectationsWithTimeout(timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -153,7 +155,7 @@ class RequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.mainScreen().scale
+                let screenScale = UIScreen.main.scale
                 let expectedSize = CGSize(width: CGFloat(180) / screenScale, height: CGFloat(260) / screenScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
                 XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
@@ -172,19 +174,19 @@ class RequestTestCase: BaseTestCase {
 
     func testThatImageResponseSerializerCanDownloadAndInflatePNGImage() {
         // Given
-        let URLString = "https://httpbin.org/image/png"
-        let expectation = expectationWithDescription("Request should return PNG response image")
+        let urlString = "https://httpbin.org/image/png"
+        let expectation = self.expectation(description: "Request should return PNG response image")
 
-        var response: Response<Image, NSError>?
+        var response: DataResponse<Image>?
 
         // When
-        manager.request(.GET, URLString)
+        sessionManager.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
             }
 
-        waitForExpectationsWithTimeout(timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -192,7 +194,7 @@ class RequestTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
         if let image = response?.result.value {
-            let screenScale = UIScreen.mainScreen().scale
+            let screenScale = UIScreen.main.scale
             let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
 
             XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
@@ -204,19 +206,19 @@ class RequestTestCase: BaseTestCase {
 
     func testThatImageResponseSerializerCanDownloadAndInflateJPGImage() {
         // Given
-        let URLString = "https://httpbin.org/image/jpeg"
-        let expectation = expectationWithDescription("Request should return JPG response image")
+        let urlString = "https://httpbin.org/image/jpeg"
+        let expectation = self.expectation(description: "Request should return JPG response image")
 
-        var response: Response<Image, NSError>?
+        var response: DataResponse<Image>?
 
         // When
-        manager.request(.GET, URLString)
+        sessionManager.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
             }
 
-        waitForExpectationsWithTimeout(timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -224,7 +226,7 @@ class RequestTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
         if let image = response?.result.value {
-            let screenScale = UIScreen.mainScreen().scale
+            let screenScale = UIScreen.main.scale
             let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
 
             XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
@@ -240,19 +242,19 @@ class RequestTestCase: BaseTestCase {
 
     func testThatAttemptingToDownloadImageFromBadURLReturnsFailureResult() {
         // Given
-        let URLString = "https://invalid.for.sure"
-        let expectation = expectationWithDescription("Request should fail with bad URL")
+        let urlString = "https://invalid.for.sure"
+        let expectation = self.expectation(description: "Request should fail with bad URL")
 
-        var response: Response<Image, NSError>?
+        var response: DataResponse<Image>?
 
         // When
-        manager.request(.GET, URLString)
+        sessionManager.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
             }
 
-        waitForExpectationsWithTimeout(timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -263,19 +265,19 @@ class RequestTestCase: BaseTestCase {
 
     func testThatAttemptingToDownloadUnsupportedImageTypeReturnsFailureResult() {
         // Given
-        let URLString = "https://httpbin.org/image/webp"
-        let expectation = expectationWithDescription("Request should return webp response image")
+        let urlString = "https://httpbin.org/image/webp"
+        let expectation = self.expectation(description: "Request should return webp response image")
 
-        var response: Response<Image, NSError>?
+        var response: DataResponse<Image>?
 
         // When
-        manager.request(.GET, URLString)
+        sessionManager.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
             }
 
-        waitForExpectationsWithTimeout(timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -283,27 +285,28 @@ class RequestTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isFailure ?? false, "result should be failure")
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
-        if let error = response?.result.error {
-            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be com.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+        if let error = response?.result.error as? AFError {
+            XCTAssertTrue(error.isUnacceptableContentType)
+        } else {
+            XCTFail("error should not be nil")
         }
     }
 
     func testThatAttemptingToSerializeEmptyDataReturnsFailureResult() {
         // Given
-        let URLString = "https://httpbin.org/bytes/0"
-        let expectation = expectationWithDescription("Request should download no bytes")
+        let urlString = "https://httpbin.org/bytes/0"
+        let expectation = self.expectation(description: "Request should download no bytes")
 
-        var response: Response<Image, NSError>?
+        var response: DataResponse<Image>?
 
         // When
-        manager.request(.GET, URLString)
+        sessionManager.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
             }
 
-        waitForExpectationsWithTimeout(timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -311,28 +314,29 @@ class RequestTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isFailure ?? false, "result should be failure")
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
-        if let error = response?.result.error {
-            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be com.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeRawData, "error code should be -1015")
+        if let error = response?.result.error as? AFError {
+            XCTAssertTrue(error.isUnacceptableContentType)
+        } else {
+            XCTFail("error should not be nil")
         }
     }
 
     func testThatAttemptingToSerializeRandomStreamDataReturnsFailureResult() {
         // Given
         let randomBytes = 4 * 1024 * 1024
-        let URLString = "https://httpbin.org/bytes/\(randomBytes)"
-        let expectation = expectationWithDescription("Request should download random bytes")
+        let urlString = "https://httpbin.org/bytes/\(randomBytes)"
+        let expectation = self.expectation(description: "Request should download random bytes")
 
-        var response: Response<Image, NSError>?
+        var response: DataResponse<Image>?
 
         // When
-        manager.request(.GET, URLString)
+        sessionManager.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
             }
 
-        waitForExpectationsWithTimeout(timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -340,27 +344,28 @@ class RequestTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isFailure ?? false, "result should be failure")
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
-        if let error = response?.result.error {
-            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be com.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+        if let error = response?.result.error as? AFError {
+            XCTAssertTrue(error.isUnacceptableContentType)
+        } else {
+            XCTFail("error should not be nil")
         }
     }
 
     func testThatAttemptingToSerializeJSONResponseIntoImageReturnsFailureResult() {
         // Given
-        let URLString = "https://httpbin.org/get"
-        let expectation = expectationWithDescription("Request should return JSON")
+        let urlString = "https://httpbin.org/get"
+        let expectation = self.expectation(description: "Request should return JSON")
 
-        var response: Response<Image, NSError>?
+        var response: DataResponse<Image>?
 
         // When
-        manager.request(.GET, URLString)
+        sessionManager.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
-        }
+            }
 
-        waitForExpectationsWithTimeout(timeout, handler: nil)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(response?.request, "request should not be nil")
@@ -368,9 +373,10 @@ class RequestTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isFailure ?? false, "result should be failure")
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
-        if let error = response?.result.error {
-            XCTAssertEqual(error.domain, NSURLErrorDomain, "error domain should be com.alamofire.error")
-            XCTAssertEqual(error.code, NSURLErrorCannotDecodeContentData, "error code should be -1016")
+        if let error = response?.result.error as? AFError {
+            XCTAssertTrue(error.isUnacceptableContentType)
+        } else {
+            XCTFail("error should not be nil")
         }
     }
 }

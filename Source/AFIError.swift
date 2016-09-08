@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  AFIError.swift
 //
 //  Copyright (c) 2015-2016 Alamofire Software Foundation (http://alamofire.org/)
 //
@@ -23,29 +23,41 @@
 //
 
 import Foundation
-import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
+/// `AFIError` is the error type returned by AlamofireImage.
+///
+/// - requestCancelled:         The request was explicitly cancelled.
+/// - imageSerializationFailed: Response data could not be serialized into an image.
+public enum AFIError: Error {
+    case requestCancelled
+    case imageSerializationFailed
+}
 
-    // MARK: - Application State Methods
+// MARK: - Error Booleans
 
-    func application(
-        _ application: UIApplication,
-        willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
-        -> Bool
-    {
-        window = {
-            let window = UIWindow(frame: UIScreen.main.bounds)
+extension AFIError {
+    /// Returns `true` if the `AFIError` is a request cancellation error, `false` otherwise.
+    public var isRequestCancelledError: Bool {
+        if case .requestCancelled = self { return true }
+        return false
+    }
 
-            window.rootViewController = UINavigationController(rootViewController: ImagesViewController())
-            window.backgroundColor = UIColor.white
-            window.makeKeyAndVisible()
+    /// Returns `true` if the `AFIError` is an image serialization error, `false` otherwise.
+    public var isImageSerializationFailedError: Bool {
+        if case .imageSerializationFailed = self { return true }
+        return false
+    }
+}
 
-            return window
-        }()
+// MARK: - Error Descriptions
 
-        return true
+extension AFIError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .requestCancelled:
+            return "The request was explicitly cancelled."
+        case .imageSerializationFailed:
+            return "Response data could not be serialized into an image."
+        }
     }
 }
