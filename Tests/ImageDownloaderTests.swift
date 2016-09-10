@@ -921,7 +921,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
         let urlRequest = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
-        let request = downloader.sessionManager.request(urlRequest)
+        let request = downloader.sessionManager.request(resource: urlRequest)
 
         // When
         let activeRequestCountBefore = downloader.activeRequestCount
@@ -942,8 +942,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let urlRequest2 = URLRequest(urlString: "https://httpbin.org/image/png", method: .get)
 
-        let request1 = downloader.sessionManager.request(urlRequest1)
-        let request2 = downloader.sessionManager.request(urlRequest2)
+        let request1 = downloader.sessionManager.request(resource: urlRequest1)
+        let request2 = downloader.sessionManager.request(resource: urlRequest2)
 
         // When
         downloader.enqueue(request1)
@@ -964,8 +964,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let urlRequest2 = URLRequest(urlString: "https://httpbin.org/image/png", method: .get)
 
-        let request1 = downloader.sessionManager.request(urlRequest1)
-        let request2 = downloader.sessionManager.request(urlRequest2)
+        let request1 = downloader.sessionManager.request(resource: urlRequest1)
+        let request2 = downloader.sessionManager.request(resource: urlRequest2)
 
         // When
         downloader.enqueue(request1)
@@ -986,8 +986,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest1 = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
         let urlRequest2 = URLRequest(urlString: "https://httpbin.org/image/png", method: .get)
 
-        let request1 = downloader.sessionManager.request(urlRequest1)
-        let request2 = downloader.sessionManager.request(urlRequest2)
+        let request1 = downloader.sessionManager.request(resource: urlRequest1)
+        let request2 = downloader.sessionManager.request(resource: urlRequest2)
 
         // When
         downloader.enqueue(request1)
