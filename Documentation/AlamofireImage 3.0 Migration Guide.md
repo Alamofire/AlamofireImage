@@ -20,7 +20,7 @@ The benefits of upgrading can be summarized as follows:
 
 ## Breaking API Changes
 
-AlamofireImage 3 has fully adopted the new Swift 3 changes and conventions, including the new [API Design Guidelines](https://swift.org/documentation/api-design-guidelines/). Because of this, almost every API in AlamofireImage has been modified in some way. We can't possibly document every single change, so we're going to attempt to identify the most common APIs and how they have changed to help you through those sometimes less than helpful compiler errors. If you're interested in the underlying Alamofire 4 changes, read the [migration guide](https://github.com/Alamofire/Alamofire/blob/master/Documentation/Alamofire%204.0%20Migration%20Guide.md)
+AlamofireImage 3 has fully adopted the new Swift 3 changes and conventions, including the new [API Design Guidelines](https://swift.org/documentation/api-design-guidelines/). Because of this, almost every API in AlamofireImage has been modified in some way. We can't possibly document every single change, so we're going to attempt to identify the most common APIs and how they have changed to help you through those sometimes less than helpful compiler errors. If you're interested in the underlying Alamofire 4 changes, read the [migration guide](https://github.com/Alamofire/Alamofire/blob/master/Documentation/Alamofire%204.0%20Migration%20Guide.md).
 
 ### Making Requests
 

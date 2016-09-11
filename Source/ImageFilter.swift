@@ -57,8 +57,8 @@ public protocol Sizable {
 extension ImageFilter where Self: Sizable {
     /// The unique idenitifier for an `ImageFilter` conforming to the `Sizable` protocol.
     public var identifier: String {
-        let width = Int64(round(size.width))
-        let height = Int64(round(size.height))
+        let width = Int64(size.width.rounded())
+        let height = Int64(size.height.rounded())
 
         return "\(type(of: self))-size:(\(width)x\(height))"
     }
@@ -75,7 +75,7 @@ public protocol Roundable {
 extension ImageFilter where Self: Roundable {
     /// The unique idenitifier for an `ImageFilter` conforming to the `Roundable` protocol.
     public var identifier: String {
-        let radius = Int64(round(self.radius))
+        let radius = Int64(self.radius.rounded())
         return "\(type(of: self))-radius:(\(radius))"
     }
 }
@@ -262,7 +262,7 @@ public struct RoundedCornersFilter: ImageFilter, Roundable {
 
     /// The unique idenitifier for an `ImageFilter` conforming to the `Roundable` protocol.
     public var identifier: String {
-        let radius = Int64(round(self.radius))
+        let radius = Int64(self.radius.rounded())
         return "\(type(of: self))-radius:(\(radius))-divided:(\(divideRadiusByImageScale))"
     }
 }

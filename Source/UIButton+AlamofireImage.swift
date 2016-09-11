@@ -393,8 +393,9 @@ extension UIButton {
         -> Bool
     {
         if
-            let currentRequest = imageRequestReceipt(for: state)?.request.task.originalRequest,
-            currentRequest.urlString == urlRequest?.urlRequest.urlString
+            let currentURL = imageRequestReceipt(for: state)?.request.task.originalRequest?.url,
+            let requestURL = urlRequest?.urlRequest.url,
+            currentURL.absoluteString == requestURL.absoluteString
         {
             return true
         }
@@ -408,8 +409,9 @@ extension UIButton {
         -> Bool
     {
         if
-            let currentRequest = backgroundImageRequestReceipt(for: state)?.request.task.originalRequest,
-            currentRequest.urlString == urlRequest?.urlRequest.urlString
+            let currentRequestURL = backgroundImageRequestReceipt(for: state)?.request.task.originalRequest?.url,
+            let requestURL = urlRequest?.urlRequest.url,
+            currentRequestURL.absoluteString == requestURL.absoluteString
         {
             return true
         }

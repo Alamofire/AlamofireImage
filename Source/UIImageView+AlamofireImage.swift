@@ -372,8 +372,9 @@ extension UIImageView {
 
     private func isURLRequestURLEqualToActiveRequestURL(_ urlRequest: URLRequestConvertible?) -> Bool {
         if
-            let currentRequest = af_activeRequestReceipt?.request.task.originalRequest,
-            currentRequest.urlString == urlRequest?.urlRequest.urlString
+            let currentRequestURL = af_activeRequestReceipt?.request.task.originalRequest?.url,
+            let requestURL = urlRequest?.urlRequest.url,
+            currentRequestURL.absoluteString == requestURL.absoluteString
         {
             return true
         }
