@@ -42,10 +42,10 @@ Released on 2016-09-08. All issues associated with this milestone can be found u
 
 #### Fixed
 - Issue where image download cancellation error was thrown in incorrect domain.
-  - Fixed by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
   [#128](https://github.com/Alamofire/AlamofireImage/issues/128).
 - Image download cancellation and restart race condition.
-  - Fixed by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
   [#121](https://github.com/Alamofire/AlamofireImage/issues/121).
 
 ---
@@ -83,7 +83,7 @@ Released on 2016-03-23. All issues associated with this milestone can be found u
   - Added by [Anthony Miller](https://github.com/AnthonyMDev) in Pull Request
   [#91](https://github.com/Alamofire/AlamofireImage/pull/91).
 - The `UIButton` extension and tests to the tvOS targets.
-  - Added by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
   [#94](https://github.com/Alamofire/AlamofireImage/issues/94).
 
 #### Updated
@@ -127,10 +127,10 @@ Released on 2016-02-07. All issues associated with this milestone can be found u
   - Fixed by [Christian Noon](https://github.com/cnoon).
 - Issue where image response serializer was not thread-safe by switching over to 
   thread-safe UIImage initializer.
-  - Fixed by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
   [#75](https://github.com/Alamofire/AlamofireImage/pull/75).
 - Build warnings in Xcode 7.3 beta 2 for Swift 2.2.
-  - Fixed by [James Barrow](https://github.com/Baza207) in Regards to Issue
+  - Fixed by [James Barrow](https://github.com/Baza207) in regards to Issue
   [#77](https://github.com/Alamofire/AlamofireImage/pull/77).
 
 ## [2.3.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.3.0)
@@ -160,7 +160,7 @@ Released on 2016-01-17. All issues associated with this milestone can be found u
 
 #### Updated
 - `UIImage` scaling now uses `af_isOpaque` property where applicable.
-  - Updated by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  - Updated by [Christian Noon](https://github.com/cnoon) in regards to Issue
   [#65](https://github.com/Alamofire/AlamofireImage/issues/65).
 - Refactored `UIButton` extension and tests to more closely follow coding standards.
   - Updated by [Christian Noon](https://github.com/cnoon).
@@ -188,16 +188,16 @@ Released on 2015-12-16. All issues associated with this milestone can be found u
   - Added by [Jeff Kelley](https://github.com/SlaunchaMan) in Pull Request
   [#51](https://github.com/Alamofire/AlamofireImage/pull/51).
 - Tests to verify image view can cancel and restart the same request.
-  - Added by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
   [#55](https://github.com/Alamofire/AlamofireImage/pull/55).
 - Precondition to `ImageCache` ensuring memory capacity is GTE preferred usage after purge.
-  - Added by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
   [#56](https://github.com/Alamofire/AlamofireImage/pull/56).
 - Ability for image transitions to run when image is cached if specified.
   - Added by [Jarrod Robins](https://github.com/jarrodrobins) in Pull Request
   [#50](https://github.com/Alamofire/AlamofireImage/pull/50).
 - Test to verify Accept header is set correctly on `UIImageView` extension.
-  - Added by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
   [#60](https://github.com/Alamofire/AlamofireImage/pull/60).
 - Added `ReleaseTest` configuration to allow running tests against optimized build.
   - Added by [Christian Noon](https://github.com/cnoon).
@@ -210,7 +210,7 @@ Released on 2015-12-16. All issues associated with this milestone can be found u
 
 #### Fixed
 - Issue where image was not downloaded when cancelled and restarted.
-  - Fixed by [Christian Noon](https://github.com/cnoon) in Regards to Issue
+  - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
   [#55](https://github.com/Alamofire/AlamofireImage/pull/55).
 - Issue where `af_setImageWithURL` was not using acceptable content types.
   - Fixed by [Branden Russell](https://github.com/brandenr) in Pull Request
