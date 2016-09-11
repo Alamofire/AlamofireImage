@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
+#### 3.x Releases
+- `3.0.x` Releases - [3.0.0](#300)
+
 #### 2.x Releases
 - `2.5.x` Releases - [2.5.0](#250)
 - `2.4.x` Releases - [2.4.0](#240) | [2.4.1](#241)
@@ -12,10 +15,69 @@ All notable changes to this project will be documented in this file.
 - `2.0.0` Betas - [2.0.0-beta.1](#200-beta1) | [2.0.0-beta.2](#200-beta2)
 
 #### 1.x Releases
-
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
+
+---
+
+## [3.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.0.0)
+Released on 2016-09-11. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/18?closed=1).
+
+#### Added
+- An AFI 3.0 Migration Guide and updated the README to match new APIs.
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request
+  [#176](https://github.com/Alamofire/AlamofireImage/pull/176).
+
+#### Updated
+- All source, test and example logic as well as project settings to compile against
+  the Xcode 8 beta releases.
+  - Updated by [Kevin Harwood](https://github.com/kcharwood),
+    [Mathias Nagler](https://github.com/mathiasnagler),
+    [Jon Shier](https://github.com/jshier) and 
+    [Christian Noon](https://github.com/cnoon).
+- Deployment targets to iOS 9.0, macOS 10.11, tvOS 9.0 and watchOS 2.0.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- All instances of `com.alamofire` with `org.alamofire` throughout project.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Copyright headers to match Alamofire formatting.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Updated the travis yaml file for Xcode 8.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
+- All source, test and example APIs to match Swift 3 design guidelines.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
+- All docstrings to use new Swift 3 syntax.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
+- All `AssociatedKey` names to be lowercased to match Swift 3 guidelines.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
+- The podspec for the 3.0.0 release and bumped deployment targets.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Code signing to now automatic with an empty team.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- Number of large image test iterations to 200 to attempt to stabilize travis.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+
+#### Removed
+- `DispatchWorkItemFlags` implementation with async flags.
+  - Removed by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
+- `ReleaseTest` configuration by enabling testability in travis yaml file.
+  - Removed by [Christian Noon](https://github.com/cnoon).
+- An `NSURL` extension from the test suite that wasn’t used.
+  - Removed by [Christian Noon](https://github.com/cnoon).
+
+#### Fixed
+- Issue where `removeImage` API on the image cache would not remove the image.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#154](https://github.com/Alamofire/AlamofireImage/pull/154) in regards to Issue
+  [#152](https://github.com/Alamofire/AlamofireImage/issues/152).
+- Compilation errors due to `AFError` refactors in Alamofire.
+  - Fixed by [Christian Noon](https://github.com/cnoon).
 
 ---
 
