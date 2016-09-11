@@ -52,18 +52,6 @@ private class TestButton: UIButton {
 
 // MARK: -
 
-extension NSURL {
-    private var absoluteStringUnwrapped: String {
-        #if swift(>=2.3)
-            return absoluteString!
-        #else
-            return absoluteString
-        #endif
-    }
-}
-
-// MARK: -
-
 class UIButtonTests: BaseTestCase {
     let url = URL(string: "https://httpbin.org/image/jpeg")!
 
