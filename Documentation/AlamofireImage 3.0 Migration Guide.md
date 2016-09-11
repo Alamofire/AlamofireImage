@@ -24,26 +24,24 @@ The benefits of upgrading can be summarized as follows:
 
 ## Breaking API Changes
 
-AlamofireImage 3 has fully adopted the new Swift 3 changes and conventions, including the new [API Design Guidelines](https://swift.org/documentation/api-design-guidelines/). Because of this, almost every API in AlamofireImage has been modified in some way. We can't possibly document every single change, so we're going to attempt to identify the most common APIs and how they have changed to help you through those sometimes less than helpful compiler errors. If you're interested in the underlying Alamofire 4 changes, read the [migration guide](https://github.com/Alamofire/Alamofire/blob/master/Documentation/Alamofire%204.0%20Migration%20Guide.md).
+AlamofireImage 3 has fully adopted the new Swift 3 changes and conventions, including the new [API Design Guidelines](https://swift.org/documentation/api-design-guidelines/). Because of this, almost every API in AlamofireImage has been modified in some way. We can't possibly document every single change, so we're going to attempt to identify the most common APIs and how they have changed to help you through those sometimes less than helpful compiler errors. If you're interested in the underlying Alamofire 4 changes, check out the [migration guide](https://github.com/Alamofire/Alamofire/blob/master/Documentation/Alamofire%204.0%20Migration%20Guide.md).
 
 ### Requests
 
 ```swift
 // AlamofireImage 2
-Alamofire.request(.GET, "https://httpbin.org/image/png")
-		 .responseImage { response in
-		 	if let image = response.result.value {
-                 print("image downloaded: \(image)")
-            }
-		 }
+Alamofire.request(.GET, "https://httpbin.org/image/png").responseImage { response in
+	if let image = response.result.value {
+		print("image downloaded: \(image)")
+	}
+}
 		 
 // AlamofireImage 3
-Alamofire.request("https://httpbin.org/image/png")
-		 .responseImage { response in
-		 	if let image = response.result.value {
-                 print("image downloaded: \(image)")
-            }
-		 }
+Alamofire.request("https://httpbin.org/image/png").responseImage { response in
+	if let image = response.result.value {
+		print("image downloaded: \(image)")
+	}
+}
 ```
 
 ### UIImage and UIImageView Extensions
@@ -54,31 +52,38 @@ The `UIImage` and `UIImageView` extensions have undergone extensive renaming.
 
 ```swift
 // AlamofireImage 2
-imageView.af_setImageWithURL(URL, 
-                             placeholderImage: placeholderImage,
-                             filter: filter)
+imageView.af_setImageWithURL(
+	URL, 
+	placeholderImage: placeholderImage,
+	filter: filter
+)
 
 // AlamofireImage 3
-imageView.af_setImage(withURL: url,
-                      placeholderImage: placeholderImage,
-                      filter: filter)
+imageView.af_setImage(
+	withURL: url,
+	placeholderImage: placeholderImage,
+	filter: filter
+)
 ```
 
 #### Loading an Image with Placeholder, Filter and Transition
 
 ```swift 
 // AlamofireImage 2
-imageView.af_setImageWithURL(URL, 
-                             placeholderImage: placeholderImage,
-                             filter: filter,
-                             imageTransition: .CrossDissolve(0.2))
+imageView.af_setImageWithURL(
+	URL, 
+	placeholderImage: placeholderImage,
+	filter: filter,
+	imageTransition: .CrossDissolve(0.2)
+)
 
 // AlamofireImage 3
-imageView.af_setImage(withURL: url,
-                      placeholderImage: placeholderImage,
-                      filter: filter,
-                      imageTransition: .crossDissolve(0.2))
-
+imageView.af_setImage(
+	withURL: url,
+	placeholderImage: placeholderImage,
+	filter: filter,
+	imageTransition: .crossDissolve(0.2)
+)
 ``` 
 
 ### Image Cache

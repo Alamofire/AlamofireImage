@@ -102,18 +102,17 @@ Run `carthage update` to build the framework and drag the built `AlamofireImage.
 ```swift
 import AlamofireImage
 
-Alamofire.request("https://httpbin.org/image/png")
-         .responseImage { response in
-             debugPrint(response)
+Alamofire.request("https://httpbin.org/image/png").responseImage { response in
+	debugPrint(response)
 
-             print(response.request)
-             print(response.response)
-             debugPrint(response.result)
+	print(response.request)
+	print(response.response)
+	debugPrint(response.result)
 
-             if let image = response.result.value {
-                 print("image downloaded: \(image)")
-             }
-         }
+	if let image = response.result.value {
+		print("image downloaded: \(image)")
+	}
+}
 ```
 
 The AlamofireImage response image serializers support a wide range of image types including:
@@ -179,6 +178,7 @@ let circularImage = image.af_imageRoundedIntoCircle()
 let image = UIImage(named: "unicorn")!
 
 let sepiaImage = image.af_imageFiltered(withCoreImageFilter: "CISepiaTone")
+
 let blurredImage = image.af_imageFiltered(
     withCoreImageFilter: "CIGuassianBlue",
     parameters: ["inputRadius": 25]

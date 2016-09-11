@@ -287,17 +287,16 @@ public class ImageDownloader {
                                 data: nil,
                                 result: .success(image)
                             )
-                            
+
                             completion?(response)
                         }
-                        
+
                         return
                     }
                 default:
                     break
                 }
             }
-            
 
             // 3) Create the request and set up authentication, validation and response serialization
             request = self.sessionManager.request(urlRequest)

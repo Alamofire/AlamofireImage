@@ -51,7 +51,7 @@ extension UIImage {
 
             guard delta <= tolerance else { return false }
         }
-        
+
         return true
     }
 
