@@ -274,7 +274,7 @@ imageCache.removeImage(withIdentifier: "avatar")
 
 #### URL Requests
 
-The `ImageRequestCache` protocol extends the `ImageCache` protocol by adding support for `URLRequest` caching. This allows an `URLRequest` and an additional identifier to generate the unique identifier for the image in the cache.
+The `ImageRequestCache` protocol extends the `ImageCache` protocol by adding support for `URLRequest` caching. This allows a `URLRequest` and an additional identifier to generate the unique identifier for the image in the cache.
 
 ```swift
 let imageCache = AutoPurgingImageCache()
