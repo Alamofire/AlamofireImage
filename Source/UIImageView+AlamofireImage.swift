@@ -376,7 +376,7 @@ extension UIImageView {
         if
             let currentRequestURL = af_activeRequestReceipt?.request.task?.originalRequest?.url,
             let requestURL = urlRequest?.urlRequest?.url,
-            currentRequestURL.absoluteString == requestURL.absoluteString
+            currentRequestURL == requestURL
         {
             return true
         }
