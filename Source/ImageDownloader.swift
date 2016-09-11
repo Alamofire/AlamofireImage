@@ -274,28 +274,33 @@ public class ImageDownloader {
             }
 
             // 2) Attempt to load the image from the image cache if the cache policy allows it
-            switch urlRequest.urlRequest.cachePolicy {
-            case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
-                if let image = self.imageCache?.image(for: urlRequest.urlRequest, withIdentifier: filter?.identifier) {
-                    DispatchQueue.main.async {
-                        let response = DataResponse<Image>(
-                            request: urlRequest.urlRequest,
-                            response: nil,
-                            data: nil,
-                            result: .success(image)
-                        )
-
-                        completion?(response)
+            if let request = urlRequest.urlRequest {
+                switch request.cachePolicy {
+                case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
+                    if
+                        let request = urlRequest.urlRequest,
+                        let image = self.imageCache?.image(for: request, withIdentifier: filter?.identifier) {
+                        DispatchQueue.main.async {
+                            let response = DataResponse<Image>(
+                                request: urlRequest.urlRequest,
+                                response: nil,
+                                data: nil,
+                                result: .success(image)
+                            )
+                            
+                            completion?(response)
+                        }
+                        
+                        return
                     }
-
-                    return
+                default:
+                    break
                 }
-            default:
-                break
             }
+            
 
             // 3) Create the request and set up authentication, validation and response serialization
-            request = self.sessionManager.request(resource: urlRequest)
+            request = self.sessionManager.request(urlRequest)
 
             if let credential = self.credential {
                 request.authenticate(usingCredential: credential)
@@ -457,7 +462,7 @@ public class ImageDownloader {
                 DispatchQueue.main.async { operation.completion?(response) }
             }
 
-            if responseHandler.operations.isEmpty && requestReceipt.request.task.state == .suspended {
+            if responseHandler.operations.isEmpty && requestReceipt.request.task?.state == .suspended {
                 requestReceipt.request.cancel()
                 self.responseHandlers.removeValue(forKey: urlID)
             }
@@ -491,7 +496,7 @@ public class ImageDownloader {
             guard self.isActiveRequestCountBelowMaximumLimit() else { return }
 
             while !self.queuedRequests.isEmpty {
-                if let request = self.dequeue(), request.task.state == .suspended {
+                if let request = self.dequeue(), request.task?.state == .suspended {
                     self.start(request)
                     break
                 }
@@ -539,6 +544,6 @@ public class ImageDownloader {
     }
 
     static func urlIdentifier(for urlRequest: URLRequestConvertible) -> String {
-        return urlRequest.urlRequest.url?.absoluteString ?? ""
+        return urlRequest.urlRequest?.url?.absoluteString ?? ""
     }
 }

@@ -164,7 +164,7 @@ class UIImageTestCase: BaseTestCase {
 
     private func executeImageScaledToSizeTest(_ size: CGSize) {
         // Given
-        let w = Int(size.width.rounded()))
+        let w = Int(size.width.rounded())
         let h = Int(size.height.rounded())
 
         // When

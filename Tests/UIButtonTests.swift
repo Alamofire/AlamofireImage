@@ -368,7 +368,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
 
         let downloader = ImageDownloader.default
-        let urlRequest = URLRequest(urlString: url.absoluteString, method: .get)
+        let urlRequest = try! URLRequest(url: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
         downloader.download(urlRequest) { _ in
@@ -463,7 +463,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
 
         let downloader = ImageDownloader.default
-        let urlRequest = URLRequest(urlString: url.absoluteString, method: .get)
+        let urlRequest = try! URLRequest(url: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
         downloader.download(urlRequest) { _ in
@@ -486,7 +486,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
 
         let downloader = ImageDownloader.default
-        let urlRequest = URLRequest(urlString: url.absoluteString, method: .get)
+        let urlRequest = try! URLRequest(url: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
         downloader.download(urlRequest) { _ in

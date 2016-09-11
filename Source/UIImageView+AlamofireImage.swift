@@ -268,7 +268,9 @@ extension UIImageView {
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
-        if let image = imageCache?.image(for: urlRequest.urlRequest, withIdentifier: filter?.identifier) {
+        if
+            let request = urlRequest.urlRequest,
+            let image = imageCache?.image(for: request, withIdentifier: filter?.identifier) {
             let response = DataResponse<UIImage>(
                 request: urlRequest.urlRequest,
                 response: nil,
@@ -372,8 +374,8 @@ extension UIImageView {
 
     private func isURLRequestURLEqualToActiveRequestURL(_ urlRequest: URLRequestConvertible?) -> Bool {
         if
-            let currentRequestURL = af_activeRequestReceipt?.request.task.originalRequest?.url,
-            let requestURL = urlRequest?.urlRequest.url,
+            let currentRequestURL = af_activeRequestReceipt?.request.task?.originalRequest?.url,
+            let requestURL = urlRequest?.urlRequest?.url,
             currentRequestURL.absoluteString == requestURL.absoluteString
         {
             return true

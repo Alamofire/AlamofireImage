@@ -170,7 +170,9 @@ extension UIButton {
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
-        if let image = imageCache?.image(for: urlRequest.urlRequest, withIdentifier: nil) {
+        if
+            let request = urlRequest.urlRequest,
+            let image = imageCache?.image(for: request, withIdentifier: nil) {
             let response = DataResponse<UIImage>(
                 request: urlRequest.urlRequest,
                 response: nil,
@@ -185,7 +187,7 @@ extension UIButton {
         }
 
         // Set the placeholder since we're going to have to download
-        if let placeholderImage = placeholderImage { self.setImage(placeholderImage, for: state)  }
+        if let placeholderImage = placeholderImage { setImage(placeholderImage, for: state)  }
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
@@ -297,7 +299,9 @@ extension UIButton {
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
-        if let image = imageCache?.image(for: urlRequest.urlRequest, withIdentifier: nil) {
+        if
+            let request = urlRequest.urlRequest,
+            let image = imageCache?.image(for: request, withIdentifier: nil) {
             let response = DataResponse<UIImage>(
                 request: urlRequest.urlRequest,
                 response: nil,
@@ -393,9 +397,9 @@ extension UIButton {
         -> Bool
     {
         if
-            let currentURL = imageRequestReceipt(for: state)?.request.task.originalRequest?.url,
-            let requestURL = urlRequest?.urlRequest.url,
-            currentURL.absoluteString == requestURL.absoluteString
+            let currentURL = imageRequestReceipt(for: state)?.request.task?.originalRequest?.url,
+            let requestURL = (try? urlRequest?.asURLRequest())??.url,
+            currentURL == requestURL
         {
             return true
         }
@@ -409,8 +413,8 @@ extension UIButton {
         -> Bool
     {
         if
-            let currentRequestURL = backgroundImageRequestReceipt(for: state)?.request.task.originalRequest?.url,
-            let requestURL = urlRequest?.urlRequest.url,
+            let currentRequestURL = backgroundImageRequestReceipt(for: state)?.request.task?.originalRequest?.url,
+            let requestURL = urlRequest?.urlRequest?.url,
             currentRequestURL.absoluteString == requestURL.absoluteString
         {
             return true

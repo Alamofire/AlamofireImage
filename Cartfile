@@ -1,1 +1,1 @@
-github "Alamofire/Alamofire" "master"
+github "Alamofire/Alamofire" ~> 4.0

@@ -139,7 +139,7 @@ There are several `UIImage` extensions designed to make the common image manipul
 
 ```swift
 let url = Bundle.main.url(forResource: "unicorn", withExtension: "png")!
-let data = (try? Data(contentsOf: url))!
+let data = try! Data(contentsOf: url)
 let image = UIImage(data: data, scale: UIScreen.main.scale)!
 
 image.af_inflate()
@@ -179,8 +179,10 @@ let circularImage = image.af_imageRoundedIntoCircle()
 let image = UIImage(named: "unicorn")!
 
 let sepiaImage = image.af_imageFiltered(withCoreImageFilter: "CISepiaTone")
-let blurredImage = image.af_imageFiltered(withCoreImageFilter: "CIGuassianBlue",
-                                          parameters: ["inputRadius": 25])
+let blurredImage = image.af_imageFiltered(
+    withCoreImageFilter: "CIGuassianBlue",
+    parameters: ["inputRadius": 25]
+)
 ```
 
 ### Image Filters
@@ -245,8 +247,8 @@ For example, let's say you need to download an album of images. Your app needs t
 
 ```swift
 let imageCache = AutoPurgingImageCache(
-    memoryCapacity: 100 * 1024 * 1024,
-    preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
+    memoryCapacity: 100_000_000,
+    preferredMemoryUsageAfterPurge: 60_000_000
 )
 ```
 
@@ -462,12 +464,16 @@ let imageView = UIImageView(frame: frame)
 let url = URL(string: "https://httpbin.org/image/png")!
 let placeholderImage = UIImage(named: "placeholder")!
 
-let filter = AspectScaledToFillSizeWithRoundedCornersFilter(size: imageView.frame.size,
-                                                            radius: 20.0)
+let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+    size: imageView.frame.size,
+    radius: 20.0
+)
 
-imageView.af_setImage(withURL: url,
-                      placeholderImage: placeholderImage,
-                      filter: filter)
+imageView.af_setImage(
+    withURL: url,
+    placeholderImage: placeholderImage,
+    filter: filter
+)
 ```
 
 > If the remote image with the applied filter is cached locally, the image is set immediately.
@@ -482,13 +488,17 @@ let imageView = UIImageView(frame: frame)
 let url = URL(string: "https://httpbin.org/image/png")!
 let placeholderImage = UIImage(named: "placeholder")!
 
-let filter = AspectScaledToFillSizeWithRoundedCornersFilter(size: imageView.frame.size,
-                                                            radius: 20.0)
+let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+    size: imageView.frame.size,
+    radius: 20.0
+)
 
-imageView.af_setImage(withURL: url,
-                      placeholderImage: placeholderImage,
-                      filter: filter,
-                      imageTransition: .crossDissolve(0.2))
+imageView.af_setImage(
+    withURL: url,
+    placeholderImage: placeholderImage,
+    filter: filter,
+    imageTransition: .crossDissolve(0.2)
+)
 ```
 
 > If the remote image is cached locally, the image transition is ignored.
