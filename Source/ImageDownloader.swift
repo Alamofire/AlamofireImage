@@ -277,9 +277,7 @@ public class ImageDownloader {
             if let request = urlRequest.urlRequest {
                 switch request.cachePolicy {
                 case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
-                    if
-                        let request = urlRequest.urlRequest,
-                        let image = self.imageCache?.image(for: request, withIdentifier: filter?.identifier) {
+                    if let image = self.imageCache?.image(for: request, withIdentifier: filter?.identifier) {
                         DispatchQueue.main.async {
                             let response = DataResponse<Image>(
                                 request: urlRequest.urlRequest,
