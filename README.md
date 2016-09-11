@@ -15,7 +15,7 @@ AlamofireImage is an image component library for Alamofire.
 - [x] Single and Multi-Pass Image Filters
 - [x] Auto-Purging In-Memory Image Cache
 - [x] Prioritized Queue Order Image Downloading
-- [x] Authentication with NSURLCredential
+- [x] Authentication with URLCredential
 - [x] UIImageView Async Remote Downloads with Placeholders
 - [x] UIImageView Filters and Transitions
 - [x] Comprehensive Test Coverage
@@ -23,14 +23,14 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Requirements
 
-<<<<<<< HEAD
-- iOS 9.0+ / Mac OS X 10.11+ / tvOS 9.0+ / watchOS 2.0+
+- iOS 9.0+ / macOS 10.11+ / tvOS 9.0+ / watchOS 2.0+
 - Xcode 8.0+
 - Swift 3.0+
 
 ## Migration Guides
 
 - [AlamofireImage 2.0 Migration Guide](https://github.com/Alamofire/AlamofireImage/blob/master/Documentation/AlamofireImage%202.0%20Migration%20Guide.md)
+- [AlamofireImage 3.0 Migration Guide](https://github.com/Alamofire/AlamofireImage/blob/master/Documentation/AlamofireImage%203.0%20Migration%20Guide.md)
 
 ## Dependencies
 
@@ -54,7 +54,7 @@ AlamofireImage is an image component library for Alamofire.
 $ gem install cocoapods
 ```
 
-> CocoaPods 1.0.0+ is required.
+> CocoaPods 1.1.0+ is required.
 
 To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -63,7 +63,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '10.0'
 use_frameworks!
 
-pod 'AlamofireImage', '~> 2.5'
+target '<Your Target Name>' do
+    pod 'AlamofireImage', '~> 3.0'
+end
 ```
 
 Then, run the following command:
@@ -86,8 +88,10 @@ $ brew install carthage
 To integrate AlamofireImage into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/AlamofireImage" ~> 2.5
+github "Alamofire/AlamofireImage" ~> 3.0
 ```
+
+Run `carthage update` to build the framework and drag the built `AlamofireImage.framework` into your Xcode project.
 
 ---
 
@@ -98,7 +102,7 @@ github "Alamofire/AlamofireImage" ~> 2.5
 ```swift
 import AlamofireImage
 
-Alamofire.request(.GET, "https://httpbin.org/image/png")
+Alamofire.request("https://httpbin.org/image/png")
          .responseImage { response in
              debugPrint(response)
 
@@ -125,7 +129,7 @@ The AlamofireImage response image serializers support a wide range of image type
 - `image/x-xbitmap`
 - `image/x-win-bitmap`
 
-> If the image you are attempting to download is an invalid MIME type not in the list, you can add custom acceptable content types using the `addAcceptableImageContentTypes` extension on the `Request` type.
+> If the image you are attempting to download is an invalid MIME type not in the list, you can add custom acceptable content types using the `addAcceptableImageContentTypes` extension on the `DataRequest` type.
 
 ### UIImage Extensions
 
@@ -134,9 +138,9 @@ There are several `UIImage` extensions designed to make the common image manipul
 #### Inflation
 
 ```swift
-let URL = NSBundle.mainBundle().URLForResource("unicorn", withExtension: "png")!
-let data = NSData(contentsOfURL: URL)!
-let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)!
+let url = Bundle.main.url(forResource: "unicorn", withExtension: "png")!
+let data = try! Data(contentsOf: url)
+let image = UIImage(data: data, scale: UIScreen.main.scale)!
 
 image.af_inflate()
 ```
@@ -150,13 +154,13 @@ let image = UIImage(named: "unicorn")!
 let size = CGSize(width: 100.0, height: 100.0)
 
 // Scale image to size disregarding aspect ratio
-let scaledImage = image.af_imageScaledToSize(size)
+let scaledImage = image.af_imageScaled(to: size)
 
 // Scale image to fit within specified size while maintaining aspect ratio
-let aspectScaledToFitImage = image.af_imageAspectScaledToFitSize(size)
+let aspectScaledToFitImage = image.af_imageAspectScaled(toFit: size)
 
 // Scale image to fill specified size while maintaining aspect ratio
-let aspectScaledToFillImage = image.af_imageAspectScaledToFillSize(size)
+let aspectScaledToFillImage = image.af_imageAspectScaled(toFill: size)
 ```
 
 #### Rounded Corners
@@ -165,7 +169,7 @@ let aspectScaledToFillImage = image.af_imageAspectScaledToFillSize(size)
 let image = UIImage(named: "unicorn")!
 let radius: CGFloat = 20.0
 
-let roundedImage = image.af_imageWithRoundedCornerRadius(radius)
+let roundedImage = image.af_imageRounded(withCornerRadius: radius)
 let circularImage = image.af_imageRoundedIntoCircle()
 ```
 
@@ -174,10 +178,10 @@ let circularImage = image.af_imageRoundedIntoCircle()
 ```swift
 let image = UIImage(named: "unicorn")!
 
-let sepiaImage = image.af_imageWithAppliedCoreImageFilter("CISepiaTone")
-let blurredImage = image.af_imageWithAppliedCoreImageFilter(
-    "CIGaussianBlur", 
-    filterParameters: ["inputRadius": 25]
+let sepiaImage = image.af_imageFiltered(withCoreImageFilter: "CISepiaTone")
+let blurredImage = image.af_imageFiltered(
+    withCoreImageFilter: "CIGuassianBlue",
+    parameters: ["inputRadius": 25]
 )
 ```
 
@@ -237,14 +241,14 @@ The current list of multi-pass image filters includes:
 
 ### Image Cache
 
-Image caching can become complicated when it comes to network images. `NSURLCache` is quite powerful and does a great job reasoning through the various cache policies and `Cache-Control` headers. However, it is not equiped to handle caching multiple modified versions of those images. 
+Image caching can become complicated when it comes to network images. `URLCache` is quite powerful and does a great job reasoning through the various cache policies and `Cache-Control` headers. However, it is not equiped to handle caching multiple modified versions of those images.
 
-For example, let's say you need to download an album of images. Your app needs to display both the thumbnail version as well as the full size version at various times. Due to performance issues, you want to scale down the thumbnails to a reasonable size before rendering them on-screen. You also need to apply a global CoreImage filter to the full size images when displayed. While `NSURLCache` can easily handle storing the original downloaded image, it cannot store these different variants. What you really need is another caching layer designed to handle these different variants.
+For example, let's say you need to download an album of images. Your app needs to display both the thumbnail version as well as the full size version at various times. Due to performance issues, you want to scale down the thumbnails to a reasonable size before rendering them on-screen. You also need to apply a global CoreImage filter to the full size images when displayed. While `URLCache` can easily handle storing the original downloaded image, it cannot store these different variants. What you really need is another caching layer designed to handle these different variants.
 
 ```swift
 let imageCache = AutoPurgingImageCache(
-    memoryCapacity: 100 * 1024 * 1024, 
-    preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
+    memoryCapacity: 100_000_000,
+    preferredMemoryUsageAfterPurge: 60_000_000
 )
 ```
 
@@ -259,43 +263,33 @@ let imageCache = AutoPurgingImageCache()
 let avatarImage = UIImage(data: data)!
 
 // Add
-imageCache.addImage(avatarImage, withIdentifier: "avatar")
+imageCache.add(avatarImage, withIdentifier: "avatar")
 
 // Fetch
-let cachedAvatar = imageCache.imageWithIdentifier("avatar")
+let cachedAvatar = imageCache.image(withIdentifier: "avatar")
 
 // Remove
-imageCache.removeImageWithIdentifier("avatar")
+imageCache.removeImage(withIdentifier: "avatar")
 ```
 
 #### URL Requests
 
-The `ImageRequestCache` protocol extends the `ImageCache` protocol by adding support for `NSURLRequest` caching. This allows an `NSURLRequest` and additional identifier to generate the unique identifier for the image in the cache.
+The `ImageRequestCache` protocol extends the `ImageCache` protocol by adding support for `URLRequest` caching. This allows a `URLRequest` and an additional identifier to generate the unique identifier for the image in the cache.
 
 ```swift
 let imageCache = AutoPurgingImageCache()
 
-let URLRequest = NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/png")!)
+let urlRequest = URLRequest(url: URL(string: "https://httpbin.org/image/png")!)
 let avatarImage = UIImage(named: "avatar")!.af_imageRoundedIntoCircle()
 
 // Add
-imageCache.addImage(
-    avatarImage, 
-    forRequest: URLRequest, 
-    withAdditionalIdentifier: "circle"
-)
+imageCache.add(avatarImage, for: urlRequest, withIdentifier: "circle")
 
 // Fetch
-let cachedAvatarImage = imageCache.imageForRequest(
-    URLRequest, 
-    withAdditionalIdentifier: "circle"
-)
+let cachedAvatarImage = imageCache.image(for: urlRequest, withIdentifier: "circle")
 
 // Remove
-imageCache.removeImageForRequest(
-    URLRequest, 
-    withAdditionalIdentifier: "circle"
-)
+imageCache.removeImage(for: urlRequest, withIdentifier: "circle")
 ```
 
 #### Auto-Purging
@@ -303,11 +297,8 @@ imageCache.removeImageForRequest(
 Each time an image is fetched from the cache, the cache internally updates the last access date for that image.
 
 ```swift
-let avatar = imageCache.imageWithIdentifier("avatar")
-let circularAvatar = imageCache.imageForRequest(
-    URLRequest, 
-    withIdentifier: "circle"
-)
+let avatar = imageCache.image(withIdentifier: "avatar")
+let circularAvatar = imageCache.image(for: urlRequest, withIdentifier: "circle")
 ```
 
 By updating the last access date for each image, the image cache can make more informed decisions about which images to purge when the memory capacity is reached. The `AutoPurgingImageCache` automatically evicts images from the cache in order from oldest last access date to newest until the memory capacity drops below the `preferredMemoryCapacityAfterPurge`.
@@ -320,26 +311,26 @@ The `AutoPurgingImageCache` also listens for memory warnings from your applicati
 
 ### Image Downloader
 
-The `ImageDownloader` class is responsible for downloading images in parallel on a prioritized queue. It uses an internal Alamofire `Manager` instance to handle all the downloading and response image serialization. By default, the initialization of an `ImageDownloader` uses a default `NSURLSessionConfiguration` with the most common parameter values.
+The `ImageDownloader` class is responsible for downloading images in parallel on a prioritized queue. It uses an internal Alamofire `SessionManager` instance to handle all the downloading and response image serialization. By default, the initialization of an `ImageDownloader` uses a default `URLSessionConfiguration` with the most common parameter values.
 
 ```swift
 let imageDownloader = ImageDownloader(
     configuration: ImageDownloader.defaultURLSessionConfiguration(),
-    downloadPrioritization: .FIFO,
+    downloadPrioritization: .fifo,
     maximumActiveDownloads: 4,
     imageCache: AutoPurgingImageCache()
 )
 ```
 
-> If you need to customize the `NSURLSessionConfiguration` type or parameters, then simply provide your own rather than using the default.
+> If you need to customize the `URLSessionConfiguration` type or parameters, then simply provide your own rather than using the default.
 
 #### Downloading an Image
 
 ```swift
 let downloader = ImageDownloader()
-let URLRequest = NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/jpeg")!)
+let urlRequest = URLRequest(url: URL(string: "https://httpbin.org/image/jpeg")!)
 
-downloader.downloadImage(URLRequest: URLRequest) { response in
+downloader.download(urlRequest) { response in
     print(response.request)
     print(response.response)
     debugPrint(response.result)
@@ -356,14 +347,14 @@ downloader.downloadImage(URLRequest: URLRequest) { response in
 
 ```swift
 let downloader = ImageDownloader()
-let URLRequest = NSURLRequest(URL: NSURL(string: "https://httpbin.org/image/jpeg")!)
+let urlRequest = URLRequest(url: URL(string: "https://httpbin.org/image/jpeg")!)
 let filter = AspectScaledToFillSizeCircleFilter(size: CGSize(width: 100.0, height: 100.0))
 
-downloader.downloadImage(URLRequest: URLRequest, filter: filter) { response in
+downloader.download(urlRequest, filter: filter) { response in
     print(response.request)
     print(response.response)
     debugPrint(response.result)
-    
+
     if let image = response.result.value {
         print(image)
     }
@@ -385,21 +376,21 @@ The `ImageDownloader` maintains an internal queue of pending download requests. 
 
 ```swift
 public enum DownloadPrioritization {
-    case FIFO, LIFO
+    case fifo, lifo
 }
 ```
 
-> The `ImageDownloader` is initialized with a `.FIFO` queue by default.
+> The `ImageDownloader` is initialized with a `.fifo` queue by default.
 
 #### Image Caching
 
-The `ImageDownloader` uses a combination of an `NSURLCache` and `AutoPurgingImageCache` to create a very robust, high performance image caching system.
+The `ImageDownloader` uses a combination of an `URLCache` and `AutoPurgingImageCache` to create a very robust, high performance image caching system.
 
-##### NSURLCache
+##### URLCache
 
-The `NSURLCache` is used to cache all the original image content downloaded from the server. By default, it is initialized with a memory capacity of 20 MB and a disk capacity of 150 MB. This allows up to 150 MB of original image data to be stored on disk at any given time. While these defaults have been carefully set, it is very important to consider your application's needs and performance requirements and whether these values are right for you.
+The `URLCache` is used to cache all the original image content downloaded from the server. By default, it is initialized with a memory capacity of 20 MB and a disk capacity of 150 MB. This allows up to 150 MB of original image data to be stored on disk at any given time. While these defaults have been carefully set, it is very important to consider your application's needs and performance requirements and whether these values are right for you.
 
-> If you wish to disable this caching layer, create a custom `NSURLSessionConfiguration` with the `URLCache` property set to `nil` and use that configuration when initializing the `ImageDownloader`.
+> If you wish to disable this caching layer, create a custom `URLSessionConfiguration` with the `urlCache` property set to `nil` and use that configuration when initializing the `ImageDownloader`.
 
 ##### Image Cache
 
@@ -407,14 +398,14 @@ The `ImageCache` is used to cache all the potentially filtered image content aft
 
 ##### Setting Ideal Capacity Limits
 
-Determining the ideal the in-memory and on-disk capacity limits of the `NSURLCache` and `AutoPurgingImageCache` requires a bit of forethought. You must carefully consider your application's needs, and tailor the limits accordingly. By default, the combination of caches offers the following storage capacities:
+Determining the ideal the in-memory and on-disk capacity limits of the `URLCache` and `AutoPurgingImageCache` requires a bit of forethought. You must carefully consider your application's needs, and tailor the limits accordingly. By default, the combination of caches offers the following storage capacities:
 
 - 150 MB of on-disk storage
 - 20 MB of in-memory original image data storage
 - 100 MB of in-memory storage of filtered image content
 - 60 MB preferred memory capacity after purge of filtered image content
 
-> If you do not use image filters, it is advised to set the memory capacity of the `NSURLCache` to zero to avoid storing the same content in-memory twice.
+> If you do not use image filters, it is advised to set the memory capacity of the `URLCache` to zero to avoid storing the same content in-memory twice.
 
 #### Duplicate Downloads
 
@@ -442,9 +433,9 @@ Setting the image with a URL will asynchronously download the image and set it o
 
 ```swift
 let imageView = UIImageView(frame: frame)
-let URL = NSURL(string: "https://httpbin.org/image/png")!
+let url = URL(string: "https://httpbin.org/image/png")!
 
-imageView.af_setImageWithURL(URL)
+imageView.af_setImage(withURL: url)
 ```
 
 > If the image is cached locally, the image is set immediately.
@@ -455,10 +446,10 @@ By specifying a placeholder image, the image view uses the placeholder image unt
 
 ```swift
 let imageView = UIImageView(frame: frame)
-let URL = NSURL(string: "https://httpbin.org/image/png")!
+let url = URL(string: "https://httpbin.org/image/png")!
 let placeholderImage = UIImage(named: "placeholder")!
 
-imageView.af_setImageWithURL(URL, placeholderImage: placeholderImage)
+imageView.af_setImage(withURL: url, placeholderImage: placeholderImage)
 ```
 
 > If the remote image is cached locally, the placeholder image is never set.
@@ -470,16 +461,16 @@ If an image filter is specified, it is applied asynchronously after the remote i
 ```swift
 let imageView = UIImageView(frame: frame)
 
-let URL = NSURL(string: "https://httpbin.org/image/png")!
+let url = URL(string: "https://httpbin.org/image/png")!
 let placeholderImage = UIImage(named: "placeholder")!
 
 let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
-    size: imageView.frame.size, 
+    size: imageView.frame.size,
     radius: 20.0
 )
 
-imageView.af_setImageWithURL(
-    URL, 
+imageView.af_setImage(
+    withURL: url,
     placeholderImage: placeholderImage,
     filter: filter
 )
@@ -494,19 +485,19 @@ By default, there is no image transition animation when setting the image on the
 ```swift
 let imageView = UIImageView(frame: frame)
 
-let URL = NSURL(string: "https://httpbin.org/image/png")!
+let url = URL(string: "https://httpbin.org/image/png")!
 let placeholderImage = UIImage(named: "placeholder")!
 
 let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
-    size: imageView.frame.size, 
+    size: imageView.frame.size,
     radius: 20.0
 )
 
-imageView.af_setImageWithURL(
-    URL, 
+imageView.af_setImage(
+    withURL: url,
     placeholderImage: placeholderImage,
     filter: filter,
-    imageTransition: .CrossDissolve(0.2)
+    imageTransition: .crossDissolve(0.2)
 )
 ```
 
@@ -521,10 +512,7 @@ The `UIImageView` extension is powered by the default `ImageDownloader` instance
 If an image requires and authentication credential from the `UIImageView` extension, it can be provided as follows:
 
 ```swift
-ImageDownloader.defaultInstance.addAuthentication(
-    user: "user", 
-    password: "password"
-)
+ImageDownloader.default.addAuthentication(user: "user", password: "password")
 ```
 
 ---

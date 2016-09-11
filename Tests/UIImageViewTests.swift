@@ -164,7 +164,7 @@ class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
 
         let downloader = ImageDownloader.default
-        let urlRequest = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
         downloader.download(urlRequest) { _ in
@@ -186,7 +186,7 @@ class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
 
         let downloader = ImageDownloader.default
-        let urlRequest = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
         downloader.download(urlRequest, filter: CircleFilter()) { _ in
@@ -253,7 +253,7 @@ class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
 
         let downloader = ImageDownloader.default
-        let urlRequest = URLRequest(urlString: "https://httpbin.org/image/jpeg", method: .get)
+        let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
         downloader.download(urlRequest) { _ in
             expectation.fulfill()

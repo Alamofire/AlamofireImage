@@ -109,7 +109,7 @@ extension ImagesViewController : UICollectionViewDataSource {
         let gravatar = gravatars[(indexPath as NSIndexPath).row]
 
         cell.configureCell(
-            with: gravatar.url(size: sizeForCollectionViewItem().width).urlString,
+            with: gravatar.url(size: sizeForCollectionViewItem().width).absoluteString,
             placeholderImage: placeholderImage
         )
 

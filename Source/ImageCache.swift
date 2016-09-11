@@ -306,7 +306,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     // MARK: Private - Helper Methods
 
     private func imageCacheKey(for request: URLRequest, withIdentifier identifier: String?) -> String {
-        var key = request.urlString
+        var key = request.url?.absoluteString ?? ""
 
         if let identifier = identifier {
             key += "-\(identifier)"
