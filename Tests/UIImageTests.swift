@@ -51,7 +51,7 @@ class UIImageTestCase: BaseTestCase {
 
         let lock = NSLock()
         var images: [UIImage?] = []
-        let totalIterations = 1_500
+        let totalIterations = 200
 
         // When
         for _ in 0..<totalIterations {
@@ -73,9 +73,7 @@ class UIImageTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        images.forEach {
-            XCTAssertNotNil($0, "image should not be nil")
-        }
+        images.forEach { XCTAssertNotNil($0, "image should not be nil") }
     }
 
     func testThatHundredsOfLargeImagesCanBeInitializedAcrossMultipleThreadsWithThreadSafeInitializers() {
@@ -85,7 +83,7 @@ class UIImageTestCase: BaseTestCase {
 
         let lock = NSLock()
         var images: [UIImage?] = []
-        let totalIterations = 1_500
+        let totalIterations = 200
 
         // When
         for _ in 0..<totalIterations {
@@ -107,9 +105,7 @@ class UIImageTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        images.forEach {
-            XCTAssertNotNil($0, "image should not be nil")
-        }
+        images.forEach { XCTAssertNotNil($0, "image should not be nil") }
     }
 
     // MARK: - Inflation Tests
