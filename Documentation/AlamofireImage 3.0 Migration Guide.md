@@ -46,6 +46,41 @@ Alamofire.request("https://httpbin.org/image/png")
 		 }
 ```
 
+### UIImage and UIImageView Extensions
+
+The `UIImage` and `UIImageView` extensions have undergone extensive renaming.
+
+#### Loading an Image
+
+```swift
+// AlamofireImage 2
+imageView.af_setImageWithURL(URL, 
+                             placeholderImage: placeholderImage,
+                             filter: filter)
+
+// AlamofireImage 3
+imageView.af_setImage(withURL: url,
+                      placeholderImage: placeholderImage,
+                      filter: filter)
+```
+
+#### Loading an Image with Placeholder, Filter and Transition
+
+```swift 
+// AlamofireImage 2
+imageView.af_setImageWithURL(URL, 
+                             placeholderImage: placeholderImage,
+                             filter: filter,
+                             imageTransition: .CrossDissolve(0.2))
+
+// AlamofireImage 3
+imageView.af_setImage(withURL: url,
+                      placeholderImage: placeholderImage,
+                      filter: filter,
+                      imageTransition: .crossDissolve(0.2))
+
+``` 
+
 ### Image Cache
 
 #### Getting an Image
@@ -93,13 +128,3 @@ imageCache.removeImageForRequest(urlRequest, withAdditionalIdentifier: "circle")
 // AlamofireImage 3
 imageCache.removeImage(for: urlRequest, withIdentifier: "circle")
 ```
-
-
-
-### UIImage and UIImageView Extensions
-
-The `UIImage` and `UIImageView` extensions have undergone extensive renaming.
-
-
-
-
