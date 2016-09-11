@@ -539,6 +539,6 @@ public class ImageDownloader {
     }
 
     static func urlIdentifier(for urlRequest: URLRequestConvertible) -> String {
-        return urlRequest.urlRequest.urlString
+        return urlRequest.urlRequest.url?.absoluteString ?? ""
     }
 }
