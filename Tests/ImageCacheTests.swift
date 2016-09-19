@@ -174,6 +174,30 @@ class ImageCacheTestCase: BaseTestCase {
         XCTAssertFalse(cachedImageExistsAfterRemoval, "cached image exists after removal should be false")
     }
 
+	func testThatItCanRemoveImageFromCacheWithSamePrefix() {
+		// Given
+		let image = self.image(forResource: "unicorn", withExtension: "png")
+		let request = try! URLRequest(url: "https://images.example.com/animals/unicorn", method: .get)
+		let identifier0 = "unicorn-0"
+		let identifier1 = "unicorn-1"
+		
+		// When
+		cache.add(image, for: request, withIdentifier: identifier0)
+		cache.add(image, for: request, withIdentifier: identifier1)
+		let cachedImageExists0 = cache.image(for: request, withIdentifier: identifier0) != nil
+		let cachedImageExists1 = cache.image(for: request, withIdentifier: identifier1) != nil
+		
+		cache.removeImagesWithSamePrefix(for: request)
+		let cachedImageExistsAfterRemoval0 = cache.image(for: request, withIdentifier: identifier0) != nil
+		let cachedImageExistsAfterRemoval1 = cache.image(for: request, withIdentifier: identifier1) != nil
+		
+		// Then
+		XCTAssertTrue(cachedImageExists0, "cached image exists should be true")
+		XCTAssertTrue(cachedImageExists1, "cached image exists should be true")
+		XCTAssertFalse(cachedImageExistsAfterRemoval0, "cached image exists after removal should be false")
+		XCTAssertFalse(cachedImageExistsAfterRemoval1, "cached image exists after removal should be false")
+	}
+
     func testThatItCanRemoveAllImagesFromCache() {
         // Given
         let image = self.image(forResource: "unicorn", withExtension: "png")
