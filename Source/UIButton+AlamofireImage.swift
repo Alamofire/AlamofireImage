@@ -122,7 +122,7 @@ extension UIButton {
     public func af_setImage(
         for state: UIControlState,
         url: URL,
-        placeHolderImage: UIImage? = nil,
+        placeholderImage: UIImage? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
@@ -130,7 +130,7 @@ extension UIButton {
         af_setImage(
             for: state,
             urlRequest: urlRequest(with: url),
-            placeholderImage: placeHolderImage,
+            placeholderImage: placeholderImage,
             progress: progress,
             progressQueue: progressQueue,
             completion: completion
@@ -255,7 +255,7 @@ extension UIButton {
     public func af_setBackgroundImage(
         for state: UIControlState,
         url: URL,
-        placeHolderImage: UIImage? = nil,
+        placeholderImage: UIImage? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
@@ -263,7 +263,7 @@ extension UIButton {
         af_setBackgroundImage(
             for: state,
             urlRequest: urlRequest(with: url),
-            placeholderImage: placeHolderImage,
+            placeholderImage: placeholderImage,
             completion: completion)
     }
 

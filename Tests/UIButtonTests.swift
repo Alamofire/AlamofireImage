@@ -400,7 +400,7 @@ class UIButtonTests: BaseTestCase {
         let button = TestButton ()
 
         // When
-        button.af_setImage(for: [], url: url, placeHolderImage: placeholderImage)
+        button.af_setImage(for: [], url: url, placeholderImage: placeholderImage)
         let initialImageEqualsPlaceholderImage = button.image(for:[]) === placeholderImage
 
         button.imageObserver = {
@@ -428,7 +428,7 @@ class UIButtonTests: BaseTestCase {
         let button = TestButton ()
 
         // When
-        button.af_setBackgroundImage(for: [], url: url, placeHolderImage: placeholderImage)
+        button.af_setBackgroundImage(for: [], url: url, placeholderImage: placeholderImage)
         let initialImageEqualsPlaceholderImage = button.backgroundImage(for:[]) === placeholderImage
 
         button.imageObserver = {
@@ -461,7 +461,7 @@ class UIButtonTests: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // When
-        button.af_setImage(for: [], url: url, placeHolderImage: placeholderImage)
+        button.af_setImage(for: [], url: url, placeholderImage: placeholderImage)
 
         // Then
         XCTAssertNotNil(button.image(for: UIControlState()), "button image should not be nil")
@@ -484,7 +484,7 @@ class UIButtonTests: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         // When
-        button.af_setBackgroundImage(for: [], url: url, placeHolderImage: placeholderImage)
+        button.af_setBackgroundImage(for: [], url: url, placeholderImage: placeholderImage)
 
         // Then
         XCTAssertNotNil(button.backgroundImage(for: UIControlState()), "button background image should not be nil")
