@@ -180,7 +180,7 @@ let image = UIImage(named: "unicorn")!
 let sepiaImage = image.af_imageFiltered(withCoreImageFilter: "CISepiaTone")
 
 let blurredImage = image.af_imageFiltered(
-    withCoreImageFilter: "CIGuassianBlue",
+    withCoreImageFilter: "CIGuassianBlur",
     parameters: ["inputRadius": 25]
 )
 ```
