@@ -30,7 +30,7 @@ import UIKit
 #elseif os(watchOS)
 import UIKit
 import WatchKit
-#elseif os(OSX)
+#elseif os(macOS)
 import Cocoa
 #endif
 
@@ -148,9 +148,9 @@ extension DataRequest {
         #endif
     }
 
-#elseif os(OSX)
+#elseif os(macOS)
 
-    // MARK: - OSX
+    // MARK: - macOS
 
     /// Creates a response serializer that returns an image initialized from the response data.
     ///

@@ -87,7 +87,7 @@ class DataRequestTestCase: BaseTestCase {
                 let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
                 XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
-            #elseif os(OSX)
+            #elseif os(macOS)
                 let expectedSize = CGSize(width: 100.0, height: 100.0)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
             #endif
@@ -123,7 +123,7 @@ class DataRequestTestCase: BaseTestCase {
                 let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
                 XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
-            #elseif os(OSX)
+            #elseif os(macOS)
                 let expectedSize = CGSize(width: 239.0, height: 178.0)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
             #endif
@@ -159,7 +159,7 @@ class DataRequestTestCase: BaseTestCase {
                 let expectedSize = CGSize(width: CGFloat(180) / screenScale, height: CGFloat(260) / screenScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
                 XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
-            #elseif os(OSX)
+            #elseif os(macOS)
                 let expectedSize = CGSize(width: 180.0, height: 260.0)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
             #endif

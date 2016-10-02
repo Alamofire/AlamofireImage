@@ -70,7 +70,7 @@ class BaseTestCase : XCTestCase {
 
         #if os(iOS) || os(tvOS)
             let image = Image.af_threadSafeImage(with: data, scale: UIScreen.main.scale)!
-        #elseif os(OSX)
+        #elseif os(macOS)
             let image = Image(data: data)!
         #endif
 

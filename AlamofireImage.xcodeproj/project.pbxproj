@@ -756,7 +756,7 @@
 		4CD5BCF41D7FBE380055E232 /* AFError+AlamofireImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AFError+AlamofireImageTests.swift"; sourceTree = "<group>"; };
 		4CE5AAA61B9BF099003530D6 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Carthage/Checkouts/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		4CE611321AABC24E00D35044 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CE611471AABC5C900D35044 /* AlamofireImage OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CE611471AABC5C900D35044 /* AlamofireImage macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4CEBB53F1B93C622001391DE /* ImageCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacheTests.swift; sourceTree = "<group>"; };
 		4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
@@ -1139,7 +1139,7 @@
 				4C9043771AABBFC5001B4E60 /* AlamofireImage.framework */,
 				4C9043821AABBFC5001B4E60 /* AlamofireImage iOS Tests.xctest */,
 				4CE611321AABC24E00D35044 /* AlamofireImage.framework */,
-				4CE611471AABC5C900D35044 /* AlamofireImage OSX Tests.xctest */,
+				4CE611471AABC5C900D35044 /* AlamofireImage macOS Tests.xctest */,
 				4C4D4EC11B92976900C96855 /* AlamofireImage.framework */,
 				4C16B37D1BA9399500A66EF0 /* AlamofireImage.framework */,
 				4C16B3861BA9399500A66EF0 /* AlamofireImage tvOS Tests.xctest */,
@@ -1334,9 +1334,9 @@
 			productReference = 4C9043821AABBFC5001B4E60 /* AlamofireImage iOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4CE611281AABC24E00D35044 /* AlamofireImage OSX */ = {
+		4CE611281AABC24E00D35044 /* AlamofireImage macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4CE6112F1AABC24E00D35044 /* Build configuration list for PBXNativeTarget "AlamofireImage OSX" */;
+			buildConfigurationList = 4CE6112F1AABC24E00D35044 /* Build configuration list for PBXNativeTarget "AlamofireImage macOS" */;
 			buildPhases = (
 				4CE611291AABC24E00D35044 /* Sources */,
 				4CE6112A1AABC24E00D35044 /* Frameworks */,
@@ -1348,14 +1348,14 @@
 			dependencies = (
 				4CE5AABD1B9BF10C003530D6 /* PBXTargetDependency */,
 			);
-			name = "AlamofireImage OSX";
+			name = "AlamofireImage macOS";
 			productName = AlamofireImage;
 			productReference = 4CE611321AABC24E00D35044 /* AlamofireImage.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4CE611461AABC5C900D35044 /* AlamofireImage OSX Tests */ = {
+		4CE611461AABC5C900D35044 /* AlamofireImage macOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4CE611501AABC5C900D35044 /* Build configuration list for PBXNativeTarget "AlamofireImage OSX Tests" */;
+			buildConfigurationList = 4CE611501AABC5C900D35044 /* Build configuration list for PBXNativeTarget "AlamofireImage macOS Tests" */;
 			buildPhases = (
 				4CE611431AABC5C900D35044 /* Sources */,
 				4CE611441AABC5C900D35044 /* Frameworks */,
@@ -1366,9 +1366,9 @@
 			dependencies = (
 				4CE6114F1AABC5C900D35044 /* PBXTargetDependency */,
 			);
-			name = "AlamofireImage OSX Tests";
+			name = "AlamofireImage macOS Tests";
 			productName = "AlamofireImage OSX Tests";
-			productReference = 4CE611471AABC5C900D35044 /* AlamofireImage OSX Tests.xctest */;
+			productReference = 4CE611471AABC5C900D35044 /* AlamofireImage macOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1436,8 +1436,8 @@
 			targets = (
 				4C9043761AABBFC5001B4E60 /* AlamofireImage iOS */,
 				4C9043811AABBFC5001B4E60 /* AlamofireImage iOS Tests */,
-				4CE611281AABC24E00D35044 /* AlamofireImage OSX */,
-				4CE611461AABC5C900D35044 /* AlamofireImage OSX Tests */,
+				4CE611281AABC24E00D35044 /* AlamofireImage macOS */,
+				4CE611461AABC5C900D35044 /* AlamofireImage macOS Tests */,
 				4C16B37C1BA9399500A66EF0 /* AlamofireImage tvOS */,
 				4C16B3851BA9399500A66EF0 /* AlamofireImage tvOS Tests */,
 				4C4D4EC01B92976900C96855 /* AlamofireImage watchOS */,
@@ -2113,7 +2113,7 @@
 		};
 		4CE6114F1AABC5C900D35044 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4CE611281AABC24E00D35044 /* AlamofireImage OSX */;
+			target = 4CE611281AABC24E00D35044 /* AlamofireImage macOS */;
 			targetProxy = 4CE6114E1AABC5C900D35044 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -2586,7 +2586,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4CE6112F1AABC24E00D35044 /* Build configuration list for PBXNativeTarget "AlamofireImage OSX" */ = {
+		4CE6112F1AABC24E00D35044 /* Build configuration list for PBXNativeTarget "AlamofireImage macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4CE611301AABC24E00D35044 /* Debug */,
@@ -2595,7 +2595,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4CE611501AABC5C900D35044 /* Build configuration list for PBXNativeTarget "AlamofireImage OSX Tests" */ = {
+		4CE611501AABC5C900D35044 /* Build configuration list for PBXNativeTarget "AlamofireImage macOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4CE611511AABC5C900D35044 /* Debug */,
