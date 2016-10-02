@@ -35,6 +35,7 @@ import Cocoa
 #endif
 
 extension DataRequest {
+    static let JFIFMagicNumberStartOfImage = Data(bytes: [255, 216]) // 0xffd8
     static var acceptableImageContentTypes: Set<String> = [
         "image/tiff",
         "image/jpeg",
@@ -97,6 +98,39 @@ extension DataRequest {
         }
     }
 
+    /// Creates an image initialized from the data using the specified mage options.
+    ///
+    /// - parameter imageScale:           The scale factor used when interpreting the image data to construct
+    ///                                   `responseImage`. Specifying a scale factor of 1.0 results in an image whose
+    ///                                   size matches the pixel-based dimensions of the image. Applying a different
+    ///                                   scale factor changes the size of the image as reported by the size property.
+    ///                                   `Screen.scale` by default.
+    /// - parameter inflateResponseImage: Whether to automatically inflate response image data for compressed formats
+    ///                                   (such as PNG or JPEG). Enabling this can significantly improve drawing
+    ///                                   performance as it allows a bitmap representation to be constructed in the
+    ///                                   background rather than on the main thread. `true` by default.
+    ///
+    /// - returns: An image.
+    public class func imageSerializer(
+        data: Data,
+        imageScale: CGFloat = DataRequest.imageScale,
+        inflateResponseImage: Bool = true)
+        -> UIImage?
+    {
+        guard data.count > 0 else {
+            return nil
+        }
+
+        do {
+            let image = try DataRequest.image(from: data, withImageScale: imageScale)
+            if inflateResponseImage { image.af_inflate() }
+
+            return image
+        } catch {
+            return nil
+        }
+    }
+
     /// Adds a handler to be called once the request has finished.
     ///
     /// - parameter imageScale:           The scale factor used when interpreting the image data to construct
@@ -130,6 +164,46 @@ extension DataRequest {
             ),
             completionHandler: completionHandler
         )
+    }
+
+    /// Adds a handler to be called when the request has new image.
+    ///
+    /// - parameter imageScale:           The scale factor used when interpreting the image data to construct
+    ///                                   `responseImage`. Specifying a scale factor of 1.0 results in an image whose
+    ///                                   size matches the pixel-based dimensions of the image. Applying a different
+    ///                                   scale factor changes the size of the image as reported by the size property.
+    ///                                   This is set to the value of scale of the main screen by default, which
+    ///                                   automatically scales images for retina displays, for instance.
+    ///                                   `Screen.scale` by default.
+    /// - parameter inflateResponseImage: Whether to automatically inflate response image data for compressed formats
+    ///                                   (such as PNG or JPEG). Enabling this can significantly improve drawing
+    ///                                   performance as it allows a bitmap representation to be constructed in the
+    ///                                   background rather than on the main thread. `true` by default.
+    /// - parameter completionHandler:    A closure to be executed when the request has new image. The closure takes 1
+    ///                                   argument: the image, if one could be created from the URL response and data.
+    ///
+    /// - returns: The request.
+    @discardableResult
+    public func streamImage(
+        imageScale: CGFloat = DataRequest.imageScale,
+        inflateResponseImage: Bool = true,
+        completionHandler: @escaping (Image) -> Void)
+        -> Self
+    {
+        var imageData = Data()
+
+        return stream(closure: { (chunkData) in
+            if chunkData.starts(with: DataRequest.JFIFMagicNumberStartOfImage) {
+                if let image = DataRequest.imageSerializer(data: imageData,
+                                                       imageScale: imageScale,
+                                                       inflateResponseImage: inflateResponseImage) {
+                    completionHandler(image)
+                }
+                imageData = Data()
+            }
+
+            imageData.append(chunkData)
+        })
     }
 
     private class func image(from data: Data, withImageScale imageScale: CGFloat) throws -> UIImage {
@@ -178,6 +252,28 @@ extension DataRequest {
         }
     }
 
+    /// Creates an image initialized from the data.
+    ///
+    /// - returns: An image response serializer.
+    public class func imageSerializer(data: Data) -> NSImage? {
+        guard let validData = data, validData.count > 0 else {
+            return nil
+        }
+
+        guard Request.validateContentType(for: request, response: response) else {
+            return .failure(Request.contentTypeValidationError())
+        }
+
+        guard let bitmapImage = NSBitmapImageRep(data: validData) else {
+            return .failure(Request.imageDataError())
+        }
+
+        let image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
+        image.addRepresentation(bitmapImage)
+
+        return image
+    }
+
     /// Adds a handler to be called once the request has finished.
     ///
     /// - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4
@@ -192,6 +288,28 @@ extension DataRequest {
             responseSerializer: DataRequest.imageResponseSerializer(),
             completionHandler: completionHandler
         )
+    }
+
+    /// Adds a handler to be called when the request has new image.
+    ///
+    /// - parameter completionHandler: A closure to be executed when the request has new image. The closure takes 1
+    ///                                argument: the image, if one could be created from the URL response and data.
+    ///
+    /// - returns: The request.
+    @discardableResult
+    public func streamImage(completionHandler: @escaping (Image) -> Void) -> Self {
+        var imageData = Data()
+
+        return stream(closure: { (chunkData) in
+            if chunkData.starts(with: Request.JFIFMagicNumberStartOfImage) {
+                if let image = Request.imageSerializer(data: imageData) {
+                    completionHandler(image)
+                }
+                imageData = Data()
+            }
+
+            imageData.append(chunkData)
+        })
     }
 
 #endif
