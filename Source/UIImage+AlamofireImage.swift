@@ -22,13 +22,11 @@
 //  THE SOFTWARE.
 //
 
+#if os(iOS) || os(tvOS) || os(watchOS)
+
 import CoreGraphics
 import Foundation
 import UIKit
-
-#if os(iOS) || os(tvOS)
-import CoreImage
-#endif
 
 // MARK: Initialization
 
@@ -137,7 +135,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         draw(in: CGRect(origin: CGPoint.zero, size: size))
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContextUnwrapped()
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -172,7 +170,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         draw(in: CGRect(origin: origin, size: scaledSize))
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContextUnwrapped()
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -202,7 +200,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         draw(in: CGRect(origin: origin, size: scaledSize))
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContextUnwrapped()
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -232,7 +230,7 @@ extension UIImage {
 
         draw(in: CGRect(origin: CGPoint.zero, size: size))
 
-        let roundedImage = UIGraphicsGetImageFromCurrentImageContextUnwrapped()
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return roundedImage
@@ -262,14 +260,18 @@ extension UIImage {
 
         squareImage.draw(in: CGRect(origin: CGPoint.zero, size: squareImage.size))
 
-        let roundedImage = UIGraphicsGetImageFromCurrentImageContextUnwrapped()
+        let roundedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return roundedImage
     }
 }
 
+#endif
+
 #if os(iOS) || os(tvOS)
+
+import CoreImage
 
 // MARK: - Core Image Filters
 
@@ -304,13 +306,3 @@ extension UIImage {
 }
 
 #endif
-
-// MARK: - Private - Graphics Context Helpers
-
-private func UIGraphicsGetImageFromCurrentImageContextUnwrapped() -> UIImage {
-    #if swift(>=2.3)
-        return UIGraphicsGetImageFromCurrentImageContext()!
-    #else
-        return UIGraphicsGetImageFromCurrentImageContext()
-    #endif
-}

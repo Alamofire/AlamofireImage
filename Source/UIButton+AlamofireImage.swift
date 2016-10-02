@@ -24,6 +24,9 @@
 
 import Alamofire
 import Foundation
+
+#if os(iOS) || os(tvOS)
+
 import UIKit
 
 extension UIButton {
@@ -452,3 +455,5 @@ extension UIButton {
         return urlRequest
     }
 }
+
+#endif

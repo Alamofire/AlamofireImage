@@ -22,6 +22,8 @@
 //  THE SOFTWARE.
 //
 
+#if !os(macOS)
+
 import AlamofireImage
 import Foundation
 import UIKit
@@ -379,3 +381,5 @@ class UIImageTestCase: BaseTestCase {
         XCTAssertNil(filteredImage, "filtered image should be nil")
     }
 }
+
+#endif

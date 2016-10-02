@@ -22,6 +22,8 @@
 //  THE SOFTWARE.
 //
 
+#if !os(macOS)
+
 import AlamofireImage
 import Foundation
 import UIKit
@@ -287,3 +289,5 @@ class ImageFilterTestCase: BaseTestCase {
         XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 }
+
+#endif

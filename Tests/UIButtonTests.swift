@@ -22,6 +22,8 @@
 //  THE SOFTWARE.
 //
 
+#if !os(macOS)
+
 @testable import Alamofire
 @testable import AlamofireImage
 import UIKit
@@ -942,3 +944,5 @@ class UIButtonTests: BaseTestCase {
         }
     }
 }
+
+#endif

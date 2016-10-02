@@ -24,6 +24,9 @@
 
 import Alamofire
 import Foundation
+
+#if os(iOS) || os(tvOS)
+
 import UIKit
 
 extension UIImageView {
@@ -374,3 +377,5 @@ extension UIImageView {
         return false
     }
 }
+
+#endif

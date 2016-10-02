@@ -22,7 +22,8 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
+#if !os(macOS)
+
 import UIKit
 
 extension UIImage {
@@ -119,3 +120,5 @@ extension UIImage {
         return image
     }
 }
+
+#endif

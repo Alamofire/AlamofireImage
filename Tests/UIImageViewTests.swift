@@ -22,6 +22,8 @@
 //  THE SOFTWARE.
 //
 
+#if !os(macOS)
+
 @testable import Alamofire
 @testable import AlamofireImage
 import Foundation
@@ -707,3 +709,5 @@ class UIImageViewTestCase: BaseTestCase {
         }
     }
 }
+
+#endif
