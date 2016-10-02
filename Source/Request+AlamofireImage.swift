@@ -49,6 +49,8 @@ extension DataRequest {
         "image/x-win-bitmap"
     ]
 
+    static let streamImageInitialBytePattern = Data(bytes: [255, 216]) // 0xffd8
+
     /// Adds the content types specified to the list of acceptable images content types for validation.
     ///
     /// - parameter contentTypes: The additional content types.
@@ -132,6 +134,63 @@ extension DataRequest {
         )
     }
 
+    /// Adds a response handler to be called when the request has a new image.
+    ///
+    /// - parameter imageScale:           The scale factor used when interpreting the image data to construct
+    ///                                   `responseImage`. Specifying a scale factor of 1.0 results in an image whose
+    ///                                   size matches the pixel-based dimensions of the image. Applying a different
+    ///                                   scale factor changes the size of the image as reported by the size property.
+    ///                                   This is set to the value of scale of the main screen by default, which
+    ///                                   automatically scales images for retina displays, for instance.
+    ///                                   `Screen.scale` by default.
+    /// - parameter inflateResponseImage: Whether to automatically inflate response image data for compressed formats
+    ///                                   (such as PNG or JPEG). Enabling this can significantly improve drawing
+    ///                                   performance as it allows a bitmap representation to be constructed in the
+    ///                                   background rather than on the main thread. `true` by default.
+    /// - parameter completionHandler:    A closure to be executed when the request has new image. The closure takes 1
+    ///                                   argument: the image, if one could be created from the data.
+    ///
+    /// - returns: The request.
+    @discardableResult
+    public func streamImage(
+        imageScale: CGFloat = DataRequest.imageScale,
+        inflateResponseImage: Bool = true,
+        completionHandler: @escaping (Image) -> Void)
+        -> Self
+    {
+        var imageData = Data()
+
+        return stream { chunkData in
+            if chunkData.starts(with: DataRequest.streamImageInitialBytePattern) {
+                imageData = Data()
+            }
+
+            imageData.append(chunkData)
+
+            if let image = DataRequest.serializeImage(from: imageData) {
+                completionHandler(image)
+            }
+        }
+    }
+
+    private class func serializeImage(
+        from data: Data,
+        imageScale: CGFloat = DataRequest.imageScale,
+        inflateResponseImage: Bool = true)
+        -> UIImage?
+    {
+        guard data.count > 0 else { return nil }
+
+        do {
+            let image = try DataRequest.image(from: data, withImageScale: imageScale)
+            if inflateResponseImage { image.af_inflate() }
+
+            return image
+        } catch {
+            return nil
+        }
+    }
+
     private class func image(from data: Data, withImageScale imageScale: CGFloat) throws -> UIImage {
         if let image = UIImage.af_threadSafeImage(with: data, scale: imageScale) {
             return image
@@ -192,6 +251,39 @@ extension DataRequest {
             responseSerializer: DataRequest.imageResponseSerializer(),
             completionHandler: completionHandler
         )
+    }
+
+    /// Adds a response handler to be called when the request has new image.
+    ///
+    /// - parameter completionHandler: A closure to be executed when the request has new image. The closure takes 1
+    ///                                argument: the image, if one could be created from the data.
+    ///
+    /// - returns: The request.
+    @discardableResult
+    public func streamImage(completionHandler: @escaping (Image) -> Void) -> Self {
+        var imageData = Data()
+
+        return stream { chunkData in
+            if chunkData.starts(with: DataRequest.streamImageInitialBytePattern) {
+                imageData = Data()
+            }
+
+            imageData.append(chunkData)
+
+            if let image = DataRequest.serializeImage(from: imageData) {
+                completionHandler(image)
+            }
+        }
+    }
+
+    private class func serializeImage(from data: Data) -> NSImage? {
+        guard data.count > 0 else { return nil }
+        guard let bitmapImage = NSBitmapImageRep(data: data) else { return nil }
+
+        let image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
+        image.addRepresentation(bitmapImage)
+
+        return image
     }
 
 #endif
