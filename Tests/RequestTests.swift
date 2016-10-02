@@ -42,7 +42,7 @@ class DataRequestTestCase: BaseTestCase {
         DataRequest.acceptableImageContentTypes = acceptableImageContentTypes
     }
 
-    // MARK: - Image Content Type Tests
+    // MARK: - Tests - Image Content Type
 
     func testThatAddingAcceptableImageContentTypesInsertsThemIntoTheGlobalList() {
         // Given
@@ -58,7 +58,7 @@ class DataRequestTestCase: BaseTestCase {
         XCTAssertEqual(afterCount, 13, "after count should be 13")
     }
 
-    // MARK: - Image Serialization Tests
+    // MARK: - Tests - Image Serialization
 
     func testThatImageResponseSerializerCanDownloadPNGImage() {
         // Given
@@ -170,7 +170,7 @@ class DataRequestTestCase: BaseTestCase {
 
 #if os(iOS) || os(tvOS)
 
-    // MARK: - Image Inflation Tests
+    // MARK: - Tests - Image Inflation
 
     func testThatImageResponseSerializerCanDownloadAndInflatePNGImage() {
         // Given
@@ -238,7 +238,7 @@ class DataRequestTestCase: BaseTestCase {
 
 #endif
 
-    // MARK: - Image Serialization Error Tests
+    // MARK: - Tests - Image Serialization Errors
 
     func testThatAttemptingToDownloadImageFromBadURLReturnsFailureResult() {
         // Given
@@ -378,5 +378,35 @@ class DataRequestTestCase: BaseTestCase {
         } else {
             XCTFail("error should not be nil")
         }
+    }
+
+    // MARK: - Tests - Stream Images
+
+    func testThatImagesCanBeStreamedDynamicallyFromMJPEGStream() {
+        // Given
+        let urlString = "http://173.14.66.201/anony/mjpg.cgi" // Northgate Launder Land
+        let expectation = self.expectation(description: "Request should return images")
+
+        let expectedImageCount = 8
+        var imageCount = 0
+
+        // When
+        let request = sessionManager.request(urlString)
+
+        request.streamImage { image in
+            guard imageCount < expectedImageCount else { return }
+
+            imageCount += 1
+
+            if imageCount == expectedImageCount {
+                request.cancel()
+                expectation.fulfill()
+            }
+        }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertEqual(imageCount, expectedImageCount)
     }
 }

@@ -99,7 +99,7 @@ extension DataRequest {
         }
     }
 
-    /// Adds a handler to be called once the request has finished.
+    /// Adds a response handler to be called once the request has finished.
     ///
     /// - parameter imageScale:           The scale factor used when interpreting the image data to construct
     ///                                   `responseImage`. Specifying a scale factor of 1.0 results in an image whose
@@ -134,7 +134,8 @@ extension DataRequest {
         )
     }
 
-    /// Adds a response handler to be called when the request has a new image.
+    /// Sets a closure to be called periodically during the lifecycle of the request as data is read from the server 
+    /// and converted into images.
     ///
     /// - parameter imageScale:           The scale factor used when interpreting the image data to construct
     ///                                   `responseImage`. Specifying a scale factor of 1.0 results in an image whose
@@ -237,7 +238,7 @@ extension DataRequest {
         }
     }
 
-    /// Adds a handler to be called once the request has finished.
+    /// Adds a response handler to be called once the request has finished.
     ///
     /// - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 4
     ///                                arguments: the URL request, the URL response, if one was received, the image, if
@@ -253,7 +254,8 @@ extension DataRequest {
         )
     }
 
-    /// Adds a response handler to be called when the request has new image.
+    /// Sets a closure to be called periodically during the lifecycle of the request as data is read from the server
+    /// and converted into images.
     ///
     /// - parameter completionHandler: A closure to be executed when the request has new image. The closure takes 1
     ///                                argument: the image, if one could be created from the data.
