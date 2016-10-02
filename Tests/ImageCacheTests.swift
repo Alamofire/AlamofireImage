@@ -174,6 +174,33 @@ class ImageCacheTestCase: BaseTestCase {
         XCTAssertFalse(cachedImageExistsAfterRemoval, "cached image exists after removal should be false")
     }
 
+    func testThatItCanRemoveImagesFromCacheMatchingRequestIdentifier() {
+        // Given
+        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let request = try! URLRequest(url: "https://images.example.com/animals", method: .get)
+
+        let identifier1 = "unicorn-100"
+        let identifier2 = "unicorn-400"
+
+        // When
+        cache.add(image, for: request, withIdentifier: identifier1)
+        cache.add(image, for: request, withIdentifier: identifier2)
+
+        let cachedImageExists1 = cache.image(for: request, withIdentifier: identifier1) != nil
+        let cachedImageExists2 = cache.image(for: request, withIdentifier: identifier2) != nil
+
+        let removedImages = cache.removeImages(matching: request)
+        let cachedImageExistsAfterRemoval1 = cache.image(for: request, withIdentifier: identifier1) != nil
+        let cachedImageExistsAfterRemoval2 = cache.image(for: request, withIdentifier: identifier2) != nil
+
+        // Then
+        XCTAssertTrue(cachedImageExists1)
+        XCTAssertTrue(cachedImageExists2)
+        XCTAssertTrue(removedImages)
+        XCTAssertFalse(cachedImageExistsAfterRemoval1)
+        XCTAssertFalse(cachedImageExistsAfterRemoval2)
+    }
+
     func testThatItCanRemoveAllImagesFromCache() {
         // Given
         let image = self.image(forResource: "unicorn", withExtension: "png")
