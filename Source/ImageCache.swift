@@ -45,6 +45,10 @@ public protocol ImageCache {
     @discardableResult
     func removeAllImages() -> Bool
 
+	/// Removes all images from the cache using an identifier created from the request with any additional identifiers.
+	@discardableResult
+	func removeImagesWithSamePrefix(for request: URLRequest) -> Bool
+
     /// Returns the image in the cache associated with the given identifier.
     func image(withIdentifier identifier: String) -> Image?
 }
@@ -272,6 +276,30 @@ public class AutoPurgingImageCache: ImageRequestCache {
 
         return removed
     }
+	
+	/// Removes all images from the cache using an identifier created from the request with any additional identifiers.
+	///
+	/// - parameter request: The request used to generate the image's unique identifier.
+	///
+	/// - returns: `true` if images were removed, `false` otherwise.
+	@discardableResult
+	public func removeImagesWithSamePrefix(for request: URLRequest) -> Bool {
+		let prefix: String = imageCacheKey(for: request, withIdentifier: nil)
+		var identifiers = [String]()
+		synchronizationQueue.sync {
+			identifiers = self.cachedImages.keys.filter { $0.hasPrefix(prefix) }
+		}
+		
+		var removedAll = true
+		for identifier in identifiers {
+			if removeImage(withIdentifier: identifier) == false {
+				removedAll = false
+			}
+		}
+		
+		return removedAll
+	}
+
 
     // MARK: Fetch Image from Cache
 
