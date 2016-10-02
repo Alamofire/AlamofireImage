@@ -288,10 +288,34 @@ public struct CircleFilter: ImageFilter {
 
 #if os(iOS) || os(tvOS)
 
+/// The `CoreImageFilter` protocol defines `parameters`, `filterName` properties used by CoreImage.
+public protocol CoreImageFilter: ImageFilter {
+    /// The filter name of the CoreImage filter.
+	var filterName: String { get }
+
+    /// The image filter parameters passed to CoreImage.
+    var parameters: [String: Any] { get }
+}
+
+public extension ImageFilter where Self: CoreImageFilter {
+	/// The filter closure used to create the modified representation of the given image.
+	public var filter: (Image) -> Image {
+		return { image in
+            return image.af_imageFiltered(withCoreImageFilter: self.filterName, parameters: self.parameters) ?? image
+		}
+	}
+
+	/// The unique idenitifier for an `ImageFilter` conforming to the `CoreImageFilter` protocol.
+	public var identifier: String { return "\(type(of: self))-parameters:(\(self.parameters))" }
+}
+
 /// Blurs an image using a `CIGaussianBlur` filter with the specified blur radius.
-public struct BlurFilter: ImageFilter {
-    /// The blur radius of the filter.
-    let blurRadius: UInt
+public struct BlurFilter: ImageFilter, CoreImageFilter {
+    /// The filter name.
+    public let filterName = "CIGaussianBlur"
+
+    /// The image filter parameters passed to CoreImage.
+    public let parameters: [String: Any]
 
     /// Initializes the `BlurFilter` instance with the given blur radius.
     ///
@@ -299,15 +323,7 @@ public struct BlurFilter: ImageFilter {
     ///
     /// - returns: The new `BlurFilter` instance.
     public init(blurRadius: UInt = 10) {
-        self.blurRadius = blurRadius
-    }
-
-    /// The filter closure used to create the modified representation of the given image.
-    public var filter: (Image) -> Image {
-        return { image in
-            let parameters: [String: Any] = ["inputRadius": self.blurRadius]
-            return image.af_imageFiltered(withCoreImageFilter: "CIGaussianBlur", parameters: parameters) ?? image
-        }
+        self.parameters = ["inputRadius": blurRadius]
     }
 }
 
