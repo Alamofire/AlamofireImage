@@ -68,8 +68,8 @@ public protocol ImageRequestCache: ImageCache {
 /// the memory capacity is reached, the image cache is sorted by last access date, then the oldest image is continuously
 /// purged until the preferred memory usage after purge is met. Each time an image is accessed through the cache, the
 /// internal access date of the image is updated.
-public class AutoPurgingImageCache: ImageRequestCache {
-    private class CachedImage {
+open class AutoPurgingImageCache: ImageRequestCache {
+    class CachedImage {
         let image: Image
         let identifier: String
         let totalBytes: UInt64
@@ -104,7 +104,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     // MARK: Properties
 
     /// The current total memory usage in bytes of all images stored within the cache.
-    public var memoryUsage: UInt64 {
+    open var memoryUsage: UInt64 {
         var memoryUsage: UInt64 = 0
         synchronizationQueue.sync { memoryUsage = self.currentMemoryUsage }
 
@@ -112,11 +112,11 @@ public class AutoPurgingImageCache: ImageRequestCache {
     }
 
     /// The total memory capacity of the cache in bytes.
-    public let memoryCapacity: UInt64
+    open let memoryCapacity: UInt64
 
     /// The preferred memory usage after purge in bytes. During a purge, images will be purged until the memory
     /// capacity drops below this limit.
-    public let preferredMemoryUsageAfterPurge: UInt64
+    open let preferredMemoryUsageAfterPurge: UInt64
 
     private let synchronizationQueue: DispatchQueue
     private var cachedImages: [String: CachedImage]
@@ -171,7 +171,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     /// - parameter image:      The image to add to the cache.
     /// - parameter request:    The request used to generate the image's unique identifier.
     /// - parameter identifier: The additional identifier to append to the image's unique identifier.
-    public func add(_ image: Image, for request: URLRequest, withIdentifier identifier: String? = nil) {
+    open func add(_ image: Image, for request: URLRequest, withIdentifier identifier: String? = nil) {
         let requestIdentifier = imageCacheKey(for: request, withIdentifier: identifier)
         add(image, withIdentifier: requestIdentifier)
     }
@@ -180,7 +180,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     ///
     /// - parameter image:      The image to add to the cache.
     /// - parameter identifier: The identifier to use to uniquely identify the image.
-    public func add(_ image: Image, withIdentifier identifier: String) {
+    open func add(_ image: Image, withIdentifier identifier: String) {
         synchronizationQueue.async(flags: [.barrier]) {
             let cachedImage = CachedImage(image, identifier: identifier)
 
@@ -230,7 +230,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     ///
     /// - returns: `true` if the image was removed, `false` otherwise.
     @discardableResult
-    public func removeImage(for request: URLRequest, withIdentifier identifier: String?) -> Bool {
+    open func removeImage(for request: URLRequest, withIdentifier identifier: String?) -> Bool {
         let requestIdentifier = imageCacheKey(for: request, withIdentifier: identifier)
         return removeImage(withIdentifier: requestIdentifier)
     }
@@ -241,7 +241,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     ///
     /// - returns: `true` if any images were removed, `false` otherwise.
     @discardableResult
-    public func removeImages(matching request: URLRequest) -> Bool {
+    open func removeImages(matching request: URLRequest) -> Bool {
         let requestIdentifier = imageCacheKey(for: request, withIdentifier: nil)
         var removed = false
 
@@ -263,7 +263,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     ///
     /// - returns: `true` if the image was removed, `false` otherwise.
     @discardableResult
-    public func removeImage(withIdentifier identifier: String) -> Bool {
+    open func removeImage(withIdentifier identifier: String) -> Bool {
         var removed = false
 
         synchronizationQueue.sync {
@@ -279,8 +279,8 @@ public class AutoPurgingImageCache: ImageRequestCache {
     /// Removes all images stored in the cache.
     ///
     /// - returns: `true` if images were removed from the cache, `false` otherwise.
-    @discardableResult
-    @objc public func removeAllImages() -> Bool {
+    @discardableResult @objc
+    open func removeAllImages() -> Bool {
         var removed = false
 
         synchronizationQueue.sync {
@@ -303,7 +303,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     /// - parameter identifier: The additional identifier to append to the image's unique identifier.
     ///
     /// - returns: The image if it is stored in the cache, `nil` otherwise.
-    public func image(for request: URLRequest, withIdentifier identifier: String? = nil) -> Image? {
+    open func image(for request: URLRequest, withIdentifier identifier: String? = nil) -> Image? {
         let requestIdentifier = imageCacheKey(for: request, withIdentifier: identifier)
         return image(withIdentifier: requestIdentifier)
     }
@@ -313,7 +313,7 @@ public class AutoPurgingImageCache: ImageRequestCache {
     /// - parameter identifier: The unique identifier for the image.
     ///
     /// - returns: The image if it is stored in the cache, `nil` otherwise.
-    public func image(withIdentifier identifier: String) -> Image? {
+    open func image(withIdentifier identifier: String) -> Image? {
         var image: Image?
 
         synchronizationQueue.sync {
@@ -325,9 +325,15 @@ public class AutoPurgingImageCache: ImageRequestCache {
         return image
     }
 
-    // MARK: Private - Helper Methods
+    // MARK: Image Cache Keys
 
-    private func imageCacheKey(for request: URLRequest, withIdentifier identifier: String?) -> String {
+    /// Returns the unique image cache key for the specified request and additional identifier.
+    ///
+    /// - parameter request:    The request.
+    /// - parameter identifier: The additional identifier.
+    ///
+    /// - returns: The unique image cache key.
+    open func imageCacheKey(for request: URLRequest, withIdentifier identifier: String?) -> String {
         var key = request.url?.absoluteString ?? ""
 
         if let identifier = identifier {
