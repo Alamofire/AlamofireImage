@@ -292,7 +292,7 @@ extension DataRequest {
 
     // MARK: - Private - Shared Helper Methods
 
-    private class func validateContentType(for request: URLRequest?, response: HTTPURLResponse?) throws {
+    public class func validateContentType(for request: URLRequest?, response: HTTPURLResponse?) throws {
         if let url = request?.url, url.isFileURL { return }
 
         guard let mimeType = response?.mimeType else {
