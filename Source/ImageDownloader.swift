@@ -100,6 +100,9 @@ open class ImageDownloader {
 
     /// The credential used for authenticating each download request.
     open private(set) var credential: URLCredential?
+    
+    /// Response serializer used to convert the image data to UIImage.
+    public var imageResponseSerializer = DataRequest.imageResponseSerializer()
 
     /// The underlying Alamofire `Manager` instance used to handle all download requests.
     open let sessionManager: SessionManager
@@ -318,7 +321,7 @@ open class ImageDownloader {
 
             request.response(
                 queue: self.responseQueue,
-                responseSerializer: DataRequest.imageResponseSerializer(),
+                responseSerializer: imageResponseSerializer,
                 completionHandler: { [weak self] response in
                     guard let strongSelf = self, let request = response.request else { return }
 
