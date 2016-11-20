@@ -457,7 +457,7 @@ open class ImageDownloader {
                 let operation = responseHandler.operations.remove(at: index)
 
                 let response: DataResponse<Image> = {
-                    let urlRequest = requestReceipt.request.request!
+                    let urlRequest = requestReceipt.request.request
                     let error = AFIError.requestCancelled
 
                     return DataResponse(request: urlRequest, response: nil, data: nil, result: .failure(error))
