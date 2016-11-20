@@ -263,7 +263,14 @@ extension UIImageView {
         runImageTransitionIfCached: Bool = false,
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
-        guard !isURLRequestURLEqualToActiveRequestURL(urlRequest) else { return }
+        guard !isURLRequestURLEqualToActiveRequestURL(urlRequest) else {
+            let error = AFIError.requestCancelled
+            let response = DataResponse<UIImage>(request: nil, response: nil, data: nil, result: .failure(error))
+
+            completion?(response)
+
+            return
+        }
 
         af_cancelImageRequest()
 
@@ -277,15 +284,17 @@ extension UIImageView {
         {
             let response = DataResponse<UIImage>(request: request, response: nil, data: nil, result: .success(image))
 
-            completion?(response)
-
             if runImageTransitionIfCached {
                 let tinyDelay = DispatchTime.now() + Double(Int64(0.001 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
 
                 // Need to let the runloop cycle for the placeholder image to take affect
-                DispatchQueue.main.asyncAfter(deadline: tinyDelay) { self.run(imageTransition, with: image) }
+                DispatchQueue.main.asyncAfter(deadline: tinyDelay) {
+                    self.run(imageTransition, with: image)
+                    completion?(response)
+                }
             } else {
                 self.image = image
+                completion?(response)
             }
 
             return
@@ -305,20 +314,22 @@ extension UIImageView {
             progress: progress,
             progressQueue: progressQueue,
             completion: { [weak self] response in
-                guard let strongSelf = self else { return }
-
-                completion?(response)
-
                 guard
+                    let strongSelf = self,
                     strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) &&
                     strongSelf.af_activeRequestReceipt?.receiptID == downloadID
-                else { return }
+                else {
+                    completion?(response)
+                    return
+                }
 
                 if let image = response.result.value {
                     strongSelf.run(imageTransition, with: image)
                 }
 
                 strongSelf.af_activeRequestReceipt = nil
+
+                completion?(response)
             }
         )
 
