@@ -205,6 +205,8 @@ class ImageFilterTestCase: BaseTestCase {
     }
 
     func testThatBlurFilterReturnsCorrectFilteredImage() {
+        guard #available(iOS 9.0, *) else { return }
+
         // Given
         let image = self.image(forResource: "unicorn", withExtension: "png")
         let filter = BlurFilter(blurRadius: 8)
