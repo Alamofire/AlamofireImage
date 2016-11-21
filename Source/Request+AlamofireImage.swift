@@ -134,7 +134,7 @@ extension DataRequest {
         )
     }
 
-    /// Sets a closure to be called periodically during the lifecycle of the request as data is read from the server 
+    /// Sets a closure to be called periodically during the lifecycle of the request as data is read from the server
     /// and converted into images.
     ///
     /// - parameter imageScale:           The scale factor used when interpreting the image data to construct

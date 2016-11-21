@@ -100,7 +100,7 @@ open class ImageDownloader {
 
     /// The credential used for authenticating each download request.
     open private(set) var credential: URLCredential?
-    
+
     /// Response serializer used to convert the image data to UIImage.
     public var imageResponseSerializer = DataRequest.imageResponseSerializer()
 
