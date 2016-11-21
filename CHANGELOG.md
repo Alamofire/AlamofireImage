@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 3.x Releases
+- `3.2.x` Releases - [3.2.0](#320)
 - `3.1.x` Releases - [3.1.0](#310)
 - `3.0.x` Releases - [3.0.0](#300)
 
@@ -19,6 +20,42 @@ All notable changes to this project will be documented in this file.
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
+
+---
+
+## [3.2.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.2.0)
+Released on 2016-11-20. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/20?closed=1).
+
+#### Added
+- A new `imageResponseSerializer` property to the `ImageDownloader`.
+  - Added by [Tapani Saarinen](https://github.com/tapz) in Pull Request.
+  [#208](https://github.com/Alamofire/AlamofireImage/pull/208).
+- New embedded framework installation instructions to the README.
+  - Added by [Eric Horstmanshof](https://github.com/Erulezz) in Pull Request.
+  [#213](https://github.com/Alamofire/AlamofireImage/pull/213).
+- A new iOS 8.1 target to the Travis CI device matrix.
+  - Added by [Christian Noon](https://github.com/cnoon).
+
+#### Updated
+- The `AutoPurgingImageCache` APIs to an `open` ACL where applicable.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The `ImageDownloader` and `RequestReceipt` APIs to an `open` ACL where applicable.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The Xcode project to Xcode 8.1 and made all suggested project updates.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- `UIButton` and `UIImageView` completion closures to be called after image is set.
+  - Updated by [Christian Noon](https://github.com/cnoon) in regards to Issue
+  [#209](https://github.com/Alamofire/AlamofireImage/issues/209).
+- The deployment targets to iOS 8.0 and macOS 10.10 to match core Alamofire project.
+  - Updated by [Christian Noon](https://github.com/cnoon) in regards to Issue.
+  [#216](https://github.com/Alamofire/AlamofireImage/issues/216).
+- The Cartfile and pulled in Alamofire 4.2.0 submodule.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+
+#### Removed
+- CoreImage filters on iOS 8.x due to runtime mapping issue with `CIContext`.
+  - Removed by [Christian Noon](https://github.com/cnoon).
 
 ---
 
