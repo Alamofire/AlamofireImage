@@ -293,7 +293,7 @@ extension UIImageView {
                     completion?(response)
                 }
             } else {
-                DispatchQueue.main.async {
+                DispatchQueue.main.sync {
                     self.image = image
                     completion?(response)
                 }
