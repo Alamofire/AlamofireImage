@@ -132,10 +132,12 @@ extension UIImage {
     ///
     /// - returns: A new image object.
     public func af_imageScaled(to size: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
-        draw(in: CGRect(origin: CGPoint.zero, size: size))
+        assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
+        draw(in: CGRect(origin: .zero, size: size))
+
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -153,6 +155,8 @@ extension UIImage {
     ///
     /// - returns: A new image object.
     public func af_imageAspectScaled(toFit size: CGSize) -> UIImage {
+        assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
+
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
 
@@ -170,7 +174,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         draw(in: CGRect(origin: origin, size: scaledSize))
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -183,6 +187,8 @@ extension UIImage {
     ///
     /// - returns: A new image object.
     public func af_imageAspectScaled(toFill size: CGSize) -> UIImage {
+        assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
+
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
 
@@ -200,7 +206,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         draw(in: CGRect(origin: origin, size: scaledSize))
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
         UIGraphicsEndImageContext()
 
         return scaledImage
