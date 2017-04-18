@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		3A9C09381CDEA4DF00582BCD /* NSImageView+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9C09311CDEA31900582BCD /* NSImageView+AlamofireImage.swift */; };
 		4C0893EC1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */; };
 		4C0893F51B937404005125D9 /* UIImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893F41B937404005125D9 /* UIImageTests.swift */; };
 		4C0894E41B9382EB005125D9 /* apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894501B9382EB005125D9 /* apple.jpg */; };
@@ -607,6 +608,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A9C09311CDEA31900582BCD /* NSImageView+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSImageView+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImageTests.swift"; sourceTree = "<group>"; };
 		4C0893F41B937404005125D9 /* UIImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageTests.swift; sourceTree = "<group>"; };
 		4C0894501B9382EB005125D9 /* apple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = apple.jpg; sourceTree = "<group>"; };
@@ -835,6 +837,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A9C09391CDEA57C00582BCD /* AppKit */ = {
+			isa = PBXGroup;
+			children = (
+				3A9C09311CDEA31900582BCD /* NSImageView+AlamofireImage.swift */,
+			);
+			name = AppKit;
+			sourceTree = "<group>";
+		};
 		4C0893EA1B936A4D005125D9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1128,6 +1138,7 @@
 			isa = PBXGroup;
 			children = (
 				4CF6CC601AAD289E007A38CB /* Alamofire */,
+				3A9C09391CDEA57C00582BCD /* AppKit */,
 				4CF6CC5D1AAD2822007A38CB /* UIKit */,
 			);
 			name = Extensions;
@@ -2074,6 +2085,7 @@
 				4C82907B1B927CE6005E24C8 /* Image.swift in Sources */,
 				4C86C10D1DA0B3150032ECC3 /* UIImageView+AlamofireImage.swift in Sources */,
 				4C82907C1B927D13005E24C8 /* ImageDownloader.swift in Sources */,
+				3A9C09381CDEA4DF00582BCD /* NSImageView+AlamofireImage.swift in Sources */,
 				4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */,
 				4CD5BCEB1D7F9D1E0055E232 /* AFIError.swift in Sources */,
 				4C86C10C1DA0B3110032ECC3 /* UIImage+AlamofireImage.swift in Sources */,
