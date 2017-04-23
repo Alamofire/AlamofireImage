@@ -708,6 +708,38 @@ class UIImageViewTestCase: BaseTestCase {
             XCTAssertEqual(acceptField, DataRequest.acceptableImageContentTypes.joined(separator:","))
         }
     }
+    
+    func testThatImagesCanBeRemovedFromImageViewImageCache() {
+        // Given
+        let imageURL = URL(string: "https://httpbin.org/image/png")!
+        let imageRequest = URLRequest(url: imageURL)
+        let downloadExpectation = expectation(description: "image should download successfully")
+        
+        let imageView = UIImageView()
+        var imageInitiallyInCache = false
+        var imageRemovedFromCache = false
+        var imageNotInCacheAfterRemoval = false
+        
+        // When
+        imageView.af_setImage(withURLRequest: imageRequest) { response in
+            defer { downloadExpectation.fulfill() }
+            
+            guard UIImageView.af_sharedImageDownloader.imageCache?.image(for: imageRequest, withIdentifier: nil) != nil else { return }
+            
+            imageInitiallyInCache = true
+            imageRemovedFromCache = (UIImageView.af_sharedImageDownloader.imageCache?.removeImage(for: imageRequest, withIdentifier: nil))!
+            
+            guard UIImageView.af_sharedImageDownloader.imageCache?.image(for: imageRequest, withIdentifier: nil) == nil else { return }
+            
+            imageNotInCacheAfterRemoval = true
+        }
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        // Then
+        XCTAssertTrue(imageInitiallyInCache)
+        XCTAssertTrue(imageRemovedFromCache)
+        XCTAssertTrue(imageNotInCacheAfterRemoval)
+    }
 }
 
 #endif
