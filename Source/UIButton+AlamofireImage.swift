@@ -107,7 +107,7 @@ extension UIButton {
 
     /// Asynchronously downloads an image from the specified URL and sets it once the request is finished.
     ///
-    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
     /// set immediately, and then the remote image will be set once the image request is finished.
     ///
     /// - parameter state:            The control state of the button to set the image on.
@@ -146,7 +146,7 @@ extension UIButton {
 
     /// Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
     ///
-    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
     /// set immediately, and then the remote image will be set once the image request is finished.
     ///
     /// - parameter state:            The control state of the button to set the image on.
@@ -254,7 +254,7 @@ extension UIButton {
 
     /// Asynchronously downloads an image from the specified URL and sets it once the request is finished.
     ///
-    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
     /// set immediately, and then the remote image will be set once the image request is finished.
     ///
     /// - parameter state:            The control state of the button to set the image on.
@@ -293,7 +293,7 @@ extension UIButton {
 
     /// Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
     ///
-    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
     /// set immediately, and then the remote image will be set once the image request is finished.
     ///
     /// - parameter state:            The control state of the button to set the image on.

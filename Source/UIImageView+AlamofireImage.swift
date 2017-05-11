@@ -172,7 +172,7 @@ extension UIImageView {
     /// Asynchronously downloads an image from the specified URL, applies the specified image filter to the downloaded
     /// image and sets it once finished while executing the image transition.
     ///
-    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
     /// set immediately, and then the remote image will be set once the image request is finished.
     ///
     /// The `completion` closure is called after the image download and filtering are complete, but before the start of
@@ -225,7 +225,7 @@ extension UIImageView {
     /// Asynchronously downloads an image from the specified URL Request, applies the specified image filter to the downloaded
     /// image and sets it once finished while executing the image transition.
     ///
-    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
     /// set immediately, and then the remote image will be set once the image request is finished.
     ///
     /// The `completion` closure is called after the image download and filtering are complete, but before the start of

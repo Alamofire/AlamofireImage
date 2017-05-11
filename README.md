@@ -280,7 +280,7 @@ The current list of multi-pass image filters includes:
 
 ### Image Cache
 
-Image caching can become complicated when it comes to network images. `URLCache` is quite powerful and does a great job reasoning through the various cache policies and `Cache-Control` headers. However, it is not equiped to handle caching multiple modified versions of those images.
+Image caching can become complicated when it comes to network images. `URLCache` is quite powerful and does a great job reasoning through the various cache policies and `Cache-Control` headers. However, it is not equipped to handle caching multiple modified versions of those images.
 
 For example, let's say you need to download an album of images. Your app needs to display both the thumbnail version as well as the full size version at various times. Due to performance issues, you want to scale down the thumbnails to a reasonable size before rendering them on-screen. You also need to apply a global CoreImage filter to the full size images when displayed. While `URLCache` can easily handle storing the original downloaded image, it cannot store these different variants. What you really need is another caching layer designed to handle these different variants.
 
@@ -574,7 +574,7 @@ The [ASF](https://github.com/Alamofire/Foundation#members) is looking to raise m
 * Potentially fund test servers to make it easier for us to test the edge cases
 * Potentially fund developers to work on one of our projects full-time
 
-The community adoption of the ASF libraries has been amazing. We are greatly humbled by your enthusiam around the projects, and want to continue to do everything we can to move the needle forward. With your continued support, the ASF will be able to improve its reach and also provide better legal safety for the core members. If you use any of our libraries for work, see if your employers would be interested in donating. Our initial goal is to raise $1000 to get all our legal ducks in a row and kickstart this campaign. Any amount you can donate today to help us reach our goal would be greatly appreciated.
+The community adoption of the ASF libraries has been amazing. We are greatly humbled by your enthusiasm around the projects, and want to continue to do everything we can to move the needle forward. With your continued support, the ASF will be able to improve its reach and also provide better legal safety for the core members. If you use any of our libraries for work, see if your employers would be interested in donating. Our initial goal is to raise $1000 to get all our legal ducks in a row and kickstart this campaign. Any amount you can donate today to help us reach our goal would be greatly appreciated.
 
 <a href='https://pledgie.com/campaigns/31474'><img alt='Click here to lend your support to: Alamofire Software Foundation and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/31474.png?skin_name=chrome' border='0' ></a>
 
