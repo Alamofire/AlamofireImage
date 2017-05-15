@@ -543,6 +543,33 @@ class UIButtonTests: BaseTestCase {
         }
     }
 
+    func testThatSetBackgroundImageAppliesFilter()
+    {
+        // Given
+        let size = CGSize(width: 20, height: 20)
+        let filter = ScaledToSizeFilter(size: size)
+
+        let expectation = self.expectation(description: "image download should succeed")
+        var imageDownloadComplete = false
+
+        let button = TestButton {
+            imageDownloadComplete = true
+            expectation.fulfill()
+        }
+
+        // When
+        button.af_setBackgroundImage(for: .normal, url: url, filter: filter)
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
+        XCTAssertNotNil(button.backgroundImage(for: .normal), "image view image should not be nil")
+
+        if let image = button.backgroundImage(for: .normal) {
+            XCTAssertEqual(image.size, size, "image size does not match expected value")
+        }
+    }
+
     // MARK: - Completion Handler
 
     func testThatCompletionHandlerIsCalledWhenImageDownloadSucceeds() {
