@@ -31,9 +31,9 @@ import UIKit
 import XCTest
 
 private class TestImageView: UIImageView {
-    var imageObserver: ((Void) -> Void)?
+    var imageObserver: (() -> Void)?
 
-    convenience init(imageObserver: ((Void) -> Void)? = nil) {
+    convenience init(imageObserver: (() -> Void)? = nil) {
         self.init(frame: CGRect.zero)
         self.imageObserver = imageObserver
     }
@@ -239,7 +239,7 @@ class UIImageViewTestCase: BaseTestCase {
             imageDownloadComplete = true
             finalImageEqualsPlaceholderImage = imageView.image === placeholderImage
             expectation.fulfill()
-        }
+        } as (() -> Void)
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -327,42 +327,42 @@ class UIImageViewTestCase: BaseTestCase {
 
         // When
         let expectation1 = expectation(description: "image download should succeed")
-        imageView.imageObserver = { expectation1.fulfill() }
+        imageView.imageObserver = { expectation1.fulfill() } as (() -> Void)
         imageView.af_setImage(withURL: url, imageTransition: .noTransition)
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation2 = expectation(description: "image download should succeed")
-        imageView.imageObserver = { expectation2.fulfill() }
+        imageView.imageObserver = { expectation2.fulfill() } as (() -> Void)
         ImageDownloader.default.imageCache?.removeAllImages()
         imageView.af_setImage(withURL: url, imageTransition: .crossDissolve(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation3 = expectation(description: "image download should succeed")
-        imageView.imageObserver = { expectation3.fulfill() }
+        imageView.imageObserver = { expectation3.fulfill() } as (() -> Void)
         ImageDownloader.default.imageCache?.removeAllImages()
         imageView.af_setImage(withURL: url, imageTransition: .curlDown(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation4 = expectation(description: "image download should succeed")
-        imageView.imageObserver = { expectation4.fulfill() }
+        imageView.imageObserver = { expectation4.fulfill() } as (() -> Void)
         ImageDownloader.default.imageCache?.removeAllImages()
         imageView.af_setImage(withURL: url, imageTransition: .curlUp(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation5 = expectation(description: "image download should succeed")
-        imageView.imageObserver = { expectation5.fulfill() }
+        imageView.imageObserver = { expectation5.fulfill() } as (() -> Void)
         ImageDownloader.default.imageCache?.removeAllImages()
         imageView.af_setImage(withURL: url, imageTransition: .flipFromBottom(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation6 = expectation(description: "image download should succeed")
-        imageView.imageObserver = { expectation6.fulfill() }
+        imageView.imageObserver = { expectation6.fulfill() } as (() -> Void)
         ImageDownloader.default.imageCache?.removeAllImages()
         imageView.af_setImage(withURL: url, imageTransition: .flipFromLeft(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation7 = expectation(description: "image download should succeed")
-        imageView.imageObserver = { expectation7.fulfill() }
+        imageView.imageObserver = { expectation7.fulfill() } as (() -> Void)
         ImageDownloader.default.imageCache?.removeAllImages()
         imageView.af_setImage(withURL: url, imageTransition: .flipFromRight(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
@@ -370,7 +370,7 @@ class UIImageViewTestCase: BaseTestCase {
         let expectation8 = expectation(description: "image download should succeed")
         imageView.imageObserver = {
             expectation8.fulfill()
-        }
+        } as (() -> Void)
         ImageDownloader.default.imageCache?.removeAllImages()
         imageView.af_setImage(withURL: url, imageTransition: .flipFromTop(0.1))
         waitForExpectations(timeout: timeout, handler: nil)
@@ -379,7 +379,7 @@ class UIImageViewTestCase: BaseTestCase {
         imageView.imageObserver = {
             imageTransitionsComplete = true
             expectation9.fulfill()
-        }
+        } as (() -> Void)
         ImageDownloader.default.imageCache?.removeAllImages()
         imageView.af_setImage(
             withURL: url,
