@@ -16,7 +16,7 @@ For those of you that would like to use AlamofireImage with Swift 2.2 or 2.3, pl
 
 The benefits of upgrading can be summarized as follows:
 
-- **Alamofire 4 Compatability**
+- **Alamofire 4 Compatibility**
 - **Complete Swift 3 Compatibility:** includes the full adoption of the new [API Design Guidelines](https://swift.org/documentation/api-design-guidelines/).
 - **New Error System:** uses a new `AFIError` type to adhere to the new pattern proposed in [SE-0112](https://github.com/apple/swift-evolution/blob/master/proposals/0112-nserror-bridging.md).
 
@@ -125,7 +125,7 @@ imageCache.removeImageWithIdentifier("avatar")
 // AlamofireImage 3
 imageCache.removeImage(withIdentifier: "avatar")
 
-// With an Addtional Identifier
+// With an Additional Identifier
 
 // AlamofireImage 2
 imageCache.removeImageForRequest(urlRequest, withAdditionalIdentifier: "circle")
