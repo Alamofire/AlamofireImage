@@ -204,7 +204,7 @@ class UIButtonTests: BaseTestCase {
         button.imageObserver = {
             normalStateImageDownloadComplete = true
             expectation1.fulfill()
-        } as (() -> Void)
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -216,7 +216,7 @@ class UIButtonTests: BaseTestCase {
         button.imageObserver = {
             selectedStateImageDownloadComplete = true
             expectation2.fulfill()
-        } as (() -> Void)
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -228,7 +228,7 @@ class UIButtonTests: BaseTestCase {
         button.imageObserver = {
             highlightedStateImageDownloadComplete = true
             expectation3.fulfill()
-        } as (() -> Void)
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -240,7 +240,7 @@ class UIButtonTests: BaseTestCase {
         button.imageObserver = {
             disabledStateImageDownloadComplete = true
             expectation4.fulfill()
-        } as (() -> Void)
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -270,7 +270,7 @@ class UIButtonTests: BaseTestCase {
         button.imageObserver = {
             normalStateBackgroundImageDownloadComplete = true
             expectation1.fulfill()
-        } as (() -> Void)
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
         let expectation2 = expectation(description: "background image should download successfully")
@@ -281,7 +281,7 @@ class UIButtonTests: BaseTestCase {
         button.imageObserver = {
             selectedStateBackgroundImageDownloadComplete = true
             expectation2.fulfill()
-        } as (() -> Void)
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -293,7 +293,7 @@ class UIButtonTests: BaseTestCase {
         button.imageObserver = {
             highlightedStateBackgroundImageDownloadComplete = true
             expectation3.fulfill()
-        } as (() -> Void)
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -305,7 +305,7 @@ class UIButtonTests: BaseTestCase {
         button.imageObserver = {
             disabledStateBackgroundImageDownloadComplete = true
             expectation4.fulfill()
-        } as (() -> Void)
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -431,7 +431,7 @@ class UIButtonTests: BaseTestCase {
             imageDownloadComplete = true
             finalImageEqualsPlaceholderImage = button.image(for:[]) === placeholderImage
             expectation.fulfill()
-        } as (() -> Void)
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -459,7 +459,7 @@ class UIButtonTests: BaseTestCase {
             backgroundImageDownloadComplete = true
             finalBackgroundImageEqualsPlaceholderImage = button.backgroundImage(for:[]) === placeholderImage
             expectation.fulfill()
-        } as (() -> Void)
+        }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
