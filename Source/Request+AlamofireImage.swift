@@ -204,7 +204,7 @@ extension DataRequest {
         throw AFIError.imageSerializationFailed
     }
 
-    private class var imageScale: CGFloat {
+    public class var imageScale: CGFloat {
         #if os(iOS) || os(tvOS)
             return UIScreen.main.scale
         #elseif os(watchOS)
