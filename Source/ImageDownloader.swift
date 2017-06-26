@@ -275,7 +275,7 @@ open class ImageDownloader {
             let urlID = ImageDownloader.urlIdentifier(for: urlRequest)
 
             if let responseHandler = self.responseHandlers[urlID] {
-                responseHandler.operations.append(receiptID: receiptID, filter: filter, completion: completion)
+                responseHandler.operations.append((receiptID: receiptID, filter: filter, completion: completion))
                 request = responseHandler.request
                 return
             }

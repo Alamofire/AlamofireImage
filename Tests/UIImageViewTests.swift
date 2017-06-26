@@ -31,9 +31,9 @@ import UIKit
 import XCTest
 
 private class TestImageView: UIImageView {
-    var imageObserver: ((Void) -> Void)?
+    var imageObserver: (() -> Void)?
 
-    convenience init(imageObserver: ((Void) -> Void)? = nil) {
+    convenience init(imageObserver: (() -> Void)? = nil) {
         self.init(frame: CGRect.zero)
         self.imageObserver = imageObserver
     }
