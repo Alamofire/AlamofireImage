@@ -332,8 +332,10 @@ open class PersistentAutoPurgingImageCache: AutoPurgingImageCache, PersistentIma
             if image == nil,
                 let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
                 
-                #if os(iOS) || os(tvOS) || os(watchOS)
+                #if os(iOS) || os(tvOS)
                     image = UIImage(data: data, scale: UIScreen.main.scale)
+                #elseif os(watchOS)
+                    image = UIImage(data: data, scale: 1)
                 #elseif os(macOS)
                     image = NSImage(data: data)
                 #endif
