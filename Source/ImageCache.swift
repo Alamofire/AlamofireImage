@@ -37,6 +37,7 @@ import Cocoa
 public protocol ImageCache {
     /// Adds the image to the cache with the given identifier.
     func add(_ image: Image, withIdentifier identifier: String)
+    func add(_ image: Image, withIdentifier identifier: String, andCompletion completion: @escaping ()->())
 
     /// Removes the image from the cache matching the given identifier.
     func removeImage(withIdentifier identifier: String) -> Bool
@@ -176,11 +177,16 @@ open class AutoPurgingImageCache: ImageRequestCache {
         add(image, withIdentifier: requestIdentifier)
     }
 
+    open func add(_ image: Image, withIdentifier identifier: String) {
+        self.add(image, withIdentifier: identifier) { }
+    }
+    
     /// Adds the image to the cache with the given identifier.
     ///
     /// - parameter image:      The image to add to the cache.
     /// - parameter identifier: The identifier to use to uniquely identify the image.
-    open func add(_ image: Image, withIdentifier identifier: String) {
+    /// - parameter completion: The code to be executed when the add operation is accomplished.
+    open func add(_ image: Image, withIdentifier identifier: String, andCompletion completion: @escaping ()->()) {
         synchronizationQueue.async(flags: [.barrier]) {
             let cachedImage = CachedImage(image, identifier: identifier)
 
@@ -218,6 +224,10 @@ open class AutoPurgingImageCache: ImageRequestCache {
 
                 self.currentMemoryUsage -= bytesPurged
             }
+        }
+        
+        synchronizationQueue.async(flags: [.barrier]) {
+            completion()
         }
     }
 
