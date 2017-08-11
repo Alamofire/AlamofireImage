@@ -89,7 +89,7 @@ $ brew install carthage
 To integrate AlamofireImage into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/AlamofireImage" ~> 3.1
+github "Alamofire/AlamofireImage" ~> 3.2
 ```
 
 Run `carthage update` to build the framework and drag the built `AlamofireImage.framework` into your Xcode project.
