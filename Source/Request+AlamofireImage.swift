@@ -77,7 +77,6 @@ extension DataRequest {
     ///
     /// - returns: An image response serializer.
     public class func imageResponseSerializer(
-        imageScale: CGFloat = DataRequest.imageScale,
         inflateResponseImage: Bool = true)
         -> DataResponseSerializer<Image>
     {
@@ -89,7 +88,7 @@ extension DataRequest {
             do {
                 try DataRequest.validateContentType(for: request, response: response)
 
-                let image = try DataRequest.image(from: data, withImageScale: imageScale)
+                let image = try DataRequest.image(from: data)
                 if inflateResponseImage { image.af_inflate() }
 
                 return .success(image)
@@ -121,8 +120,7 @@ extension DataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseImage(
-        imageScale: CGFloat = DataRequest.imageScale,
+    public func responseImage(      
         inflateResponseImage: Bool = true,
         queue: DispatchQueue? = nil,
         completionHandler: @escaping (DataResponse<Image>) -> Void)
@@ -131,7 +129,6 @@ extension DataRequest {
         return response(
             queue: queue,
             responseSerializer: DataRequest.imageResponseSerializer(
-                imageScale: imageScale,
                 inflateResponseImage: inflateResponseImage
             ),
             completionHandler: completionHandler
@@ -180,14 +177,13 @@ extension DataRequest {
 
     private class func serializeImage(
         from data: Data,
-        imageScale: CGFloat = DataRequest.imageScale,
         inflateResponseImage: Bool = true)
         -> UIImage?
     {
         guard data.count > 0 else { return nil }
 
         do {
-            let image = try DataRequest.image(from: data, withImageScale: imageScale)
+            let image = try DataRequest.image(from: data)
             if inflateResponseImage { image.af_inflate() }
 
             return image
@@ -196,7 +192,8 @@ extension DataRequest {
         }
     }
 
-    private class func image(from data: Data, withImageScale imageScale: CGFloat) throws -> UIImage {
+    private class func image(from data: Data) throws -> UIImage {
+      let imageScale = UIImage.af_imageScale(from: data) ?? DataRequest.imageScale
         if let image = UIImage.af_threadSafeImage(with: data, scale: imageScale) {
             return image
         }
