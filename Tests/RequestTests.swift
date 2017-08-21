@@ -31,7 +31,6 @@ class DataRequestTestCase: BaseTestCase {
     var acceptableImageContentTypes: Set<String>!
 
     // MARK: - Setup and Teardown
-
     override func setUp() {
         super.setUp()
         acceptableImageContentTypes = DataRequest.acceptableImageContentTypes
@@ -64,7 +63,7 @@ class DataRequestTestCase: BaseTestCase {
         // Given
         let urlString = "https://httpbin.org/image/png"
         let expectation = self.expectation(description: "Request should return PNG response image")
-
+        
         var response: DataResponse<Image>?
 
         // When
@@ -83,7 +82,7 @@ class DataRequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.main.scale
+                let screenScale = UIScreen.main.scale //Use screen scale cause taht image haven't DPI in metadata properties
                 let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
                 XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
@@ -100,6 +99,9 @@ class DataRequestTestCase: BaseTestCase {
         // Given
         let urlString = "https://httpbin.org/image/jpeg"
         let expectation = self.expectation(description: "Request should return JPG response image")
+        
+        let testImageDPI: CGFloat = 71.12 //From jpeg file properties
+        let testImageScale = CGFloat(71.12) / CGFloat(72.0)
 
         var response: DataResponse<Image>?
 
@@ -119,10 +121,10 @@ class DataRequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.main.scale
-                let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
+                let imageScale = testImageDPI / CGFloat(72.0)
+                let expectedSize = CGSize(width: CGFloat(239) / imageScale, height: CGFloat(178) / imageScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-                XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+                XCTAssertEqual(image.scale, imageScale, "image scale does not match expected value")
             #elseif os(macOS)
                 let expectedSize = CGSize(width: 239.0, height: 178.0)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
@@ -136,6 +138,8 @@ class DataRequestTestCase: BaseTestCase {
         // Given
         let url = self.url(forResource: "apple", withExtension: "jpg")
         let expectation = self.expectation(description: "Request should return JPG response image")
+        let testImageDPI: CGFloat = 72 //From jpeg file properties
+        let testImageScale = testImageDPI / CGFloat(72.0)
 
         var response: DataResponse<Image>?
 
@@ -155,10 +159,9 @@ class DataRequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.main.scale
-                let expectedSize = CGSize(width: CGFloat(180) / screenScale, height: CGFloat(260) / screenScale)
+                let expectedSize = CGSize(width: CGFloat(180) / testImageScale, height: CGFloat(260) / testImageScale)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-                XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+                XCTAssertEqual(image.scale, testImageScale, "image scale does not match expected value")
             #elseif os(macOS)
                 let expectedSize = CGSize(width: 180.0, height: 260.0)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
@@ -176,7 +179,6 @@ class DataRequestTestCase: BaseTestCase {
         // Given
         let urlString = "https://httpbin.org/image/png"
         let expectation = self.expectation(description: "Request should return PNG response image")
-
         var response: DataResponse<Image>?
 
         // When
@@ -194,7 +196,7 @@ class DataRequestTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
         if let image = response?.result.value {
-            let screenScale = UIScreen.main.scale
+            let screenScale = UIScreen.main.scale //Use screen scale cause taht image haven't DPI in metadata properties
             let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
 
             XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
@@ -208,7 +210,9 @@ class DataRequestTestCase: BaseTestCase {
         // Given
         let urlString = "https://httpbin.org/image/jpeg"
         let expectation = self.expectation(description: "Request should return JPG response image")
-
+        let testImageDPI: CGFloat = 71.12 //From jpeg file properties
+        let testImageScale = testImageDPI / CGFloat(72.0)
+        
         var response: DataResponse<Image>?
 
         // When
@@ -226,11 +230,10 @@ class DataRequestTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
 
         if let image = response?.result.value {
-            let screenScale = UIScreen.main.scale
-            let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
+            let expectedSize = CGSize(width: CGFloat(239) / testImageScale, height: CGFloat(178) / testImageScale)
 
             XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-            XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+            XCTAssertEqual(image.scale, testImageScale, "image scale does not match expected value")
         } else {
             XCTFail("result image should not be nil")
         }
