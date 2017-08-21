@@ -26,6 +26,7 @@
 
 import CoreGraphics
 import Foundation
+import ImageIO
 import UIKit
 
 // MARK: Initialization
@@ -33,6 +34,25 @@ import UIKit
 private let lock = NSLock()
 
 extension UIImage {
+    
+    /// Extract DPIHeight property from CFImageSource and return scale depend on it
+    ///
+    /// - parameter data: The data object containing the image data.
+    ///
+    /// - returns: A scale property based on image data 'DPIHeight' property (if exist)
+    public static func af_imageScale(from data: Data) -> CGFloat? {
+        guard let imageSource = CGImageSourceCreateWithData(data as CFData, nil) else {
+            return nil
+        }
+        let cfDict = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil)
+        guard let dpiUnsafeValue = CFDictionaryGetValue(cfDict, unsafeBitCast(kCGImagePropertyDPIHeight, to: UnsafeRawPointer.self)) else {
+            return nil
+        }
+        let dpi = unsafeBitCast(dpiUnsafeValue, to: CFNumber.self)
+        let dpiNumber = (dpi as NSNumber).floatValue
+        return CGFloat(dpiNumber) / CGFloat(72.0)
+    }
+    
     /// Initializes and returns the image object with the specified data in a thread-safe manner.
     ///
     /// It has been reported that there are thread-safety issues when initializing large amounts of images
