@@ -29,7 +29,7 @@ import XCTest
 
 class DataRequestTestCase: BaseTestCase {
     var acceptableImageContentTypes: Set<String>!
-
+    private let pointEqualAccuracy: CGFloat = 0.00001
     // MARK: - Setup and Teardown
     override func setUp() {
         super.setUp()
@@ -84,8 +84,9 @@ class DataRequestTestCase: BaseTestCase {
             #if os(iOS)
                 let screenScale = UIScreen.main.scale //Use screen scale cause taht image haven't DPI in metadata properties
                 let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
-                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-                XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+                XCTAssertEqualWithAccuracy(image.size.width, expectedSize.width, accuracy: pointEqualAccuracy, "image width does not match expected value")
+                XCTAssertEqualWithAccuracy(image.size.height, expectedSize.height, accuracy: pointEqualAccuracy, "image height does not match expected value")
+                XCTAssertEqualWithAccuracy(image.scale, screenScale, accuracy: pointEqualAccuracy, "image scale does not match expected value")
             #elseif os(macOS)
                 let expectedSize = CGSize(width: 100.0, height: 100.0)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
@@ -121,10 +122,10 @@ class DataRequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let imageScale = testImageDPI / CGFloat(72.0)
-                let expectedSize = CGSize(width: CGFloat(239) / imageScale, height: CGFloat(178) / imageScale)
-                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-                XCTAssertEqual(image.scale, imageScale, "image scale does not match expected value")
+                let expectedSize = CGSize(width: CGFloat(239) / testImageScale, height: CGFloat(178) / testImageScale)
+                XCTAssertEqualWithAccuracy(image.size.width, expectedSize.width, accuracy: pointEqualAccuracy, "image width does not match expected value")
+                XCTAssertEqualWithAccuracy(image.size.height, expectedSize.height, accuracy: pointEqualAccuracy, "image height does not match expected value")
+                XCTAssertEqualWithAccuracy(image.scale, testImageScale, accuracy: pointEqualAccuracy, "image scale does not match expected value")
             #elseif os(macOS)
                 let expectedSize = CGSize(width: 239.0, height: 178.0)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
@@ -160,8 +161,9 @@ class DataRequestTestCase: BaseTestCase {
         if let image = response?.result.value {
             #if os(iOS)
                 let expectedSize = CGSize(width: CGFloat(180) / testImageScale, height: CGFloat(260) / testImageScale)
-                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-                XCTAssertEqual(image.scale, testImageScale, "image scale does not match expected value")
+                XCTAssertEqualWithAccuracy(image.size.width, expectedSize.width, accuracy: pointEqualAccuracy, "image width does not match expected value")
+                XCTAssertEqualWithAccuracy(image.size.height, expectedSize.height, accuracy: pointEqualAccuracy, "image height does not match expected value")
+                XCTAssertEqualWithAccuracy(image.scale, testImageScale, accuracy: pointEqualAccuracy, "image scale does not match expected value")
             #elseif os(macOS)
                 let expectedSize = CGSize(width: 180.0, height: 260.0)
                 XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
@@ -198,9 +200,9 @@ class DataRequestTestCase: BaseTestCase {
         if let image = response?.result.value {
             let screenScale = UIScreen.main.scale //Use screen scale cause taht image haven't DPI in metadata properties
             let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
-
-            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-            XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+            XCTAssertEqualWithAccuracy(image.size.width, expectedSize.width, accuracy: pointEqualAccuracy, "image width does not match expected value")
+            XCTAssertEqualWithAccuracy(image.size.height, expectedSize.height, accuracy: pointEqualAccuracy, "image height does not match expected value")
+            XCTAssertEqualWithAccuracy(image.scale, screenScale, accuracy: pointEqualAccuracy, "image scale does not match expected value")
         } else {
             XCTFail("result image should not be nil")
         }
@@ -231,9 +233,9 @@ class DataRequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             let expectedSize = CGSize(width: CGFloat(239) / testImageScale, height: CGFloat(178) / testImageScale)
-
-            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-            XCTAssertEqual(image.scale, testImageScale, "image scale does not match expected value")
+            XCTAssertEqualWithAccuracy(image.size.width, expectedSize.width, accuracy: pointEqualAccuracy, "image width does not match expected value")
+            XCTAssertEqualWithAccuracy(image.size.height, expectedSize.height, accuracy: pointEqualAccuracy, "image height does not match expected value")
+            XCTAssertEqualWithAccuracy(image.scale, testImageScale, accuracy: pointEqualAccuracy, "image scale does not match expected value")
         } else {
             XCTFail("result image should not be nil")
         }
