@@ -139,6 +139,7 @@ $ git submodule add https://github.com/Alamofire/AlamofireImage.git
 ### Image Response Serializers
 
 ```swift
+import Alamofire
 import AlamofireImage
 
 Alamofire.request("https://httpbin.org/image/png").responseImage { response in
