@@ -37,6 +37,7 @@ import Cocoa
 public protocol ImageCache {
     /// Adds the image to the cache with the given identifier.
     func add(_ image: Image, withIdentifier identifier: String)
+    func add(_ image: Image, withIdentifier identifier: String, andCompletion completion: @escaping ()->())
 
     /// Removes the image from the cache matching the given identifier.
     func removeImage(withIdentifier identifier: String) -> Bool
@@ -54,6 +55,7 @@ public protocol ImageCache {
 public protocol ImageRequestCache: ImageCache {
     /// Adds the image to the cache using an identifier created from the request and identifier.
     func add(_ image: Image, for request: URLRequest, withIdentifier identifier: String?)
+    func add(_ image: Image, for request: URLRequest, withIdentifier identifier: String?, andCompletion completion: @escaping ()->())
 
     /// Removes the image from the cache using an identifier created from the request and identifier.
     func removeImage(for request: URLRequest, withIdentifier identifier: String?) -> Bool
@@ -149,7 +151,7 @@ open class AutoPurgingImageCache: ImageRequestCache {
             let name = String(format: "org.alamofire.autopurgingimagecache-%08x%08x", arc4random(), arc4random())
             return DispatchQueue(label: name, attributes: .concurrent)
         }()
-
+        
         #if os(iOS) || os(tvOS)
             NotificationCenter.default.addObserver(
                 self,
@@ -172,8 +174,18 @@ open class AutoPurgingImageCache: ImageRequestCache {
     /// - parameter request:    The request used to generate the image's unique identifier.
     /// - parameter identifier: The additional identifier to append to the image's unique identifier.
     open func add(_ image: Image, for request: URLRequest, withIdentifier identifier: String? = nil) {
+        add(image, for: request, withIdentifier: identifier) { }
+    }
+    
+    /// Adds the image to the cache using an identifier created from the request and optional identifier.
+    ///
+    /// - parameter image:      The image to add to the cache.
+    /// - parameter request:    The request used to generate the image's unique identifier.
+    /// - parameter identifier: The additional identifier to append to the image's unique identifier.
+    /// - parameter completion: The block to be executed at the end of the add operation.
+    open func add(_ image: Image, for request: URLRequest, withIdentifier identifier: String? = nil, andCompletion completion: @escaping ()->()) {
         let requestIdentifier = imageCacheKey(for: request, withIdentifier: identifier)
-        add(image, withIdentifier: requestIdentifier)
+        add(image, withIdentifier: requestIdentifier, andCompletion: completion)
     }
 
     /// Adds the image to the cache with the given identifier.
@@ -181,6 +193,15 @@ open class AutoPurgingImageCache: ImageRequestCache {
     /// - parameter image:      The image to add to the cache.
     /// - parameter identifier: The identifier to use to uniquely identify the image.
     open func add(_ image: Image, withIdentifier identifier: String) {
+        self.add(image, withIdentifier: identifier) { }
+    }
+    
+    /// Adds the image to the cache with the given identifier.
+    ///
+    /// - parameter image:      The image to add to the cache.
+    /// - parameter identifier: The identifier to use to uniquely identify the image.
+    /// - parameter completion: The code to be executed when the add operation is accomplished.
+    open func add(_ image: Image, withIdentifier identifier: String, andCompletion completion: @escaping ()->()) {
         synchronizationQueue.async(flags: [.barrier]) {
             let cachedImage = CachedImage(image, identifier: identifier)
 
@@ -218,6 +239,10 @@ open class AutoPurgingImageCache: ImageRequestCache {
 
                 self.currentMemoryUsage -= bytesPurged
             }
+        }
+        
+        synchronizationQueue.async(flags: [.barrier]) {
+            completion()
         }
     }
 
@@ -265,7 +290,7 @@ open class AutoPurgingImageCache: ImageRequestCache {
     @discardableResult
     open func removeImage(withIdentifier identifier: String) -> Bool {
         var removed = false
-
+        
         synchronizationQueue.sync {
             if let cachedImage = self.cachedImages.removeValue(forKey: identifier) {
                 self.currentMemoryUsage -= cachedImage.totalBytes
