@@ -611,8 +611,6 @@
 		3143544A1F4A16FE00266E5F /* ISSUE_TEMPLATE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ISSUE_TEMPLATE.md; sourceTree = "<group>"; };
 		3143544B1F4A16FE00266E5F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3143544C1F4A16FE00266E5F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
-		3143544E1F4A16FE00266E5F /* AlamofireImage 3.0 Migration Guide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "AlamofireImage 3.0 Migration Guide.md"; sourceTree = "<group>"; };
-		3143544F1F4A16FE00266E5F /* AlamofireImage 2.0 Migration Guide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "AlamofireImage 2.0 Migration Guide.md"; sourceTree = "<group>"; };
 		314354501F4A16FE00266E5F /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImageTests.swift"; sourceTree = "<group>"; };
 		4C0893F41B937404005125D9 /* UIImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageTests.swift; sourceTree = "<group>"; };
@@ -625,6 +623,11 @@
 		4C1624841AABE8E600A0385D /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		4C16B37D1BA9399500A66EF0 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C16B3861BA9399500A66EF0 /* AlamofireImage tvOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage tvOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C1E864C1F5FC150004FF7F8 /* AlamofireImage 3.0 Migration Guide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "AlamofireImage 3.0 Migration Guide.md"; path = "Documentation/AlamofireImage 3.0 Migration Guide.md"; sourceTree = "<group>"; };
+		4C1E864D1F5FC150004FF7F8 /* AlamofireImage 2.0 Migration Guide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "AlamofireImage 2.0 Migration Guide.md"; path = "Documentation/AlamofireImage 2.0 Migration Guide.md"; sourceTree = "<group>"; };
+		4C1E864F1F5FC16A004FF7F8 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		4C1E86501F5FC16A004FF7F8 /* AlamofireImage.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = AlamofireImage.podspec; sourceTree = "<group>"; };
+		4C1E86511F5FC16A004FF7F8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		4C4D4EC11B92976900C96855 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4C54EE8F1AABC04900CD894C /* AlamofireImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlamofireImage.h; sourceTree = "<group>"; };
@@ -850,18 +853,9 @@
 				3143544A1F4A16FE00266E5F /* ISSUE_TEMPLATE.md */,
 				314354491F4A16FE00266E5F /* PULL_REQUEST_TEMPLATE.md */,
 				3143544B1F4A16FE00266E5F /* README.md */,
-				3143544D1F4A16FE00266E5F /* Documentation */,
+				4C1E86471F5FC13E004FF7F8 /* Migration Guides */,
 			);
 			name = Documentation;
-			sourceTree = "<group>";
-		};
-		3143544D1F4A16FE00266E5F /* Documentation */ = {
-			isa = PBXGroup;
-			children = (
-				3143544E1F4A16FE00266E5F /* AlamofireImage 3.0 Migration Guide.md */,
-				3143544F1F4A16FE00266E5F /* AlamofireImage 2.0 Migration Guide.md */,
-			);
-			path = Documentation;
 			sourceTree = "<group>";
 		};
 		4C0893EA1B936A4D005125D9 /* Extensions */ = {
@@ -891,6 +885,25 @@
 				4C0894531B9382EB005125D9 /* unicorn.png */,
 			);
 			path = "Original Images";
+			sourceTree = "<group>";
+		};
+		4C1E86471F5FC13E004FF7F8 /* Migration Guides */ = {
+			isa = PBXGroup;
+			children = (
+				4C1E864D1F5FC150004FF7F8 /* AlamofireImage 2.0 Migration Guide.md */,
+				4C1E864C1F5FC150004FF7F8 /* AlamofireImage 3.0 Migration Guide.md */,
+			);
+			name = "Migration Guides";
+			sourceTree = "<group>";
+		};
+		4C1E864E1F5FC15D004FF7F8 /* Deployment */ = {
+			isa = PBXGroup;
+			children = (
+				4C1E86501F5FC16A004FF7F8 /* AlamofireImage.podspec */,
+				4C1E86511F5FC16A004FF7F8 /* LICENSE */,
+				4C1E864F1F5FC16A004FF7F8 /* Package.swift */,
+			);
+			name = Deployment;
 			sourceTree = "<group>";
 		};
 		4C54EE8E1AABC04900CD894C /* Source */ = {
@@ -1165,6 +1178,7 @@
 		4C90436D1AABBFC5001B4E60 = {
 			isa = PBXGroup;
 			children = (
+				4C1E864E1F5FC15D004FF7F8 /* Deployment */,
 				314354481F4A16E800266E5F /* Documentation */,
 				4C54EE8E1AABC04900CD894C /* Source */,
 				4C54EE941AABC08B00CD894C /* Tests */,
