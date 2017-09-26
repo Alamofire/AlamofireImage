@@ -285,13 +285,11 @@ extension UIImageView {
             let response = DataResponse<UIImage>(request: request, response: nil, data: nil, result: .success(image))
 
             if runImageTransitionIfCached {
-                let tinyDelay = DispatchTime.now() + Double(Int64(0.001 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-
-                // Need to let the runloop cycle for the placeholder image to take affect
-                DispatchQueue.main.asyncAfter(deadline: tinyDelay) {
-                    self.run(imageTransition, with: image)
-                    completion?(response)
-                }
+                // Set the placeholder
+                if let placeholderImage = placeholderImage { self.image = placeholderImage }
+              
+                self.run(imageTransition, with: image)
+                completion?(response)
             } else {
                 self.image = image
                 completion?(response)
