@@ -105,7 +105,9 @@ public struct Gravatar {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
 
         var queryItems = [defaultImage.queryItem, rating.queryItem]
-        queryItems.append(URLQueryItem(name: "f", value: forceDefault ? "y" : "n"))
+        if forceDefault {
+            queryItems.append(URLQueryItem(name: "f", value: "y"))
+        }
         queryItems.append(URLQueryItem(name: "s", value: String(format: "%.0f",size * scale)))
 
         components.queryItems = queryItems
