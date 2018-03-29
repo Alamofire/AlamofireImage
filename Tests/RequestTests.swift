@@ -381,32 +381,32 @@ class DataRequestTestCase: BaseTestCase {
     }
 
     // MARK: - Tests - Stream Images
-
-    func testThatImagesCanBeStreamedDynamicallyFromMJPEGStream() {
-        // Given
-        let urlString = "http://173.14.66.201/anony/mjpg.cgi" // Northgate Launder Land
-        let expectation = self.expectation(description: "Request should return images")
-
-        let expectedImageCount = 8
-        var imageCount = 0
-
-        // When
-        let request = sessionManager.request(urlString)
-
-        request.streamImage { image in
-            guard imageCount < expectedImageCount else { return }
-
-            imageCount += 1
-
-            if imageCount == expectedImageCount {
-                request.cancel()
-                expectation.fulfill()
-            }
-        }
-
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertEqual(imageCount, expectedImageCount)
-    }
+// Server no longer functions correctly. - JS 3/29/18
+//    func testThatImagesCanBeStreamedDynamicallyFromMJPEGStream() {
+//        // Given
+//        let urlString = "http://173.14.66.201/anony/mjpg.cgi" // Northgate Launder Land
+//        let expectation = self.expectation(description: "Request should return images")
+//
+//        let expectedImageCount = 8
+//        var imageCount = 0
+//
+//        // When
+//        let request = sessionManager.request(urlString)
+//
+//        request.streamImage { image in
+//            guard imageCount < expectedImageCount else { return }
+//
+//            imageCount += 1
+//
+//            if imageCount == expectedImageCount {
+//                request.cancel()
+//                expectation.fulfill()
+//            }
+//        }
+//
+//        waitForExpectations(timeout: timeout, handler: nil)
+//
+//        // Then
+//        XCTAssertEqual(imageCount, expectedImageCount)
+//    }
 }
