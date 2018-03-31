@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ImageDownloader Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/ImageDownloader" class="dashAnchor"></a>
+
+    <a title="ImageDownloader Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          AlamofireImage Docs
+        </a>
+         (91% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/Alamofire/AlamofireImage">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Falamofire%2Egithub%2Eio%2FAlamofireImage%2Fdocsets%2FAlamofireImage%2Exml">
+            <img class="header-icon" src="../img/dash.png"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">AlamofireImage Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      ImageDownloader Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AutoPurgingImageCache.html">AutoPurgingImageCache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ImageDownloader.html">ImageDownloader</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ImageDownloader/DownloadPrioritization.html">– DownloadPrioritization</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RequestReceipt.html">RequestReceipt</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/AFIError.html">AFIError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/DataRequest.html">DataRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIButton.html">UIButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImageView.html">UIImageView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImageView/ImageTransition.html">– ImageTransition</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CompositeImageFilter.html">CompositeImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CoreImageFilter.html">CoreImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ImageCache.html">ImageCache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ImageFilter.html">ImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ImageRequestCache.html">ImageRequestCache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Roundable.html">Roundable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Sizable.html">Sizable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFillSizeCircleFilter.html">AspectScaledToFillSizeCircleFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFillSizeFilter.html">AspectScaledToFillSizeFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFillSizeWithRoundedCornersFilter.html">AspectScaledToFillSizeWithRoundedCornersFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFitSizeFilter.html">AspectScaledToFitSizeFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/BlurFilter.html">BlurFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CircleFilter.html">CircleFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DynamicCompositeImageFilter.html">DynamicCompositeImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DynamicImageFilter.html">DynamicImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RoundedCornersFilter.html">RoundedCornersFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ScaledToSizeCircleFilter.html">ScaledToSizeCircleFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ScaledToSizeFilter.html">ScaledToSizeFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ScaledToSizeWithRoundedCornersFilter.html">ScaledToSizeWithRoundedCornersFilter</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/Image">Image</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:14AlamofireImage0B0a">Image</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>ImageDownloader</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">ImageDownloader</span></code></pre>
+
+                </div>
+              </div>
+            <p>The <code>ImageDownloader</code> class is responsible for downloading images in parallel on a prioritized queue. Incoming
+downloads are added to the front or back of the queue depending on the download prioritization. Each downloaded
+image is cached in the underlying <code>NSURLCache</code> as well as the in-memory image cache that supports image filters.
+By default, any download request with a cached image equivalent in the image cache will automatically be served the
+cached image representation. Additional advanced features include supporting multiple image filters and completion
+handlers for a single request.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC17CompletionHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/CompletionHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC17CompletionHandlera">CompletionHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The completion handler closure used when an image download completes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CompletionHandler</span> <span class="o">=</span> <span class="p">(</span><span class="kt">DataResponse</span><span class="o">&lt;</span><span class="kt"><a href="../Typealiases.html#/s:14AlamofireImage0B0a">Image</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC15ProgressHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/ProgressHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC15ProgressHandlera">ProgressHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The progress handler closure called periodically during an image download.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ProgressHandler</span> <span class="o">=</span> <span class="kt">DataRequest</span><span class="o">.</span><span class="kt">ProgressHandler</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Helper%20Types"></a>
+                <a name="//apple_ref/swift/Section/Helper Types" class="dashAnchor"></a>
+                <a href="#/Helper%20Types">
+                  <h3 class="section-name">Helper Types</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC22DownloadPrioritizationO"></a>
+                    <a name="//apple_ref/swift/Enum/DownloadPrioritization" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC22DownloadPrioritizationO">DownloadPrioritization</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Defines the order prioritization of incoming download requests being inserted into the queue.</p>
+
+<ul>
+<li>fifo: All incoming downloads are added to the back of the queue.</li>
+<li>lifo: All incoming downloads are added to the front of the queue.</li>
+</ul>
+
+                        <a href="../Classes/ImageDownloader/DownloadPrioritization.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">DownloadPrioritization</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC10imageCacheAA0b7RequestE0_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/imageCache" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC10imageCacheAA0b7RequestE0_pSgvp">imageCache</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The image cache used to store all downloaded images in.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">let</span> <span class="nv">imageCache</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageRequestCache.html">ImageRequestCache</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC10credentialSo13URLCredentialCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/credential" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC10credentialSo13URLCredentialCSgvp">credential</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The credential used for authenticating each download request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">credential</span><span class="p">:</span> <span class="kt">URLCredential</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC23imageResponseSerializer0A004DataeF0VySo7UIImageCGvp"></a>
+                    <a name="//apple_ref/swift/Property/imageResponseSerializer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC23imageResponseSerializer0A004DataeF0VySo7UIImageCGvp">imageResponseSerializer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Response serializer used to convert the image data to UIImage.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">imageResponseSerializer</span> <span class="o">=</span> <span class="kt">DataRequest</span><span class="o">.</span><span class="nf">imageResponseSerializer</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC14sessionManager0A007SessionE0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/sessionManager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC14sessionManager0A007SessionE0Cvp">sessionManager</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The underlying Alamofire <code>Manager</code> instance used to handle all download requests.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">let</span> <span class="nv">sessionManager</span><span class="p">:</span> <span class="kt">SessionManager</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initialization"></a>
+                <a name="//apple_ref/swift/Section/Initialization" class="dashAnchor"></a>
+                <a href="#/Initialization">
+                  <h3 class="section-name">Initialization</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC7defaultACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/default" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC7defaultACvpZ">default</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The default instance of <code>ImageDownloader</code> initialized with default values.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">static</span> <span class="kd">let</span> <span class="p">`</span><span class="nv">default</span><span class="p">`</span> <span class="o">=</span> <span class="kt">ImageDownloader</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC30defaultURLSessionConfigurationSo0eF0CyFZ"></a>
+                    <a name="//apple_ref/swift/Method/defaultURLSessionConfiguration()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC30defaultURLSessionConfigurationSo0eF0CyFZ">defaultURLSessionConfiguration()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a default <code>URLSessionConfiguration</code> with common usage parameter values.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">defaultURLSessionConfiguration</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">URLSessionConfiguration</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The default <code>URLSessionConfiguration</code> instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC15defaultURLCacheSo0E0CyFZ"></a>
+                    <a name="//apple_ref/swift/Method/defaultURLCache()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC15defaultURLCacheSo0E0CyFZ">defaultURLCache()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a default <code>URLCache</code> with common usage parameter values.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">defaultURLCache</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">URLCache</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The default <code>URLCache</code> instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderCACSo23URLSessionConfigurationC13configuration_AC22DownloadPrioritizationO08downloadH0Si22maximumActiveDownloadsAA0B12RequestCache_pSg05imageN0tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(configuration:downloadPrioritization:maximumActiveDownloads:imageCache:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderCACSo23URLSessionConfigurationC13configuration_AC22DownloadPrioritizationO08downloadH0Si22maximumActiveDownloadsAA0B12RequestCache_pSg05imageN0tcfc">init(configuration:downloadPrioritization:maximumActiveDownloads:imageCache:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the <code>ImageDownloader</code> instance with the given configuration, download prioritization, maximum active
+download count and image cache.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">configuration</span><span class="p">:</span> <span class="kt">URLSessionConfiguration</span> <span class="o">=</span> <span class="kt">ImageDownloader</span><span class="o">.</span><span class="nf">defaultURLSessionConfiguration</span><span class="p">(),</span>
+    <span class="nv">downloadPrioritization</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader/DownloadPrioritization.html">DownloadPrioritization</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">fifo</span><span class="p">,</span>
+    <span class="nv">maximumActiveDownloads</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nv">imageCache</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageRequestCache.html">ImageRequestCache</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Classes/AutoPurgingImageCache.html">AutoPurgingImageCache</a></span><span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configuration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>URLSessionConfiguration</code> to use to create the underlying Alamofire
+                                <code>SessionManager</code> instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>downloadPrioritization</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The download prioritization of the download queue. <code>.fifo</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>maximumActiveDownloads</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of active downloads allowed at any given time.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>imageCache</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image cache used to store all downloaded images in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The new <code>ImageDownloader</code> instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderCAC0A014SessionManagerC07sessionE0_AC22DownloadPrioritizationO08downloadH0Si22maximumActiveDownloadsAA0B12RequestCache_pSg05imageN0tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(sessionManager:downloadPrioritization:maximumActiveDownloads:imageCache:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderCAC0A014SessionManagerC07sessionE0_AC22DownloadPrioritizationO08downloadH0Si22maximumActiveDownloadsAA0B12RequestCache_pSg05imageN0tcfc">init(sessionManager:downloadPrioritization:maximumActiveDownloads:imageCache:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the <code>ImageDownloader</code> instance with the given session manager, download prioritization, maximum
+active download count and image cache.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">sessionManager</span><span class="p">:</span> <span class="kt">SessionManager</span><span class="p">,</span>
+    <span class="nv">downloadPrioritization</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader/DownloadPrioritization.html">DownloadPrioritization</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">fifo</span><span class="p">,</span>
+    <span class="nv">maximumActiveDownloads</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="nv">imageCache</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageRequestCache.html">ImageRequestCache</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Classes/AutoPurgingImageCache.html">AutoPurgingImageCache</a></span><span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sessionManager</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Alamofire <code>SessionManager</code> instance to handle all download requests.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>downloadPrioritization</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The download prioritization of the download queue. <code>.fifo</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>maximumActiveDownloads</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum number of active downloads allowed at any given time.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>imageCache</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image cache used to store all downloaded images in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The new <code>ImageDownloader</code> instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Authentication"></a>
+                <a name="//apple_ref/swift/Section/Authentication" class="dashAnchor"></a>
+                <a href="#/Authentication">
+                  <h3 class="section-name">Authentication</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC17addAuthenticationySS4user_SS8passwordSo13URLCredentialC11PersistenceO11persistencetF"></a>
+                    <a name="//apple_ref/swift/Method/addAuthentication(user:password:persistence:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC17addAuthenticationySS4user_SS8passwordSo13URLCredentialC11PersistenceO11persistencetF">addAuthentication(user:password:persistence:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Associates an HTTP Basic Auth credential with all future download requests.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">addAuthentication</span><span class="p">(</span>
+    <span class="nv">user</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">persistence</span><span class="p">:</span> <span class="kt">URLCredential</span><span class="o">.</span><span class="kt">Persistence</span> <span class="o">=</span> <span class="o">.</span><span class="n">forSession</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The user.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>password</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The password.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>persistence</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL credential persistence. <code>.forSession</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC17addAuthenticationySo13URLCredentialC15usingCredential_tF"></a>
+                    <a name="//apple_ref/swift/Method/addAuthentication(usingCredential:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC17addAuthenticationySo13URLCredentialC15usingCredential_tF">addAuthentication(usingCredential:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Associates the specified credential with all future download requests.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">addAuthentication</span><span class="p">(</span><span class="n">usingCredential</span> <span class="nv">credential</span><span class="p">:</span> <span class="kt">URLCredential</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>credential</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The credential.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Download"></a>
+                <a name="//apple_ref/swift/Section/Download" class="dashAnchor"></a>
+                <a href="#/Download">
+                  <h3 class="section-name">Download</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC8downloadAA14RequestReceiptCSg0A021URLRequestConvertible_p_SS9receiptIDAA0B6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0nP0yAH12DataResponseVySo7UIImageCGcSg10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/download(_:receiptID:filter:progress:progressQueue:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC8downloadAA14RequestReceiptCSg0A021URLRequestConvertible_p_SS9receiptIDAA0B6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0nP0yAH12DataResponseVySo7UIImageCGcSg10completiontF">download(_:receiptID:filter:progress:progressQueue:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a download request using the internal Alamofire <code>SessionManager</code> instance for the specified URL request.</p>
+
+<p>If the same download request is already in the queue or currently being downloaded, the filter and completion
+handler are appended to the already existing request. Once the request completes, all filters and completion
+handlers attached to the request are executed in the order they were added. Additionally, any filters attached
+to the request with the same identifiers are only executed once. The resulting image is then passed into each
+completion handler paired with the filter.</p>
+
+<p>You should not attempt to directly cancel the <code>request</code> inside the request receipt since other callers may be
+relying on the completion of that request. Instead, you should call <code>cancelRequestForRequestReceipt</code> with the
+returned request receipt to allow the <code>ImageDownloader</code> to optimize the cancellation on behalf of all active
+callers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">download</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">urlRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span>
+    <span class="nv">receiptID</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">,</span>
+    <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageFilter.html">ImageFilter</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progress</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html#/s:14AlamofireImage0B10DownloaderC15ProgressHandlera">ProgressHandler</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progressQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span>
+    <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html#/s:14AlamofireImage0B10DownloaderC17CompletionHandlera">CompletionHandler</a></span><span class="p">?)</span>
+    <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/RequestReceipt.html">RequestReceipt</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>urlRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>receiptID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>identifier</code> for the <code><a href="../Classes/RequestReceipt.html">RequestReceipt</a></code> returned. Defaults to a new, randomly
+                        generated UUID.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image filter to apply to the image after the download is complete. Defaults
+                        to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progress</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed periodically during the lifecycle of the request.
+                        Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progressQueue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The dispatch queue to call the progress closure on. Defaults to the main queue.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure called when the download request is complete. Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The request receipt for the download request if available. <code>nil</code> if the image is stored in the image
+       cache and the URL request cache policy allows the cache to be used.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC8downloadSayAA14RequestReceiptCGSay0A021URLRequestConvertible_pG_AA0B6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0lN0yAH12DataResponseVySo7UIImageCGcSg10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/download(_:filter:progress:progressQueue:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC8downloadSayAA14RequestReceiptCGSay0A021URLRequestConvertible_pG_AA0B6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0lN0yAH12DataResponseVySo7UIImageCGcSg10completiontF">download(_:filter:progress:progressQueue:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a download request using the internal Alamofire <code>SessionManager</code> instance for each specified URL request.</p>
+
+<p>For each request, if the same download request is already in the queue or currently being downloaded, the
+filter and completion handler are appended to the already existing request. Once the request completes, all
+filters and completion handlers attached to the request are executed in the order they were added.
+Additionally, any filters attached to the request with the same identifiers are only executed once. The
+resulting image is then passed into each completion handler paired with the filter.</p>
+
+<p>You should not attempt to directly cancel any of the <code>request</code>s inside the request receipts array since other
+callers may be relying on the completion of that request. Instead, you should call
+<code>cancelRequestForRequestReceipt</code> with the returned request receipt to allow the <code>ImageDownloader</code> to optimize
+the cancellation on behalf of all active callers.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">download</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">urlRequests</span><span class="p">:</span> <span class="p">[</span><span class="kt">URLRequestConvertible</span><span class="p">],</span>
+    <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageFilter.html">ImageFilter</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progress</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html#/s:14AlamofireImage0B10DownloaderC15ProgressHandlera">ProgressHandler</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progressQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span>
+    <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html#/s:14AlamofireImage0B10DownloaderC17CompletionHandlera">CompletionHandler</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/RequestReceipt.html">RequestReceipt</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>urlRequests</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL requests.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progress</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed periodically during the lifecycle of the request. Defaults
+                       to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progressQueue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The dispatch queue to call the progress closure on. Defaults to the main queue.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure called when each download request is complete.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The request receipts for the download requests if available. If an image is stored in the image
+       cache and the URL request cache policy allows the cache to be used, a receipt will not be returned
+       for that request.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B10DownloaderC13cancelRequestyAA0E7ReceiptC4with_tF"></a>
+                    <a name="//apple_ref/swift/Method/cancelRequest(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC13cancelRequestyAA0E7ReceiptC4with_tF">cancelRequest(with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cancels the request in the receipt by removing the response handler and cancelling the request if necessary.</p>
+
+<p>If the request is pending in the queue, it will be cancelled if no other response handlers are registered with
+the request. If the request is currently executing or is already completed, the response handler is removed and
+will not be called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">cancelRequest</span><span class="p">(</span><span class="n">with</span> <span class="nv">requestReceipt</span><span class="p">:</span> <span class="kt"><a href="../Classes/RequestReceipt.html">RequestReceipt</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>requestReceipt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The request receipt to cancel.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2018 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2018-03-31)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
