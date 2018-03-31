@@ -106,7 +106,7 @@ extension ImagesViewController : UICollectionViewDataSource {
             for: indexPath
         ) as! ImageCell
 
-        let gravatar = gravatars[(indexPath as NSIndexPath).row]
+        let gravatar = gravatars[indexPath.row]
 
         cell.configureCell(
             with: gravatar.url(size: sizeForCollectionViewItem().width).absoluteString,

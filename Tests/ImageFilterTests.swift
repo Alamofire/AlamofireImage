@@ -113,7 +113,7 @@ class ImageFilterTestCase: BaseTestCase {
     }
 
     // MARK: - DynamicCompositeImageFilter Tests
-    
+
     // TODO: Needs updates for latest rendering results.
     func _testThatDynamicCompositeImageFilterReturnsCorrectFilteredImage() {
         // Given
