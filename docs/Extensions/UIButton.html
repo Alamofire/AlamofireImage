@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UIButton Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Extension/UIButton" class="dashAnchor"></a>
+
+    <a title="UIButton Extension Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          AlamofireImage Docs
+        </a>
+         (91% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/Alamofire/AlamofireImage">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Falamofire%2Egithub%2Eio%2FAlamofireImage%2Fdocsets%2FAlamofireImage%2Exml">
+            <img class="header-icon" src="../img/dash.png"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">AlamofireImage Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      UIButton Extension Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AutoPurgingImageCache.html">AutoPurgingImageCache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ImageDownloader.html">ImageDownloader</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ImageDownloader/DownloadPrioritization.html">– DownloadPrioritization</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RequestReceipt.html">RequestReceipt</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/AFIError.html">AFIError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/DataRequest.html">DataRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIButton.html">UIButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImageView.html">UIImageView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImageView/ImageTransition.html">– ImageTransition</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CompositeImageFilter.html">CompositeImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CoreImageFilter.html">CoreImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ImageCache.html">ImageCache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ImageFilter.html">ImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ImageRequestCache.html">ImageRequestCache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Roundable.html">Roundable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Sizable.html">Sizable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFillSizeCircleFilter.html">AspectScaledToFillSizeCircleFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFillSizeFilter.html">AspectScaledToFillSizeFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFillSizeWithRoundedCornersFilter.html">AspectScaledToFillSizeWithRoundedCornersFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFitSizeFilter.html">AspectScaledToFitSizeFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/BlurFilter.html">BlurFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CircleFilter.html">CircleFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DynamicCompositeImageFilter.html">DynamicCompositeImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DynamicImageFilter.html">DynamicImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RoundedCornersFilter.html">RoundedCornersFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ScaledToSizeCircleFilter.html">ScaledToSizeCircleFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ScaledToSizeFilter.html">ScaledToSizeFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ScaledToSizeWithRoundedCornersFilter.html">ScaledToSizeWithRoundedCornersFilter</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/Image">Image</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:14AlamofireImage0B0a">Image</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>UIButton</h1>
+            
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:So8UIButtonC14AlamofireImageE18af_imageDownloaderAC0cF0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/af_imageDownloader" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So8UIButtonC14AlamofireImageE18af_imageDownloaderAC0cF0CSgvp">af_imageDownloader</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The instance image downloader used to download all images. If this property is <code>nil</code>, the <code>UIButton</code> will
+fallback on the <code><a href="../Extensions/UIButton.html#/s:So8UIButtonC14AlamofireImageE09af_sharedC10DownloaderAC0cF0CvpZ">af_sharedImageDownloader</a></code> for all downloads. The most common use case for needing to use a
+custom instance image downloader is when images are behind different basic auth credentials.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">af_imageDownloader</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html">ImageDownloader</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:So8UIButtonC14AlamofireImageE09af_sharedC10DownloaderAC0cF0CvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/af_sharedImageDownloader" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So8UIButtonC14AlamofireImageE09af_sharedC10DownloaderAC0cF0CvpZ">af_sharedImageDownloader</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The shared image downloader used to download all images. By default, this is the default <code><a href="../Classes/ImageDownloader.html">ImageDownloader</a></code>
+instance backed with an <code><a href="../Classes/AutoPurgingImageCache.html">AutoPurgingImageCache</a></code> which automatically evicts images from the cache when the memory
+capacity is reached or memory warning notifications occur. The shared image downloader is only used if the
+<code><a href="../Extensions/UIButton.html#/s:So8UIButtonC14AlamofireImageE18af_imageDownloaderAC0cF0CSgvp">af_imageDownloader</a></code> is <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="k">var</span> <span class="nv">af_sharedImageDownloader</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html">ImageDownloader</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Image%20Downloads"></a>
+                <a name="//apple_ref/swift/Section/Image Downloads" class="dashAnchor"></a>
+                <a href="#/Image%20Downloads">
+                  <h3 class="section-name">Image Downloads</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:So8UIButtonC14AlamofireImageE06af_setC0ySC14UIControlStateV3for_10Foundation3URLV3urlSo7UIImageCSg011placeholderC0AC0C6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0qS0y0B012DataResponseVyAMGcSg10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/af_setImage(for:url:placeholderImage:filter:progress:progressQueue:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So8UIButtonC14AlamofireImageE06af_setC0ySC14UIControlStateV3for_10Foundation3URLV3urlSo7UIImageCSg011placeholderC0AC0C6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0qS0y0B012DataResponseVyAMGcSg10completiontF">af_setImage(for:url:placeholderImage:filter:progress:progressQueue:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously downloads an image from the specified URL and sets it once the request is finished.</p>
+
+<p>If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
+set immediately, and then the remote image will be set once the image request is finished.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_setImage</span><span class="p">(</span>
+    <span class="k">for</span> <span class="nv">state</span><span class="p">:</span> <span class="kt">UIControlState</span><span class="p">,</span>
+    <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+    <span class="nv">placeholderImage</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageFilter.html">ImageFilter</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progress</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html">ImageDownloader</a></span><span class="o">.</span><span class="kt">ProgressHandler</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progressQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span>
+    <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">DataResponse</span><span class="o">&lt;</span><span class="kt">UIImage</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>state</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The control state of the button to set the image on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL used for your image request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>placeholderImage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image to be set initially until the image request finished. If <code>nil</code>, the
+                          image will not change its image until the image request finishes. Defaults
+                          to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image filter applied to the image after the image request is finished.
+                          Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progress</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed periodically during the lifecycle of the request.
+                          Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progressQueue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The dispatch queue to call the progress closure on. Defaults to the main queue.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure to be executed when the image request finishes. The closure takes a
+                          single response value containing either the image or the error that occurred. If
+                          the image was returned from the image cache, the response will be <code>nil</code>. Defaults
+                          to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:So8UIButtonC14AlamofireImageE06af_setC0ySC14UIControlStateV3for_0B021URLRequestConvertible_p10urlRequestSo7UIImageCSg011placeholderC0AC0C6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0rT0yAH12DataResponseVyALGcSg10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/af_setImage(for:urlRequest:placeholderImage:filter:progress:progressQueue:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So8UIButtonC14AlamofireImageE06af_setC0ySC14UIControlStateV3for_0B021URLRequestConvertible_p10urlRequestSo7UIImageCSg011placeholderC0AC0C6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0rT0yAH12DataResponseVyALGcSg10completiontF">af_setImage(for:urlRequest:placeholderImage:filter:progress:progressQueue:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously downloads an image from the specified URL request and sets it once the request is finished.</p>
+
+<p>If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
+set immediately, and then the remote image will be set once the image request is finished.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_setImage</span><span class="p">(</span>
+    <span class="k">for</span> <span class="nv">state</span><span class="p">:</span> <span class="kt">UIControlState</span><span class="p">,</span>
+    <span class="nv">urlRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span>
+    <span class="nv">placeholderImage</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageFilter.html">ImageFilter</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progress</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html">ImageDownloader</a></span><span class="o">.</span><span class="kt">ProgressHandler</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progressQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span>
+    <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">DataResponse</span><span class="o">&lt;</span><span class="kt">UIImage</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>state</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The control state of the button to set the image on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>urlRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>placeholderImage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image to be set initially until the image request finished. If <code>nil</code>, the
+                          image will not change its image until the image request finishes. Defaults
+                          to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image filter applied to the image after the image request is finished.
+                          Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progress</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed periodically during the lifecycle of the request.
+                          Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progressQueue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The dispatch queue to call the progress closure on. Defaults to the main queue.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure to be executed when the image request finishes. The closure takes a
+                          single response value containing either the image or the error that occurred. If
+                          the image was returned from the image cache, the response will be <code>nil</code>. Defaults
+                          to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:So8UIButtonC14AlamofireImageE09af_cancelC7RequestySC14UIControlStateV3for_tF"></a>
+                    <a name="//apple_ref/swift/Method/af_cancelImageRequest(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So8UIButtonC14AlamofireImageE09af_cancelC7RequestySC14UIControlStateV3for_tF">af_cancelImageRequest(for:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cancels the active download request for the image, if one exists.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_cancelImageRequest</span><span class="p">(</span><span class="k">for</span> <span class="nv">state</span><span class="p">:</span> <span class="kt">UIControlState</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Background%20Image%20Downloads"></a>
+                <a name="//apple_ref/swift/Section/Background Image Downloads" class="dashAnchor"></a>
+                <a href="#/Background%20Image%20Downloads">
+                  <h3 class="section-name">Background Image Downloads</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:So8UIButtonC14AlamofireImageE016af_setBackgroundC0ySC14UIControlStateV3for_10Foundation3URLV3urlSo7UIImageCSg011placeholderC0AC0C6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0rT0y0B012DataResponseVyAMGcSg10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/af_setBackgroundImage(for:url:placeholderImage:filter:progress:progressQueue:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So8UIButtonC14AlamofireImageE016af_setBackgroundC0ySC14UIControlStateV3for_10Foundation3URLV3urlSo7UIImageCSg011placeholderC0AC0C6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0rT0y0B012DataResponseVyAMGcSg10completiontF">af_setBackgroundImage(for:url:placeholderImage:filter:progress:progressQueue:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously downloads an image from the specified URL and sets it once the request is finished.</p>
+
+<p>If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
+set immediately, and then the remote image will be set once the image request is finished.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_setBackgroundImage</span><span class="p">(</span>
+    <span class="k">for</span> <span class="nv">state</span><span class="p">:</span> <span class="kt">UIControlState</span><span class="p">,</span>
+    <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+    <span class="nv">placeholderImage</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageFilter.html">ImageFilter</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progress</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html">ImageDownloader</a></span><span class="o">.</span><span class="kt">ProgressHandler</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progressQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span>
+    <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">DataResponse</span><span class="o">&lt;</span><span class="kt">UIImage</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>state</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The control state of the button to set the image on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL used for the image request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>placeholderImage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image to be set initially until the image request finished. If <code>nil</code>, the
+                          background image will not change its image until the image request finishes.
+                          Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image filter applied to the image after the image request is finished.
+                          Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progress</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed periodically during the lifecycle of the request.
+                          Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progressQueue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The dispatch queue to call the progress closure on. Defaults to the main queue.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure to be executed when the image request finishes. The closure takes a
+                          single response value containing either the image or the error that occurred. If
+                          the image was returned from the image cache, the response will be <code>nil</code>. Defaults
+                          to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:So8UIButtonC14AlamofireImageE016af_setBackgroundC0ySC14UIControlStateV3for_0B021URLRequestConvertible_p10urlRequestSo7UIImageCSg011placeholderC0AC0C6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0sU0yAH12DataResponseVyALGcSg10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/af_setBackgroundImage(for:urlRequest:placeholderImage:filter:progress:progressQueue:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So8UIButtonC14AlamofireImageE016af_setBackgroundC0ySC14UIControlStateV3for_0B021URLRequestConvertible_p10urlRequestSo7UIImageCSg011placeholderC0AC0C6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0sU0yAH12DataResponseVyALGcSg10completiontF">af_setBackgroundImage(for:urlRequest:placeholderImage:filter:progress:progressQueue:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously downloads an image from the specified URL request and sets it once the request is finished.</p>
+
+<p>If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
+set immediately, and then the remote image will be set once the image request is finished.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_setBackgroundImage</span><span class="p">(</span>
+    <span class="k">for</span> <span class="nv">state</span><span class="p">:</span> <span class="kt">UIControlState</span><span class="p">,</span>
+    <span class="nv">urlRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span>
+    <span class="nv">placeholderImage</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageFilter.html">ImageFilter</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progress</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html">ImageDownloader</a></span><span class="o">.</span><span class="kt">ProgressHandler</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">progressQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span>
+    <span class="nv">completion</span><span class="p">:</span> <span class="p">((</span><span class="kt">DataResponse</span><span class="o">&lt;</span><span class="kt">UIImage</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>state</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The control state of the button to set the image on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>urlRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>placeholderImage</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image to be set initially until the image request finished. If <code>nil</code>, the
+                          background image will not change its image until the image request finishes.
+                          Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The image filter applied to the image after the image request is finished.
+                          Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progress</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to be executed periodically during the lifecycle of the request.
+                          Defaults to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>progressQueue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The dispatch queue to call the progress closure on. Defaults to the main queue.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A closure to be executed when the image request finishes. The closure takes a
+                          single response value containing either the image or the error that occurred. If
+                          the image was returned from the image cache, the response will be <code>nil</code>. Defaults
+                          to <code>nil</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:So8UIButtonC14AlamofireImageE019af_cancelBackgroundC7RequestySC14UIControlStateV3for_tF"></a>
+                    <a name="//apple_ref/swift/Method/af_cancelBackgroundImageRequest(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So8UIButtonC14AlamofireImageE019af_cancelBackgroundC7RequestySC14UIControlStateV3for_tF">af_cancelBackgroundImageRequest(for:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cancels the active download request for the background image, if one exists.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_cancelBackgroundImageRequest</span><span class="p">(</span><span class="k">for</span> <span class="nv">state</span><span class="p">:</span> <span class="kt">UIControlState</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2018 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2018-03-31)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

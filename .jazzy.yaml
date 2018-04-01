@@ -1,0 +1,8 @@
+author: Alamofire Software Foundation
+author_url: http://alamofire.org/
+github_url: https://github.com/Alamofire/AlamofireImage
+root_url: https://alamofire.github.io/AlamofireImage/
+module: AlamofireImage
+output: docs
+theme: fullwidth
+xcodebuild_arguments: [-workspace, 'AlamofireImage.xcworkspace', -scheme, 'AlamofireImage iOS']

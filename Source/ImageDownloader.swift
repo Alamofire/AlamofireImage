@@ -1,7 +1,7 @@
 //
 //  ImageDownloader.swift
 //
-//  Copyright (c) 2015-2017 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2015-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -436,9 +436,15 @@ open class ImageDownloader {
         completion: CompletionHandler? = nil)
         -> [RequestReceipt]
     {
+        #if swift(>=4.1)
+        return urlRequests.compactMap {
+            download($0, filter: filter, progress: progress, progressQueue: progressQueue, completion: completion)
+        }
+        #else
         return urlRequests.flatMap {
             download($0, filter: filter, progress: progress, progressQueue: progressQueue, completion: completion)
         }
+        #endif
     }
 
     /// Cancels the request in the receipt by removing the response handler and cancelling the request if necessary.

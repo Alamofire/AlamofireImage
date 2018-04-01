@@ -1,7 +1,7 @@
 //
 //  RequestTests.swift
 //
-//  Copyright (c) 2015-2017 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2015-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -381,8 +381,8 @@ class DataRequestTestCase: BaseTestCase {
     }
 
     // MARK: - Tests - Stream Images
-
-    func testThatImagesCanBeStreamedDynamicallyFromMJPEGStream() {
+    // Server no longer functions correctly. - JS 3/29/18
+    func _testThatImagesCanBeStreamedDynamicallyFromMJPEGStream() {
         // Given
         let urlString = "http://173.14.66.201/anony/mjpg.cgi" // Northgate Launder Land
         let expectation = self.expectation(description: "Request should return images")

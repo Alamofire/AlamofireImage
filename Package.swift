@@ -1,7 +1,7 @@
 //
 //  Package.swift
 //
-//  Copyright (c) 2015-2017 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2015-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ import PackageDescription
 let package = Package(
     name: "AlamofireImage",
     dependencies: [
-        .Package(url: "https://github.com/Alamofire/Alamofire.git", versions: Version(4, 5, 0)..<Version(5, 0, 0))
+        .Package(url: "https://github.com/Alamofire/Alamofire.git", versions: Version(4, 7, 1)..<Version(5, 0, 0))
     ],
     exclude: ["Tests"]
 )

@@ -1,7 +1,7 @@
 //
 //  ImagesViewController.swift
 //
-//  Copyright (c) 2015-2017 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2015-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -106,7 +106,7 @@ extension ImagesViewController : UICollectionViewDataSource {
             for: indexPath
         ) as! ImageCell
 
-        let gravatar = gravatars[(indexPath as NSIndexPath).row]
+        let gravatar = gravatars[indexPath.row]
 
         cell.configureCell(
             with: gravatar.url(size: sizeForCollectionViewItem().width).absoluteString,
