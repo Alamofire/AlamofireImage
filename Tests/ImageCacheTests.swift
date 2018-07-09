@@ -230,8 +230,14 @@ class ImageCacheTestCase: BaseTestCase {
         cache.add(image, withIdentifier: identifier)
         let cachedImageExists = cache.image(withIdentifier: identifier) != nil
 
+        #if swift(>=4.2)
+        let notification = UIApplication.didReceiveMemoryWarningNotification
+        #else
+        let notification = Notification.Name.UIApplicationDidReceiveMemoryWarning
+        #endif
+
         NotificationCenter.default.post(
-            name: Notification.Name.UIApplicationDidReceiveMemoryWarning,
+            name: notification,
             object: nil
         )
 
