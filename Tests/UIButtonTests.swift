@@ -41,12 +41,12 @@ private class TestButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func setBackgroundImage(_ image: UIImage?, for state: UIControlState) {
+    override func setBackgroundImage(_ image: UIImage?, for state: ControlState) {
         super.setBackgroundImage(image, for: state)
         imageObserver?()
     }
 
-    override func setImage(_ image: UIImage?, for state: UIControlState) {
+    override func setImage(_ image: UIImage?, for state: ControlState) {
         super.setImage(image, for: state)
         imageObserver?()
     }
@@ -246,7 +246,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertTrue(normalStateImageDownloadComplete)
-        XCTAssertNotNil(button.image(for: UIControlState()))
+        XCTAssertNotNil(button.image(for: []))
 
         XCTAssertTrue(selectedStateImageDownloadComplete)
         XCTAssertNotNil(button.image(for: .selected))
@@ -311,7 +311,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertTrue(normalStateBackgroundImageDownloadComplete)
-        XCTAssertNotNil(button.backgroundImage(for: UIControlState()))
+        XCTAssertNotNil(button.backgroundImage(for: []))
 
         XCTAssertTrue(selectedStateBackgroundImageDownloadComplete)
         XCTAssertNotNil(button.backgroundImage(for: .selected))
@@ -372,7 +372,7 @@ class UIButtonTests: BaseTestCase {
         button.af_cancelImageRequest(for: [])
 
         // Then
-        XCTAssertNotNil(button.image(for: UIControlState()), "button image should not be nil")
+        XCTAssertNotNil(button.image(for: []), "button image should not be nil")
     }
 
     func testThatSharedImageCacheCanBeReplaced() {
@@ -488,7 +488,7 @@ class UIButtonTests: BaseTestCase {
         button.af_setImage(for: [], url: url, placeholderImage: placeholderImage)
 
         // Then
-        XCTAssertNotNil(button.image(for: UIControlState()), "button image should not be nil")
+        XCTAssertNotNil(button.image(for: []), "button image should not be nil")
         XCTAssertFalse(button.image(for:[]) === placeholderImage, "button image should not equal placeholder image")
     }
 
@@ -511,7 +511,7 @@ class UIButtonTests: BaseTestCase {
         button.af_setBackgroundImage(for: [], url: url, placeholderImage: placeholderImage)
 
         // Then
-        XCTAssertNotNil(button.backgroundImage(for: UIControlState()), "button background image should not be nil")
+        XCTAssertNotNil(button.backgroundImage(for: []), "button background image should not be nil")
         XCTAssertFalse(button.backgroundImage(for:[]) === placeholderImage, "button background image should not equal placeholder image")
     }
 
@@ -571,7 +571,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
-        XCTAssertNotNil(button.image(for: UIControlState()), "button image should be not be nil")
+        XCTAssertNotNil(button.image(for: []), "button image should be not be nil")
         XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
     }
 
@@ -601,7 +601,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
-        XCTAssertNotNil(button.backgroundImage(for: UIControlState()), "button background image should be not be nil")
+        XCTAssertNotNil(button.backgroundImage(for: []), "button background image should be not be nil")
         XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
     }
 
@@ -626,7 +626,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
-        XCTAssertNil(button.image(for: UIControlState()), "button image should be nil")
+        XCTAssertNil(button.image(for: []), "button image should be nil")
         XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
     }
 
@@ -651,7 +651,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
-        XCTAssertNil(button.backgroundImage(for: UIControlState()), "button background image should be nil")
+        XCTAssertNil(button.backgroundImage(for: []), "button background image should be nil")
         XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
     }
 
@@ -684,7 +684,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertTrue(completionHandlerCalled)
-        XCTAssertNil(button.image(for: UIControlState()))
+        XCTAssertNil(button.image(for: []))
         XCTAssertTrue(result?.isFailure ?? false)
     }
 
@@ -715,7 +715,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertTrue(completionHandlerCalled)
-        XCTAssertNil(button.backgroundImage(for: UIControlState()))
+        XCTAssertNil(button.backgroundImage(for: []))
         XCTAssertTrue(result?.isFailure ?? false)
     }
 
@@ -754,7 +754,7 @@ class UIButtonTests: BaseTestCase {
         // Then
         XCTAssertTrue(completion1Called)
         XCTAssertTrue(completion2Called)
-        XCTAssertNotNil(button.image(for: UIControlState()))
+        XCTAssertNotNil(button.image(for: []))
         XCTAssertTrue(result?.isSuccess ?? false)
     }
 
@@ -793,7 +793,7 @@ class UIButtonTests: BaseTestCase {
         // Then
         XCTAssertTrue(completion1Called)
         XCTAssertTrue(completion2Called)
-        XCTAssertNotNil(button.backgroundImage(for: UIControlState()))
+        XCTAssertNotNil(button.backgroundImage(for: []))
         XCTAssertTrue(result?.isSuccess ?? false)
     }
 
@@ -834,7 +834,7 @@ class UIButtonTests: BaseTestCase {
         // Then
         XCTAssertTrue(completion1Called)
         XCTAssertTrue(completion2Called)
-        XCTAssertNotNil(button.image(for: UIControlState()))
+        XCTAssertNotNil(button.image(for: []))
         XCTAssertTrue(result?.isSuccess ?? false)
     }
 
@@ -875,7 +875,7 @@ class UIButtonTests: BaseTestCase {
         // Then
         XCTAssertTrue(completion1Called)
         XCTAssertTrue(completion2Called)
-        XCTAssertNotNil(button.backgroundImage(for: UIControlState()))
+        XCTAssertNotNil(button.backgroundImage(for: []))
         XCTAssertTrue(result?.isSuccess ?? false)
     }
 
@@ -900,7 +900,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
-        XCTAssertNotNil(button.image(for: UIControlState()), "button image should not be nil")
+        XCTAssertNotNil(button.image(for: []), "button image should not be nil")
     }
 
     func testThatBackgroundImageBehindRedirectCanBeDownloaded() {
@@ -922,7 +922,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertTrue(backgroundImageDownloadComplete, "image download complete should be true")
-        XCTAssertNotNil(button.backgroundImage(for: UIControlState()), "button background image should not be nil")
+        XCTAssertNotNil(button.backgroundImage(for: []), "button background image should not be nil")
     }
 
     // MARK: - Accept Header
