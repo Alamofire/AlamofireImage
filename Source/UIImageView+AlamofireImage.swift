@@ -78,7 +78,7 @@ extension UIImageView {
         public var animationOptions: UIView.AnimationOptions {
             switch self {
             case .noTransition:
-                return UIViewAnimationOptions()
+                return UIView.AnimationOptions()
             case .crossDissolve:
                 return .transitionCrossDissolve
             case .curlDown:
