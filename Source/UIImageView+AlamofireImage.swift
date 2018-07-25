@@ -45,7 +45,7 @@ extension UIImageView {
         case flipFromTop(TimeInterval)
         case custom(
             duration: TimeInterval,
-            animationOptions: UIViewAnimationOptions,
+            animationOptions: UIView.AnimationOptions,
             animations: (UIImageView, Image) -> Void,
             completion: ((Bool) -> Void)?
         )
@@ -75,7 +75,7 @@ extension UIImageView {
         }
 
         /// The animation options of the image transition.
-        public var animationOptions: UIViewAnimationOptions {
+        public var animationOptions: UIView.AnimationOptions {
             switch self {
             case .noTransition:
                 return UIViewAnimationOptions()
