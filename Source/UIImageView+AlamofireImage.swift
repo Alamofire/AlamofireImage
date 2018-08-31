@@ -208,6 +208,7 @@ extension UIImageView {
         progressQueue: DispatchQueue = DispatchQueue.main,
         imageTransition: ImageTransition = .noTransition,
         runImageTransitionIfCached: Bool = false,
+        customCacheKey: String? = nil,
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         af_setImage(
@@ -218,6 +219,7 @@ extension UIImageView {
             progressQueue: progressQueue,
             imageTransition: imageTransition,
             runImageTransitionIfCached: runImageTransitionIfCached,
+            customCacheKey: customCacheKey,
             completion: completion
         )
     }
@@ -248,6 +250,7 @@ extension UIImageView {
     ///                                         Defaults to `.None`.
     /// - parameter runImageTransitionIfCached: Whether to run the image transition if the image is cached. Defaults
     ///                                         to `false`.
+    /// - parameter customCacheKey:             An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter completion:                 A closure to be executed when the image request finishes. The closure
     ///                                         has no return value and takes three arguments: the original request,
     ///                                         the response from the server and the result containing either the
@@ -261,6 +264,7 @@ extension UIImageView {
         progressQueue: DispatchQueue = DispatchQueue.main,
         imageTransition: ImageTransition = .noTransition,
         runImageTransitionIfCached: Bool = false,
+        customCacheKey: String? = nil,
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isURLRequestURLEqualToActiveRequestURL(urlRequest) else {
@@ -277,27 +281,34 @@ extension UIImageView {
         let imageDownloader = af_imageDownloader ?? UIImageView.af_sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
-        // Use the image from the image cache if it exists
-        if
-            let request = urlRequest.urlRequest,
-            let image = imageCache?.image(for: request, withIdentifier: filter?.identifier)
-        {
-            let response = DataResponse<UIImage>(request: request, response: nil, data: nil, result: .success(image))
+        if let request = urlRequest.urlRequest {
+            var cachedImage: Image?
 
-            if runImageTransitionIfCached {
-                let tinyDelay = DispatchTime.now() + Double(Int64(0.001 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-
-                // Need to let the runloop cycle for the placeholder image to take affect
-                DispatchQueue.main.asyncAfter(deadline: tinyDelay) {
-                    self.run(imageTransition, with: image)
-                    completion?(response)
-                }
+            if let customCacheKey = customCacheKey {
+                cachedImage = imageCache?.image(withIdentifier: customCacheKey)
             } else {
-                self.image = image
-                completion?(response)
+                cachedImage = imageCache?.image(for: request, withIdentifier: filter?.identifier)
             }
 
-            return
+            // Use the image from the image cache if it exists
+            if let image = cachedImage {
+                let response = DataResponse<UIImage>(request: request, response: nil, data: nil, result: .success(image))
+
+                if runImageTransitionIfCached {
+                    let tinyDelay = DispatchTime.now() + Double(Int64(0.001 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+
+                    // Need to let the runloop cycle for the placeholder image to take affect
+                    DispatchQueue.main.asyncAfter(deadline: tinyDelay) {
+                        self.run(imageTransition, with: image)
+                        completion?(response)
+                    }
+                } else {
+                    self.image = image
+                    completion?(response)
+                }
+
+                return
+            }
         }
 
         // Set the placeholder since we're going to have to download
@@ -311,6 +322,7 @@ extension UIImageView {
             urlRequest,
             receiptID: downloadID,
             filter: filter,
+            customCacheKey: customCacheKey,
             progress: progress,
             progressQueue: progressQueue,
             completion: { [weak self] response in

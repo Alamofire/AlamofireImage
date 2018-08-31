@@ -251,6 +251,7 @@ open class ImageDownloader {
     ///                             generated UUID.
     /// - parameter filter:         The image filter to apply to the image after the download is complete. Defaults
     ///                             to `nil`.
+    /// - parameter customCacheKey: An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter progress:       The closure to be executed periodically during the lifecycle of the request.
     ///                             Defaults to `nil`.
     /// - parameter progressQueue:  The dispatch queue to call the progress closure on. Defaults to the main queue.
@@ -263,6 +264,7 @@ open class ImageDownloader {
         _ urlRequest: URLRequestConvertible,
         receiptID: String = UUID().uuidString,
         filter: ImageFilter? = nil,
+        customCacheKey: String? = nil,
         progress: ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
         completion: CompletionHandler?)
@@ -284,7 +286,15 @@ open class ImageDownloader {
             if let request = urlRequest.urlRequest {
                 switch request.cachePolicy {
                 case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
-                    if let image = self.imageCache?.image(for: request, withIdentifier: filter?.identifier) {
+                    let cachedImage: Image?
+
+                    if let customCacheKey = customCacheKey {
+                        cachedImage = self.imageCache?.image(withIdentifier: customCacheKey)
+                    } else {
+                        cachedImage = self.imageCache?.image(for: request, withIdentifier: filter?.identifier)
+                    }
+
+                    if let image = cachedImage {
                         DispatchQueue.main.async {
                             let response = DataResponse<Image>(
                                 request: urlRequest.urlRequest,
@@ -356,8 +366,12 @@ open class ImageDownloader {
                                 filteredImage = image
                             }
 
-                            strongSelf.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
-
+                            if let customCacheKey = customCacheKey {
+                                strongSelf.imageCache?.add(filteredImage, withIdentifier: customCacheKey)
+                            } else {
+                                strongSelf.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
+                            }
+                            
                             DispatchQueue.main.async {
                                 let response = DataResponse<Image>(
                                     request: response.request,

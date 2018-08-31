@@ -129,6 +129,7 @@ extension UIButton {
         url: URL,
         placeholderImage: UIImage? = nil,
         filter: ImageFilter? = nil,
+        customCacheKey: String? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
@@ -138,6 +139,7 @@ extension UIButton {
             urlRequest: urlRequest(with: url),
             placeholderImage: placeholderImage,
             filter: filter,
+            customCacheKey: customCacheKey,
             progress: progress,
             progressQueue: progressQueue,
             completion: completion
@@ -156,6 +158,7 @@ extension UIButton {
     ///                               to `nil`.
     /// - parameter filter:           The image filter applied to the image after the image request is finished.
     ///                               Defaults to `nil`.
+    /// - parameter customCacheKey:   An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
     ///                               Defaults to `nil`.
     /// - parameter progressQueue:    The dispatch queue to call the progress closure on. Defaults to the main queue.
@@ -168,6 +171,7 @@ extension UIButton {
         urlRequest: URLRequestConvertible,
         placeholderImage: UIImage? = nil,
         filter: ImageFilter? = nil,
+        customCacheKey: String? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
@@ -186,22 +190,29 @@ extension UIButton {
         let imageDownloader = af_imageDownloader ?? UIButton.af_sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
-        // Use the image from the image cache if it exists
-        if
-            let request = urlRequest.urlRequest,
-            let image = imageCache?.image(for: request, withIdentifier: filter?.identifier)
-        {
-            let response = DataResponse<UIImage>(
-                request: urlRequest.urlRequest,
-                response: nil,
-                data: nil,
-                result: .success(image)
-            )
+        if let request = urlRequest.urlRequest {
+            var cachedImage: Image?
 
-            setImage(image, for: state)
-            completion?(response)
+            if let customCacheKey = customCacheKey {
+                cachedImage = imageCache?.image(withIdentifier: customCacheKey)
+            } else {
+                cachedImage = imageCache?.image(for: request, withIdentifier: filter?.identifier)
+            }
 
-            return
+            // Use the image from the image cache if it exists
+            if let image = cachedImage {
+                let response = DataResponse<UIImage>(
+                    request: urlRequest.urlRequest,
+                    response: nil,
+                    data: nil,
+                    result: .success(image)
+                )
+
+                setImage(image, for: state)
+                completion?(response)
+
+                return
+            }
         }
 
         // Set the placeholder since we're going to have to download
@@ -215,6 +226,7 @@ extension UIButton {
             urlRequest,
             receiptID: downloadID,
             filter: filter,
+            customCacheKey: customCacheKey,
             progress: progress,
             progressQueue: progressQueue,
             completion: { [weak self] response in

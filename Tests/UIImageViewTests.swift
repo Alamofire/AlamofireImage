@@ -219,6 +219,25 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(secondEqualityCheck, "second equality check should be true")
     }
 
+    func testThatImageCanBeCachedWithACustomCacheKey() {
+        // Given
+        let expectation = self.expectation(description: "image should download and be cached with custom key")
+        let customCacheKey = "custom-cache-key"
+        var imageCached = false
+
+        let imageView = TestImageView {
+            imageCached = (ImageDownloader.default.imageCache?.image(withIdentifier: customCacheKey) != nil)
+            expectation.fulfill()
+        }
+
+        // When
+        imageView.af_setImage(withURL: url, customCacheKey: customCacheKey)
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(imageCached, "image cached should be true")
+    }
+
     // MARK: - Placeholder Images
 
     func testThatPlaceholderImageIsDisplayedUntilImageIsDownloadedFromURL() {
