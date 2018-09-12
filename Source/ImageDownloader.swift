@@ -269,6 +269,7 @@ open class ImageDownloader {
         -> RequestReceipt?
     {
         var request: DataRequest!
+        let originalURLRequest = urlRequest.urlRequest
 
         synchronizationQueue.sync {
             // 1) Append the filter and completion handler to a pre-existing request if it already exists
@@ -356,7 +357,7 @@ open class ImageDownloader {
                                 filteredImage = image
                             }
 
-                            strongSelf.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
+                            strongSelf.imageCache?.add(filteredImage, for: (originalURLRequest ?? request), withIdentifier: filter?.identifier)
 
                             DispatchQueue.main.async {
                                 let response = DataResponse<Image>(
