@@ -385,7 +385,7 @@ class UIImageViewTestCase: BaseTestCase {
             withURL: url,
             imageTransition: .custom(
                 duration: 0.5,
-                animationOptions: UIViewAnimationOptions(),
+                animationOptions: [],
                 animations: { $0.image = $1 },
                 completion: nil
             )
@@ -485,7 +485,7 @@ class UIImageViewTestCase: BaseTestCase {
             filter: nil,
             imageTransition: .custom(
                 duration: 0.1,
-                animationOptions: UIViewAnimationOptions(),
+                animationOptions: [],
                 animations: { $0.image = $1 },
                 completion: { _ in
                     transitionCompletionHandlerCalled = true
