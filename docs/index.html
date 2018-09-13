@@ -171,6 +171,12 @@
             <a class="nav-group-name-link" href="Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/AnimationOptions">AnimationOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/ControlState">ControlState</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/Image">Image</a>
               </li>
               <li class="nav-group-task">
@@ -225,15 +231,16 @@
 <h2 id='dependencies' class='heading'>Dependencies</h2>
 
 <ul>
-<li><a href="https://github.com/Alamofire/Alamofire">Alamofire 4.5+</a></li>
+<li><a href="https://github.com/Alamofire/Alamofire">Alamofire 4.7+</a></li>
 </ul>
 <h2 id='communication' class='heading'>Communication</h2>
 
 <ul>
-<li>If you <strong>need help</strong>, use <a href="http://stackoverflow.com/questions/tagged/alamofire">Stack Overflow</a>. (Tag &lsquo;alamofire&rsquo;)</li>
-<li>If you&rsquo;d like to <strong>ask a general question</strong>, use <a href="http://stackoverflow.com/questions/tagged/alamofire">Stack Overflow</a>.</li>
-<li>If you <strong>found a bug</strong>, open an issue.</li>
-<li>If you <strong>have a feature request</strong>, open an issue.</li>
+<li>If you need to <strong>find or understand an API</strong>, check <a href="https://alamofire.github.io/AlamofireImage/">our documentation</a>.</li>
+<li>If you need <strong>help with an AlamofireImage feature</strong>, use <a href="https://forums.swift.org/c/related-projects/alamofire">our forum on swift.org</a>.</li>
+<li>If you&rsquo;d like to <strong>discuss AlamofireImage best practices</strong>, use <a href="https://forums.swift.org/c/related-projects/alamofire">our forum on swift.org</a>.</li>
+<li>If you&rsquo;d like to <strong>discuss a feature request</strong>, use <a href="https://forums.swift.org/c/related-projects/alamofire">our forum on swift.org</a>.</li>
+<li>If you <strong>found a bug</strong>, open an issue and follow the guide. The more detail the better!</li>
 <li>If you <strong>want to contribute</strong>, submit a pull request.</li>
 </ul>
 <h2 id='installation' class='heading'>Installation</h2>
@@ -253,7 +260,7 @@
 <span class="n">use_frameworks!</span>
 
 <span class="n">target</span> <span class="s1">'&lt;Your Target Name&gt;'</span> <span class="k">do</span>
-    <span class="n">pod</span> <span class="s1">'AlamofireImage'</span><span class="p">,</span> <span class="s1">'~&gt; 3.3'</span>
+    <span class="n">pod</span> <span class="s1">'AlamofireImage'</span><span class="p">,</span> <span class="s1">'~&gt; 3.4'</span>
 <span class="k">end</span>
 </code></pre>
 
@@ -270,7 +277,7 @@
 </code></pre>
 
 <p>To integrate AlamofireImage into your Xcode project using Carthage, specify it in your <code>Cartfile</code>:</p>
-<pre class="highlight plaintext"><code>github "Alamofire/AlamofireImage" ~&gt; 3.3
+<pre class="highlight plaintext"><code>github "Alamofire/AlamofireImage" ~&gt; 3.4
 </code></pre>
 
 <p>Run <code>carthage update</code> to build the framework and drag the built <code>AlamofireImage.framework</code> into your Xcode project.</p>
@@ -708,19 +715,24 @@
 <p>If you believe you have identified a security vulnerability with AlamofireImage, you should report it as soon as possible via email to <a href="mailto:security@alamofire.org">security@alamofire.org</a>. Please do not post it to a public issue tracker.</p>
 <h2 id='donations' class='heading'>Donations</h2>
 
-<p>The <a href="https://github.com/Alamofire/Foundation#members">ASF</a> is looking to raise money to officially register as a federal non-profit organization. Registering will allow us members to gain some legal protections and also allow us to put donations to use, tax free. Donating to the ASF will enable us to:</p>
+<p>The <a href="https://github.com/Alamofire/Foundation#members">ASF</a> is looking to raise money to officially stay registered as a federal non-profit organization.
+Registering will allow us members to gain some legal protections and also allow us to put donations to use, tax free.
+Donating to the ASF will enable us to:</p>
 
 <ul>
-<li>Pay our legal fees to register as a federal non-profit organization</li>
 <li>Pay our yearly legal fees to keep the non-profit in good status</li>
 <li>Pay for our mail servers to help us stay on top of all questions and security issues</li>
 <li>Potentially fund test servers to make it easier for us to test the edge cases</li>
 <li>Potentially fund developers to work on one of our projects full-time</li>
 </ul>
 
-<p>The community adoption of the ASF libraries has been amazing. We are greatly humbled by your enthusiasm around the projects, and want to continue to do everything we can to move the needle forward. With your continued support, the ASF will be able to improve its reach and also provide better legal safety for the core members. If you use any of our libraries for work, see if your employers would be interested in donating. Our initial goal is to raise $1000 to get all our legal ducks in a row and kickstart this campaign. Any amount you can donate today to help us reach our goal would be greatly appreciated.</p>
+<p>The community adoption of the ASF libraries has been amazing.
+We are greatly humbled by your enthusiasm around the projects, and want to continue to do everything we can to move the needle forward.
+With your continued support, the ASF will be able to improve its reach and also provide better legal safety for the core members.
+If you use any of our libraries for work, see if your employers would be interested in donating.
+Any amount you can donate today to help us reach our goal would be greatly appreciated.</p>
 
-<p><a href='https://pledgie.com/campaigns/31474'><img alt='Click here to lend your support to: Alamofire Software Foundation and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/31474.png?skin_name=chrome' border='0' ></a></p>
+<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W34WPEE74APJQ"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" alt="paypal"></a></p>
 <h2 id='license' class='heading'>License</h2>
 
 <p>AlamofireImage is released under the MIT license. See LICENSE for details.</p>
@@ -732,8 +744,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2018-03-31)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2018 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2018-09-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

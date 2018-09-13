@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 3.x Releases
+- `3.4.x` Releases - [3.4.0](#340)
 - `3.3.x` Releases - [3.3.0](#330) | [3.3.1](#331)
 - `3.2.x` Releases - [3.2.0](#320)
 - `3.1.x` Releases - [3.1.0](#310)
@@ -23,6 +24,13 @@ All notable changes to this project will be documented in this file.
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+## [3.4.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.4.0)
+Released on 2018-09-13. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/25?closed=1).
+
+#### Updated
+- Project configuration and files for Xcode 10 and Swift 4.2.
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#326](https://github.com/Alamofire/AlamofireImage/pull/326).
 
 ## [3.3.1](https://github.com/Alamofire/AlamofireImage/releases/tag/3.3.1)
 Released on 2018-03-31. All issues associated with this milestone can be found using this

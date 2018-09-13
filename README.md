@@ -35,14 +35,15 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Dependencies
 
-- [Alamofire 4.5+](https://github.com/Alamofire/Alamofire)
+- [Alamofire 4.7+](https://github.com/Alamofire/Alamofire)
 
 ## Communication
 
-- If you **need help**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/alamofire). (Tag 'alamofire')
-- If you'd like to **ask a general question**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/alamofire).
-- If you **found a bug**, open an issue.
-- If you **have a feature request**, open an issue.
+- If you need to **find or understand an API**, check [our documentation](https://alamofire.github.io/AlamofireImage/).
+- If you need **help with an AlamofireImage feature**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire).
+- If you'd like to **discuss AlamofireImage best practices**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire).
+- If you'd like to **discuss a feature request**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire). 
+- If you **found a bug**, open an issue and follow the guide. The more detail the better!
 - If you **want to contribute**, submit a pull request.
 
 ## Installation
@@ -65,7 +66,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'AlamofireImage', '~> 3.3'
+    pod 'AlamofireImage', '~> 3.4'
 end
 ```
 
@@ -89,7 +90,7 @@ $ brew install carthage
 To integrate AlamofireImage into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/AlamofireImage" ~> 3.3
+github "Alamofire/AlamofireImage" ~> 3.4
 ```
 
 Run `carthage update` to build the framework and drag the built `AlamofireImage.framework` into your Xcode project.
