@@ -172,6 +172,12 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/AnimationOptions">AnimationOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/ControlState">ControlState</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/Image">Image</a>
               </li>
               <li class="nav-group-task">
@@ -188,7 +194,7 @@
             <h1>DataRequest</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">DataRequest</span> <span class="p">:</span> <span class="kt">Alamofire</span><span class="o">.</span><span class="kt">Request</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">DataRequest</span> <span class="p">:</span> <span class="kt">Request</span></code></pre>
 
                 </div>
               </div>
@@ -203,9 +209,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Alamofire11DataRequestC0A5ImageE013addAcceptableD12ContentTypesys3SetVySSGFZ"></a>
+                    <a name="/s:9Alamofire11DataRequestC0A5ImageE013addAcceptableD12ContentTypesyyShySSGFZ"></a>
                     <a name="//apple_ref/swift/Method/addAcceptableImageContentTypes(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Alamofire11DataRequestC0A5ImageE013addAcceptableD12ContentTypesys3SetVySSGFZ">addAcceptableImageContentTypes(_:)</a>
+                    <a class="token" href="#/s:9Alamofire11DataRequestC0A5ImageE013addAcceptableD12ContentTypesyyShySSGFZ">addAcceptableImageContentTypes(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -260,9 +266,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Alamofire11DataRequestC0A5ImageE23imageResponseSerializerAA0bfG0VySo7UIImageCG12CoreGraphics7CGFloatV0E5Scale_Sb07inflatefD0tFZ"></a>
+                    <a name="/s:9Alamofire11DataRequestC0A5ImageE23imageResponseSerializer0E5Scale07inflatefD0AA0bfG0VySo7UIImageCG12CoreGraphics7CGFloatV_SbtFZ"></a>
                     <a name="//apple_ref/swift/Method/imageResponseSerializer(imageScale:inflateResponseImage:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Alamofire11DataRequestC0A5ImageE23imageResponseSerializerAA0bfG0VySo7UIImageCG12CoreGraphics7CGFloatV0E5Scale_Sb07inflatefD0tFZ">imageResponseSerializer(imageScale:inflateResponseImage:)</a>
+                    <a class="token" href="#/s:9Alamofire11DataRequestC0A5ImageE23imageResponseSerializer0E5Scale07inflatefD0AA0bfG0VySo7UIImageCG12CoreGraphics7CGFloatV_SbtFZ">imageResponseSerializer(imageScale:inflateResponseImage:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -333,9 +339,9 @@ image options.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Alamofire11DataRequestC0A5ImageE08responseD0ACXD12CoreGraphics7CGFloatV10imageScale_Sb015inflateResponseD0So13DispatchQueueCSg5queueyAA0bL0VySo7UIImageCGc17completionHandlertF"></a>
+                    <a name="/s:9Alamofire11DataRequestC0A5ImageE08responseD010imageScale015inflateResponseD05queue17completionHandlerACXD12CoreGraphics7CGFloatV_SbSo012OS_dispatch_J0CSgyAA0bI0VySo7UIImageCGctF"></a>
                     <a name="//apple_ref/swift/Method/responseImage(imageScale:inflateResponseImage:queue:completionHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Alamofire11DataRequestC0A5ImageE08responseD0ACXD12CoreGraphics7CGFloatV10imageScale_Sb015inflateResponseD0So13DispatchQueueCSg5queueyAA0bL0VySo7UIImageCGc17completionHandlertF">responseImage(imageScale:inflateResponseImage:queue:completionHandler:)</a>
+                    <a class="token" href="#/s:9Alamofire11DataRequestC0A5ImageE08responseD010imageScale015inflateResponseD05queue17completionHandlerACXD12CoreGraphics7CGFloatV_SbSo012OS_dispatch_J0CSgyAA0bI0VySo7UIImageCGctF">responseImage(imageScale:inflateResponseImage:queue:completionHandler:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -350,7 +356,8 @@ image options.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">responseImage</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">responseImage</span><span class="p">(</span>
     <span class="nv">imageScale</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="kt">DataRequest</span><span class="o">.</span><span class="n"><a href="../Extensions/DataRequest.html#/s:9Alamofire11DataRequestC0A5ImageE10imageScale12CoreGraphics7CGFloatVvpZ">imageScale</a></span><span class="p">,</span>
     <span class="nv">inflateResponseImage</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
     <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
@@ -437,9 +444,9 @@ image options.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Alamofire11DataRequestC0A5ImageE06streamD0ACXD12CoreGraphics7CGFloatV10imageScale_Sb015inflateResponseD0ySo7UIImageCc17completionHandlertF"></a>
+                    <a name="/s:9Alamofire11DataRequestC0A5ImageE06streamD010imageScale015inflateResponseD017completionHandlerACXD12CoreGraphics7CGFloatV_SbySo7UIImageCctF"></a>
                     <a name="//apple_ref/swift/Method/streamImage(imageScale:inflateResponseImage:completionHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Alamofire11DataRequestC0A5ImageE06streamD0ACXD12CoreGraphics7CGFloatV10imageScale_Sb015inflateResponseD0ySo7UIImageCc17completionHandlertF">streamImage(imageScale:inflateResponseImage:completionHandler:)</a>
+                    <a class="token" href="#/s:9Alamofire11DataRequestC0A5ImageE06streamD010imageScale015inflateResponseD017completionHandlerACXD12CoreGraphics7CGFloatV_SbySo7UIImageCctF">streamImage(imageScale:inflateResponseImage:completionHandler:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -455,7 +462,8 @@ and converted into images.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">streamImage</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">streamImage</span><span class="p">(</span>
     <span class="nv">imageScale</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="kt">DataRequest</span><span class="o">.</span><span class="n"><a href="../Extensions/DataRequest.html#/s:9Alamofire11DataRequestC0A5ImageE10imageScale12CoreGraphics7CGFloatVvpZ">imageScale</a></span><span class="p">,</span>
     <span class="nv">inflateResponseImage</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
     <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Typealiases.html#/s:14AlamofireImage0B0a">Image</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span>
@@ -543,7 +551,7 @@ and converted into images.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="k">var</span> <span class="nv">imageScale</span><span class="p">:</span> <span class="kt">CGFloat</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="k">var</span> <span class="nv">imageScale</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -633,9 +641,9 @@ and converted into images.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Alamofire11DataRequestC0A5ImageE19validateContentTypey10Foundation10URLRequestVSg3for_So15HTTPURLResponseCSg8responsetKFZ"></a>
+                    <a name="/s:9Alamofire11DataRequestC0A5ImageE19validateContentType3for8responsey10Foundation10URLRequestVSg_So17NSHTTPURLResponseCSgtKFZ"></a>
                     <a name="//apple_ref/swift/Method/validateContentType(for:response:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Alamofire11DataRequestC0A5ImageE19validateContentTypey10Foundation10URLRequestVSg3for_So15HTTPURLResponseCSg8responsetKFZ">validateContentType(for:response:)</a>
+                    <a class="token" href="#/s:9Alamofire11DataRequestC0A5ImageE19validateContentType3for8responsey10Foundation10URLRequestVSg_So17NSHTTPURLResponseCSgtKFZ">validateContentType(for:response:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -701,8 +709,8 @@ and converted into images.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2018-03-31)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2018 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2018-09-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

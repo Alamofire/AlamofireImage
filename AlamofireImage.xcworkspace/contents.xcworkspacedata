@@ -5,6 +5,6 @@
       location = "group:AlamofireImage.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:iOS Example.xcodeproj">
+      location = "group:Carthage/Checkouts/Alamofire/Alamofire.xcodeproj">
    </FileRef>
 </Workspace>

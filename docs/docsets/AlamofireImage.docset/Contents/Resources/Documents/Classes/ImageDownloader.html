@@ -172,6 +172,12 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/AnimationOptions">AnimationOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/ControlState">ControlState</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/Image">Image</a>
               </li>
               <li class="nav-group-task">
@@ -335,7 +341,7 @@ handlers for a single request.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">let</span> <span class="nv">imageCache</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageRequestCache.html">ImageRequestCache</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">imageCache</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageRequestCache.html">ImageRequestCache</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -345,9 +351,9 @@ handlers for a single request.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC10credentialSo13URLCredentialCSgvp"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC10credentialSo15NSURLCredentialCSgvp"></a>
                     <a name="//apple_ref/swift/Property/credential" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC10credentialSo13URLCredentialCSgvp">credential</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC10credentialSo15NSURLCredentialCSgvp">credential</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -389,7 +395,7 @@ handlers for a single request.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">imageResponseSerializer</span> <span class="o">=</span> <span class="kt">DataRequest</span><span class="o">.</span><span class="nf">imageResponseSerializer</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">imageResponseSerializer</span><span class="p">:</span> <span class="kt">DataResponseSerializer</span><span class="o">&lt;</span><span class="kt"><a href="../Typealiases.html#/s:14AlamofireImage0B0a">Image</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -416,7 +422,7 @@ handlers for a single request.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">let</span> <span class="nv">sessionManager</span><span class="p">:</span> <span class="kt">SessionManager</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">sessionManager</span><span class="p">:</span> <span class="kt">SessionManager</span></code></pre>
 
                         </div>
                       </div>
@@ -454,7 +460,7 @@ handlers for a single request.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">static</span> <span class="kd">let</span> <span class="p">`</span><span class="nv">default</span><span class="p">`</span> <span class="o">=</span> <span class="kt">ImageDownloader</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">let</span> <span class="p">`</span><span class="nv">default</span><span class="p">`:</span> <span class="kt">ImageDownloader</span></code></pre>
 
                         </div>
                       </div>
@@ -464,9 +470,9 @@ handlers for a single request.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC30defaultURLSessionConfigurationSo0eF0CyFZ"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC30defaultURLSessionConfigurationSo012NSURLSessionF0CyFZ"></a>
                     <a name="//apple_ref/swift/Method/defaultURLSessionConfiguration()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC30defaultURLSessionConfigurationSo0eF0CyFZ">defaultURLSessionConfiguration()</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC30defaultURLSessionConfigurationSo012NSURLSessionF0CyFZ">defaultURLSessionConfiguration()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -495,9 +501,9 @@ handlers for a single request.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC15defaultURLCacheSo0E0CyFZ"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC15defaultURLCacheSo10NSURLCacheCyFZ"></a>
                     <a name="//apple_ref/swift/Method/defaultURLCache()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC15defaultURLCacheSo0E0CyFZ">defaultURLCache()</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC15defaultURLCacheSo10NSURLCacheCyFZ">defaultURLCache()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -526,9 +532,9 @@ handlers for a single request.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderCACSo23URLSessionConfigurationC13configuration_AC22DownloadPrioritizationO08downloadH0Si22maximumActiveDownloadsAA0B12RequestCache_pSg05imageN0tcfc"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC13configuration22downloadPrioritization22maximumActiveDownloads10imageCacheACSo25NSURLSessionConfigurationC_AC08DownloadF0OSiAA0b7RequestK0_pSgtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(configuration:downloadPrioritization:maximumActiveDownloads:imageCache:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderCACSo23URLSessionConfigurationC13configuration_AC22DownloadPrioritizationO08downloadH0Si22maximumActiveDownloadsAA0B12RequestCache_pSg05imageN0tcfc">init(configuration:downloadPrioritization:maximumActiveDownloads:imageCache:)</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC13configuration22downloadPrioritization22maximumActiveDownloads10imageCacheACSo25NSURLSessionConfigurationC_AC08DownloadF0OSiAA0b7RequestK0_pSgtcfc">init(configuration:downloadPrioritization:maximumActiveDownloads:imageCache:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -618,9 +624,9 @@ download count and image cache.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderCAC0A014SessionManagerC07sessionE0_AC22DownloadPrioritizationO08downloadH0Si22maximumActiveDownloadsAA0B12RequestCache_pSg05imageN0tcfc"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC14sessionManager22downloadPrioritization22maximumActiveDownloads10imageCacheAC0A007SessionE0C_AC08DownloadG0OSiAA0b7RequestL0_pSgtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(sessionManager:downloadPrioritization:maximumActiveDownloads:imageCache:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderCAC0A014SessionManagerC07sessionE0_AC22DownloadPrioritizationO08downloadH0Si22maximumActiveDownloadsAA0B12RequestCache_pSg05imageN0tcfc">init(sessionManager:downloadPrioritization:maximumActiveDownloads:imageCache:)</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC14sessionManager22downloadPrioritization22maximumActiveDownloads10imageCacheAC0A007SessionE0C_AC08DownloadG0OSiAA0b7RequestL0_pSgtcfc">init(sessionManager:downloadPrioritization:maximumActiveDownloads:imageCache:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -720,9 +726,9 @@ active download count and image cache.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC17addAuthenticationySS4user_SS8passwordSo13URLCredentialC11PersistenceO11persistencetF"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC17addAuthentication4user8password11persistenceySS_SSSo26NSURLCredentialPersistenceVtF"></a>
                     <a name="//apple_ref/swift/Method/addAuthentication(user:password:persistence:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC17addAuthenticationySS4user_SS8passwordSo13URLCredentialC11PersistenceO11persistencetF">addAuthentication(user:password:persistence:)</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC17addAuthentication4user8password11persistenceySS_SSSo26NSURLCredentialPersistenceVtF">addAuthentication(user:password:persistence:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -793,9 +799,9 @@ active download count and image cache.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC17addAuthenticationySo13URLCredentialC15usingCredential_tF"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC17addAuthentication15usingCredentialySo15NSURLCredentialC_tF"></a>
                     <a name="//apple_ref/swift/Method/addAuthentication(usingCredential:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC17addAuthenticationySo13URLCredentialC15usingCredential_tF">addAuthentication(usingCredential:)</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC17addAuthentication15usingCredentialySo15NSURLCredentialC_tF">addAuthentication(usingCredential:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -850,9 +856,9 @@ active download count and image cache.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC8downloadAA14RequestReceiptCSg0A021URLRequestConvertible_p_SS9receiptIDAA0B6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0nP0yAH12DataResponseVySo7UIImageCGcSg10completiontF"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC8download_9receiptID6filter8progress0H5Queue10completionAA14RequestReceiptCSg0A021URLRequestConvertible_p_SSAA0B6Filter_pSgySo10NSProgressCcSgSo17OS_dispatch_queueCyAM12DataResponseVySo7UIImageCGcSgtF"></a>
                     <a name="//apple_ref/swift/Method/download(_:receiptID:filter:progress:progressQueue:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC8downloadAA14RequestReceiptCSg0A021URLRequestConvertible_p_SS9receiptIDAA0B6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0nP0yAH12DataResponseVySo7UIImageCGcSg10completiontF">download(_:receiptID:filter:progress:progressQueue:completion:)</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC8download_9receiptID6filter8progress0H5Queue10completionAA14RequestReceiptCSg0A021URLRequestConvertible_p_SSAA0B6Filter_pSgySo10NSProgressCcSgSo17OS_dispatch_queueCyAM12DataResponseVySo7UIImageCGcSgtF">download(_:receiptID:filter:progress:progressQueue:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -878,7 +884,8 @@ callers.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">download</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">download</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">urlRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span>
     <span class="nv">receiptID</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">,</span>
     <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageFilter.html">ImageFilter</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
@@ -982,9 +989,9 @@ callers.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC8downloadSayAA14RequestReceiptCGSay0A021URLRequestConvertible_pG_AA0B6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0lN0yAH12DataResponseVySo7UIImageCGcSg10completiontF"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC8download_6filter8progress0F5Queue10completionSayAA14RequestReceiptCGSay0A021URLRequestConvertible_pG_AA0B6Filter_pSgySo10NSProgressCcSgSo17OS_dispatch_queueCyAL12DataResponseVySo7UIImageCGcSgtF"></a>
                     <a name="//apple_ref/swift/Method/download(_:filter:progress:progressQueue:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC8downloadSayAA14RequestReceiptCGSay0A021URLRequestConvertible_pG_AA0B6Filter_pSg6filterySo8ProgressCcSg8progressSo13DispatchQueueC0lN0yAH12DataResponseVySo7UIImageCGcSg10completiontF">download(_:filter:progress:progressQueue:completion:)</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC8download_6filter8progress0F5Queue10completionSayAA14RequestReceiptCGSay0A021URLRequestConvertible_pG_AA0B6Filter_pSgySo10NSProgressCcSgSo17OS_dispatch_queueCyAL12DataResponseVySo7UIImageCGcSgtF">download(_:filter:progress:progressQueue:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1010,7 +1017,8 @@ the cancellation on behalf of all active callers.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">download</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">download</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">urlRequests</span><span class="p">:</span> <span class="p">[</span><span class="kt">URLRequestConvertible</span><span class="p">],</span>
     <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageFilter.html">ImageFilter</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">progress</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader.html#/s:14AlamofireImage0B10DownloaderC15ProgressHandlera">ProgressHandler</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
@@ -1088,9 +1096,9 @@ the cancellation on behalf of all active callers.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC13cancelRequestyAA0E7ReceiptC4with_tF"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC13cancelRequest4withyAA0E7ReceiptC_tF"></a>
                     <a name="//apple_ref/swift/Method/cancelRequest(with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC13cancelRequestyAA0E7ReceiptC4with_tF">cancelRequest(with:)</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC13cancelRequest4withyAA0E7ReceiptC_tF">cancelRequest(with:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1143,8 +1151,8 @@ will not be called.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2018-03-31)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2018 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2018-09-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

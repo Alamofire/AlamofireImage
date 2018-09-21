@@ -37,10 +37,10 @@ import Cocoa
 /// `ImageDownloader` is optimized to handle duplicate request scenarios as well as pending versus active downloads.
 open class RequestReceipt {
     /// The download request created by the `ImageDownloader`.
-    open let request: Request
+    public let request: Request
 
     /// The unique identifier for the image filters and completion handlers when duplicate requests are made.
-    open let receiptID: String
+    public let receiptID: String
 
     init(request: Request, receiptID: String) {
         self.request = request
@@ -96,7 +96,7 @@ open class ImageDownloader {
     // MARK: Properties
 
     /// The image cache used to store all downloaded images in.
-    open let imageCache: ImageRequestCache?
+    public let imageCache: ImageRequestCache?
 
     /// The credential used for authenticating each download request.
     open private(set) var credential: URLCredential?
@@ -105,7 +105,7 @@ open class ImageDownloader {
     public var imageResponseSerializer = DataRequest.imageResponseSerializer()
 
     /// The underlying Alamofire `Manager` instance used to handle all download requests.
-    open let sessionManager: SessionManager
+    public let sessionManager: SessionManager
 
     let downloadPrioritization: DownloadPrioritization
     let maximumActiveDownloads: Int
@@ -127,7 +127,7 @@ open class ImageDownloader {
     // MARK: Initialization
 
     /// The default instance of `ImageDownloader` initialized with default values.
-    open static let `default` = ImageDownloader()
+    public static let `default` = ImageDownloader()
 
     /// Creates a default `URLSessionConfiguration` with common usage parameter values.
     ///
