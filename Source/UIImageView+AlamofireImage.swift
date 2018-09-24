@@ -288,7 +288,7 @@ extension UIImageView {
         let imageCache = imageDownloader.imageCache
 
         if let request = urlRequest.urlRequest {
-            var cachedImage: Image?
+            let cachedImage: Image?
 
             if let customCacheKey = customCacheKey {
                 cachedImage = imageCache?.image(withIdentifier: customCacheKey)
