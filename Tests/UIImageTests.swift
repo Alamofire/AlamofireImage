@@ -147,7 +147,7 @@ class UIImageTestCase: BaseTestCase {
     }
 
     // MARK: - Scaling Tests
-
+    #if !os(tvOS)
     func testThatImageIsScaledToSquareSize() {
         executeImageScaledToSizeTest(squareSize)
     }
@@ -159,6 +159,7 @@ class UIImageTestCase: BaseTestCase {
     func testThatImageIsScaledToVerticalRectangularSize() {
         executeImageScaledToSizeTest(verticalRectangularSize)
     }
+    #endif
 
     private func executeImageScaledToSizeTest(_ size: CGSize) {
         // Given
