@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 3.x Releases
+- `3.5.x` Releases - [3.5.0](#350)
 - `3.4.x` Releases - [3.4.0](#340) | [3.4.1](#341)
 - `3.3.x` Releases - [3.3.0](#330) | [3.3.1](#331)
 - `3.2.x` Releases - [3.2.0](#320)
@@ -24,6 +25,19 @@ All notable changes to this project will be documented in this file.
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+## [3.5.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.5.0)
+Released on 2018-11-27. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/27?closed=1).
+
+### Updated
+- Alamofire Carthage checkout.
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#338](https://github.com/Alamofire/AlamofireImage/pull/338).
+- Required Alamofire version to 4.8.
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#338](https://github.com/Alamofire/AlamofireImage/pull/338).
+- Default Swift version to 4.
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#338](https://github.com/Alamofire/AlamofireImage/pull/338).
+  
+--
 
 ## [3.4.1](https://github.com/Alamofire/AlamofireImage/releases/tag/3.4.1)
 Released on 2018-09-17. All issues associated with this milestone can be found using this
