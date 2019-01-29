@@ -179,8 +179,14 @@ extension UIButton {
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
-            let error = AFIError.requestCancelled
-            let response = DataResponse<UIImage>(request: nil, response: nil, data: nil, result: .failure(error))
+            let response = DataResponse<UIImage>(
+                request: nil,
+                response: nil,
+                data: nil,
+                metrics: nil,
+                serializationDuration: 0.0,
+                result: .failure(AFIError.requestCancelled)
+            )
 
             completion?(response)
 
@@ -201,6 +207,8 @@ extension UIButton {
                 request: urlRequest.urlRequest,
                 response: nil,
                 data: nil,
+                metrics: nil,
+                serializationDuration: 0.0,
                 result: .success(image)
             )
 
@@ -326,8 +334,14 @@ extension UIButton {
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
-            let error = AFIError.requestCancelled
-            let response = DataResponse<UIImage>(request: nil, response: nil, data: nil, result: .failure(error))
+            let response = DataResponse<UIImage>(
+                request: nil,
+                response: nil,
+                data: nil,
+                metrics: nil,
+                serializationDuration: 0.0,
+                result: .failure(AFIError.requestCancelled)
+            )
 
             completion?(response)
 
@@ -348,6 +362,8 @@ extension UIButton {
                 request: urlRequest.urlRequest,
                 response: nil,
                 data: nil,
+                metrics: nil,
+                serializationDuration: 0.0,
                 result: .success(image)
             )
 
@@ -468,7 +484,7 @@ extension UIButton {
     private func urlRequest(with url: URL) -> URLRequest {
         var urlRequest = URLRequest(url: url)
 
-        for mimeType in DataRequest.acceptableImageContentTypes {
+        for mimeType in ImageResponseSerializer.acceptableImageContentTypes {
             urlRequest.addValue(mimeType, forHTTPHeaderField: "Accept")
         }
 
