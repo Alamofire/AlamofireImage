@@ -34,12 +34,12 @@ class DataRequestTestCase: BaseTestCase {
 
     override func setUp() {
         super.setUp()
-        acceptableImageContentTypes = DataRequest.acceptableImageContentTypes
+        acceptableImageContentTypes = ImageResponseSerializer.acceptableImageContentTypes
     }
 
     override func tearDown() {
         super.tearDown()
-        DataRequest.acceptableImageContentTypes = acceptableImageContentTypes
+        ImageResponseSerializer.acceptableImageContentTypes = acceptableImageContentTypes
     }
 
     // MARK: - Tests - Image Content Type
@@ -49,9 +49,9 @@ class DataRequestTestCase: BaseTestCase {
         let contentTypes: Set<String> = ["image/jpg", "binary/octet-stream"]
 
         // When
-        let beforeCount = DataRequest.acceptableImageContentTypes.count
-        DataRequest.addAcceptableImageContentTypes(contentTypes)
-        let afterCount = DataRequest.acceptableImageContentTypes.count
+        let beforeCount = ImageResponseSerializer.acceptableImageContentTypes.count
+        ImageResponseSerializer.addAcceptableImageContentTypes(contentTypes)
+        let afterCount = ImageResponseSerializer.acceptableImageContentTypes.count
 
         // Then
         XCTAssertEqual(beforeCount, 11, "before count should be 11")
@@ -68,7 +68,7 @@ class DataRequestTestCase: BaseTestCase {
         var response: DataResponse<Image>?
 
         // When
-        sessionManager.request(urlString)
+        session.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -104,7 +104,7 @@ class DataRequestTestCase: BaseTestCase {
         var response: DataResponse<Image>?
 
         // When
-        sessionManager.request(urlString)
+        session.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -140,7 +140,7 @@ class DataRequestTestCase: BaseTestCase {
         var response: DataResponse<Image>?
 
         // When
-        sessionManager.request(url)
+        session.request(url)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -180,7 +180,7 @@ class DataRequestTestCase: BaseTestCase {
         var response: DataResponse<Image>?
 
         // When
-        sessionManager.request(urlString)
+        session.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -212,7 +212,7 @@ class DataRequestTestCase: BaseTestCase {
         var response: DataResponse<Image>?
 
         // When
-        sessionManager.request(urlString)
+        session.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -248,7 +248,7 @@ class DataRequestTestCase: BaseTestCase {
         var response: DataResponse<Image>?
 
         // When
-        sessionManager.request(urlString)
+        session.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -271,7 +271,7 @@ class DataRequestTestCase: BaseTestCase {
         var response: DataResponse<Image>?
 
         // When
-        sessionManager.request(urlString)
+        session.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -300,7 +300,7 @@ class DataRequestTestCase: BaseTestCase {
         var response: DataResponse<Image>?
 
         // When
-        sessionManager.request(urlString)
+        session.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -315,7 +315,7 @@ class DataRequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error as? AFError {
-            XCTAssertTrue(error.isUnacceptableContentType)
+            XCTAssertTrue(error.isInputDataNilOrZeroLength)
         } else {
             XCTFail("error should not be nil")
         }
@@ -330,7 +330,7 @@ class DataRequestTestCase: BaseTestCase {
         var response: DataResponse<Image>?
 
         // When
-        sessionManager.request(urlString)
+        session.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -359,7 +359,7 @@ class DataRequestTestCase: BaseTestCase {
         var response: DataResponse<Image>?
 
         // When
-        sessionManager.request(urlString)
+        session.request(urlString)
             .responseImage { closureResponse in
                 response = closureResponse
                 expectation.fulfill()
@@ -391,7 +391,7 @@ class DataRequestTestCase: BaseTestCase {
         var imageCount = 0
 
         // When
-        let request = sessionManager.request(urlString)
+        let request = session.request(urlString)
 
         request.streamImage { image in
             guard imageCount < expectedImageCount else { return }

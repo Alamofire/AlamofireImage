@@ -91,7 +91,7 @@ class ImageDownloaderTestCase: BaseTestCase {
 
     func testThatImageDownloaderCanBeInitializedWithManagerInstanceAndDeinitialized() {
         // Given
-        var downloader: ImageDownloader? = ImageDownloader(sessionManager: SessionManager())
+        var downloader: ImageDownloader? = ImageDownloader(session: Session(startRequestsImmediately: false))
 
         // When
         downloader = nil
@@ -649,7 +649,7 @@ class ImageDownloaderTestCase: BaseTestCase {
             // No-op
         }
 
-        let credential = requestReceipt?.request.delegate.credential
+        let credential = requestReceipt?.request.credential
         requestReceipt?.request.cancel()
 
         // Then
@@ -668,7 +668,7 @@ class ImageDownloaderTestCase: BaseTestCase {
             // No-op
         }
 
-        let credential = requestReceipt?.request.delegate.credential
+        let credential = requestReceipt?.request.credential
         requestReceipt?.request.cancel()
 
         // Then
@@ -688,7 +688,7 @@ class ImageDownloaderTestCase: BaseTestCase {
             // No-op
         }
 
-        let requestCredential = requestReceipt?.request.delegate.credential
+        let requestCredential = requestReceipt?.request.credential
         requestReceipt?.request.cancel()
 
         // Then
@@ -921,7 +921,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
         let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
-        let request = downloader.sessionManager.request(urlRequest)
+        let request = downloader.session.request(urlRequest)
 
         // When
         let activeRequestCountBefore = downloader.activeRequestCount
@@ -942,8 +942,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest1 = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
         let urlRequest2 = try! URLRequest(url: "https://httpbin.org/image/png", method: .get)
 
-        let request1 = downloader.sessionManager.request(urlRequest1)
-        let request2 = downloader.sessionManager.request(urlRequest2)
+        let request1 = downloader.session.request(urlRequest1)
+        let request2 = downloader.session.request(urlRequest2)
 
         // When
         downloader.enqueue(request1)
@@ -964,8 +964,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest1 = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
         let urlRequest2 = try! URLRequest(url: "https://httpbin.org/image/png", method: .get)
 
-        let request1 = downloader.sessionManager.request(urlRequest1)
-        let request2 = downloader.sessionManager.request(urlRequest2)
+        let request1 = downloader.session.request(urlRequest1)
+        let request2 = downloader.session.request(urlRequest2)
 
         // When
         downloader.enqueue(request1)
@@ -986,8 +986,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest1 = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
         let urlRequest2 = try! URLRequest(url: "https://httpbin.org/image/png", method: .get)
 
-        let request1 = downloader.sessionManager.request(urlRequest1)
-        let request2 = downloader.sessionManager.request(urlRequest2)
+        let request1 = downloader.session.request(urlRequest1)
+        let request2 = downloader.session.request(urlRequest2)
 
         // When
         downloader.enqueue(request1)
