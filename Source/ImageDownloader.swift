@@ -177,7 +177,7 @@ open class ImageDownloader {
     {
         self.session = {
             let rootQueue = DispatchQueue(label: "org.alamofire.session.rootQueue")
-            return Session(startRequestsImmediately: false, configuration: configuration, rootQueue: rootQueue)
+            return Session(configuration: configuration, rootQueue: rootQueue, startRequestsImmediately: false)
         }()
 
         self.downloadPrioritization = downloadPrioritization
