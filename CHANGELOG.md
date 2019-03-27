@@ -34,7 +34,7 @@ Released on 2019-03-27. All issues associated with this milestone can be found u
 - Project and dependencies for Xcode 10.2.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#344](https://github.com/Alamofire/AlamofireImage/pull/344).
 - SPM support for Swift 4.2 and 5.
-- Updated by [Christian Noon](https://github.com/cnoon) in Pull Requests [#345](https://github.com/Alamofire/AlamofireImage/pull/345) and [#346](https://github.com/Alamofire/AlamofireImage/pull/346).
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Requests [#345](https://github.com/Alamofire/AlamofireImage/pull/345) and [#346](https://github.com/Alamofire/AlamofireImage/pull/346).
 
 ## [3.5.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.5.0)
 Released on 2018-11-27. All issues associated with this milestone can be found using this
