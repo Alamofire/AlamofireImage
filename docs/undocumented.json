@@ -22,6 +22,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/ImageCache.swift",
+      "line": 168,
+      "symbol": "AutoPurgingImageCache.deinit",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/ImageDownloader.swift",
       "line": 73,
       "symbol": "ImageDownloader.DownloadPrioritization.fifo",
@@ -40,6 +47,20 @@
       "line": 207,
       "symbol": "DataRequest.imageScale",
       "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
+      "line": 35,
+      "symbol": "ControlState",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 35,
+      "symbol": "AnimationOptions",
+      "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
