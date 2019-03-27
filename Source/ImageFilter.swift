@@ -301,14 +301,14 @@ public protocol CoreImageFilter: ImageFilter {
 @available(iOS 9.0, *)
 public extension ImageFilter where Self: CoreImageFilter {
 	/// The filter closure used to create the modified representation of the given image.
-	public var filter: (Image) -> Image {
+	var filter: (Image) -> Image {
 		return { image in
             return image.af_imageFiltered(withCoreImageFilter: self.filterName, parameters: self.parameters) ?? image
 		}
 	}
 
 	/// The unique idenitifier for an `ImageFilter` conforming to the `CoreImageFilter` protocol.
-	public var identifier: String { return "\(type(of: self))-parameters:(\(self.parameters))" }
+	var identifier: String { return "\(type(of: self))-parameters:(\(self.parameters))" }
 }
 
 /// Blurs an image using a `CIGaussianBlur` filter with the specified blur radius.

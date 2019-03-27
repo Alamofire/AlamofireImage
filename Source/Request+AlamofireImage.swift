@@ -49,7 +49,7 @@ extension DataRequest {
         "image/x-win-bitmap"
     ]
 
-    static let streamImageInitialBytePattern = Data(bytes: [255, 216]) // 0xffd8
+    static let streamImageInitialBytePattern = Data([255, 216]) // 0xffd8
 
     /// Adds the content types specified to the list of acceptable images content types for validation.
     ///
