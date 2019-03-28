@@ -29,32 +29,30 @@ import XCTest
 
 class BaseTestCase : XCTestCase {
     let timeout = 5.0
-    var sessionManager: SessionManager!
+    var session: Session!
 
     // MARK: - Setup and Teardown
 
     override func setUp() {
         super.setUp()
 
-        sessionManager = {
+        session = {
             let configuration: URLSessionConfiguration = {
                 let configuration = URLSessionConfiguration.ephemeral
-
-                let defaultHeaders = SessionManager.default.session.configuration.httpAdditionalHeaders
-                configuration.httpAdditionalHeaders = defaultHeaders
+                configuration.httpAdditionalHeaders = HTTPHeaders.default.dictionary
 
                 return configuration
             }()
 
-            return SessionManager(configuration: configuration)
+            return Session(configuration: configuration)
         }()
     }
 
     override func tearDown() {
         super.tearDown()
 
-        sessionManager.session.finishTasksAndInvalidate()
-        sessionManager = nil
+        session.session.finishTasksAndInvalidate()
+        session = nil
     }
 
     // MARK: - Resources

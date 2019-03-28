@@ -28,11 +28,6 @@ extension AFError {
 
     // ResponseSerializationFailureReason
 
-    var isInputDataNil: Bool {
-        if case let .responseSerializationFailed(reason) = self, reason.isInputDataNil { return true }
-        return false
-    }
-
     var isInputDataNilOrZeroLength: Bool {
         if case let .responseSerializationFailed(reason) = self, reason.isInputDataNilOrZeroLength { return true }
         return false
@@ -79,11 +74,6 @@ extension AFError {
 // MARK: -
 
 extension AFError.ResponseSerializationFailureReason {
-    var isInputDataNil: Bool {
-        if case .inputDataNil = self { return true }
-        return false
-    }
-
     var isInputDataNilOrZeroLength: Bool {
         if case .inputDataNilOrZeroLength = self { return true }
         return false

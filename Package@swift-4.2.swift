@@ -31,7 +31,7 @@ let package = Package(
         .library(name: "AlamofireImage", targets: ["AlamofireImage"])
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: Version(4, 8, 2)))
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .branch("master"))
     ],
     targets: [
         .target(

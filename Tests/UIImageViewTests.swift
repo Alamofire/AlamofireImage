@@ -705,7 +705,7 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertNotNil(acceptField)
 
         if let acceptField = acceptField {
-            XCTAssertEqual(acceptField, DataRequest.acceptableImageContentTypes.joined(separator:","))
+            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.joined(separator:","))
         }
     }
 }

@@ -270,8 +270,14 @@ extension UIImageView {
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isURLRequestURLEqualToActiveRequestURL(urlRequest) else {
-            let error = AFIError.requestCancelled
-            let response = DataResponse<UIImage>(request: nil, response: nil, data: nil, result: .failure(error))
+            let response = DataResponse<UIImage>(
+                request: nil,
+                response: nil,
+                data: nil,
+                metrics: nil,
+                serializationDuration: 0.0,
+                result: .failure(AFIError.requestCancelled)
+            )
 
             completion?(response)
 
@@ -288,7 +294,14 @@ extension UIImageView {
             let request = urlRequest.urlRequest,
             let image = imageCache?.image(for: request, withIdentifier: filter?.identifier)
         {
-            let response = DataResponse<UIImage>(request: request, response: nil, data: nil, result: .success(image))
+            let response = DataResponse<UIImage>(
+                request: request,
+                response: nil,
+                data: nil,
+                metrics: nil,
+                serializationDuration: 0.0,
+                result: .success(image)
+            )
 
             if runImageTransitionIfCached {
                 let tinyDelay = DispatchTime.now() + Double(Int64(0.001 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -375,7 +388,7 @@ extension UIImageView {
     private func urlRequest(with url: URL) -> URLRequest {
         var urlRequest = URLRequest(url: url)
 
-        for mimeType in DataRequest.acceptableImageContentTypes {
+        for mimeType in ImageResponseSerializer.acceptableImageContentTypes {
             urlRequest.addValue(mimeType, forHTTPHeaderField: "Accept")
         }
 
