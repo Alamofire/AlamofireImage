@@ -48,8 +48,12 @@ extension DataRequest {
         "image/x-ms-bmp",
         "image/x-win-bitmap"
     ]
-
+    
+    #if swift(>=5)
     static let streamImageInitialBytePattern = Data([255, 216]) // 0xffd8
+    #else
+    static let streamImageInitialBytePattern = Data(bytes: [255, 216]) // 0xffd8
+    #endif
 
     /// Adds the content types specified to the list of acceptable images content types for validation.
     ///

@@ -458,8 +458,14 @@ open class ImageDownloader {
         synchronizationQueue.sync {
             let urlID = ImageDownloader.urlIdentifier(for: requestReceipt.request.request!)
             guard let responseHandler = self.responseHandlers[urlID] else { return }
-
-            if let index = responseHandler.operations.firstIndex(where: { $0.receiptID == requestReceipt.receiptID }) {
+            
+            #if swift(>=4.2)
+            let index = responseHandler.operations.firstIndex { $0.receiptID == requestReceipt.receiptID }
+            #else
+            let index = responseHandler.operations.index { $0.receiptID == requestReceipt.receiptID }
+            #endif
+            
+            if let index = index {
                 let operation = responseHandler.operations.remove(at: index)
 
                 let response: DataResponse<Image> = {
