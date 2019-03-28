@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 3.x Releases
-- `3.5.x` Releases - [3.5.0](#350) | [3.5.1](#351)
+- `3.5.x` Releases - [3.5.0](#350) | [3.5.1](#351) | [3.5.2](#352)
 - `3.4.x` Releases - [3.4.0](#340) | [3.4.1](#341)
 - `3.3.x` Releases - [3.3.0](#330) | [3.3.1](#331)
 - `3.2.x` Releases - [3.2.0](#320)
@@ -26,11 +26,19 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [3.5.2](https://github.com/Alamofire/AlamofireImage/releases/tag/3.5.2)
+Released on 2019-03-28. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/29?closed=1).
+
+#### Fixed
+- Building using Xcode 9.
+  - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#350](https://github.com/Alamofire/AlamofireImage/pull/350).
+
 ## [3.5.1](https://github.com/Alamofire/AlamofireImage/releases/tag/3.5.1)
 Released on 2019-03-27. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/28?closed=1).
 
-### Updated
+#### Updated
 - Project and dependencies for Xcode 10.2.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#344](https://github.com/Alamofire/AlamofireImage/pull/344).
 - SPM support for Swift 4.2 and 5.
@@ -40,7 +48,7 @@ Released on 2019-03-27. All issues associated with this milestone can be found u
 Released on 2018-11-27. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/27?closed=1).
 
-### Updated
+#### Updated
 - Alamofire Carthage checkout.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#338](https://github.com/Alamofire/AlamofireImage/pull/338).
 - Required Alamofire version to 4.8.
