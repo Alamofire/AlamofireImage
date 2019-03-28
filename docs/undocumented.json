@@ -44,7 +44,7 @@
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 207,
+      "line": 211,
       "symbol": "DataRequest.imageScale",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
