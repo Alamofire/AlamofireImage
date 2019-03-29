@@ -477,6 +477,9 @@
 		4C5874871B93F81800407E58 /* ImageDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5874851B93F81800407E58 /* ImageDownloaderTests.swift */; };
 		4C62D3101B96C1500011B036 /* UIImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D30F1B96C1500011B036 /* UIImageViewTests.swift */; };
 		4C78EA721AACD28C002C0569 /* UIImageView+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */; };
+		4C7DD7EF224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */; };
+		4C7DD7F0224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */; };
+		4C7DD7F1224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */; };
 		4C8290781B926F19005E24C8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
 		4C82907A1B927CE6005E24C8 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290791B927CE6005E24C8 /* Image.swift */; };
 		4C82907B1B927CE6005E24C8 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290791B927CE6005E24C8 /* Image.swift */; };
@@ -737,6 +740,7 @@
 		4C5874851B93F81800407E58 /* ImageDownloaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderTests.swift; sourceTree = "<group>"; };
 		4C62D30F1B96C1500011B036 /* UIImageViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewTests.swift; sourceTree = "<group>"; };
 		4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AlamofireImage.swift"; sourceTree = "<group>"; };
+		4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AFResult+AlamofireImageTests.swift"; sourceTree = "<group>"; };
 		4C8290791B927CE6005E24C8 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		4C9043771AABBFC5001B4E60 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9043821AABBFC5001B4E60 /* AlamofireImage iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1254,6 +1258,7 @@
 			isa = PBXGroup;
 			children = (
 				4CD5BCF41D7FBE380055E232 /* AFError+AlamofireImageTests.swift */,
+				4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -2056,6 +2061,7 @@
 				4CD5BCF71D7FBE380055E232 /* AFError+AlamofireImageTests.swift in Sources */,
 				4C16B3AB1BA93ADB00A66EF0 /* RequestTests.swift in Sources */,
 				4CFB86631CA3656F007CE085 /* UIButtonTests.swift in Sources */,
+				4C7DD7F1224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */,
 				4C16B3A81BA93ADB00A66EF0 /* ImageCacheTests.swift in Sources */,
 				4C16B3AE1BA93ADB00A66EF0 /* UIImage+AlamofireImageTests.swift in Sources */,
 				4C16B3AA1BA93ADB00A66EF0 /* ImageFilterTests.swift in Sources */,
@@ -2105,6 +2111,7 @@
 				4CD5BCF51D7FBE380055E232 /* AFError+AlamofireImageTests.swift in Sources */,
 				4C62D3101B96C1500011B036 /* UIImageViewTests.swift in Sources */,
 				CF24CF461C253D4F00904E85 /* UIButtonTests.swift in Sources */,
+				4C7DD7EF224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */,
 				4C0897EB1B93BC0D005125D9 /* RequestTests.swift in Sources */,
 				4C5872CA1B93DEAC00407E58 /* ImageFilterTests.swift in Sources */,
 				4CEBB5401B93C622001391DE /* ImageCacheTests.swift in Sources */,
@@ -2138,6 +2145,7 @@
 				4CD5BCF61D7FBE380055E232 /* AFError+AlamofireImageTests.swift in Sources */,
 				4C86C1111DA0B33C0032ECC3 /* UIImageTests.swift in Sources */,
 				4C86C10F1DA0B3340032ECC3 /* ImageFilterTests.swift in Sources */,
+				4C7DD7F0224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */,
 				4C86C1101DA0B3390032ECC3 /* UIButtonTests.swift in Sources */,
 				4C1624861AABE8E600A0385D /* BaseTestCase.swift in Sources */,
 				4CEBB5411B93C622001391DE /* ImageCacheTests.swift in Sources */,

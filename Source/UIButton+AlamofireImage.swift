@@ -29,11 +29,7 @@ import Foundation
 
 import UIKit
 
-#if swift(>=4.2)
 public typealias ControlState = UIControl.State
-#else
-public typealias ControlState = UIControlState
-#endif
 
 extension UIButton {
 
@@ -241,7 +237,7 @@ extension UIButton {
                     return
                 }
 
-                if let image = response.result.value {
+                if case .success(let image) = response.result {
                     strongSelf.setImage(image, for: state)
                 }
 
@@ -396,7 +392,7 @@ extension UIButton {
                     return
                 }
 
-                if let image = response.result.value {
+                if case .success(let image) = response.result {
                     strongSelf.setBackgroundImage(image, for: state)
                 }
 

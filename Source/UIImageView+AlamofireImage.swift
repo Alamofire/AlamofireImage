@@ -29,11 +29,7 @@ import Foundation
 
 import UIKit
 
-#if swift(>=4.2)
 public typealias AnimationOptions = UIView.AnimationOptions
-#else
-public typealias AnimationOptions = UIViewAnimationOptions
-#endif
 
 extension UIImageView {
 
@@ -342,7 +338,7 @@ extension UIImageView {
                     return
                 }
 
-                if let image = response.result.value {
+                if case .success(let image) = response.result {
                     strongSelf.run(imageTransition, with: image)
                 }
 

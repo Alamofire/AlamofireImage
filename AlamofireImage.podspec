@@ -16,5 +16,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '10.0'
   s.watchos.deployment_target = '3.0'
 
-  s.dependency 'Alamofire', '~> 5.0.0-beta.3'
+  s.swift_version = '5.0'
+
+  s.dependency 'Alamofire', '~> 5.0.0-beta.4'
 end

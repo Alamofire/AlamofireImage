@@ -151,8 +151,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectation(description: "download 1 should succeed")
         let expectation2 = expectation(description: "download 2 should succeed")
 
-        var result1: Result<Image>?
-        var result2: Result<Image>?
+        var result1: AFResult<Image>?
+        var result2: AFResult<Image>?
 
         // When
         downloader.download(urlRequest1) { closureResponse in
@@ -189,7 +189,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation = self.expectation(description: "both downloads should succeed")
         var completedDownloads = 0
 
-        var results: [Result<Image>] = []
+        var results: [AFResult<Image>] = []
 
         // When
         downloader.download([urlRequest1, urlRequest2], filter: nil) { closureResponse in
@@ -335,8 +335,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectation(description: "download request 1 should succeed")
         let expectation2 = expectation(description: "download request 2 should succeed")
 
-        var result1: Result<Image>?
-        var result2: Result<Image>?
+        var result1: AFResult<Image>?
+        var result2: AFResult<Image>?
 
         // When
         let requestReceipt1 = downloader.download(urlRequest1, filter: filter1) { closureResponse in
@@ -382,8 +382,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectation(description: "download request 1 should succeed")
         let expectation2 = expectation(description: "download request 2 should succeed")
 
-        var result1: Result<Image>?
-        var result2: Result<Image>?
+        var result1: AFResult<Image>?
+        var result2: AFResult<Image>?
 
         // When
         let requestReceipt1 = downloader.download(urlRequest1, filter: filter1) { closureResponse in
@@ -578,8 +578,8 @@ class ImageDownloaderTestCase: BaseTestCase {
             "https://secure.gravatar.com/avatar/9a105e8b9d40e1329780d62ea2265d8a?d=identicon"
         ].map { URLRequest(url: URL(string: $0)!) }
 
-        var initialResults: [Result<Image>] = []
-        var finalResults: [Result<Image>] = []
+        var initialResults: [AFResult<Image>] = []
+        var finalResults: [AFResult<Image>] = []
 
         // When
         for (index, imageRequest) in imageRequests.enumerated() {
@@ -828,8 +828,8 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation1 = expectation(description: "image download should succeed")
 
-        var result1: Result<Image>?
-        var result2: Result<Image>?
+        var result1: AFResult<Image>?
+        var result2: AFResult<Image>?
 
         // When
         let requestReceipt1 = downloader.download(urlRequest) { closureResponse in
@@ -874,8 +874,8 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation1 = expectation(description: "image download should succeed")
 
-        var result1: Result<Image>?
-        var result2: Result<Image>?
+        var result1: AFResult<Image>?
+        var result2: AFResult<Image>?
 
         // When
         let requestReceipt1 = downloader.download(urlRequest, filter: filter) { closureResponse in
