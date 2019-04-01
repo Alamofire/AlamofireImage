@@ -135,7 +135,7 @@ open class ImageDownloader {
     open class func defaultURLSessionConfiguration() -> URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
 
-        configuration.httpAdditionalHeaders = HTTPHeaders.default.dictionary
+        configuration.httpHeaders = .default
         configuration.httpShouldSetCookies = true
         configuration.httpShouldUsePipelining = false
 
@@ -175,11 +175,7 @@ open class ImageDownloader {
         maximumActiveDownloads: Int = 4,
         imageCache: ImageRequestCache? = AutoPurgingImageCache())
     {
-        self.session = {
-            let rootQueue = DispatchQueue(label: "org.alamofire.session.rootQueue")
-            return Session(configuration: configuration, rootQueue: rootQueue, startRequestsImmediately: false)
-        }()
-
+        self.session = Session(configuration: configuration, startRequestsImmediately: false)
         self.downloadPrioritization = downloadPrioritization
         self.maximumActiveDownloads = maximumActiveDownloads
         self.imageCache = imageCache
