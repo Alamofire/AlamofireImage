@@ -1,6 +1,5 @@
-// swift-tools-version:4.2
 //
-//  Package@swift-4.2.swift
+//  AFResult+AlamofireImageTests.swift
 //
 //  Copyright (c) 2019 Alamofire Software Foundation (http://alamofire.org/)
 //
@@ -23,22 +22,26 @@
 //  THE SOFTWARE.
 //
 
-import PackageDescription
+import Alamofire
+import Foundation
 
-let package = Package(
-    name: "AlamofireImage",
-    products: [
-        .library(name: "AlamofireImage", targets: ["AlamofireImage"])
-    ],
-    dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: Version(4, 8, 2)))
-    ],
-    targets: [
-        .target(
-            name: "AlamofireImage",
-            dependencies: ["Alamofire"],
-            path: "Source"
-        )
-    ],
-    swiftLanguageVersions: [.v3, .v4, .v4_2]
-)
+extension AFResult {
+    var isSuccess: Bool {
+        guard case .success = self else { return false }
+        return true
+    }
+
+    var isFailure: Bool {
+        return !isSuccess
+    }
+
+    var value: Success? {
+        guard case .success(let value) = self else { return nil }
+        return value
+    }
+
+    var error: Failure? {
+        guard case .failure(let error) = self else { return nil }
+        return error
+    }
+}

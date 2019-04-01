@@ -477,6 +477,9 @@
 		4C5874871B93F81800407E58 /* ImageDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5874851B93F81800407E58 /* ImageDownloaderTests.swift */; };
 		4C62D3101B96C1500011B036 /* UIImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D30F1B96C1500011B036 /* UIImageViewTests.swift */; };
 		4C78EA721AACD28C002C0569 /* UIImageView+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */; };
+		4C7DD7EF224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */; };
+		4C7DD7F0224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */; };
+		4C7DD7F1224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */; };
 		4C8290781B926F19005E24C8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
 		4C82907A1B927CE6005E24C8 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290791B927CE6005E24C8 /* Image.swift */; };
 		4C82907B1B927CE6005E24C8 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290791B927CE6005E24C8 /* Image.swift */; };
@@ -598,6 +601,7 @@
 		4C1E864F1F5FC16A004FF7F8 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		4C1E86501F5FC16A004FF7F8 /* AlamofireImage.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = AlamofireImage.podspec; sourceTree = "<group>"; };
 		4C1E86511F5FC16A004FF7F8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		4C201ECD224C59D4005A990B /* Package@swift-4.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Package@swift-4.2.swift"; sourceTree = "<group>"; };
 		4C4D4EC11B92976900C96855 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4C54EE8F1AABC04900CD894C /* AlamofireImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlamofireImage.h; sourceTree = "<group>"; };
@@ -736,6 +740,7 @@
 		4C5874851B93F81800407E58 /* ImageDownloaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderTests.swift; sourceTree = "<group>"; };
 		4C62D30F1B96C1500011B036 /* UIImageViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewTests.swift; sourceTree = "<group>"; };
 		4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AlamofireImage.swift"; sourceTree = "<group>"; };
+		4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AFResult+AlamofireImageTests.swift"; sourceTree = "<group>"; };
 		4C8290791B927CE6005E24C8 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		4C9043771AABBFC5001B4E60 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9043821AABBFC5001B4E60 /* AlamofireImage iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -931,6 +936,7 @@
 				4C1E86501F5FC16A004FF7F8 /* AlamofireImage.podspec */,
 				4C1E86511F5FC16A004FF7F8 /* LICENSE */,
 				4C1E864F1F5FC16A004FF7F8 /* Package.swift */,
+				4C201ECD224C59D4005A990B /* Package@swift-4.2.swift */,
 			);
 			name = Deployment;
 			sourceTree = "<group>";
@@ -1252,6 +1258,7 @@
 			isa = PBXGroup;
 			children = (
 				4CD5BCF41D7FBE380055E232 /* AFError+AlamofireImageTests.swift */,
+				4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1489,7 +1496,7 @@
 					};
 					4C9043761AABBFC5001B4E60 = {
 						CreatedOnToolsVersion = 6.2;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1020;
 					};
 					4C9043811AABBFC5001B4E60 = {
 						CreatedOnToolsVersion = 6.2;
@@ -1510,7 +1517,7 @@
 			};
 			buildConfigurationList = 4C9043711AABBFC5001B4E60 /* Build configuration list for PBXProject "AlamofireImage" */;
 			compatibilityVersion = "Xcode 8.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -2054,6 +2061,7 @@
 				4CD5BCF71D7FBE380055E232 /* AFError+AlamofireImageTests.swift in Sources */,
 				4C16B3AB1BA93ADB00A66EF0 /* RequestTests.swift in Sources */,
 				4CFB86631CA3656F007CE085 /* UIButtonTests.swift in Sources */,
+				4C7DD7F1224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */,
 				4C16B3A81BA93ADB00A66EF0 /* ImageCacheTests.swift in Sources */,
 				4C16B3AE1BA93ADB00A66EF0 /* UIImage+AlamofireImageTests.swift in Sources */,
 				4C16B3AA1BA93ADB00A66EF0 /* ImageFilterTests.swift in Sources */,
@@ -2103,6 +2111,7 @@
 				4CD5BCF51D7FBE380055E232 /* AFError+AlamofireImageTests.swift in Sources */,
 				4C62D3101B96C1500011B036 /* UIImageViewTests.swift in Sources */,
 				CF24CF461C253D4F00904E85 /* UIButtonTests.swift in Sources */,
+				4C7DD7EF224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */,
 				4C0897EB1B93BC0D005125D9 /* RequestTests.swift in Sources */,
 				4C5872CA1B93DEAC00407E58 /* ImageFilterTests.swift in Sources */,
 				4CEBB5401B93C622001391DE /* ImageCacheTests.swift in Sources */,
@@ -2136,6 +2145,7 @@
 				4CD5BCF61D7FBE380055E232 /* AFError+AlamofireImageTests.swift in Sources */,
 				4C86C1111DA0B33C0032ECC3 /* UIImageTests.swift in Sources */,
 				4C86C10F1DA0B3340032ECC3 /* ImageFilterTests.swift in Sources */,
+				4C7DD7F0224EC07000249836 /* AFResult+AlamofireImageTests.swift in Sources */,
 				4C86C1101DA0B3390032ECC3 /* UIButtonTests.swift in Sources */,
 				4C1624861AABE8E600A0385D /* BaseTestCase.swift in Sources */,
 				4CEBB5411B93C622001391DE /* ImageCacheTests.swift in Sources */,
@@ -2392,19 +2402,19 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
@@ -2451,19 +2461,19 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};

@@ -28,16 +28,19 @@ import PackageDescription
 let package = Package(
     name: "AlamofireImage",
     platforms: [
-        .iOS(.v8),
-        .macOS(.v10_10),
-        .tvOS(.v9),
-        .watchOS(.v2)
+        .iOS(.v10),
+        .macOS(.v10_12),
+        .tvOS(.v10),
+        .watchOS(.v3)
     ],
     products: [
         .library(name: "AlamofireImage", targets: ["AlamofireImage"])
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: Version(4, 8, 2)))
+        .package(
+            url: "https://github.com/Alamofire/Alamofire.git",
+            from: Version(5, 0, 0, prereleaseIdentifiers: ["beta.4"])
+        )
     ],
     targets: [
         .target(

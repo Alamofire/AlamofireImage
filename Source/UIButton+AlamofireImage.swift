@@ -29,11 +29,7 @@ import Foundation
 
 import UIKit
 
-#if swift(>=4.2)
 public typealias ControlState = UIControl.State
-#else
-public typealias ControlState = UIControlState
-#endif
 
 extension UIButton {
 
@@ -179,8 +175,14 @@ extension UIButton {
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
-            let error = AFIError.requestCancelled
-            let response = DataResponse<UIImage>(request: nil, response: nil, data: nil, result: .failure(error))
+            let response = DataResponse<UIImage>(
+                request: nil,
+                response: nil,
+                data: nil,
+                metrics: nil,
+                serializationDuration: 0.0,
+                result: .failure(AFIError.requestCancelled)
+            )
 
             completion?(response)
 
@@ -201,6 +203,8 @@ extension UIButton {
                 request: urlRequest.urlRequest,
                 response: nil,
                 data: nil,
+                metrics: nil,
+                serializationDuration: 0.0,
                 result: .success(image)
             )
 
@@ -233,7 +237,7 @@ extension UIButton {
                     return
                 }
 
-                if let image = response.result.value {
+                if case .success(let image) = response.result {
                     strongSelf.setImage(image, for: state)
                 }
 
@@ -326,8 +330,14 @@ extension UIButton {
         completion: ((DataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
-            let error = AFIError.requestCancelled
-            let response = DataResponse<UIImage>(request: nil, response: nil, data: nil, result: .failure(error))
+            let response = DataResponse<UIImage>(
+                request: nil,
+                response: nil,
+                data: nil,
+                metrics: nil,
+                serializationDuration: 0.0,
+                result: .failure(AFIError.requestCancelled)
+            )
 
             completion?(response)
 
@@ -348,6 +358,8 @@ extension UIButton {
                 request: urlRequest.urlRequest,
                 response: nil,
                 data: nil,
+                metrics: nil,
+                serializationDuration: 0.0,
                 result: .success(image)
             )
 
@@ -380,7 +392,7 @@ extension UIButton {
                     return
                 }
 
-                if let image = response.result.value {
+                if case .success(let image) = response.result {
                     strongSelf.setBackgroundImage(image, for: state)
                 }
 
@@ -468,7 +480,7 @@ extension UIButton {
     private func urlRequest(with url: URL) -> URLRequest {
         var urlRequest = URLRequest(url: url)
 
-        for mimeType in DataRequest.acceptableImageContentTypes {
+        for mimeType in ImageResponseSerializer.acceptableImageContentTypes {
             urlRequest.addValue(mimeType, forHTTPHeaderField: "Accept")
         }
 
