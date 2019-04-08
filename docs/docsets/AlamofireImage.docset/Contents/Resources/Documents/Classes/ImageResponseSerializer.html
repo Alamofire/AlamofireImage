@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ImageResponseSerializer Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/ImageResponseSerializer" class="dashAnchor"></a>
+
+    <a title="ImageResponseSerializer Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          AlamofireImage Docs
+        </a>
+         (85% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/Alamofire/AlamofireImage">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Falamofire%2Egithub%2Eio%2FAlamofireImage%2Fdocsets%2FAlamofireImage%2Exml">
+            <img class="header-icon" src="../img/dash.png"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">AlamofireImage Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      ImageResponseSerializer Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AutoPurgingImageCache.html">AutoPurgingImageCache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ImageDownloader.html">ImageDownloader</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ImageDownloader/DownloadPrioritization.html">– DownloadPrioritization</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ImageResponseSerializer.html">ImageResponseSerializer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/RequestReceipt.html">RequestReceipt</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/AFIError.html">AFIError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/DataRequest.html">DataRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/DataRequest.html">DataRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIButton.html">UIButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImageView.html">UIImageView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UIImageView/ImageTransition.html">– ImageTransition</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CompositeImageFilter.html">CompositeImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CoreImageFilter.html">CoreImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ImageCache.html">ImageCache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ImageFilter.html">ImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ImageRequestCache.html">ImageRequestCache</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Roundable.html">Roundable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Sizable.html">Sizable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFillSizeCircleFilter.html">AspectScaledToFillSizeCircleFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFillSizeFilter.html">AspectScaledToFillSizeFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFillSizeWithRoundedCornersFilter.html">AspectScaledToFillSizeWithRoundedCornersFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AspectScaledToFitSizeFilter.html">AspectScaledToFitSizeFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/BlurFilter.html">BlurFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CircleFilter.html">CircleFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DynamicCompositeImageFilter.html">DynamicCompositeImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DynamicImageFilter.html">DynamicImageFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RoundedCornersFilter.html">RoundedCornersFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ScaledToSizeCircleFilter.html">ScaledToSizeCircleFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ScaledToSizeFilter.html">ScaledToSizeFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ScaledToSizeWithRoundedCornersFilter.html">ScaledToSizeWithRoundedCornersFilter</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:14AlamofireImage16AnimationOptionsa">AnimationOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:14AlamofireImage12ControlStatea">ControlState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/Image">Image</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:14AlamofireImage0B0a">Image</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>ImageResponseSerializer</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ImageResponseSerializer</span> <span class="p">:</span> <span class="kt">ResponseSerializer</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B18ResponseSerializerC17deviceScreenScale12CoreGraphics7CGFloatVvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/deviceScreenScale" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B18ResponseSerializerC17deviceScreenScale12CoreGraphics7CGFloatVvpZ">deviceScreenScale</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">deviceScreenScale</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B18ResponseSerializerC10imageScale12CoreGraphics7CGFloatVvp"></a>
+                    <a name="//apple_ref/swift/Property/imageScale" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B18ResponseSerializerC10imageScale12CoreGraphics7CGFloatVvp">imageScale</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">imageScale</span><span class="p">:</span> <span class="kt">CGFloat</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B18ResponseSerializerC07inflatecB0Sbvp"></a>
+                    <a name="//apple_ref/swift/Property/inflateResponseImage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B18ResponseSerializerC07inflatecB0Sbvp">inflateResponseImage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">inflateResponseImage</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B18ResponseSerializerC05emptyC5CodesShySiGvp"></a>
+                    <a name="//apple_ref/swift/Property/emptyResponseCodes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B18ResponseSerializerC05emptyC5CodesShySiGvp">emptyResponseCodes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">emptyResponseCodes</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B18ResponseSerializerC19emptyRequestMethodsShy0A010HTTPMethodOGvp"></a>
+                    <a name="//apple_ref/swift/Property/emptyRequestMethods" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B18ResponseSerializerC19emptyRequestMethodsShy0A010HTTPMethodOGvp">emptyRequestMethods</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">emptyRequestMethods</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">HTTPMethod</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initialization"></a>
+                <a name="//apple_ref/swift/Section/Initialization" class="dashAnchor"></a>
+                <a href="#/Initialization">
+                  <h3 class="section-name">Initialization</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B18ResponseSerializerC10imageScale07inflatecB005emptyC5Codes0H14RequestMethodsAC12CoreGraphics7CGFloatV_SbShySiGShy0A010HTTPMethodOGtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(imageScale:inflateResponseImage:emptyResponseCodes:emptyRequestMethods:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B18ResponseSerializerC10imageScale07inflatecB005emptyC5Codes0H14RequestMethodsAC12CoreGraphics7CGFloatV_SbShySiGShy0A010HTTPMethodOGtcfc">init(imageScale:inflateResponseImage:emptyResponseCodes:emptyRequestMethods:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">imageScale</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="kt">ImageResponseSerializer</span><span class="o">.</span><span class="n"><a href="../Classes/ImageResponseSerializer.html#/s:14AlamofireImage0B18ResponseSerializerC17deviceScreenScale12CoreGraphics7CGFloatVvpZ">deviceScreenScale</a></span><span class="p">,</span>
+    <span class="nv">inflateResponseImage</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nv">emptyResponseCodes</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt">ImageResponseSerializer</span><span class="o">.</span><span class="n">defaultEmptyResponseCodes</span><span class="p">,</span>
+    <span class="nv">emptyRequestMethods</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">HTTPMethod</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt">ImageResponseSerializer</span><span class="o">.</span><span class="n">defaultEmptyRequestMethods</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Serialization"></a>
+                <a name="//apple_ref/swift/Section/Serialization" class="dashAnchor"></a>
+                <a href="#/Serialization">
+                  <h3 class="section-name">Serialization</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Alamofire30DataResponseSerializerProtocolP9serialize7request8response4data5error16SerializedObjectQz10Foundation10URLRequestVSg_So17NSHTTPURLResponseCSgAK0B0VSgs5Error_pSgtKF"></a>
+                    <a name="//apple_ref/swift/Method/serialize(request:response:data:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire30DataResponseSerializerProtocolP9serialize7request8response4data5error16SerializedObjectQz10Foundation10URLRequestVSg_So17NSHTTPURLResponseCSgAK0B0VSgs5Error_pSgtKF">serialize(request:response:data:error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">serialize</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">?,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">?,</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">?,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:14AlamofireImage0B0a">Image</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B18ResponseSerializerC09serializeB04fromSo7UIImageC10Foundation4DataV_tKF"></a>
+                    <a name="//apple_ref/swift/Method/serializeImage(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B18ResponseSerializerC09serializeB04fromSo7UIImageC10Foundation4DataV_tKF">serializeImage(from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">serializeImage</span><span class="p">(</span><span class="n">from</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:14AlamofireImage0B0a">Image</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Content%20Type%20Validation"></a>
+                <a name="//apple_ref/swift/Section/Content Type Validation" class="dashAnchor"></a>
+                <a href="#/Content%20Type%20Validation">
+                  <h3 class="section-name">Content Type Validation</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B18ResponseSerializerC013addAcceptableB12ContentTypesyyShySSGFZ"></a>
+                    <a name="//apple_ref/swift/Method/addAcceptableImageContentTypes(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B18ResponseSerializerC013addAcceptableB12ContentTypesyyShySSGFZ">addAcceptableImageContentTypes(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds the content types specified to the list of acceptable images content types for validation.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">addAcceptableImageContentTypes</span><span class="p">(</span><span class="n">_</span> <span class="nv">contentTypes</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>contentTypes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The additional content types.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AlamofireImage0B18ResponseSerializerC19validateContentType3for8responsey10Foundation10URLRequestVSg_So17NSHTTPURLResponseCSgtKF"></a>
+                    <a name="//apple_ref/swift/Method/validateContentType(for:response:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B18ResponseSerializerC19validateContentType3for8responsey10Foundation10URLRequestVSg_So17NSHTTPURLResponseCSgtKF">validateContentType(for:response:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">validateContentType</span><span class="p">(</span><span class="k">for</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">?,</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">?)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2019-04-08)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
