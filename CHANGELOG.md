@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
+#### 4.x Releases
+- `4.0.0` Betas - [4.0.0-beta.1](#400-beta1)
+
 #### 3.x Releases
 - `3.5.x` Releases - [3.5.0](#350) | [3.5.1](#351) | [3.5.2](#352)
 - `3.4.x` Releases - [3.4.0](#340) | [3.4.1](#341)
@@ -23,6 +26,16 @@ All notable changes to this project will be documented in this file.
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
+
+---
+
+## [4.0.0-beta.1](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.1)
+Released on 2019-04-09. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/30?closed=1).
+
+#### Updated
+- Project to use Swift 5 only and require Alamofire 5.0.0-beta.4+ as a dependency.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request [#348](https://github.com/Alamofire/AlamofireImage/pull/348).
 
 ---
 
@@ -55,7 +68,7 @@ Released on 2018-11-27. All issues associated with this milestone can be found u
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#338](https://github.com/Alamofire/AlamofireImage/pull/338).
 - Default Swift version to 4.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#338](https://github.com/Alamofire/AlamofireImage/pull/338).
-  
+
 --
 
 ## [3.4.1](https://github.com/Alamofire/AlamofireImage/releases/tag/3.4.1)
@@ -243,7 +256,7 @@ Released on 2016-09-11. All issues associated with this milestone can be found u
   the Xcode 8 beta releases.
   - Updated by [Kevin Harwood](https://github.com/kcharwood),
     [Mathias Nagler](https://github.com/mathiasnagler),
-    [Jon Shier](https://github.com/jshier) and 
+    [Jon Shier](https://github.com/jshier) and
     [Christian Noon](https://github.com/cnoon).
 - Deployment targets to iOS 9.0, macOS 10.11, tvOS 9.0 and watchOS 2.0.
   - Updated by [Christian Noon](https://github.com/cnoon).
@@ -395,7 +408,7 @@ Released on 2016-02-07. All issues associated with this milestone can be found u
   [#78](https://github.com/Alamofire/AlamofireImage/pull/78).
 - All blur filter tests across all devices and OS's.
   - Fixed by [Christian Noon](https://github.com/cnoon).
-- Issue where image response serializer was not thread-safe by switching over to 
+- Issue where image response serializer was not thread-safe by switching over to
   thread-safe UIImage initializer.
   - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
   [#75](https://github.com/Alamofire/AlamofireImage/pull/75).
@@ -586,14 +599,14 @@ Released on 2015-09-27. All issues associated with this milestone can be found u
 - All source logic to use the Alamofire 3.0 APIs.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - All tests to compile and run against the Alamofire 3.0 APIs.
-  - Updated by [Christian Noon](https://github.com/cnoon).  
+  - Updated by [Christian Noon](https://github.com/cnoon).
 - All the sample code examples in the README to use all the new APIs.
-  - Updated by [Christian Noon](https://github.com/cnoon).    
+  - Updated by [Christian Noon](https://github.com/cnoon).
 
 ---
 
 ## [1.1.2](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.2)
-Released on 2015-09-26. All issues associated with this milestone can be found using this 
+Released on 2015-09-26. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.1.2).
 
 #### Added
@@ -615,7 +628,7 @@ Released on 2015-09-26. All issues associated with this milestone can be found u
   [#20](https://github.com/Alamofire/AlamofireImage/pull/20).
 
 ## [1.1.1](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.1)
-Released on 2015-09-22. All issues associated with this milestone can be found using this 
+Released on 2015-09-22. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.1.1).
 
 #### Added
@@ -636,7 +649,7 @@ in the `UIImageView` extension.
   [#17](https://github.com/Alamofire/AlamofireImage/pull/17).
 
 ## [1.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.0)
-Released on 2015-09-19. All issues associated with this milestone can be found using this 
+Released on 2015-09-19. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.1.0).
 
 #### Added
@@ -668,7 +681,7 @@ the image transition occurs.
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 ## [1.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/1.0.0)
-Released on 2015-09-09. All issues associated with this milestone can be found using this 
+Released on 2015-09-09. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.0.0).
 
 #### Updated
