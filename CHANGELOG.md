@@ -30,7 +30,7 @@ All notable changes to this project will be documented in this file.
 ---
 
 ## [4.0.0-beta.1](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.1)
-Released on 2019-04-09. All issues associated with this milestone can be found using this
+Released on 2019-04-10. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/30?closed=1).
 
 #### Updated
