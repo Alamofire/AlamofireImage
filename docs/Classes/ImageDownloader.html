@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           AlamofireImage Docs
         </a>
-         (89% documented)
+         (85% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -69,6 +69,9 @@
                 <a class="nav-group-task-link" href="../Classes/ImageDownloader/DownloadPrioritization.html">– DownloadPrioritization</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ImageResponseSerializer.html">ImageResponseSerializer</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RequestReceipt.html">RequestReceipt</a>
               </li>
             </ul>
@@ -84,6 +87,9 @@
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/DataRequest.html">DataRequest</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/DataRequest.html">DataRequest</a>
               </li>
@@ -172,13 +178,7 @@
             <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Typealiases.html#/AnimationOptions">AnimationOptions</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:14AlamofireImage16AnimationOptionsa">AnimationOptions</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Typealiases.html#/ControlState">ControlState</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:14AlamofireImage12ControlStatea">ControlState</a>
@@ -386,9 +386,9 @@ handlers for a single request.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC23imageResponseSerializer0A004DataeF0VySo7UIImageCGvp"></a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC23imageResponseSerializerAA0beF0Cvp"></a>
                     <a name="//apple_ref/swift/Property/imageResponseSerializer" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC23imageResponseSerializer0A004DataeF0VySo7UIImageCGvp">imageResponseSerializer</a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC23imageResponseSerializerAA0beF0Cvp">imageResponseSerializer</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -403,7 +403,7 @@ handlers for a single request.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">imageResponseSerializer</span><span class="p">:</span> <span class="kt">DataResponseSerializer</span><span class="o">&lt;</span><span class="kt"><a href="../Typealiases.html#/s:14AlamofireImage0B0a">Image</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">imageResponseSerializer</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageResponseSerializer.html">ImageResponseSerializer</a></span></code></pre>
 
                         </div>
                       </div>
@@ -413,9 +413,9 @@ handlers for a single request.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC14sessionManager0A007SessionE0Cvp"></a>
-                    <a name="//apple_ref/swift/Property/sessionManager" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC14sessionManager0A007SessionE0Cvp">sessionManager</a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC7session0A07SessionCvp"></a>
+                    <a name="//apple_ref/swift/Property/session" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC7session0A07SessionCvp">session</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -423,14 +423,14 @@ handlers for a single request.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The underlying Alamofire <code>Manager</code> instance used to handle all download requests.</p>
+                        <p>The underlying Alamofire <code>Session</code> instance used to handle all download requests.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">sessionManager</span><span class="p">:</span> <span class="kt">SessionManager</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">Session</span></code></pre>
 
                         </div>
                       </div>
@@ -632,9 +632,9 @@ download count and image cache.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AlamofireImage0B10DownloaderC14sessionManager22downloadPrioritization22maximumActiveDownloads10imageCacheAC0A007SessionE0C_AC08DownloadG0OSiAA0b7RequestL0_pSgtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(sessionManager:downloadPrioritization:maximumActiveDownloads:imageCache:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC14sessionManager22downloadPrioritization22maximumActiveDownloads10imageCacheAC0A007SessionE0C_AC08DownloadG0OSiAA0b7RequestL0_pSgtcfc">init(sessionManager:downloadPrioritization:maximumActiveDownloads:imageCache:)</a>
+                    <a name="/s:14AlamofireImage0B10DownloaderC7session22downloadPrioritization22maximumActiveDownloads10imageCacheAC0A07SessionC_AC08DownloadF0OSiAA0b7RequestK0_pSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(session:downloadPrioritization:maximumActiveDownloads:imageCache:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AlamofireImage0B10DownloaderC7session22downloadPrioritization22maximumActiveDownloads10imageCacheAC0A07SessionC_AC08DownloadF0OSiAA0b7RequestK0_pSgtcfc">init(session:downloadPrioritization:maximumActiveDownloads:imageCache:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -651,7 +651,7 @@ active download count and image cache.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
-    <span class="nv">sessionManager</span><span class="p">:</span> <span class="kt">SessionManager</span><span class="p">,</span>
+    <span class="nv">session</span><span class="p">:</span> <span class="kt">Session</span><span class="p">,</span>
     <span class="nv">downloadPrioritization</span><span class="p">:</span> <span class="kt"><a href="../Classes/ImageDownloader/DownloadPrioritization.html">DownloadPrioritization</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">fifo</span><span class="p">,</span>
     <span class="nv">maximumActiveDownloads</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
     <span class="nv">imageCache</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ImageRequestCache.html">ImageRequestCache</a></span><span class="p">?</span> <span class="o">=</span> <span class="kt"><a href="../Classes/AutoPurgingImageCache.html">AutoPurgingImageCache</a></span><span class="p">())</span></code></pre>
@@ -665,12 +665,12 @@ active download count and image cache.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>sessionManager</em>
+                                <em>session</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The Alamofire <code>SessionManager</code> instance to handle all download requests.</p>
+                                  <p>The Alamofire <code>Session</code> instance to handle all download requests.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1159,7 +1159,7 @@ will not be called.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2019-03-28)</p>
+      <p>&copy; 2019 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2019-04-08)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

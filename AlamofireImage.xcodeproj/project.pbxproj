@@ -601,7 +601,6 @@
 		4C1E864F1F5FC16A004FF7F8 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		4C1E86501F5FC16A004FF7F8 /* AlamofireImage.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = AlamofireImage.podspec; sourceTree = "<group>"; };
 		4C1E86511F5FC16A004FF7F8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		4C201ECD224C59D4005A990B /* Package@swift-4.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Package@swift-4.2.swift"; sourceTree = "<group>"; };
 		4C4D4EC11B92976900C96855 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4C54EE8F1AABC04900CD894C /* AlamofireImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlamofireImage.h; sourceTree = "<group>"; };
@@ -936,7 +935,6 @@
 				4C1E86501F5FC16A004FF7F8 /* AlamofireImage.podspec */,
 				4C1E86511F5FC16A004FF7F8 /* LICENSE */,
 				4C1E864F1F5FC16A004FF7F8 /* Package.swift */,
-				4C201ECD224C59D4005A990B /* Package@swift-4.2.swift */,
 			);
 			name = Deployment;
 			sourceTree = "<group>";
