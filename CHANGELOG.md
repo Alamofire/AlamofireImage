@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 4.x Releases
-- `4.0.0` Betas - [4.0.0-beta.1](#400-beta1)
+- `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2)
 
 #### 3.x Releases
 - `3.5.x` Releases - [3.5.0](#350) | [3.5.1](#351) | [3.5.2](#352)
@@ -28,6 +28,14 @@ All notable changes to this project will be documented in this file.
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+
+## [4.0.0-beta.2](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.2)
+Released on 2019-04-13. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/31?closed=1).
+
+#### Updated
+- Project to require Alamofire 5.0.0-beta.5+ as a dependency.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request [#357](https://github.com/Alamofire/AlamofireImage/pull/357).
 
 ## [4.0.0-beta.1](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.1)
 Released on 2019-04-10. All issues associated with this milestone can be found using this

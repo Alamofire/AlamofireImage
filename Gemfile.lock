@@ -74,7 +74,7 @@ GEM
     redcarpet (3.4.0)
     rouge (3.3.0)
     ruby-macho (1.4.0)
-    sass (3.7.3)
+    sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -100,4 +100,4 @@ DEPENDENCIES
   jazzy
 
 BUNDLED WITH
-   1.17.1
+   1.17.3
