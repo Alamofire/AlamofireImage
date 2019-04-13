@@ -135,7 +135,7 @@ open class ImageDownloader {
     open class func defaultURLSessionConfiguration() -> URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
 
-        configuration.httpHeaders = .default
+        configuration.headers = .default
         configuration.httpShouldSetCookies = true
         configuration.httpShouldUsePipelining = false
 
