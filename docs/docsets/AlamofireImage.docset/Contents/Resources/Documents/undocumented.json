@@ -1,131 +1,194 @@
 {
   "warnings": [
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/AFIError.swift",
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/AFIError.swift",
       "line": 32,
       "symbol": "AFIError.requestCancelled",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/AFIError.swift",
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/AFIError.swift",
       "line": 33,
       "symbol": "AFIError.imageSerializationFailed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Image.swift",
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Image.swift",
       "line": 29,
       "symbol": "Image",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/ImageCache.swift",
-      "line": 168,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/ImageCache.swift",
+      "line": 165,
       "symbol": "AutoPurgingImageCache.deinit",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/ImageDownloader.swift",
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/ImageDownloader.swift",
       "line": 73,
       "symbol": "ImageDownloader.DownloadPrioritization.fifo",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/ImageDownloader.swift",
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/ImageDownloader.swift",
       "line": 73,
       "symbol": "ImageDownloader.DownloadPrioritization.lifo",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 211,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 37,
+      "symbol": "ImageResponseSerializer",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 41,
+      "symbol": "ImageResponseSerializer.deviceScreenScale",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 43,
+      "symbol": "ImageResponseSerializer.imageScale",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 44,
+      "symbol": "ImageResponseSerializer.inflateResponseImage",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 45,
+      "symbol": "ImageResponseSerializer.emptyResponseCodes",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 46,
+      "symbol": "ImageResponseSerializer.emptyRequestMethods",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 66,
+      "symbol": "ImageResponseSerializer.init(imageScale:inflateResponseImage:emptyResponseCodes:emptyRequestMethods:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 98,
+      "symbol": "ImageResponseSerializer.serializeImage(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 130,
+      "symbol": "ImageResponseSerializer.validateContentType(for:response:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 151,
       "symbol": "DataRequest.imageScale",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
-      "line": 35,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIButton+AlamofireImage.swift",
+      "line": 32,
       "symbol": "ControlState",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 35,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 32,
       "symbol": "AnimationOptions",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 44,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 40,
       "symbol": "UIImageView.ImageTransition.noTransition",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 45,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 41,
       "symbol": "UIImageView.ImageTransition.crossDissolve(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 46,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 42,
       "symbol": "UIImageView.ImageTransition.curlDown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 47,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 43,
       "symbol": "UIImageView.ImageTransition.curlUp(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 48,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 44,
       "symbol": "UIImageView.ImageTransition.flipFromBottom(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 49,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 45,
       "symbol": "UIImageView.ImageTransition.flipFromLeft(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 50,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 46,
       "symbol": "UIImageView.ImageTransition.flipFromRight(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 51,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 47,
       "symbol": "UIImageView.ImageTransition.flipFromTop(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 52,
+      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "line": 48,
       "symbol": "UIImageView.ImageTransition.custom(duration:animationOptions:animations:completion:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/jshier/Desktop/Code/AlamofireImage"
+  "source_directory": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage"
 }
