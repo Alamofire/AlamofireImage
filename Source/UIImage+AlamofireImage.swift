@@ -130,11 +130,14 @@ extension UIImage {
     ///
     /// - parameter size: The size to use when scaling the new image.
     ///
+    /// - parameter scale: The scale factor for the new image. If omitted or set to zero will use the default main screen
+    ///   scale (UIScreen.main.scale)
+    ///
     /// - returns: A new image object.
-    public func af_imageScaled(to size: CGSize) -> UIImage {
+    public func af_imageScaled(to size: CGSize, scale: CGFloat = 0.0) -> UIImage {
         assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
 
-        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, scale)
         draw(in: CGRect(origin: .zero, size: size))
 
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
@@ -153,8 +156,11 @@ extension UIImage {
     ///
     /// - parameter size: The size to use when scaling the new image.
     ///
+    /// - parameter scale: The scale factor for the new image. If omitted or set to zero will use the default main screen
+    ///   scale (UIScreen.main.scale)
+    ///
     /// - returns: A new image object.
-    public func af_imageAspectScaled(toFit size: CGSize) -> UIImage {
+    public func af_imageAspectScaled(toFit size: CGSize, scale: CGFloat = 0.0) -> UIImage {
         assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
 
         let imageAspectRatio = self.size.width / self.size.height
@@ -171,7 +177,7 @@ extension UIImage {
         let scaledSize = CGSize(width: self.size.width * resizeFactor, height: self.size.height * resizeFactor)
         let origin = CGPoint(x: (size.width - scaledSize.width) / 2.0, y: (size.height - scaledSize.height) / 2.0)
 
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
         draw(in: CGRect(origin: origin, size: scaledSize))
 
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
@@ -185,8 +191,11 @@ extension UIImage {
     ///
     /// - parameter size: The size to use when scaling the new image.
     ///
+    /// - parameter scale: The scale factor for the new image. If omitted or set to zero will use the default main screen
+    ///   scale (UIScreen.main.scale)
+    ///
     /// - returns: A new image object.
-    public func af_imageAspectScaled(toFill size: CGSize) -> UIImage {
+    public func af_imageAspectScaled(toFill size: CGSize, scale: CGFloat = 0.0) -> UIImage {
         assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
 
         let imageAspectRatio = self.size.width / self.size.height
@@ -203,7 +212,7 @@ extension UIImage {
         let scaledSize = CGSize(width: self.size.width * resizeFactor, height: self.size.height * resizeFactor)
         let origin = CGPoint(x: (size.width - scaledSize.width) / 2.0, y: (size.height - scaledSize.height) / 2.0)
 
-        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, scale)
         draw(in: CGRect(origin: origin, size: scaledSize))
 
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self

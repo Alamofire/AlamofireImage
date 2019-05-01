@@ -268,6 +268,46 @@ class UIImageTestCase: BaseTestCase {
         XCTAssertEqual(scaledRainbowImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
         XCTAssertEqual(scaledUnicornImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
     }
+    
+    func testThatImageIsScaledWithProperScale() {
+        // Given
+        let size = squareSize
+        let scale = UIScreen.main.scale
+        
+        // When
+        let scaledToSizeAppleImageScaleDefault = appleImage.af_imageScaled(to: size)
+        let scaledToFitAppleImageScaleDefault = appleImage.af_imageAspectScaled(toFit: size)
+        let scaledToFillAppleImageScaleDefault = appleImage.af_imageAspectScaled(toFill: size)
+        let scaledToSizeAppleImageScale0 = appleImage.af_imageScaled(to: size, scale: 0.0)
+        let scaledToFitAppleImageScale0 = appleImage.af_imageAspectScaled(toFit: size, scale: 0.0)
+        let scaledToFillAppleImageScale0 = appleImage.af_imageAspectScaled(toFill: size, scale: 0.0)
+        let scaledToSizeAppleImageScale1 = appleImage.af_imageScaled(to: size, scale: 1.0)
+        let scaledToFitAppleImageScale1 = appleImage.af_imageAspectScaled(toFit: size, scale: 1.0)
+        let scaledToFillAppleImageScale1 = appleImage.af_imageAspectScaled(toFill: size, scale: 1.0)
+        let scaledToSizeAppleImageScale2 = appleImage.af_imageScaled(to: size, scale: 2.0)
+        let scaledToFitAppleImageScale2 = appleImage.af_imageAspectScaled(toFit: size, scale: 2.0)
+        let scaledToFillAppleImageScale2 = appleImage.af_imageAspectScaled(toFill: size, scale: 2.0)
+        let scaledToSizeAppleImageScale3 = appleImage.af_imageScaled(to: size, scale: 3.0)
+        let scaledToFitAppleImageScale3 = appleImage.af_imageAspectScaled(toFit: size, scale: 3.0)
+        let scaledToFillAppleImageScale3 = appleImage.af_imageAspectScaled(toFill: size, scale: 3.0)
+        
+        // Then
+        XCTAssertEqual(scaledToSizeAppleImageScaleDefault.scale, scale, "image scale should be equal to \(scale)")
+        XCTAssertEqual(scaledToFitAppleImageScaleDefault.scale, scale, "image scale should be equal to \(scale)")
+        XCTAssertEqual(scaledToFillAppleImageScaleDefault.scale, scale, "image scale should be equal to \(scale)")
+        XCTAssertEqual(scaledToSizeAppleImageScale0.scale, scale, "image scale should be equal to \(scale)")
+        XCTAssertEqual(scaledToFitAppleImageScale0.scale, scale, "image scale should be equal to \(scale)")
+        XCTAssertEqual(scaledToFillAppleImageScale0.scale, scale, "image scale should be equal to \(scale)")
+        XCTAssertEqual(scaledToSizeAppleImageScale1.scale, 1.0, "image scale should be equal to \(scale)")
+        XCTAssertEqual(scaledToFitAppleImageScale1.scale, 1.0, "image scale should be equal to 1.0")
+        XCTAssertEqual(scaledToFillAppleImageScale1.scale, 1.0, "image scale should be equal to 1.0")
+        XCTAssertEqual(scaledToSizeAppleImageScale2.scale, 2.0, "image scale should be equal to \(scale)")
+        XCTAssertEqual(scaledToFitAppleImageScale2.scale, 2.0, "image scale should be equal to 2.0")
+        XCTAssertEqual(scaledToFillAppleImageScale2.scale, 2.0, "image scale should be equal to 2.0")
+        XCTAssertEqual(scaledToSizeAppleImageScale3.scale, 3.0, "image scale should be equal to \(scale)")
+        XCTAssertEqual(scaledToFitAppleImageScale3.scale, 3.0, "image scale should be equal to 3.0")
+        XCTAssertEqual(scaledToFillAppleImageScale3.scale, 3.0, "image scale should be equal to 3.0")
+    }
 
     // MARK: - Rounded Corners
 
