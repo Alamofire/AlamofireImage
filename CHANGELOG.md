@@ -29,6 +29,14 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.0.0-beta.3](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.3)
+Released on 2019-05-04. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/32?closed=1).
+
+#### Fixed
+- Issue with AppStore submissions where the pre-release version in the bundle short versions string was being rejected when built with Carthage or as a submodule.
+  - Fixed by [xGoPox](https://github.com/xGoPox) in Pull Request [#359](https://github.com/Alamofire/Alamofire/pull/359).
+
 ## [4.0.0-beta.2](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.2)
 Released on 2019-04-13. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/31?closed=1).
