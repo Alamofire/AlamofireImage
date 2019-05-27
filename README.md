@@ -587,4 +587,4 @@ Any amount you can donate today to help us reach our goal would be greatly appre
 
 ## License
 
-AlamofireImage is released under the MIT license. See LICENSE for details.
+AlamofireImage is released under the MIT license. [See LICENSE](https://github.com/Alamofire/AlamofireImage/blob/master/LICENSE) for details.
