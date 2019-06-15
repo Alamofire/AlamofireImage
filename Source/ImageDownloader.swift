@@ -159,7 +159,10 @@ open class ImageDownloader {
             diskPath: "org.alamofire.imagedownloader"
         )
         #else
-        return URLCache()
+        let urlCache = URLCache()
+        urlCache.memoryCapacity = 20 * 1024 * 1024 // 20 MB
+        urlCache.diskCapacity = 150 * 1024 * 1024  // 150 MB
+        return urlCache
         #endif
     }
 
