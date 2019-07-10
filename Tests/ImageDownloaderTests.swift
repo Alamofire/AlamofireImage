@@ -488,7 +488,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let downloader = ImageDownloader()
         let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
 
-        let expectation = self.expectation(description: "download request should succeed")
+        let expectation = self.expectation(description: "download request should cancel")
 
         var response: DataResponse<Image>?
 
