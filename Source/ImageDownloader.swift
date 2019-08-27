@@ -509,8 +509,10 @@ open class ImageDownloader {
         synchronizationQueue.sync {
             guard self.isActiveRequestCountBelowMaximumLimit() else { return }
 
+            let states: Set<Request.State> = [.initialized, .suspended]
+
             while !self.queuedRequests.isEmpty {
-                if let request = self.dequeue(), request.task?.state == .suspended {
+                if let request = self.dequeue(), states.contains(request.state) {
                     self.start(request)
                     break
                 }
