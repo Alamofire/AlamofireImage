@@ -496,6 +496,9 @@
 		4C86C1121DA0B3400032ECC3 /* UIImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D30F1B96C1500011B036 /* UIImageViewTests.swift */; };
 		4C86C1131DA0B3440032ECC3 /* UIImage+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */; };
 		4C96A4781AAE9488008AE0B6 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
+		4CBE8FB72316008300782A2E /* ImageDownloaderStressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE8FB62316008300782A2E /* ImageDownloaderStressTests.swift */; };
+		4CBE8FB82316008300782A2E /* ImageDownloaderStressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE8FB62316008300782A2E /* ImageDownloaderStressTests.swift */; };
+		4CBE8FB92316008300782A2E /* ImageDownloaderStressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE8FB62316008300782A2E /* ImageDownloaderStressTests.swift */; };
 		4CD5BCEA1D7F9D1E0055E232 /* AFIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5BCE91D7F9D1E0055E232 /* AFIError.swift */; };
 		4CD5BCEB1D7F9D1E0055E232 /* AFIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5BCE91D7F9D1E0055E232 /* AFIError.swift */; };
 		4CD5BCEC1D7F9D1E0055E232 /* AFIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5BCE91D7F9D1E0055E232 /* AFIError.swift */; };
@@ -745,6 +748,7 @@
 		4C9043821AABBFC5001B4E60 /* AlamofireImage iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		4CB2B2F31C0270C500B442EA /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
+		4CBE8FB62316008300782A2E /* ImageDownloaderStressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderStressTests.swift; sourceTree = "<group>"; };
 		4CD5BCE91D7F9D1E0055E232 /* AFIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFIError.swift; sourceTree = "<group>"; };
 		4CD5BCF41D7FBE380055E232 /* AFError+AlamofireImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AFError+AlamofireImageTests.swift"; sourceTree = "<group>"; };
 		4CE611321AABC24E00D35044 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1236,6 +1240,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4CBE8FB52316006100782A2E /* Stress Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4CBE8FB62316008300782A2E /* ImageDownloaderStressTests.swift */,
+			);
+			name = "Stress Tests";
+			sourceTree = "<group>";
+		};
 		4CD5BCF21D7FBE110055E232 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1248,6 +1260,7 @@
 				4C0893F41B937404005125D9 /* UIImageTests.swift */,
 				4C62D30F1B96C1500011B036 /* UIImageViewTests.swift */,
 				4C0893EA1B936A4D005125D9 /* Extensions */,
+				4CBE8FB52316006100782A2E /* Stress Tests */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -2064,6 +2077,7 @@
 				4C16B3AE1BA93ADB00A66EF0 /* UIImage+AlamofireImageTests.swift in Sources */,
 				4C16B3AA1BA93ADB00A66EF0 /* ImageFilterTests.swift in Sources */,
 				4C16B3A71BA93ADB00A66EF0 /* BaseTestCase.swift in Sources */,
+				4CBE8FB92316008300782A2E /* ImageDownloaderStressTests.swift in Sources */,
 				4C16B3AD1BA93ADB00A66EF0 /* UIImageViewTests.swift in Sources */,
 				4C16B3A91BA93ADB00A66EF0 /* ImageDownloaderTests.swift in Sources */,
 				4C16B3AC1BA93ADB00A66EF0 /* UIImageTests.swift in Sources */,
@@ -2114,6 +2128,7 @@
 				4C5872CA1B93DEAC00407E58 /* ImageFilterTests.swift in Sources */,
 				4CEBB5401B93C622001391DE /* ImageCacheTests.swift in Sources */,
 				4C0893EC1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift in Sources */,
+				4CBE8FB72316008300782A2E /* ImageDownloaderStressTests.swift in Sources */,
 				4C1624851AABE8E600A0385D /* BaseTestCase.swift in Sources */,
 				4C0893F51B937404005125D9 /* UIImageTests.swift in Sources */,
 				4C5874861B93F81800407E58 /* ImageDownloaderTests.swift in Sources */,
@@ -2148,6 +2163,7 @@
 				4C1624861AABE8E600A0385D /* BaseTestCase.swift in Sources */,
 				4CEBB5411B93C622001391DE /* ImageCacheTests.swift in Sources */,
 				4C86C1121DA0B3400032ECC3 /* UIImageViewTests.swift in Sources */,
+				4CBE8FB82316008300782A2E /* ImageDownloaderStressTests.swift in Sources */,
 				4C5874871B93F81800407E58 /* ImageDownloaderTests.swift in Sources */,
 				4C86C1131DA0B3440032ECC3 /* UIImage+AlamofireImageTests.swift in Sources */,
 				4C0897EC1B93BC0D005125D9 /* RequestTests.swift in Sources */,

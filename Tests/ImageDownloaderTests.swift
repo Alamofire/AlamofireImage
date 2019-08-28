@@ -187,16 +187,16 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest2 = try! URLRequest(url: "https://httpbin.org/image/png", method: .get)
 
         let expectation = self.expectation(description: "both downloads should succeed")
-        var completedDownloads = 0
+        expectation.expectedFulfillmentCount = 2
 
+        var completedDownloads = 0
         var results: [AFResult<Image>] = []
 
         // When
         downloader.download([urlRequest1, urlRequest2], filter: nil) { closureResponse in
             results.append(closureResponse.result)
-
             completedDownloads += 1
-            if completedDownloads == 2 { expectation.fulfill() }
+            expectation.fulfill()
         }
 
         let activeRequestCount = downloader.activeRequestCount
@@ -488,7 +488,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let downloader = ImageDownloader()
         let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
 
-        let expectation = self.expectation(description: "download request should succeed")
+        let expectation = self.expectation(description: "download request should cancel")
 
         var response: DataResponse<Image>?
 
