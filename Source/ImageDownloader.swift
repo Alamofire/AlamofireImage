@@ -322,19 +322,18 @@ open class ImageDownloader {
             request.response(
                 queue: self.responseQueue,
                 responseSerializer: imageResponseSerializer,
-                completionHandler: { [weak self] response in
-                    guard let strongSelf = self, let request = response.request else { return }
-
+                completionHandler: { response in
                     defer {
-                        strongSelf.safelyDecrementActiveRequestCount()
-                        strongSelf.safelyStartNextRequestIfNecessary()
+                        self.safelyDecrementActiveRequestCount()
+                        self.safelyStartNextRequestIfNecessary()
                     }
 
                     // Early out if the request has changed out from under us
-                    let handler = strongSelf.safelyFetchResponseHandler(withURLIdentifier: urlID)
-                    guard handler?.handlerID == handlerID else { return }
-
-                    guard let responseHandler = strongSelf.safelyRemoveResponseHandler(withURLIdentifier: urlID) else {
+                    guard
+                        let handler = self.safelyFetchResponseHandler(withURLIdentifier: urlID),
+                        handler.handlerID == handlerID,
+                        let responseHandler = self.safelyRemoveResponseHandler(withURLIdentifier: urlID)
+                    else {
                         return
                     }
 
@@ -356,7 +355,9 @@ open class ImageDownloader {
                                 filteredImage = image
                             }
 
-                            strongSelf.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
+                            if let request = response.request {
+                                self.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
+                            }
 
                             DispatchQueue.main.async {
                                 let response = DataResponse<Image>(
@@ -476,7 +477,7 @@ open class ImageDownloader {
                 DispatchQueue.main.async { operation.completion?(response) }
             }
 
-            if responseHandler.operations.isEmpty && requestReceipt.request.task?.state == .suspended {
+            if responseHandler.operations.isEmpty {
                 requestReceipt.request.cancel()
                 self.responseHandlers.removeValue(forKey: urlID)
             }
@@ -509,22 +510,15 @@ open class ImageDownloader {
         synchronizationQueue.sync {
             guard self.isActiveRequestCountBelowMaximumLimit() else { return }
 
-            let states: Set<Request.State> = [.initialized, .suspended]
+            guard let request = self.dequeue() else { return }
 
-            while !self.queuedRequests.isEmpty {
-                if let request = self.dequeue(), states.contains(request.state) {
-                    self.start(request)
-                    break
-                }
-            }
+            self.start(request)
         }
     }
 
     func safelyDecrementActiveRequestCount() {
-        self.synchronizationQueue.sync {
-            if self.activeRequestCount > 0 {
-                self.activeRequestCount -= 1
-            }
+        synchronizationQueue.sync {
+            self.activeRequestCount -= 1
         }
     }
 
