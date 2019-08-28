@@ -18,5 +18,5 @@ Pod::Spec.new do |s|
 
   s.swift_version = '5.0'
 
-  s.dependency 'Alamofire', '~> 5.0.0-beta.6'
+  s.dependency 'Alamofire', '~> 5.0.0-beta.7'
 end
