@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 4.x Releases
-- `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2) | [4.0.0-beta.3](#400-beta3)
+- `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2) | [4.0.0-beta.3](#400-beta3) | [4.0.0-beta.4](#400-beta4)
 
 #### 3.x Releases
 - `3.5.x` Releases - [3.5.0](#350) | [3.5.1](#351) | [3.5.2](#352)
@@ -28,6 +28,14 @@ All notable changes to this project will be documented in this file.
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+
+## [4.0.0-beta.4](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.4)
+Released on 2019-08-27. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/33?closed=1).
+
+#### Fixed
+- Issue where `ImageDownloader` was not dequeuing and cancelling requests correctly in certain race conditions due to Alamofire switching to async request creation.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in Pull Requests [#371](https://github.com/Alamofire/AlamofireImage/pull/371) and [#372](https://github.com/Alamofire/AlamofireImage/pull/372).
 
 ## [4.0.0-beta.3](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.3)
 Released on 2019-05-04. All issues associated with this milestone can be found using this
