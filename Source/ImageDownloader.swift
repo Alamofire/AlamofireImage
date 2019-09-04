@@ -152,18 +152,19 @@ open class ImageDownloader {
     ///
     /// - returns: The default `URLCache` instance.
     open class func defaultURLCache() -> URLCache {
-        #if !targetEnvironment(UIKitForMac)
-        return URLCache(
-            memoryCapacity: 20 * 1024 * 1024, // 20 MB
-            diskCapacity: 150 * 1024 * 1024,  // 150 MB
-            diskPath: "org.alamofire.imagedownloader"
-        )
-        #else
-        let urlCache = URLCache()
-        urlCache.memoryCapacity = 20 * 1024 * 1024 // 20 MB
-        urlCache.diskCapacity = 150 * 1024 * 1024  // 150 MB
-        return urlCache
-        #endif
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
+            return URLCache(
+                memoryCapacity: 20 * 1024 * 1024, // 20 MB
+                diskCapacity: 150 * 1024 * 1024,  // 150 MB
+                directory: URL(string: "org.alamofire.imagedownloader")
+            )
+        } else {
+            return URLCache(
+                memoryCapacity: 20 * 1024 * 1024, // 20 MB,
+                diskCapacity: 150 * 1024 * 1024,  // 150 MB,
+                diskPath: "org.alamofire.imagedownloader"
+            )
+        }
     }
 
     /// Initializes the `ImageDownloader` instance with the given configuration, download prioritization, maximum active
