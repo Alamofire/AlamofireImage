@@ -124,7 +124,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        var response: DataResponse<Image>?
+        var response: AFIDataResponse<Image>?
 
         // When
         downloader.download(urlRequest) { closureResponse in
@@ -151,8 +151,8 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectation(description: "download 1 should succeed")
         let expectation2 = expectation(description: "download 2 should succeed")
 
-        var result1: AFResult<Image>?
-        var result2: AFResult<Image>?
+        var result1: Result<Image, AFIError>?
+        var result2: Result<Image, AFIError>?
 
         // When
         downloader.download(urlRequest1) { closureResponse in
