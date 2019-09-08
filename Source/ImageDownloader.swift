@@ -34,6 +34,9 @@ import Cocoa
 /// Alias for `DataResponse<T, AFIError>`.
 public typealias AFIDataResponse<T> = DataResponse<T, AFIError>
 
+/// Alias for `Result<T, AFIError>`.
+public typealias AFIResult<T> = Result<T, AFIError>
+
 /// The `RequestReceipt` is an object vended by the `ImageDownloader` when starting a download request. It can be used
 /// to cancel active requests running on the `ImageDownloader` session. As a general rule, image download requests
 /// should be cancelled using the `RequestReceipt` instead of calling `cancel` directly on the `request` itself. The

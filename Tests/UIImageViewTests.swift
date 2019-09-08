@@ -412,7 +412,7 @@ class UIImageViewTestCase: BaseTestCase {
         let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
-        var result: AFResult<UIImage>?
+        var result: AFIResult<UIImage>?
 
         // When
         imageView.af_setImage(
@@ -443,7 +443,7 @@ class UIImageViewTestCase: BaseTestCase {
         let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
-        var result: AFResult<UIImage>?
+        var result: AFIResult<UIImage>?
 
         // When
         imageView.af_setImage(
@@ -476,7 +476,7 @@ class UIImageViewTestCase: BaseTestCase {
         var completionHandlerCalled = false
         var transitionCompletionHandlerCalled = false
 
-        var result: AFResult<UIImage>?
+        var result: AFIResult<UIImage>?
 
         // When
         imageView.af_setImage(
@@ -528,7 +528,7 @@ class UIImageViewTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
 
         let cachedExpectation = expectation(description: "image should be cached")
-        var result: AFResult<UIImage>?
+        var result: AFIResult<UIImage>?
 
         imageView.af_setImage(
             withURLRequest: urlRequest,
@@ -558,7 +558,7 @@ class UIImageViewTestCase: BaseTestCase {
         let expectation = self.expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
-        var result: AFResult<UIImage>?
+        var result: AFIResult<UIImage>?
 
         // When
         imageView.af_setImage(
@@ -589,7 +589,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         var completion1Called = false
         var completion2Called = false
-        var result: AFResult<UIImage>?
+        var result: AFIResult<UIImage>?
 
         // When
         imageView.af_setImage(
@@ -630,7 +630,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         var completion1Called = false
         var completion2Called = false
-        var result: AFResult<UIImage>?
+        var result: AFIResult<UIImage>?
 
         // When
         imageView.af_setImage(
@@ -698,7 +698,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         // When
         imageView.af_setImage(withURL: url)
-        let acceptField = imageView.af_activeRequestReceipt?.request.request?.allHTTPHeaderFields?["Accept"]
+        let acceptField = imageView.af_activeRequestReceipt?.request.request?.headers["Accept"]
         imageView.af_cancelImageRequest()
 
         // Then
