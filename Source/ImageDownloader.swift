@@ -31,6 +31,12 @@ import UIKit
 import Cocoa
 #endif
 
+/// Alias for `DataResponse<T, AFIError>`.
+public typealias AFIDataResponse<T> = DataResponse<T, AFIError>
+
+/// Alias for `Result<T, AFIError>`.
+public typealias AFIResult<T> = Result<T, AFIError>
+
 /// The `RequestReceipt` is an object vended by the `ImageDownloader` when starting a download request. It can be used
 /// to cancel active requests running on the `ImageDownloader` session. As a general rule, image download requests
 /// should be cancelled using the `RequestReceipt` instead of calling `cancel` directly on the `request` itself. The
@@ -58,7 +64,7 @@ open class RequestReceipt {
 /// handlers for a single request.
 open class ImageDownloader {
     /// The completion handler closure used when an image download completes.
-    public typealias CompletionHandler = (DataResponse<Image>) -> Void
+    public typealias CompletionHandler = (AFIDataResponse<Image>) -> Void
 
     /// The progress handler closure called periodically during an image download.
     public typealias ProgressHandler = DataRequest.ProgressHandler
@@ -284,7 +290,7 @@ open class ImageDownloader {
                 case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
                     if let image = self.imageCache?.image(for: request, withIdentifier: filter?.identifier) {
                         DispatchQueue.main.async {
-                            let response = DataResponse<Image>(
+                            let response = AFIDataResponse<Image>(
                                 request: urlRequest.urlRequest,
                                 response: nil,
                                 data: nil,
@@ -360,7 +366,7 @@ open class ImageDownloader {
                             }
 
                             DispatchQueue.main.async {
-                                let response = DataResponse<Image>(
+                                let response = AFIDataResponse<Image>(
                                     request: response.request,
                                     response: response.response,
                                     data: response.data,
@@ -374,7 +380,7 @@ open class ImageDownloader {
                         }
                     case .failure:
                         for (_, _, completion) in responseHandler.operations {
-                            DispatchQueue.main.async { completion?(response) }
+                            DispatchQueue.main.async { completion?(response.mapError { AFIError.alamofireError($0) }) }
                         }
                     }
                 }
@@ -460,7 +466,7 @@ open class ImageDownloader {
             if let index = index {
                 let operation = responseHandler.operations.remove(at: index)
 
-                let response: DataResponse<Image> = {
+                let response: AFIDataResponse<Image> = {
                     let urlRequest = requestReceipt.request.request
                     let error = AFIError.requestCancelled
 

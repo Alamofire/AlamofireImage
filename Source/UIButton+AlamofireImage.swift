@@ -133,7 +133,7 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((DataResponse<UIImage>) -> Void)? = nil)
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
     {
         af_setImage(
             for: state,
@@ -172,10 +172,10 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((DataResponse<UIImage>) -> Void)? = nil)
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
-            let response = DataResponse<UIImage>(
+            let response = AFIDataResponse<UIImage>(
                 request: nil,
                 response: nil,
                 data: nil,
@@ -199,7 +199,7 @@ extension UIButton {
             let request = urlRequest.urlRequest,
             let image = imageCache?.image(for: request, withIdentifier: filter?.identifier)
         {
-            let response = DataResponse<UIImage>(
+            let response = AFIDataResponse<UIImage>(
                 request: urlRequest.urlRequest,
                 response: nil,
                 data: nil,
@@ -288,7 +288,7 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((DataResponse<UIImage>) -> Void)? = nil)
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
     {
         af_setBackgroundImage(
             for: state,
@@ -327,10 +327,10 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((DataResponse<UIImage>) -> Void)? = nil)
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
     {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
-            let response = DataResponse<UIImage>(
+            let response = AFIDataResponse<UIImage>(
                 request: nil,
                 response: nil,
                 data: nil,
@@ -354,7 +354,7 @@ extension UIButton {
             let request = urlRequest.urlRequest,
             let image = imageCache?.image(for: request, withIdentifier: filter?.identifier)
         {
-            let response = DataResponse<UIImage>(
+            let response = AFIDataResponse<UIImage>(
                 request: urlRequest.urlRequest,
                 response: nil,
                 data: nil,

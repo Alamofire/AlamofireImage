@@ -189,7 +189,7 @@ extension DataRequest {
         imageScale: CGFloat = DataRequest.imageScale,
         inflateResponseImage: Bool = true,
         queue: DispatchQueue = .main,
-        completionHandler: @escaping (DataResponse<Image>) -> Void)
+        completionHandler: @escaping (AFDataResponse<Image>) -> Void)
         -> Self
     {
         return response(
@@ -220,7 +220,7 @@ extension DataRequest {
     @discardableResult
     public func responseImage(
         queue: DispatchQueue = .main,
-        completionHandler: @escaping (DataResponse<Image>) -> Void)
+        completionHandler: @escaping (AFDataResponse<Image>) -> Void)
         -> Self
     {
         return response(

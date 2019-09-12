@@ -49,7 +49,7 @@ class ImageDownloaderStressTestCase: BaseTestCase {
         expect.expectedFulfillmentCount = imageRequests.count
 
         var receipts: [RequestReceipt] = []
-        var responses: [DataResponse<Image>] = []
+        var responses: [AFIDataResponse<Image>] = []
 
         // When
         for imageRequest in imageRequests {
@@ -79,7 +79,7 @@ class ImageDownloaderStressTestCase: BaseTestCase {
         expect.expectedFulfillmentCount = imageRequests.count
 
         var receipts: [RequestReceipt] = []
-        var responses: [DataResponse<Image>] = []
+        var responses: [AFIDataResponse<Image>] = []
 
         // When
         for imageRequest in imageRequests {
@@ -117,7 +117,7 @@ class ImageDownloaderStressTestCase: BaseTestCase {
         expect.expectedFulfillmentCount = imageRequests.count
 
         var receipts: [RequestReceipt] = []
-        var responses: [DataResponse<Image>] = []
+        var responses: [AFIDataResponse<Image>] = []
 
         // When
         for imageRequest in imageRequests {
@@ -149,7 +149,7 @@ class ImageDownloaderStressTestCase: BaseTestCase {
         expect.expectedFulfillmentCount = imageRequests.count
 
         var receipts: [RequestReceipt] = []
-        var responses: [DataResponse<Image>] = []
+        var responses: [AFIDataResponse<Image>] = []
 
         // When
         for imageRequest in imageRequests {
