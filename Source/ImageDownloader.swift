@@ -156,19 +156,17 @@ open class ImageDownloader {
         let diskCapacity = 150 * 1024 * 1024
         let storageName = "org.alamofire.imagedownloader"
         
-        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *) {
-            return URLCache(
-                memoryCapacity: memoryCapacity, // 20 MB
-                diskCapacity: diskCapacity,  // 150 MB
-                directory: URL(string: storageName)
-            )
-        } else {
-            return URLCache(
-                memoryCapacity: memoryCapacity, // 20 MB,
-                diskCapacity: diskCapacity,  // 150 MB,
-                diskPath: storageName
-            )
-        }
+        #if targetEnvironment(macCatalyst)
+        return URLCache(
+            memoryCapacity: memoryCapacity,
+            diskCapacity: diskCapacity,
+            directory: URL(string: storageName)
+        )
+        #else
+        return URLCache(memoryCapacity: memoryCapacity,
+                        diskCapacity: diskCapacity,
+                        diskPath: storageName)
+        #endif
     }
 
     /// Initializes the `ImageDownloader` instance with the given configuration, download prioritization, maximum active
