@@ -154,18 +154,25 @@ open class ImageDownloader {
     open class func defaultURLCache() -> URLCache {
         let memoryCapacity = 20 * 1024 * 1024
         let diskCapacity = 150 * 1024 * 1024
-        let storageName = "org.alamofire.imagedownloader"
+        let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+        let imageDownloaderPath = "org.alamofire.imagedownloader"
         
         #if targetEnvironment(macCatalyst)
         return URLCache(
             memoryCapacity: memoryCapacity,
             diskCapacity: diskCapacity,
-            directory: URL(string: storageName)
+            directory: cacheDirectory?.appendingPathComponent(imageDownloaderPath)
         )
+        #else
+        #if os(macOS)
+        return URLCache(memoryCapacity: memoryCapacity,
+                        diskCapacity: diskCapacity,
+                        diskPath: cacheDirectory?.appendingPathComponent(imageDownloaderPath).absoluteString)
         #else
         return URLCache(memoryCapacity: memoryCapacity,
                         diskCapacity: diskCapacity,
-                        diskPath: storageName)
+                        diskPath: imageDownloaderPath)
+        #endif
         #endif
     }
 
