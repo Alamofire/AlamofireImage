@@ -37,7 +37,7 @@ Released on 2019-09-17. All issues associated with this milestone can be found u
 - `URLCache` usage for Mac Catalyst.
   - Updated by [sonique6784](https://github.com/sonique6784) in Pull Request [#365](https://github.com/Alamofire/AlamofireImage/pull/365).
   
-  #### Fixed
+#### Fixed
 - Alamofire API usage after Alamofire 5 RC changes.
   - Fixed by  [Jon Shier](https://github.com/jshier) in Pull Request [#375](https://github.com/Alamofire/AlamofireImage/pull/375).
 
