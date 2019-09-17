@@ -41,7 +41,6 @@ Released on 2019-09-17. All issues associated with this milestone can be found u
 - Alamofire API usage after Alamofire 5 RC changes.
   - Fixed by  [Jon Shier](https://github.com/jshier) in Pull Request [#375](https://github.com/Alamofire/AlamofireImage/pull/375).
 
-
 ## [4.0.0-beta.4](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.4)
 Released on 2019-08-27. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/33?closed=1).
