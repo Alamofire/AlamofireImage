@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 4.x Releases
-- `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2) | [4.0.0-beta.3](#400-beta3) | [4.0.0-beta.4](#400-beta4)
+- `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2) | [4.0.0-beta.3](#400-beta3) | [4.0.0-beta.4](#400-beta4) | [4.0.0-beta.5](#400-beta5)
 
 #### 3.x Releases
 - `3.5.x` Releases - [3.5.0](#350) | [3.5.1](#351) | [3.5.2](#352)
@@ -28,6 +28,19 @@ All notable changes to this project will be documented in this file.
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+
+## [4.0.0-beta.5](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.5)
+Released on 2019-09-17. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/34?closed=1).
+
+#### Updated
+- `URLCache` usage for Mac Catalyst.
+  - Updated by [sonique6784](https://github.com/sonique6784) in Pull Request [#365](https://github.com/Alamofire/AlamofireImage/pull/365).
+  
+  #### Fixed
+- Alamofire API usage after Alamofire 5 RC changes.
+  - Fixed by  [Jon Shier](https://github.com/jshier) in Pull Request [#375](https://github.com/Alamofire/AlamofireImage/pull/375).
+
 
 ## [4.0.0-beta.4](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.4)
 Released on 2019-08-27. All issues associated with this milestone can be found using this
