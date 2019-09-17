@@ -152,11 +152,28 @@ open class ImageDownloader {
     ///
     /// - returns: The default `URLCache` instance.
     open class func defaultURLCache() -> URLCache {
+        let memoryCapacity = 20 * 1024 * 1024
+        let diskCapacity = 150 * 1024 * 1024
+        let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+        let imageDownloaderPath = "org.alamofire.imagedownloader"
+        
+        #if targetEnvironment(macCatalyst)
         return URLCache(
-            memoryCapacity: 20 * 1024 * 1024, // 20 MB
-            diskCapacity: 150 * 1024 * 1024,  // 150 MB
-            diskPath: "org.alamofire.imagedownloader"
+            memoryCapacity: memoryCapacity,
+            diskCapacity: diskCapacity,
+            directory: cacheDirectory?.appendingPathComponent(imageDownloaderPath)
         )
+        #else
+        #if os(macOS)
+        return URLCache(memoryCapacity: memoryCapacity,
+                        diskCapacity: diskCapacity,
+                        diskPath: cacheDirectory?.appendingPathComponent(imageDownloaderPath).absoluteString)
+        #else
+        return URLCache(memoryCapacity: memoryCapacity,
+                        diskCapacity: diskCapacity,
+                        diskPath: imageDownloaderPath)
+        #endif
+        #endif
     }
 
     /// Initializes the `ImageDownloader` instance with the given configuration, download prioritization, maximum active
