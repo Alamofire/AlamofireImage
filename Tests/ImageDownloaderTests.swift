@@ -504,7 +504,6 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         // Then
         XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertNotNil(response?.request, "request should not be nil")
         XCTAssertNil(response?.response, "response should be nil")
         XCTAssertNil(response?.data, "data should be nil")
         XCTAssertTrue(response?.result.isFailure ?? false, "result should be a failure case")

@@ -22,13 +22,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/ImageCache.swift",
-      "line": 165,
-      "symbol": "AutoPurgingImageCache.deinit",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/ImageDownloader.swift",
       "line": 73,
       "symbol": "ImageDownloader.DownloadPrioritization.fifo",
@@ -67,20 +60,6 @@
       "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
       "line": 44,
       "symbol": "ImageResponseSerializer.inflateResponseImage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 45,
-      "symbol": "ImageResponseSerializer.emptyResponseCodes",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 46,
-      "symbol": "ImageResponseSerializer.emptyRequestMethods",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
