@@ -22,13 +22,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/ImageCache.swift",
-      "line": 168,
-      "symbol": "AutoPurgingImageCache.deinit",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/ImageDownloader.swift",
       "line": 73,
       "symbol": "ImageDownloader.DownloadPrioritization.fifo",
