@@ -3,9 +3,10 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 4.x Releases
-- `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2) | [4.0.0-beta.3](#400-beta3) | [4.0.0-beta.4](#400-beta4) | [4.0.0-beta.5](#400-beta5)
+- `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2) | [4.0.0-beta.3](#400-beta3) | [4.0.0-beta.4](#400-beta4) | [4.0.0-beta.5](#400-beta5) | [4.0.0-beta.6](#400-beta6)
 
 #### 3.x Releases
+- `3.6.x` Releases - [3.6.0](#360)
 - `3.5.x` Releases - [3.5.0](#350) | [3.5.1](#351) | [3.5.2](#352)
 - `3.4.x` Releases - [3.4.0](#340) | [3.4.1](#341)
 - `3.3.x` Releases - [3.3.0](#330) | [3.3.1](#331)
@@ -29,14 +30,18 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.0.0-beta.6](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.6)
+Released on 2019-10-27. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/35?closed=1).
+
+#### Fixed
+- Thread-safety issue in `AutoPurgingImageCache`.
+  - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#387](https://github.com/Alamofire/AlamofireImage/pull/387).
+
 ## [4.0.0-beta.5](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.5)
 Released on 2019-09-17. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/34?closed=1).
 
-#### Updated
-- `URLCache` usage for Mac Catalyst.
-  - Updated by [sonique6784](https://github.com/sonique6784) in Pull Request [#365](https://github.com/Alamofire/AlamofireImage/pull/365).
-  
 #### Fixed
 - Alamofire API usage after Alamofire 5 RC changes.
   - Fixed by  [Jon Shier](https://github.com/jshier) in Pull Request [#375](https://github.com/Alamofire/AlamofireImage/pull/375).
@@ -74,6 +79,16 @@ Released on 2019-04-10. All issues associated with this milestone can be found u
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request [#348](https://github.com/Alamofire/AlamofireImage/pull/348).
 
 ---
+
+## [3.6.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.6.0)
+Released on 2019-10-27. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/36?closed=1).
+
+#### Fixed
+- Build for Catalyst platform by updating deprecated API usage.
+  - Fixed by [sonique6784](https://github.com/sonique6784) in Pull Request [#365](https://github.com/Alamofire/AlamofireImage/pull/365).
+- Thread-safety issue in `AutoPurgingImageCache`.
+  - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#386](https://github.com/Alamofire/AlamofireImage/pull/386).
 
 ## [3.5.2](https://github.com/Alamofire/AlamofireImage/releases/tag/3.5.2)
 Released on 2019-03-28. All issues associated with this milestone can be found using this
