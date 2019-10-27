@@ -39,7 +39,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/Alamofire/Alamofire.git",
-            from: "5.0.0-rc.2"
+            from: "5.0.0-rc.3"
         )
     ],
     targets: [
