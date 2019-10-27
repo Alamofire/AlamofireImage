@@ -48,7 +48,7 @@ extension DataRequest {
         "image/x-ms-bmp",
         "image/x-win-bitmap"
     ]
-    
+
     #if swift(>=5)
     static let streamImageInitialBytePattern = Data([255, 216]) // 0xffd8
     #else

@@ -37,7 +37,7 @@ let package = Package(
         .library(name: "AlamofireImage", targets: ["AlamofireImage"])
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: Version(4, 8, 2)))
+        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "4.9.0")
     ],
     targets: [
         .target(
@@ -46,5 +46,5 @@ let package = Package(
             path: "Source"
         )
     ],
-    swiftLanguageVersions: [.v5]
+    swiftLanguageVersions: [.v4, .v4_2, .v5]
 )
