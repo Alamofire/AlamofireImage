@@ -27,7 +27,7 @@
 import Foundation
 import XCTest
 
-class ImageCacheTestCase: BaseTestCase {
+final class ImageCacheTestCase: BaseTestCase {
     var cache: AutoPurgingImageCache!
 
     // MARK: - Setup and Teardown
@@ -395,5 +395,29 @@ class ImageCacheTestCase: BaseTestCase {
             let cachedImage = cache.image(withIdentifier: "\(identifier)-\(index)")
             XCTAssertNotNil(cachedImage, "cached image with identifier: \"\(identifier)-\(index)\" should not be nil")
         }
+    }
+}
+
+final class ImageCacheThreadSafetyTests: BaseTestCase {
+    func testMultipleReadsAndWrites() {
+        // Given
+        let cache = AutoPurgingImageCache(memoryCapacity: 1_000_000, preferredMemoryUsageAfterPurge: 100_000)
+        let image = self.image(forResource: "unicorn", withExtension: "png")
+
+        // When
+        DispatchQueue.concurrentPerform(iterations: 100) { iteration in
+            DispatchQueue.concurrentPerform(iterations: 100) { _ in
+                cache.add(image, withIdentifier: "\(iteration)")
+            }
+            DispatchQueue.concurrentPerform(iterations: 100) { _ in
+                _ = cache.image(withIdentifier: "\(iteration)")
+            }
+            DispatchQueue.concurrentPerform(iterations: 100) { _ in
+                cache.removeImage(withIdentifier: "\(iteration)")
+            }
+        }
+
+        // Then
+        XCTAssertNil(cache.image(withIdentifier: "99"))
     }
 }
