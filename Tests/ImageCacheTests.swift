@@ -403,7 +403,7 @@ final class ImageCacheThreadSafetyTests: BaseTestCase {
         // Given
         let cache = AutoPurgingImageCache(memoryCapacity: 1_000_000, preferredMemoryUsageAfterPurge: 100_000)
         let image = self.image(forResource: "unicorn", withExtension: "png")
-        
+
         // When
         DispatchQueue.concurrentPerform(iterations: 100) { iteration in
             DispatchQueue.concurrentPerform(iterations: 100) { _ in
@@ -416,7 +416,7 @@ final class ImageCacheThreadSafetyTests: BaseTestCase {
                 cache.removeImage(withIdentifier: "\(iteration)")
             }
         }
-        
+
         // Then
         XCTAssertNil(cache.image(withIdentifier: "99"))
     }
