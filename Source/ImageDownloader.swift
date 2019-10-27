@@ -162,7 +162,7 @@ open class ImageDownloader {
         let diskCapacity = 150 * 1024 * 1024
         let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
         let imageDownloaderPath = "org.alamofire.imagedownloader"
-        
+
         #if targetEnvironment(macCatalyst)
         return URLCache(
             memoryCapacity: memoryCapacity,
@@ -479,7 +479,7 @@ open class ImageDownloader {
             guard let responseHandler = self.responseHandlers[urlID] else { return }
 
             let index = responseHandler.operations.firstIndex { $0.receiptID == requestReceipt.receiptID }
-            
+
             if let index = index {
                 let operation = responseHandler.operations.remove(at: index)
 

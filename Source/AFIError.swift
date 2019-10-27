@@ -49,7 +49,7 @@ extension AFIError {
         if case .imageSerializationFailed = self { return true }
         return false
     }
-    
+
     public var isAlamofireError: Bool {
         if case .alamofireError = self { return true }
         return false

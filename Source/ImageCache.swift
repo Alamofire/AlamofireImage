@@ -124,7 +124,7 @@ open class AutoPurgingImageCache: ImageRequestCache {
 
     // MARK: Initialization
 
-    /// Initialies the `AutoPurgingImageCache` instance with the given memory capacity and preferred memory usage
+    /// Initializes the `AutoPurgingImageCache` instance with the given memory capacity and preferred memory usage
     /// after purge limit.
     ///
     /// Please note, the memory capacity must always be greater than or equal to the preferred memory usage after purge.
