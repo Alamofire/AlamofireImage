@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file.
 ---
 
 ## [3.6.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.6.0)
-Released on 2019-10-26. All issues associated with this milestone can be found using this
+Released on 2019-10-27. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/36?closed=1).
 
 #### Fixed
