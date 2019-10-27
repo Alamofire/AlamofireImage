@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 3.x Releases
+- `3.6.x` Releases - [3.6.0](#360)
 - `3.5.x` Releases - [3.5.0](#350) | [3.5.1](#351) | [3.5.2](#352)
 - `3.4.x` Releases - [3.4.0](#340) | [3.4.1](#341)
 - `3.3.x` Releases - [3.3.0](#330) | [3.3.1](#331)
@@ -25,6 +26,16 @@ All notable changes to this project will be documented in this file.
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+
+## [3.6.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.6.0)
+Released on 2019-10-26. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/36?closed=1).
+
+#### Fixed
+- Build for Catalyst platform by updating deprecated API usage.
+  - Fixed by [sonique6784](https://github.com/sonique6784) in Pull Request [#365](https://github.com/Alamofire/AlamofireImage/pull/365).
+- Thread-safety issue in `AutoPurgingImageCache`.
+  - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#386](https://github.com/Alamofire/AlamofireImage/pull/386).
 
 ## [3.5.2](https://github.com/Alamofire/AlamofireImage/releases/tag/3.5.2)
 Released on 2019-03-28. All issues associated with this milestone can be found using this

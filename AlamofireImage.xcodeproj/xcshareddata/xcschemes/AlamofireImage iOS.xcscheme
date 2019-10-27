@@ -40,31 +40,10 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "NO"
       enableThreadSanitizer = "YES"
       codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "YES"
-      shouldUseLaunchSchemeArgsEnv = "NO">
-      <CodeCoverageTargets>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4C9043761AABBFC5001B4E60"
-            BuildableName = "AlamofireImage.framework"
-            BlueprintName = "AlamofireImage iOS"
-            ReferencedContainer = "container:AlamofireImage.xcodeproj">
-         </BuildableReference>
-      </CodeCoverageTargets>
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4C9043811AABBFC5001B4E60"
-               BuildableName = "AlamofireImage iOS Tests.xctest"
-               BlueprintName = "AlamofireImage iOS Tests"
-               ReferencedContainer = "container:AlamofireImage.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -86,8 +65,27 @@
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4C9043761AABBFC5001B4E60"
+            BuildableName = "AlamofireImage.framework"
+            BlueprintName = "AlamofireImage iOS"
+            ReferencedContainer = "container:AlamofireImage.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4C9043811AABBFC5001B4E60"
+               BuildableName = "AlamofireImage iOS Tests.xctest"
+               BlueprintName = "AlamofireImage iOS Tests"
+               ReferencedContainer = "container:AlamofireImage.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -108,8 +106,6 @@
             ReferencedContainer = "container:AlamofireImage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
