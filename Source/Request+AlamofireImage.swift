@@ -56,7 +56,8 @@ public final class ImageResponseSerializer: ResponseSerializer {
         "image/x-bmp",
         "image/x-xbitmap",
         "image/x-ms-bmp",
-        "image/x-win-bitmap"
+        "image/x-win-bitmap",
+        "application/octet-stream"
     ]
 
     static let streamImageInitialBytePattern = Data([255, 216]) // 0xffd8
