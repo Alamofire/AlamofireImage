@@ -514,6 +514,33 @@ class UIButtonTests: BaseTestCase {
         XCTAssertNotNil(button.backgroundImage(for: []), "button background image should not be nil")
         XCTAssertFalse(button.backgroundImage(for:[]) === placeholderImage, "button background image should not equal placeholder image")
     }
+    
+    func testThatPlaceholderImageIsDisplayedWithThrowingURLConvertible() {
+        // Given
+        let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
+        let button = TestButton ()
+        
+        // When
+        button.af_setImage(for: [], url: url, placeholderImage: placeholderImage)
+        let initialImageEqualsPlaceholderImage = button.image(for:[]) === placeholderImage
+        
+        // Then
+        XCTAssertTrue(initialImageEqualsPlaceholderImage, "initial image should equal placeholder image")
+    }
+
+    func testThatBackgroundPlaceholderImageIsDisplayedWithThrowingURLConvertible() {
+        // Given
+        let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
+        let button = TestButton ()
+
+        // When
+        button.af_setBackgroundImage(for: [], url: url, placeholderImage: placeholderImage)
+        let initialImageEqualsPlaceholderImage = button.backgroundImage(for:[]) === placeholderImage
+
+        // Then
+        XCTAssertTrue(initialImageEqualsPlaceholderImage, "initial image should equal placeholder image")
+    }
+
 
     // MARK: - Image Filters
 
@@ -610,7 +637,7 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
         let urlRequest = URLRequest(url: URL(string: "really-bad-domain")!)
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = self.expectation(description: "image download should complete")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -635,7 +662,57 @@ class UIButtonTests: BaseTestCase {
         let button = UIButton()
         let urlRequest = URLRequest(url: URL(string: "really-bad-domain")!)
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = self.expectation(description: "image download should complete")
+
+        var completionHandlerCalled = false
+        var result: AFIResult<UIImage>?
+
+        // When
+        button.af_setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
+            completionHandlerCalled = true
+            result = response.result
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
+        XCTAssertNil(button.backgroundImage(for: []), "button background image should be nil")
+        XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
+    }
+    
+    func testThatCompletionHandlerIsCalledWhenURLRequestConvertibleThrows() {
+        // Given
+        let button = UIButton()
+        let urlRequest = ThrowingURLRequestConvertible()
+
+        let expectation = self.expectation(description: "image download should complete")
+
+        var completionHandlerCalled = false
+        var result: AFIResult<UIImage>?
+
+        // When
+        button.af_setImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
+            completionHandlerCalled = true
+            result = response.result
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
+        XCTAssertNil(button.image(for: []), "button image should be nil")
+        XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
+    }
+
+    func testThatCompletionHandlerIsCalledWhenBackgroundImageURLRequestConvertibleThrows() {
+        // Given
+        let button = UIButton()
+        let urlRequest = ThrowingURLRequestConvertible()
+
+        let expectation = self.expectation(description: "image download should complete")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
