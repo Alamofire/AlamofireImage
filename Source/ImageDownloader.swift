@@ -289,7 +289,7 @@ open class ImageDownloader {
         completion: CompletionHandler?)
         -> RequestReceipt?
     {
-        var request: DataRequest!
+        var queuedRequest: DataRequest?
 
         synchronizationQueue.sync {
             // 1) Append the filter and completion handler to a pre-existing request if it already exists
@@ -297,15 +297,15 @@ open class ImageDownloader {
 
             if let responseHandler = self.responseHandlers[urlID] {
                 responseHandler.operations.append((receiptID: receiptID, filter: filter, completion: completion))
-                request = responseHandler.request
+                queuedRequest = responseHandler.request
                 return
             }
 
             // 2) Attempt to load the image from the image cache if the cache policy allows it
-            if let request = urlRequest.urlRequest {
-                switch request.cachePolicy {
+            if let nonNilURLRequest = urlRequest.urlRequest {
+                switch nonNilURLRequest.cachePolicy {
                 case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
-                    if let image = self.imageCache?.image(for: request, withIdentifier: filter?.identifier) {
+                    if let image = self.imageCache?.image(for: nonNilURLRequest, withIdentifier: filter?.identifier) {
                         DispatchQueue.main.async {
                             let response = AFIDataResponse<Image>(
                                 request: urlRequest.urlRequest,
@@ -327,8 +327,9 @@ open class ImageDownloader {
             }
 
             // 3) Create the request and set up authentication, validation and response serialization
-            request = self.session.request(urlRequest)
-
+            let request = self.session.request(urlRequest)
+            queuedRequest = request
+            
             if let credential = self.credential {
                 request.authenticate(with: credential)
             }
@@ -422,7 +423,7 @@ open class ImageDownloader {
             }
         }
 
-        if let request = request {
+        if let request = queuedRequest {
             return RequestReceipt(request: request, receiptID: receiptID)
         }
 
