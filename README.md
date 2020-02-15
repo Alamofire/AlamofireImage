@@ -35,7 +35,7 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Dependencies
 
-- [Alamofire 4.8+](https://github.com/Alamofire/Alamofire)
+- [Alamofire 5.0+](https://github.com/Alamofire/Alamofire)
 
 ## Communication
 
@@ -66,7 +66,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'AlamofireImage', '~> 3.5'
+    pod 'AlamofireImage', '~> 4.0'
 end
 ```
 
@@ -90,7 +90,7 @@ $ brew install carthage
 To integrate AlamofireImage into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/AlamofireImage" ~> 3.5
+github "Alamofire/AlamofireImage" ~> 4.0
 ```
 
 Run `carthage update` to build the framework and drag the built `AlamofireImage.framework` into your Xcode project.
@@ -259,7 +259,7 @@ The current list of single pass image filters includes:
 - `CircleFilter` - Rounds the corners of an image into a circle.
 - `BlurFilter` - Blurs an image using a `CIGaussianBlur` filter with the specified blur radius.
 
-> Each image filter is built ontop of the `UIImage` extensions.
+> Each image filter is built on top of the `UIImage` extensions.
 
 #### Multi-Pass
 
