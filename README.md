@@ -19,8 +19,8 @@ AlamofireImage is an image component library for Alamofire.
 - [x] Authentication with URLCredential
 - [x] UIImageView Async Remote Downloads with Placeholders
 - [x] UIImageView Filters and Transitions
-- [x] Comprehensive Test Coverage
-- [x] [Complete Documentation](http://cocoadocs.org/docsets/AlamofireImage)
+- [x] Comprehensive Test Coverage 
+- [x] [Complete Documentation](https://alamofire.github.io/AlamofireImage/)
 
 ## Requirements
 
