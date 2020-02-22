@@ -128,13 +128,15 @@ extension UIImage {
 extension UIImage {
     /// Returns a new version of the image scaled to the specified size.
     ///
-    /// - parameter size: The size to use when scaling the new image.
+    /// - Parameters:
+    ///   - size: The size to use when scaling the new image.
+    ///   - scale: The scale to set for the new image. Defaults to `nil` which will maintain the current image scale.
     ///
-    /// - returns: A new image object.
-    public func af_imageScaled(to size: CGSize) -> UIImage {
+    /// - Returns: The new image object.
+    public func af_imageScaled(to size: CGSize, scale: CGFloat? = nil) -> UIImage {
         assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
 
-        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, scale ?? self.scale)
         draw(in: CGRect(origin: .zero, size: size))
 
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
@@ -151,10 +153,12 @@ extension UIImage {
     /// To maintain an opaque image, you could compute the `scaledSize` manually, then use the `af_imageScaledToSize`
     /// method in conjunction with a `.Center` content mode to achieve the same visual result.
     ///
-    /// - parameter size: The size to use when scaling the new image.
+    /// - Parameters:
+    ///   - size: The size to use when scaling the new image.
+    ///   - scale: The scale to set for the new image. Defaults to `nil` which will maintain the current image scale.
     ///
-    /// - returns: A new image object.
-    public func af_imageAspectScaled(toFit size: CGSize) -> UIImage {
+    /// - Returns: A new image object.
+    public func af_imageAspectScaled(toFit size: CGSize, scale: CGFloat? = nil) -> UIImage {
         assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
 
         let imageAspectRatio = self.size.width / self.size.height
@@ -171,7 +175,7 @@ extension UIImage {
         let scaledSize = CGSize(width: self.size.width * resizeFactor, height: self.size.height * resizeFactor)
         let origin = CGPoint(x: (size.width - scaledSize.width) / 2.0, y: (size.height - scaledSize.height) / 2.0)
 
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale ?? self.scale)
         draw(in: CGRect(origin: origin, size: scaledSize))
 
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
@@ -183,10 +187,12 @@ extension UIImage {
     /// Returns a new version of the image scaled from the center while maintaining the aspect ratio to fill a
     /// specified size. Any pixels that fall outside the specified size are clipped.
     ///
-    /// - parameter size: The size to use when scaling the new image.
+    /// - Parameters:
+    ///   - size: The size to use when scaling the new image.
+    ///   - scale: The scale to set for the new image. Defaults to `nil` which will maintain the current image scale.
     ///
-    /// - returns: A new image object.
-    public func af_imageAspectScaled(toFill size: CGSize) -> UIImage {
+    /// - Returns: A new image object.
+    public func af_imageAspectScaled(toFill size: CGSize, scale: CGFloat? = nil) -> UIImage {
         assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
 
         let imageAspectRatio = self.size.width / self.size.height
@@ -203,7 +209,7 @@ extension UIImage {
         let scaledSize = CGSize(width: self.size.width * resizeFactor, height: self.size.height * resizeFactor)
         let origin = CGPoint(x: (size.width - scaledSize.width) / 2.0, y: (size.height - scaledSize.height) / 2.0)
 
-        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, scale ?? self.scale)
         draw(in: CGRect(origin: origin, size: scaledSize))
 
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
@@ -218,16 +224,16 @@ extension UIImage {
 extension UIImage {
     /// Returns a new version of the image with the corners rounded to the specified radius.
     ///
-    /// - parameter radius:                   The radius to use when rounding the new image.
-    /// - parameter divideRadiusByImageScale: Whether to divide the radius by the image scale. Set to `true` when the
-    ///                                       image has the same resolution for all screen scales such as @1x, @2x and
-    ///                                       @3x (i.e. single image from web server). Set to `false` for images loaded
-    ///                                       from an asset catalog with varying resolutions for each screen scale.
-    ///                                       `false` by default.
+    /// - Parameters:
+    ///   - radius:                   The radius to use when rounding the new image.
+    ///   - divideRadiusByImageScale: Whether to divide the radius by the image scale. Set to `true` when the image has
+    ///                               the same resolution for all screen scales such as @1x, @2x and @3x (i.e. single
+    ///                               image from web server). Set to `false` for images loaded from an asset catalog
+    ///                               with varying resolutions for each screen scale. `false` by default.
     ///
-    /// - returns: A new image object.
+    /// - Returns: A new image object.
     public func af_imageRounded(withCornerRadius radius: CGFloat, divideRadiusByImageScale: Bool = false) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
 
         let scaledRadius = divideRadiusByImageScale ? radius / scale : radius
 
@@ -244,7 +250,7 @@ extension UIImage {
 
     /// Returns a new version of the image rounded into a circle.
     ///
-    /// - returns: A new image object.
+    /// - Returns: A new image object.
     public func af_imageRoundedIntoCircle() -> UIImage {
         let radius = min(size.width, size.height) / 2.0
         var squareImage = self
@@ -255,7 +261,7 @@ extension UIImage {
             squareImage = af_imageAspectScaled(toFill: squareSize)
         }
 
-        UIGraphicsBeginImageContextWithOptions(squareImage.size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(squareImage.size, false, scale)
 
         let clippingPath = UIBezierPath(
             roundedRect: CGRect(origin: CGPoint.zero, size: squareImage.size),
@@ -285,10 +291,11 @@ import CoreImage
 extension UIImage {
     /// Returns a new version of the image using a CoreImage filter with the specified name and parameters.
     ///
-    /// - parameter name:       The name of the CoreImage filter to use on the new image.
-    /// - parameter parameters: The parameters to apply to the CoreImage filter.
+    /// - Parameters:
+    ///   - name:       The name of the CoreImage filter to use on the new image.
+    ///   - parameters: The parameters to apply to the CoreImage filter.
     ///
-    /// - returns: A new image object, or `nil` if the filter failed for any reason.
+    /// - Returns: A new image object, or `nil` if the filter failed for any reason.
     public func af_imageFiltered(withCoreImageFilter name: String, parameters: [String: Any]? = nil) -> UIImage? {
         var image: CoreImage.CIImage? = ciImage
 

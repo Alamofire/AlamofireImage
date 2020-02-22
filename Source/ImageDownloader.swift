@@ -271,6 +271,8 @@ open class ImageDownloader {
     /// - parameter cacheKey:       An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter receiptID:      The `identifier` for the `RequestReceipt` returned. Defaults to a new, randomly
     ///                             generated UUID.
+    /// - parameter serializer:     Image response serializer used to convert the image data to `UIImage`. Defaults
+    ///                             to `nil` which will fall back to the instance `imageResponseSerializer`.
     /// - parameter filter:         The image filter to apply to the image after the download is complete. Defaults
     ///                             to `nil`.
     /// - parameter progress:       The closure to be executed periodically during the lifecycle of the request.
@@ -285,6 +287,7 @@ open class ImageDownloader {
         _ urlRequest: URLRequestConvertible,
         cacheKey: String? = nil,
         receiptID: String = UUID().uuidString,
+        serializer: ImageResponseSerializer? = nil,
         filter: ImageFilter? = nil,
         progress: ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
@@ -354,7 +357,7 @@ open class ImageDownloader {
 
             request.response(
                 queue: self.responseQueue,
-                responseSerializer: imageResponseSerializer,
+                responseSerializer: serializer ?? imageResponseSerializer,
                 completionHandler: { response in
                     defer {
                         self.safelyDecrementActiveRequestCount()

@@ -159,6 +159,32 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertEqual(activeRequestCount, 1, "active request count should be 1")
     }
 
+    // MARK: - Image Response Serializers
+
+    func testThatCustomImageSerializerCanBeUsed() {
+        // Given
+        let expectation = self.expectation(description: "image should download successfully")
+        var imageDownloadComplete = false
+
+        let imageView = TestImageView {
+            imageDownloadComplete = true
+            expectation.fulfill()
+        }
+
+        // When
+        imageView.af_setImage(
+            withURL: url,
+            serializer: ImageResponseSerializer(imageScale: 4.0, inflateResponseImage: false)
+        )
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
+        XCTAssertEqual(imageView.image?.scale, 4.0)
+        XCTAssertEqual(imageView.image?.af_inflated, false)
+    }
+
     // MARK: - Image Cache
 
     func testThatImageCanBeLoadedFromImageCacheFromRequestIdentifierIfAvailable() {

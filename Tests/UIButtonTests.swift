@@ -351,6 +351,58 @@ class UIButtonTests: BaseTestCase {
         XCTAssertEqual(activeRequestCount, 1, "active request count should be 1")
     }
 
+    // MARK: - Image Response Serializers
+
+    func testThatCustomImageSerializerCanBeUsed() {
+        // Given
+        let expectation = self.expectation(description: "image should download successfully")
+        var imageDownloadComplete = false
+
+        let button = TestButton {
+            imageDownloadComplete = true
+            expectation.fulfill()
+        }
+
+        // When
+        button.af_setImage(
+            for: .normal,
+            url: url,
+            serializer: ImageResponseSerializer(imageScale: 4.0, inflateResponseImage: false)
+        )
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
+        XCTAssertEqual(button.image(for: .normal)?.scale, 4.0)
+        XCTAssertEqual(button.image(for: .normal)?.af_inflated, false)
+    }
+
+    func testThatCustomImageSerializerCanBeUsedForBackgroundImage() {
+        // Given
+        let expectation = self.expectation(description: "image should download successfully")
+        var imageDownloadComplete = false
+
+        let button = TestButton {
+            imageDownloadComplete = true
+            expectation.fulfill()
+        }
+
+        // When
+        button.af_setBackgroundImage(
+            for: .normal,
+            url: url,
+            serializer: ImageResponseSerializer(imageScale: 4.0, inflateResponseImage: false)
+        )
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
+        XCTAssertEqual(button.backgroundImage(for: .normal)?.scale, 4.0)
+        XCTAssertEqual(button.backgroundImage(for: .normal)?.af_inflated, false)
+    }
+
     // MARK: - Image Cache
 
     func testThatImageCanBeLoadedFromImageCache() {

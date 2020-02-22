@@ -189,6 +189,9 @@ extension UIImageView {
     /// - parameter placeholderImage:           The image to be set initially until the image request finished. If
     ///                                         `nil`, the image view will not change its image until the image
     ///                                         request finishes. Defaults to `nil`.
+    /// - parameter serializer:                 Image response serializer used to convert the image data to `UIImage`.
+    ///                                         Defaults to `nil` which will fall back to the
+    ///                                         instance `imageResponseSerializer` set on the `ImageDownloader`.
     /// - parameter filter:                     The image filter applied to the image after the image request is
     ///                                         finished. Defaults to `nil`.
     /// - parameter progress:                   The closure to be executed periodically during the lifecycle of the
@@ -208,6 +211,7 @@ extension UIImageView {
         withURL url: URL,
         cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
+        serializer: ImageResponseSerializer? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
@@ -219,6 +223,7 @@ extension UIImageView {
             withURLRequest: urlRequest(with: url),
             cacheKey: cacheKey,
             placeholderImage: placeholderImage,
+            serializer: serializer,
             filter: filter,
             progress: progress,
             progressQueue: progressQueue,
@@ -246,6 +251,9 @@ extension UIImageView {
     /// - parameter placeholderImage:           The image to be set initially until the image request finished. If
     ///                                         `nil`, the image view will not change its image until the image
     ///                                         request finishes. Defaults to `nil`.
+    /// - parameter serializer:                 Image response serializer used to convert the image data to `UIImage`.
+    ///                                         Defaults to `nil` which will fall back to the
+    ///                                         instance `imageResponseSerializer` set on the `ImageDownloader`.
     /// - parameter filter:                     The image filter applied to the image after the image request is
     ///                                         finished. Defaults to `nil`.
     /// - parameter progress:                   The closure to be executed periodically during the lifecycle of the
@@ -256,7 +264,6 @@ extension UIImageView {
     ///                                         Defaults to `.None`.
     /// - parameter runImageTransitionIfCached: Whether to run the image transition if the image is cached. Defaults
     ///                                         to `false`.
-    /// - parameter customCacheKey:             An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter completion:                 A closure to be executed when the image request finishes. The closure
     ///                                         has no return value and takes three arguments: the original request,
     ///                                         the response from the server and the result containing either the
@@ -266,6 +273,7 @@ extension UIImageView {
         withURLRequest urlRequest: URLRequestConvertible,
         cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
+        serializer: ImageResponseSerializer? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
@@ -341,6 +349,7 @@ extension UIImageView {
             urlRequest,
             cacheKey: cacheKey,
             receiptID: downloadID,
+            serializer: serializer,
             filter: filter,
             progress: progress,
             progressQueue: progressQueue,

@@ -118,6 +118,9 @@ extension UIButton {
     /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
     ///                               image will not change its image until the image request finishes. Defaults
     ///                               to `nil`.
+    /// - parameter serializer:       Image response serializer used to convert the image data to `UIImage`. Defaults
+    ///                               to `nil` which will fall back to the instance `imageResponseSerializer` set on
+    ///                               the `ImageDownloader`.
     /// - parameter filter:           The image filter applied to the image after the image request is finished.
     ///                               Defaults to `nil`.
     /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
@@ -132,6 +135,7 @@ extension UIButton {
         url: URL,
         cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
+        serializer: ImageResponseSerializer? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
@@ -142,6 +146,7 @@ extension UIButton {
             urlRequest: urlRequest(with: url),
             cacheKey: cacheKey,
             placeholderImage: placeholderImage,
+            serializer: serializer,
             filter: filter,
             progress: progress,
             progressQueue: progressQueue,
@@ -160,6 +165,9 @@ extension UIButton {
     /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
     ///                               image will not change its image until the image request finishes. Defaults
     ///                               to `nil`.
+    /// - parameter serializer:       Image response serializer used to convert the image data to `UIImage`. Defaults
+    ///                               to `nil` which will fall back to the instance `imageResponseSerializer` set on
+    ///                               the `ImageDownloader`.
     /// - parameter filter:           The image filter applied to the image after the image request is finished.
     ///                               Defaults to `nil`.
     /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
@@ -174,6 +182,7 @@ extension UIButton {
         urlRequest: URLRequestConvertible,
         cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
+        serializer: ImageResponseSerializer? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
@@ -237,6 +246,7 @@ extension UIButton {
             urlRequest,
             cacheKey: cacheKey,
             receiptID: downloadID,
+            serializer: serializer,
             filter: filter,
             progress: progress,
             progressQueue: progressQueue,
@@ -286,6 +296,9 @@ extension UIButton {
     /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
     ///                               background image will not change its image until the image request finishes.
     ///                               Defaults to `nil`.
+    /// - parameter serializer:       Image response serializer used to convert the image data to `UIImage`. Defaults
+    ///                               to `nil` which will fall back to the instance `imageResponseSerializer` set on
+    ///                               the `ImageDownloader`.
     /// - parameter filter:           The image filter applied to the image after the image request is finished.
     ///                               Defaults to `nil`.
     /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
@@ -300,6 +313,7 @@ extension UIButton {
         url: URL,
         cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
+        serializer: ImageResponseSerializer? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
@@ -310,6 +324,7 @@ extension UIButton {
             urlRequest: urlRequest(with: url),
             cacheKey: cacheKey,
             placeholderImage: placeholderImage,
+            serializer: serializer,
             filter: filter,
             progress: progress,
             progressQueue: progressQueue,
@@ -328,6 +343,9 @@ extension UIButton {
     /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
     ///                               background image will not change its image until the image request finishes.
     ///                               Defaults to `nil`.
+    /// - parameter serializer:       Image response serializer used to convert the image data to `UIImage`. Defaults
+    ///                               to `nil` which will fall back to the instance `imageResponseSerializer` set on
+    ///                               the `ImageDownloader`.
     /// - parameter filter:           The image filter applied to the image after the image request is finished.
     ///                               Defaults to `nil`.
     /// - parameter progress:         The closure to be executed periodically during the lifecycle of the request.
@@ -342,6 +360,7 @@ extension UIButton {
         urlRequest: URLRequestConvertible,
         cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
+        serializer: ImageResponseSerializer? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
@@ -405,6 +424,7 @@ extension UIButton {
             urlRequest,
             cacheKey: cacheKey,
             receiptID: downloadID,
+            serializer: serializer,
             filter: filter,
             progress: progress,
             progressQueue: progressQueue,
