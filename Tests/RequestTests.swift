@@ -54,8 +54,8 @@ class DataRequestTestCase: BaseTestCase {
         let afterCount = ImageResponseSerializer.acceptableImageContentTypes.count
 
         // Then
-        XCTAssertEqual(beforeCount, 11, "before count should be 11")
-        XCTAssertEqual(afterCount, 13, "after count should be 13")
+        XCTAssertEqual(beforeCount, 12, "before count should be 12")
+        XCTAssertEqual(afterCount, 14, "after count should be 14")
     }
 
     // MARK: - Tests - Image Serialization
@@ -345,7 +345,7 @@ class DataRequestTestCase: BaseTestCase {
         XCTAssertNotNil(response?.result.error, "result error should not be nil")
 
         if let error = response?.result.error {
-            XCTAssertTrue(error.isUnacceptableContentType)
+            XCTAssertFalse(error.isUnacceptableContentType)
         } else {
             XCTFail("error should not be nil")
         }

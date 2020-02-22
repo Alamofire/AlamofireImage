@@ -46,6 +46,7 @@ public final class ImageResponseSerializer: ResponseSerializer {
     public let emptyRequestMethods: Set<HTTPMethod>
 
     static var acceptableImageContentTypes: Set<String> = [
+        "application/octet-stream",
         "image/tiff",
         "image/jpeg",
         "image/gif",
