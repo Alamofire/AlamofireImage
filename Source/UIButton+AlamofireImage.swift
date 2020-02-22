@@ -114,6 +114,7 @@ extension UIButton {
     ///
     /// - parameter state:            The control state of the button to set the image on.
     /// - parameter url:              The URL used for your image request.
+    /// - parameter cacheKey:         An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
     ///                               image will not change its image until the image request finishes. Defaults
     ///                               to `nil`.
@@ -129,6 +130,7 @@ extension UIButton {
     public func af_setImage(
         for state: ControlState,
         url: URL,
+        cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
@@ -138,6 +140,7 @@ extension UIButton {
         af_setImage(
             for: state,
             urlRequest: urlRequest(with: url),
+            cacheKey: cacheKey,
             placeholderImage: placeholderImage,
             filter: filter,
             progress: progress,
@@ -153,6 +156,7 @@ extension UIButton {
     ///
     /// - parameter state:            The control state of the button to set the image on.
     /// - parameter urlRequest:       The URL request.
+    /// - parameter cacheKey:         An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
     ///                               image will not change its image until the image request finishes. Defaults
     ///                               to `nil`.
@@ -168,6 +172,7 @@ extension UIButton {
     public func af_setImage(
         for state: ControlState,
         urlRequest: URLRequestConvertible,
+        cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
@@ -195,23 +200,30 @@ extension UIButton {
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
-        if
-            let request = urlRequest.urlRequest,
-            let image = imageCache?.image(for: request, withIdentifier: filter?.identifier)
-        {
-            let response = AFIDataResponse<UIImage>(
-                request: urlRequest.urlRequest,
-                response: nil,
-                data: nil,
-                metrics: nil,
-                serializationDuration: 0.0,
-                result: .success(image)
-            )
+        if let request = urlRequest.urlRequest {
+            let cachedImage: Image?
 
-            setImage(image, for: state)
-            completion?(response)
+            if let cacheKey = cacheKey {
+                cachedImage = imageCache?.image(withIdentifier: cacheKey)
+            } else {
+                cachedImage = imageCache?.image(for: request, withIdentifier: filter?.identifier)
+            }
 
-            return
+            if let image = cachedImage {
+                let response = AFIDataResponse<UIImage>(
+                    request: urlRequest.urlRequest,
+                    response: nil,
+                    data: nil,
+                    metrics: nil,
+                    serializationDuration: 0.0,
+                    result: .success(image)
+                )
+
+                setImage(image, for: state)
+                completion?(response)
+
+                return
+            }
         }
 
         // Set the placeholder since we're going to have to download
@@ -223,6 +235,7 @@ extension UIButton {
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(
             urlRequest,
+            cacheKey: cacheKey,
             receiptID: downloadID,
             filter: filter,
             progress: progress,
@@ -269,6 +282,7 @@ extension UIButton {
     ///
     /// - parameter state:            The control state of the button to set the image on.
     /// - parameter url:              The URL used for the image request.
+    /// - parameter cacheKey:         An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
     ///                               background image will not change its image until the image request finishes.
     ///                               Defaults to `nil`.
@@ -284,6 +298,7 @@ extension UIButton {
     public func af_setBackgroundImage(
         for state: ControlState,
         url: URL,
+        cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
@@ -293,6 +308,7 @@ extension UIButton {
         af_setBackgroundImage(
             for: state,
             urlRequest: urlRequest(with: url),
+            cacheKey: cacheKey,
             placeholderImage: placeholderImage,
             filter: filter,
             progress: progress,
@@ -308,6 +324,7 @@ extension UIButton {
     ///
     /// - parameter state:            The control state of the button to set the image on.
     /// - parameter urlRequest:       The URL request.
+    /// - parameter cacheKey:         An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter placeholderImage: The image to be set initially until the image request finished. If `nil`, the
     ///                               background image will not change its image until the image request finishes.
     ///                               Defaults to `nil`.
@@ -323,6 +340,7 @@ extension UIButton {
     public func af_setBackgroundImage(
         for state: ControlState,
         urlRequest: URLRequestConvertible,
+        cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
@@ -350,23 +368,30 @@ extension UIButton {
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
-        if
-            let request = urlRequest.urlRequest,
-            let image = imageCache?.image(for: request, withIdentifier: filter?.identifier)
-        {
-            let response = AFIDataResponse<UIImage>(
-                request: urlRequest.urlRequest,
-                response: nil,
-                data: nil,
-                metrics: nil,
-                serializationDuration: 0.0,
-                result: .success(image)
-            )
+        if let request = urlRequest.urlRequest {
+            let cachedImage: Image?
 
-            setBackgroundImage(image, for: state)
-            completion?(response)
+            if let cacheKey = cacheKey {
+                cachedImage = imageCache?.image(withIdentifier: cacheKey)
+            } else {
+                cachedImage = imageCache?.image(for: request, withIdentifier: filter?.identifier)
+            }
 
-            return
+            if let image = cachedImage {
+                let response = AFIDataResponse<UIImage>(
+                    request: urlRequest.urlRequest,
+                    response: nil,
+                    data: nil,
+                    metrics: nil,
+                    serializationDuration: 0.0,
+                    result: .success(image)
+                )
+
+                setBackgroundImage(image, for: state)
+                completion?(response)
+
+                return
+            }
         }
 
         // Set the placeholder since we're going to have to download
@@ -378,6 +403,7 @@ extension UIButton {
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(
             urlRequest,
+            cacheKey: cacheKey,
             receiptID: downloadID,
             filter: filter,
             progress: progress,

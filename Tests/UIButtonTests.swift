@@ -408,7 +408,45 @@ class UIButtonTests: BaseTestCase {
         button.af_cancelImageRequest(for: .normal)
 
         // Then
-        XCTAssertNotNil(button.image(for: .normal), "image view image should not be nil")
+        XCTAssertNotNil(button.image(for: .normal), "button image should not be nil")
+    }
+
+    func testThatImageCanBeCachedWithACustomCacheKey() {
+        // Given
+        let expectation = self.expectation(description: "image should download and be cached with custom key")
+        let cacheKey = "cache-key"
+        var imageCached = false
+
+        let button = TestButton {
+            imageCached = (ImageDownloader.default.imageCache?.image(withIdentifier: cacheKey) != nil)
+            expectation.fulfill()
+        }
+
+        // When
+        button.af_setImage(for: .normal, url: url, cacheKey: cacheKey)
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(imageCached, "image cached should be true")
+    }
+
+    func testThatBackgroundImageCanBeCachedWithACustomCacheKey() {
+        // Given
+        let expectation = self.expectation(description: "image should download and be cached with custom key")
+        let cacheKey = "cache-key"
+        var imageCached = false
+
+        let button = TestButton {
+            imageCached = (ImageDownloader.default.imageCache?.image(withIdentifier: cacheKey) != nil)
+            expectation.fulfill()
+        }
+
+        // When
+        button.af_setBackgroundImage(for: .normal, url: url, cacheKey: cacheKey)
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(imageCached, "image cached should be true")
     }
 
     // MARK: - Placeholder Images
@@ -421,7 +459,7 @@ class UIButtonTests: BaseTestCase {
         var imageDownloadComplete = false
         var finalImageEqualsPlaceholderImage = false
 
-        let button = TestButton ()
+        let button = TestButton()
 
         // When
         button.af_setImage(for: [], url: url, placeholderImage: placeholderImage)

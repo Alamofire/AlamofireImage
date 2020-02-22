@@ -268,6 +268,7 @@ open class ImageDownloader {
     /// callers.
     ///
     /// - parameter urlRequest:     The URL request.
+    /// - parameter cacheKey:       An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter receiptID:      The `identifier` for the `RequestReceipt` returned. Defaults to a new, randomly
     ///                             generated UUID.
     /// - parameter filter:         The image filter to apply to the image after the download is complete. Defaults
@@ -282,6 +283,7 @@ open class ImageDownloader {
     @discardableResult
     open func download(
         _ urlRequest: URLRequestConvertible,
+        cacheKey: String? = nil,
         receiptID: String = UUID().uuidString,
         filter: ImageFilter? = nil,
         progress: ProgressHandler? = nil,
@@ -305,7 +307,15 @@ open class ImageDownloader {
             if let request = urlRequest.urlRequest {
                 switch request.cachePolicy {
                 case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
-                    if let image = self.imageCache?.image(for: request, withIdentifier: filter?.identifier) {
+                    let cachedImage: Image?
+
+                    if let cacheKey = cacheKey {
+                        cachedImage = self.imageCache?.image(withIdentifier: cacheKey)
+                    } else {
+                        cachedImage = self.imageCache?.image(for: request, withIdentifier: filter?.identifier)
+                    }
+
+                    if let image = cachedImage {
                         DispatchQueue.main.async {
                             let response = AFIDataResponse<Image>(
                                 request: urlRequest.urlRequest,
@@ -378,7 +388,9 @@ open class ImageDownloader {
                                 filteredImage = image
                             }
 
-                            if let request = response.request {
+                            if let cacheKey = cacheKey {
+                                self.imageCache?.add(filteredImage, withIdentifier: cacheKey)
+                            } else if let request = response.request {
                                 self.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
                             }
 

@@ -184,6 +184,8 @@ extension UIImageView {
     /// the image transition is finished.
     ///
     /// - parameter url:                        The URL used for the image request.
+    /// - parameter cacheKey:                   An optional key used to identify the image in the cache. Defaults
+    ///                                         to `nil`.
     /// - parameter placeholderImage:           The image to be set initially until the image request finished. If
     ///                                         `nil`, the image view will not change its image until the image
     ///                                         request finishes. Defaults to `nil`.
@@ -204,6 +206,7 @@ extension UIImageView {
     ///                                         image cache, the response will be `nil`. Defaults to `nil`.
     public func af_setImage(
         withURL url: URL,
+        cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
@@ -214,6 +217,7 @@ extension UIImageView {
     {
         af_setImage(
             withURLRequest: urlRequest(with: url),
+            cacheKey: cacheKey,
             placeholderImage: placeholderImage,
             filter: filter,
             progress: progress,
@@ -237,6 +241,8 @@ extension UIImageView {
     /// the image transition is finished.
     ///
     /// - parameter urlRequest:                 The URL request.
+    /// - parameter cacheKey:                   An optional key used to identify the image in the cache. Defaults
+    ///                                         to `nil`.
     /// - parameter placeholderImage:           The image to be set initially until the image request finished. If
     ///                                         `nil`, the image view will not change its image until the image
     ///                                         request finishes. Defaults to `nil`.
@@ -250,6 +256,7 @@ extension UIImageView {
     ///                                         Defaults to `.None`.
     /// - parameter runImageTransitionIfCached: Whether to run the image transition if the image is cached. Defaults
     ///                                         to `false`.
+    /// - parameter customCacheKey:             An optional key used to identify the image in the cache. Defaults to `nil`.
     /// - parameter completion:                 A closure to be executed when the image request finishes. The closure
     ///                                         has no return value and takes three arguments: the original request,
     ///                                         the response from the server and the result containing either the
@@ -257,6 +264,7 @@ extension UIImageView {
     ///                                         image cache, the response will be `nil`. Defaults to `nil`.
     public func af_setImage(
         withURLRequest urlRequest: URLRequestConvertible,
+        cacheKey: String? = nil,
         placeholderImage: UIImage? = nil,
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
@@ -286,33 +294,40 @@ extension UIImageView {
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
-        if
-            let request = urlRequest.urlRequest,
-            let image = imageCache?.image(for: request, withIdentifier: filter?.identifier)
-        {
-            let response = AFIDataResponse<UIImage>(
-                request: request,
-                response: nil,
-                data: nil,
-                metrics: nil,
-                serializationDuration: 0.0,
-                result: .success(image)
-            )
+        if let request = urlRequest.urlRequest {
+            let cachedImage: Image?
 
-            if runImageTransitionIfCached {
-                let tinyDelay = DispatchTime.now() + Double(Int64(0.001 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-
-                // Need to let the runloop cycle for the placeholder image to take affect
-                DispatchQueue.main.asyncAfter(deadline: tinyDelay) {
-                    self.run(imageTransition, with: image)
-                    completion?(response)
-                }
+            if let cacheKey = cacheKey {
+                cachedImage = imageCache?.image(withIdentifier: cacheKey)
             } else {
-                self.image = image
-                completion?(response)
+                cachedImage = imageCache?.image(for: request, withIdentifier: filter?.identifier)
             }
 
-            return
+            if let image = cachedImage {
+                let response = AFIDataResponse<UIImage>(
+                    request: request,
+                    response: nil,
+                    data: nil,
+                    metrics: nil,
+                    serializationDuration: 0.0,
+                    result: .success(image)
+                )
+
+                if runImageTransitionIfCached {
+                    let tinyDelay = DispatchTime.now() + Double(Int64(0.001 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+
+                    // Need to let the runloop cycle for the placeholder image to take affect
+                    DispatchQueue.main.asyncAfter(deadline: tinyDelay) {
+                        self.run(imageTransition, with: image)
+                        completion?(response)
+                    }
+                } else {
+                    self.image = image
+                    completion?(response)
+                }
+
+                return
+            }
         }
 
         // Set the placeholder since we're going to have to download
@@ -324,6 +339,7 @@ extension UIImageView {
         // Download the image, then run the image transition or completion handler
         let requestReceipt = imageDownloader.download(
             urlRequest,
+            cacheKey: cacheKey,
             receiptID: downloadID,
             filter: filter,
             progress: progress,
