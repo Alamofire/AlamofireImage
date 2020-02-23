@@ -24,18 +24,19 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Requirements
 
-- iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 8.3+
-- Swift 3.1+
+- iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+
+- Xcode 10.2+
+- Swift 5+
 
 ## Migration Guides
 
 - [AlamofireImage 2.0 Migration Guide](https://github.com/Alamofire/AlamofireImage/blob/master/Documentation/AlamofireImage%202.0%20Migration%20Guide.md)
 - [AlamofireImage 3.0 Migration Guide](https://github.com/Alamofire/AlamofireImage/blob/master/Documentation/AlamofireImage%203.0%20Migration%20Guide.md)
+- [AlamofireImage 4.0 Migration Guide](https://github.com/Alamofire/AlamofireImage/blob/master/Documentation/AlamofireImage%204.0%20Migration%20Guide.md)
 
 ## Dependencies
 
-- [Alamofire 4.8+](https://github.com/Alamofire/Alamofire)
+- [Alamofire 5.0+](https://github.com/Alamofire/Alamofire)
 
 ## Communication
 
@@ -50,50 +51,31 @@ AlamofireImage is an image component library for Alamofire.
 
 ### CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
-
-```bash
-$ gem install cocoapods
-```
-
-> CocoaPods 1.1+ is required.
-
-To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your `Podfile`:
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '10.0'
-use_frameworks!
-
-target '<Your Target Name>' do
-    pod 'AlamofireImage', '~> 3.5'
-end
-```
-
-Then, run the following command:
-
-```bash
-$ pod install
+pod 'AlamofireImage', '~> 4.0'
 ```
 
 ### Carthage
 
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
-
-You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
-
-```bash
-$ brew update
-$ brew install carthage
-```
-
-To integrate AlamofireImage into your Xcode project using Carthage, specify it in your `Cartfile`:
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate AlamofireImage into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/AlamofireImage" ~> 3.5
+github "Alamofire/AlamofireImage" "4.0"
 ```
 
-Run `carthage update` to build the framework and drag the built `AlamofireImage.framework` into your Xcode project.
+### Swift Package Manager
+
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but AlamofireImage does support its use on supported platforms.
+
+Once you have your Swift package set up, adding AlamofireImage as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.0")
+]
+```
 
 ### Manually
 
@@ -150,13 +132,14 @@ Alamofire.request("https://httpbin.org/image/png").responseImage { response in
 	print(response.response)
 	debugPrint(response.result)
 
-	if let image = response.result.value {
+    if case .success(let image) = response.result {
 		print("image downloaded: \(image)")
 	}
 }
 ```
 
 The AlamofireImage response image serializers support a wide range of image types including:
+
 
 - `image/png`
 - `image/jpeg`
@@ -167,7 +150,9 @@ The AlamofireImage response image serializers support a wide range of image type
 - `image/bmp`
 - `image/x-bmp`
 - `image/x-xbitmap`
+- `image/x-ms-bmp`
 - `image/x-win-bitmap`
+- `application/octet-stream` (added for iOS 13 support)
 
 > If the image you are attempting to download is an invalid MIME type not in the list, you can add custom acceptable content types using the `addAcceptableImageContentTypes` extension on the `DataRequest` type.
 
@@ -182,7 +167,7 @@ let url = Bundle.main.url(forResource: "unicorn", withExtension: "png")!
 let data = try! Data(contentsOf: url)
 let image = UIImage(data: data, scale: UIScreen.main.scale)!
 
-image.af_inflate()
+image.af.inflate()
 ```
 
 > Inflating compressed image formats (such as PNG or JPEG) in a background queue can significantly improve drawing performance on the main thread.
@@ -194,13 +179,13 @@ let image = UIImage(named: "unicorn")!
 let size = CGSize(width: 100.0, height: 100.0)
 
 // Scale image to size disregarding aspect ratio
-let scaledImage = image.af_imageScaled(to: size)
+let scaledImage = image.af.imageScaled(to: size)
 
 // Scale image to fit within specified size while maintaining aspect ratio
-let aspectScaledToFitImage = image.af_imageAspectScaled(toFit: size)
+let aspectScaledToFitImage = image.af.imageAspectScaled(toFit: size)
 
 // Scale image to fill specified size while maintaining aspect ratio
-let aspectScaledToFillImage = image.af_imageAspectScaled(toFill: size)
+let aspectScaledToFillImage = image.af.imageAspectScaled(toFill: size)
 ```
 
 #### Rounded Corners
@@ -209,8 +194,8 @@ let aspectScaledToFillImage = image.af_imageAspectScaled(toFill: size)
 let image = UIImage(named: "unicorn")!
 let radius: CGFloat = 20.0
 
-let roundedImage = image.af_imageRounded(withCornerRadius: radius)
-let circularImage = image.af_imageRoundedIntoCircle()
+let roundedImage = image.af.imageRounded(withCornerRadius: radius)
+let circularImage = image.af.imageRoundedIntoCircle()
 ```
 
 #### Core Image Filters
@@ -218,9 +203,9 @@ let circularImage = image.af_imageRoundedIntoCircle()
 ```swift
 let image = UIImage(named: "unicorn")!
 
-let sepiaImage = image.af_imageFiltered(withCoreImageFilter: "CISepiaTone")
+let sepiaImage = image.af.imageFiltered(withCoreImageFilter: "CISepiaTone")
 
-let blurredImage = image.af_imageFiltered(
+let blurredImage = image.af.imageFiltered(
     withCoreImageFilter: "CIGaussianBlur",
     parameters: ["inputRadius": 25]
 )
@@ -321,7 +306,7 @@ The `ImageRequestCache` protocol extends the `ImageCache` protocol by adding sup
 let imageCache = AutoPurgingImageCache()
 
 let urlRequest = URLRequest(url: URL(string: "https://httpbin.org/image/png")!)
-let avatarImage = UIImage(named: "avatar")!.af_imageRoundedIntoCircle()
+let avatarImage = UIImage(named: "avatar")!.af.imageRoundedIntoCircle()
 
 // Add
 imageCache.add(avatarImage, for: urlRequest, withIdentifier: "circle")
@@ -376,7 +361,7 @@ downloader.download(urlRequest) { response in
     print(response.response)
     debugPrint(response.result)
 
-    if let image = response.result.value {
+    if case .success(let image) = response.result {
         print(image)
     }
 }
@@ -396,7 +381,7 @@ downloader.download(urlRequest, filter: filter) { response in
     print(response.response)
     debugPrint(response.result)
 
-    if let image = response.result.value {
+    if case .success(let image) = response.result {
         print(image)
     }
 }
@@ -476,7 +461,7 @@ Setting the image with a URL will asynchronously download the image and set it o
 let imageView = UIImageView(frame: frame)
 let url = URL(string: "https://httpbin.org/image/png")!
 
-imageView.af_setImage(withURL: url)
+imageView.af.setImage(withURL: url)
 ```
 
 > If the image is cached locally, the image is set immediately.
@@ -490,7 +475,7 @@ let imageView = UIImageView(frame: frame)
 let url = URL(string: "https://httpbin.org/image/png")!
 let placeholderImage = UIImage(named: "placeholder")!
 
-imageView.af_setImage(withURL: url, placeholderImage: placeholderImage)
+imageView.af.setImage(withURL: url, placeholderImage: placeholderImage)
 ```
 
 > If the remote image is cached locally, the placeholder image is never set.
@@ -510,7 +495,7 @@ let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
     radius: 20.0
 )
 
-imageView.af_setImage(
+imageView.af.setImage(
     withURL: url,
     placeholderImage: placeholderImage,
     filter: filter
@@ -534,7 +519,7 @@ let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
     radius: 20.0
 )
 
-imageView.af_setImage(
+imageView.af.setImage(
     withURL: url,
     placeholderImage: placeholderImage,
     filter: filter,
