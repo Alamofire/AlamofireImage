@@ -64,7 +64,7 @@ class ImageCell : UICollectionViewCell {
             withURL: URL(string: urlString)!,
             placeholderImage: placeholderImage,
             filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-            imageTransition: .crossDissolve(0.2)
+            imageTransition: .crossDissolve(0.3)
         )
     }
 
@@ -72,7 +72,6 @@ class ImageCell : UICollectionViewCell {
         super.prepareForReuse()
 
         imageView.af_cancelImageRequest()
-        imageView.layer.removeAllAnimations()
         imageView.image = nil
     }
 }

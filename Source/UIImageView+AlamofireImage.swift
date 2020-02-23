@@ -322,10 +322,16 @@ extension UIImageView {
                 )
 
                 if runImageTransitionIfCached {
-                    let tinyDelay = DispatchTime.now() + Double(Int64(0.001 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    // It's important to display the placeholder image again otherwise you have some odd disparity
+                    // between the request loading from the cache and those that download. It's important to keep
+                    // the same behavior between both, otherwise the user can actually see the difference.
+                    if let placeholderImage = placeholderImage { self.image = placeholderImage }
 
                     // Need to let the runloop cycle for the placeholder image to take affect
-                    DispatchQueue.main.asyncAfter(deadline: tinyDelay) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
+                        // Added this additional check to ensure another request didn't get in during the delay
+                        guard self.af_activeRequestReceipt == nil else { return }
+
                         self.run(imageTransition, with: image)
                         completion?(response)
                     }

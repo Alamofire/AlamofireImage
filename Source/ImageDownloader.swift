@@ -481,13 +481,9 @@ open class ImageDownloader {
         }
     }
 
-    /// Cancels the request in the receipt by removing the response handler and cancelling the request if necessary.
+    /// Cancels the request contained inside the receipt calls the completion handler with a request cancelled error.
     ///
-    /// If the request is pending in the queue, it will be cancelled if no other response handlers are registered with
-    /// the request. If the request is currently executing or is already completed, the response handler is removed and
-    /// will not be called.
-    ///
-    /// - parameter requestReceipt: The request receipt to cancel.
+    /// - Parameter requestReceipt: The request receipt to cancel.
     open func cancelRequest(with requestReceipt: RequestReceipt) {
         synchronizationQueue.sync {
             let urlID = ImageDownloader.urlIdentifier(for: requestReceipt.request.convertible)
