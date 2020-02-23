@@ -172,10 +172,8 @@ class UIImageViewTestCase: BaseTestCase {
         }
 
         // When
-        imageView.af.setImage(
-            withURL: url,
-            serializer: ImageResponseSerializer(imageScale: 4.0, inflateResponseImage: false)
-        )
+        imageView.af.setImage(withURL: url,
+                              serializer: ImageResponseSerializer(imageScale: 4.0, inflateResponseImage: false))
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -293,7 +291,7 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(initialImageEqualsPlaceholderImage, "initial image should equal placeholder image")
         XCTAssertFalse(finalImageEqualsPlaceholderImage, "final image should not equal placeholder image")
     }
-    
+
     func testThatPlaceholderImageIsDisplayedWithThrowingURLConvertible() {
         // Given
         let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
@@ -439,15 +437,11 @@ class UIImageViewTestCase: BaseTestCase {
             expectation9.fulfill()
         }
         ImageDownloader.default.imageCache?.removeAllImages()
-        imageView.af.setImage(
-            withURL: url,
-            imageTransition: .custom(
-                duration: 0.5,
-                animationOptions: [],
-                animations: { $0.image = $1 },
-                completion: nil
-            )
-        )
+        imageView.af.setImage(withURL: url,
+                              imageTransition: .custom(duration: 0.5,
+                                                       animationOptions: [],
+                                                       animations: { $0.image = $1 },
+                                                       completion: nil))
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
@@ -473,17 +467,15 @@ class UIImageViewTestCase: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        imageView.af.setImage(
-            withURLRequest: urlRequest,
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .noTransition,
-            completion: { closureResponse in
-                completionHandlerCalled = true
-                result = closureResponse.result
-                expectation.fulfill()
-            }
-        )
+        imageView.af.setImage(withURLRequest: urlRequest,
+                              placeholderImage: nil,
+                              filter: nil,
+                              imageTransition: .noTransition,
+                              completion: { closureResponse in
+                                  completionHandlerCalled = true
+                                  result = closureResponse.result
+                                  expectation.fulfill()
+            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -504,17 +496,15 @@ class UIImageViewTestCase: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        imageView.af.setImage(
-            withURLRequest: urlRequest,
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .noTransition,
-            completion: { closureResponse in
-                completionHandlerCalled = true
-                result = closureResponse.result
-                expectation.fulfill()
-            }
-        )
+        imageView.af.setImage(withURLRequest: urlRequest,
+                              placeholderImage: nil,
+                              filter: nil,
+                              imageTransition: .noTransition,
+                              completion: { closureResponse in
+                                  completionHandlerCalled = true
+                                  result = closureResponse.result
+                                  expectation.fulfill()
+            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -523,7 +513,7 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertNil(imageView.image, "image view image should be nil when completion handler is not nil")
         XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
     }
-    
+
     func testThatCompletionHandlerIsCalledWhenURLRequestConvertibleThrows() {
         // Given
         let imageView = UIImageView()
@@ -535,17 +525,15 @@ class UIImageViewTestCase: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        imageView.af.setImage(
-            withURLRequest: urlRequest,
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .noTransition,
-            completion: { closureResponse in
-                completionHandlerCalled = true
-                result = closureResponse.result
-                expectation.fulfill()
-            }
-        )
+        imageView.af.setImage(withURLRequest: urlRequest,
+                              placeholderImage: nil,
+                              filter: nil,
+                              imageTransition: .noTransition,
+                              completion: { closureResponse in
+                                  completionHandlerCalled = true
+                                  result = closureResponse.result
+                                  expectation.fulfill()
+            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -568,26 +556,22 @@ class UIImageViewTestCase: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        imageView.af.setImage(
-            withURL: url,
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .custom(
-                duration: 0.1,
-                animationOptions: [],
-                animations: { $0.image = $1 },
-                completion: { _ in
-                    transitionCompletionHandlerCalled = true
-                    transitionExpectation.fulfill()
-                }
-            ),
-            completion: { closureResponse in
-                completionHandlerCalled = true
-                result = closureResponse.result
+        imageView.af.setImage(withURL: url,
+                              placeholderImage: nil,
+                              filter: nil,
+                              imageTransition: .custom(duration: 0.1,
+                                                       animationOptions: [],
+                                                       animations: { $0.image = $1 },
+                                                       completion: { _ in
+                                                           transitionCompletionHandlerCalled = true
+                                                           transitionExpectation.fulfill()
+                }),
+                              completion: { closureResponse in
+                                  completionHandlerCalled = true
+                                  result = closureResponse.result
 
-                completionExpectation.fulfill()
-            }
-        )
+                                  completionExpectation.fulfill()
+            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -619,16 +603,14 @@ class UIImageViewTestCase: BaseTestCase {
         let cachedExpectation = expectation(description: "image should be cached")
         var result: AFIResult<UIImage>?
 
-        imageView.af.setImage(
-            withURLRequest: urlRequest,
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .noTransition,
-            completion: { closureResponse in
-                result = closureResponse.result
-                cachedExpectation.fulfill()
-            }
-        )
+        imageView.af.setImage(withURLRequest: urlRequest,
+                              placeholderImage: nil,
+                              filter: nil,
+                              imageTransition: .noTransition,
+                              completion: { closureResponse in
+                                  result = closureResponse.result
+                                  cachedExpectation.fulfill()
+            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -650,17 +632,15 @@ class UIImageViewTestCase: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        imageView.af.setImage(
-            withURLRequest: urlRequest,
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .noTransition,
-            completion: { closureResponse in
-                completionHandlerCalled = true
-                result = closureResponse.result
-                expectation.fulfill()
-            }
-        )
+        imageView.af.setImage(withURLRequest: urlRequest,
+                              placeholderImage: nil,
+                              filter: nil,
+                              imageTransition: .noTransition,
+                              completion: { closureResponse in
+                                  completionHandlerCalled = true
+                                  result = closureResponse.result
+                                  expectation.fulfill()
+            })
 
         imageView.af.cancelImageRequest()
         waitForExpectations(timeout: timeout, handler: nil)
@@ -681,27 +661,23 @@ class UIImageViewTestCase: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        imageView.af.setImage(
-            withURLRequest: URLRequest(url: url),
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .noTransition,
-            completion: { _ in
-                completion1Called = true
-            }
-        )
+        imageView.af.setImage(withURLRequest: URLRequest(url: url),
+                              placeholderImage: nil,
+                              filter: nil,
+                              imageTransition: .noTransition,
+                              completion: { _ in
+                                  completion1Called = true
+            })
 
-        imageView.af.setImage(
-            withURLRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .noTransition,
-            completion: { closureResponse in
-                completion2Called = true
-                result = closureResponse.result
-                expectation.fulfill()
-            }
-        )
+        imageView.af.setImage(withURLRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
+                              placeholderImage: nil,
+                              filter: nil,
+                              imageTransition: .noTransition,
+                              completion: { closureResponse in
+                                  completion2Called = true
+                                  result = closureResponse.result
+                                  expectation.fulfill()
+            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -722,29 +698,25 @@ class UIImageViewTestCase: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        imageView.af.setImage(
-            withURLRequest: URLRequest(url: url),
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .noTransition,
-            completion: { _ in
-                completion1Called = true
-            }
-        )
+        imageView.af.setImage(withURLRequest: URLRequest(url: url),
+                              placeholderImage: nil,
+                              filter: nil,
+                              imageTransition: .noTransition,
+                              completion: { _ in
+                                  completion1Called = true
+            })
 
         imageView.af.cancelImageRequest()
 
-        imageView.af.setImage(
-            withURLRequest: URLRequest(url: url),
-            placeholderImage: nil,
-            filter: nil,
-            imageTransition: .noTransition,
-            completion: { closureResponse in
-                completion2Called = true
-                result = closureResponse.result
-                expectation.fulfill()
-            }
-        )
+        imageView.af.setImage(withURLRequest: URLRequest(url: url),
+                              placeholderImage: nil,
+                              filter: nil,
+                              imageTransition: .noTransition,
+                              completion: { closureResponse in
+                                  completion2Called = true
+                                  result = closureResponse.result
+                                  expectation.fulfill()
+            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -764,15 +736,13 @@ class UIImageViewTestCase: BaseTestCase {
         var imageViewReleased: Bool?
 
         // When
-        imageView?.af.setImage(
-            withURLRequest: URLRequest(url: url),
-            completion: { [weak imageView] _ in
-                completionCalled = true
-                imageViewReleased = imageView == nil
+        imageView?.af.setImage(withURLRequest: URLRequest(url: url),
+                               completion: { [weak imageView] _ in
+                                   completionCalled = true
+                                   imageViewReleased = imageView == nil
 
-                expectation.fulfill()
-            }
-        )
+                                   expectation.fulfill()
+            })
 
         imageView = nil
         waitForExpectations(timeout: timeout, handler: nil)
@@ -821,7 +791,7 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertNotNil(acceptField)
 
         if let acceptField = acceptField {
-            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.joined(separator:","))
+            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.joined(separator: ","))
         }
     }
 }

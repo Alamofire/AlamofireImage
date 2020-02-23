@@ -22,8 +22,8 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 struct ThrowingURLRequestConvertible: URLRequestConvertible {
     enum Error: Swift.Error {

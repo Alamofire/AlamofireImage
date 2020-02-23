@@ -24,8 +24,8 @@
 
 #if !os(macOS)
 
-import Alamofire
 @testable import AlamofireImage
+import Alamofire
 import UIKit
 
 extension AlamofireExtension where ExtendedType: UIImage {
@@ -88,15 +88,13 @@ extension AlamofireExtension where ExtendedType: UIImage {
         }
 
         // Render the image
-        let context = CGContext(
-            data: nil,
-            width: width,
-            height: height,
-            bitsPerComponent: bitsPerComponent,
-            bytesPerRow: bytesPerRow,
-            space: colorSpace,
-            bitmapInfo: bitmapInfo.rawValue
-        )
+        let context = CGContext(data: nil,
+                                width: width,
+                                height: height,
+                                bitsPerComponent: bitsPerComponent,
+                                bytesPerRow: bytesPerRow,
+                                space: colorSpace,
+                                bitmapInfo: bitmapInfo.rawValue)
 
         context?.draw(image, in: CGRect(x: 0.0, y: 0.0, width: CGFloat(width), height: CGFloat(height)))
 
@@ -107,14 +105,14 @@ extension AlamofireExtension where ExtendedType: UIImage {
     }
 
     /**
-        Modifies the underlying UIImage data to use a PNG representation.
+     Modifies the underlying UIImage data to use a PNG representation.
 
-        This is important in verifying pixel data between two images. If one has been exported out with PNG
-        compression and another has not, the image data between the two images will never be equal. This helper
-        method helps ensure comparisons will be valid.
+     This is important in verifying pixel data between two images. If one has been exported out with PNG
+     compression and another has not, the image data between the two images will never be equal. This helper
+     method helps ensure comparisons will be valid.
 
-        - returns: The PNG representation image.
-    */
+     - returns: The PNG representation image.
+     */
     func imageWithPNGRepresentation() -> UIImage {
         let data = type.pngData()!
         let image = UIImage(data: data, scale: UIScreen.main.scale)!

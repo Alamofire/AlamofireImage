@@ -33,7 +33,6 @@ public typealias ControlState = UIControl.State
 
 extension UIButton: AlamofireExtended {}
 extension AlamofireExtension where ExtendedType: UIButton {
-
     // MARK: - Properties
 
     /// The instance image downloader used to download all images. If this property is `nil`, the `UIButton` will
@@ -116,28 +115,24 @@ extension AlamofireExtension where ExtendedType: UIButton {
     ///                               single response value containing either the image or the error that occurred. If
     ///                               the image was returned from the image cache, the response will be `nil`. Defaults
     ///                               to `nil`.
-    public func setImage(
-        for state: ControlState,
-        url: URL,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
-        setImage(
-            for: state,
-            urlRequest: urlRequest(with: url),
-            cacheKey: cacheKey,
-            placeholderImage: placeholderImage,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            completion: completion
-        )
+    public func setImage(for state: ControlState,
+                         url: URL,
+                         cacheKey: String? = nil,
+                         placeholderImage: UIImage? = nil,
+                         serializer: ImageResponseSerializer? = nil,
+                         filter: ImageFilter? = nil,
+                         progress: ImageDownloader.ProgressHandler? = nil,
+                         progressQueue: DispatchQueue = DispatchQueue.main,
+                         completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
+        setImage(for: state,
+                 urlRequest: urlRequest(with: url),
+                 cacheKey: cacheKey,
+                 placeholderImage: placeholderImage,
+                 serializer: serializer,
+                 filter: filter,
+                 progress: progress,
+                 progressQueue: progressQueue,
+                 completion: completion)
     }
 
     /// Asynchronously downloads an image from the specified URL and sets it once the request is finished.
@@ -163,26 +158,22 @@ extension AlamofireExtension where ExtendedType: UIButton {
     ///                               single response value containing either the image or the error that occurred. If
     ///                               the image was returned from the image cache, the response will be `nil`. Defaults
     ///                               to `nil`.
-    public func setImage(
-        for state: ControlState,
-        urlRequest: URLRequestConvertible,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+    public func setImage(for state: ControlState,
+                         urlRequest: URLRequestConvertible,
+                         cacheKey: String? = nil,
+                         placeholderImage: UIImage? = nil,
+                         serializer: ImageResponseSerializer? = nil,
+                         filter: ImageFilter? = nil,
+                         progress: ImageDownloader.ProgressHandler? = nil,
+                         progressQueue: DispatchQueue = DispatchQueue.main,
+                         completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
-            let response = AFIDataResponse<UIImage>(
-                request: nil,
-                response: nil,
-                data: nil,
-                metrics: nil,
-                serializationDuration: 0.0,
-                result: .failure(AFIError.requestCancelled)
-            )
+            let response = AFIDataResponse<UIImage>(request: nil,
+                                                    response: nil,
+                                                    data: nil,
+                                                    metrics: nil,
+                                                    serializationDuration: 0.0,
+                                                    result: .failure(AFIError.requestCancelled))
 
             completion?(response)
 
@@ -205,14 +196,12 @@ extension AlamofireExtension where ExtendedType: UIButton {
             }
 
             if let image = cachedImage {
-                let response = AFIDataResponse<UIImage>(
-                    request: urlRequest.urlRequest,
-                    response: nil,
-                    data: nil,
-                    metrics: nil,
-                    serializationDuration: 0.0,
-                    result: .success(image)
-                )
+                let response = AFIDataResponse<UIImage>(request: urlRequest.urlRequest,
+                                                        response: nil,
+                                                        data: nil,
+                                                        metrics: nil,
+                                                        serializationDuration: 0.0,
+                                                        result: .success(image))
 
                 type.setImage(image, for: state)
                 completion?(response)
@@ -222,42 +211,40 @@ extension AlamofireExtension where ExtendedType: UIButton {
         }
 
         // Set the placeholder since we're going to have to download
-        if let placeholderImage = placeholderImage { type.setImage(placeholderImage, for: state)  }
+        if let placeholderImage = placeholderImage { type.setImage(placeholderImage, for: state) }
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
         // Weakify the button to allow it to go out-of-memory while download is running if deallocated
-        weak var button = self.type
+        weak var button = type
 
         // Download the image, then set the image for the control state
-        let requestReceipt = imageDownloader.download(
-            urlRequest,
-            cacheKey: cacheKey,
-            receiptID: downloadID,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            completion: { response in
-                guard
-                    let strongSelf = button?.af,
-                    strongSelf.isImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
-                    strongSelf.imageRequestReceipt(for: state)?.receiptID == downloadID
-                else {
-                    completion?(response)
-                    return
-                }
+        let requestReceipt = imageDownloader.download(urlRequest,
+                                                      cacheKey: cacheKey,
+                                                      receiptID: downloadID,
+                                                      serializer: serializer,
+                                                      filter: filter,
+                                                      progress: progress,
+                                                      progressQueue: progressQueue,
+                                                      completion: { response in
+                                                          guard
+                                                              let strongSelf = button?.af,
+                                                              strongSelf.isImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
+                                                              strongSelf.imageRequestReceipt(for: state)?.receiptID == downloadID
+                                                          else {
+                                                              completion?(response)
+                                                              return
+                                                          }
 
-                if case .success(let image) = response.result {
-                    strongSelf.type.setImage(image, for: state)
-                }
+                                                          if case let .success(image) = response.result {
+                                                              strongSelf.type.setImage(image, for: state)
+                                                          }
 
-                strongSelf.setImageRequestReceipt(nil, for: state)
+                                                          strongSelf.setImageRequestReceipt(nil, for: state)
 
-                completion?(response)
-            }
-        )
+                                                          completion?(response)
+            })
 
         setImageRequestReceipt(requestReceipt, for: state)
     }
@@ -297,28 +284,24 @@ extension AlamofireExtension where ExtendedType: UIButton {
     ///                               single response value containing either the image or the error that occurred. If
     ///                               the image was returned from the image cache, the response will be `nil`. Defaults
     ///                               to `nil`.
-    public func setBackgroundImage(
-        for state: ControlState,
-        url: URL,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
-        setBackgroundImage(
-            for: state,
-            urlRequest: urlRequest(with: url),
-            cacheKey: cacheKey,
-            placeholderImage: placeholderImage,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            completion: completion
-        )
+    public func setBackgroundImage(for state: ControlState,
+                                   url: URL,
+                                   cacheKey: String? = nil,
+                                   placeholderImage: UIImage? = nil,
+                                   serializer: ImageResponseSerializer? = nil,
+                                   filter: ImageFilter? = nil,
+                                   progress: ImageDownloader.ProgressHandler? = nil,
+                                   progressQueue: DispatchQueue = DispatchQueue.main,
+                                   completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
+        setBackgroundImage(for: state,
+                           urlRequest: urlRequest(with: url),
+                           cacheKey: cacheKey,
+                           placeholderImage: placeholderImage,
+                           serializer: serializer,
+                           filter: filter,
+                           progress: progress,
+                           progressQueue: progressQueue,
+                           completion: completion)
     }
 
     /// Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
@@ -344,26 +327,22 @@ extension AlamofireExtension where ExtendedType: UIButton {
     ///                               single response value containing either the image or the error that occurred. If
     ///                               the image was returned from the image cache, the response will be `nil`. Defaults
     ///                               to `nil`.
-    public func setBackgroundImage(
-        for state: ControlState,
-        urlRequest: URLRequestConvertible,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+    public func setBackgroundImage(for state: ControlState,
+                                   urlRequest: URLRequestConvertible,
+                                   cacheKey: String? = nil,
+                                   placeholderImage: UIImage? = nil,
+                                   serializer: ImageResponseSerializer? = nil,
+                                   filter: ImageFilter? = nil,
+                                   progress: ImageDownloader.ProgressHandler? = nil,
+                                   progressQueue: DispatchQueue = DispatchQueue.main,
+                                   completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
-            let response = AFIDataResponse<UIImage>(
-                request: nil,
-                response: nil,
-                data: nil,
-                metrics: nil,
-                serializationDuration: 0.0,
-                result: .failure(AFIError.requestCancelled)
-            )
+            let response = AFIDataResponse<UIImage>(request: nil,
+                                                    response: nil,
+                                                    data: nil,
+                                                    metrics: nil,
+                                                    serializationDuration: 0.0,
+                                                    result: .failure(AFIError.requestCancelled))
 
             completion?(response)
 
@@ -386,14 +365,12 @@ extension AlamofireExtension where ExtendedType: UIButton {
             }
 
             if let image = cachedImage {
-                let response = AFIDataResponse<UIImage>(
-                    request: urlRequest.urlRequest,
-                    response: nil,
-                    data: nil,
-                    metrics: nil,
-                    serializationDuration: 0.0,
-                    result: .success(image)
-                )
+                let response = AFIDataResponse<UIImage>(request: urlRequest.urlRequest,
+                                                        response: nil,
+                                                        data: nil,
+                                                        metrics: nil,
+                                                        serializationDuration: 0.0,
+                                                        result: .success(image))
 
                 type.setBackgroundImage(image, for: state)
                 completion?(response)
@@ -403,42 +380,40 @@ extension AlamofireExtension where ExtendedType: UIButton {
         }
 
         // Set the placeholder since we're going to have to download
-        if let placeholderImage = placeholderImage { type.setBackgroundImage(placeholderImage, for: state)  }
+        if let placeholderImage = placeholderImage { type.setBackgroundImage(placeholderImage, for: state) }
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
         // Weakify the button to allow it to go out-of-memory while download is running if deallocated
-        weak var button = self.type
+        weak var button = type
 
         // Download the image, then set the image for the control state
-        let requestReceipt = imageDownloader.download(
-            urlRequest,
-            cacheKey: cacheKey,
-            receiptID: downloadID,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            completion: { response in
-                guard
-                    let strongSelf = button?.af,
-                    strongSelf.isBackgroundImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
-                    strongSelf.backgroundImageRequestReceipt(for: state)?.receiptID == downloadID
-                else {
-                    completion?(response)
-                    return
-                }
+        let requestReceipt = imageDownloader.download(urlRequest,
+                                                      cacheKey: cacheKey,
+                                                      receiptID: downloadID,
+                                                      serializer: serializer,
+                                                      filter: filter,
+                                                      progress: progress,
+                                                      progressQueue: progressQueue,
+                                                      completion: { response in
+                                                          guard
+                                                              let strongSelf = button?.af,
+                                                              strongSelf.isBackgroundImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
+                                                              strongSelf.backgroundImageRequestReceipt(for: state)?.receiptID == downloadID
+                                                          else {
+                                                              completion?(response)
+                                                              return
+                                                          }
 
-                if case .success(let image) = response.result {
-                    strongSelf.type.setBackgroundImage(image, for: state)
-                }
+                                                          if case let .success(image) = response.result {
+                                                              strongSelf.type.setBackgroundImage(image, for: state)
+                                                          }
 
-                strongSelf.setBackgroundImageRequestReceipt(nil, for: state)
+                                                          strongSelf.setBackgroundImageRequestReceipt(nil, for: state)
 
-                completion?(response)
-            }
-        )
+                                                          completion?(response)
+            })
 
         setBackgroundImageRequestReceipt(requestReceipt, for: state)
     }
@@ -483,32 +458,26 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
     // MARK: - Private - URL Request Helpers
 
-    private func isImageURLRequest(
-        _ urlRequest: URLRequestConvertible?,
-        equalToActiveRequestURLForState state: ControlState)
-        -> Bool
-    {
+    private func isImageURLRequest(_ urlRequest: URLRequestConvertible?,
+                                   equalToActiveRequestURLForState state: ControlState)
+        -> Bool {
         if
             let currentURL = imageRequestReceipt(for: state)?.request.task?.originalRequest?.url,
             let requestURL = urlRequest?.urlRequest?.url,
-            currentURL == requestURL
-        {
+            currentURL == requestURL {
             return true
         }
 
         return false
     }
 
-    private func isBackgroundImageURLRequest(
-        _ urlRequest: URLRequestConvertible?,
-        equalToActiveRequestURLForState state: ControlState)
-        -> Bool
-    {
+    private func isBackgroundImageURLRequest(_ urlRequest: URLRequestConvertible?,
+                                             equalToActiveRequestURLForState state: ControlState)
+        -> Bool {
         if
             let currentRequestURL = backgroundImageRequestReceipt(for: state)?.request.task?.originalRequest?.url,
             let requestURL = urlRequest?.urlRequest?.url,
-            currentRequestURL == requestURL
-        {
+            currentRequestURL == requestURL {
             return true
         }
 
@@ -542,53 +511,45 @@ extension UIButton {
     }
 
     @available(*, deprecated, message: "Replaced by `button.af.sharedImageDownloader`")
-    public func af_setImage(
-        for state: ControlState,
-        url: URL,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
-        af.setImage(
-            for: state,
-            url: url,
-            cacheKey: cacheKey,
-            placeholderImage: placeholderImage,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            completion: completion
-        )
+    public func af_setImage(for state: ControlState,
+                            url: URL,
+                            cacheKey: String? = nil,
+                            placeholderImage: UIImage? = nil,
+                            serializer: ImageResponseSerializer? = nil,
+                            filter: ImageFilter? = nil,
+                            progress: ImageDownloader.ProgressHandler? = nil,
+                            progressQueue: DispatchQueue = DispatchQueue.main,
+                            completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
+        af.setImage(for: state,
+                    url: url,
+                    cacheKey: cacheKey,
+                    placeholderImage: placeholderImage,
+                    serializer: serializer,
+                    filter: filter,
+                    progress: progress,
+                    progressQueue: progressQueue,
+                    completion: completion)
     }
 
     @available(*, deprecated, message: "Replaced by `button.af.sharedImageDownloader`")
-    public func af_setImage(
-        for state: ControlState,
-        urlRequest: URLRequestConvertible,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
-        af.setImage(
-            for: state,
-            urlRequest: urlRequest,
-            cacheKey: cacheKey,
-            placeholderImage: placeholderImage,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            completion: completion
-        )
+    public func af_setImage(for state: ControlState,
+                            urlRequest: URLRequestConvertible,
+                            cacheKey: String? = nil,
+                            placeholderImage: UIImage? = nil,
+                            serializer: ImageResponseSerializer? = nil,
+                            filter: ImageFilter? = nil,
+                            progress: ImageDownloader.ProgressHandler? = nil,
+                            progressQueue: DispatchQueue = DispatchQueue.main,
+                            completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
+        af.setImage(for: state,
+                    urlRequest: urlRequest,
+                    cacheKey: cacheKey,
+                    placeholderImage: placeholderImage,
+                    serializer: serializer,
+                    filter: filter,
+                    progress: progress,
+                    progressQueue: progressQueue,
+                    completion: completion)
     }
 
     /// Cancels the active download request for the image, if one exists.
@@ -597,53 +558,45 @@ extension UIButton {
     }
 
     @available(*, deprecated, message: "Replaced by `button.af.sharedImageDownloader`")
-    public func af_setBackgroundImage(
-        for state: ControlState,
-        url: URL,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
-        af.setBackgroundImage(
-            for: state,
-            url: url,
-            cacheKey: cacheKey,
-            placeholderImage: placeholderImage,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            completion: completion
-        )
+    public func af_setBackgroundImage(for state: ControlState,
+                                      url: URL,
+                                      cacheKey: String? = nil,
+                                      placeholderImage: UIImage? = nil,
+                                      serializer: ImageResponseSerializer? = nil,
+                                      filter: ImageFilter? = nil,
+                                      progress: ImageDownloader.ProgressHandler? = nil,
+                                      progressQueue: DispatchQueue = DispatchQueue.main,
+                                      completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
+        af.setBackgroundImage(for: state,
+                              url: url,
+                              cacheKey: cacheKey,
+                              placeholderImage: placeholderImage,
+                              serializer: serializer,
+                              filter: filter,
+                              progress: progress,
+                              progressQueue: progressQueue,
+                              completion: completion)
     }
 
     @available(*, deprecated, message: "Replaced by `button.af.sharedImageDownloader`")
-    public func af_setBackgroundImage(
-        for state: ControlState,
-        urlRequest: URLRequestConvertible,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
-        af.setBackgroundImage(
-            for: state,
-            urlRequest: urlRequest,
-            cacheKey: cacheKey,
-            placeholderImage: placeholderImage,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            completion: completion
-        )
+    public func af_setBackgroundImage(for state: ControlState,
+                                      urlRequest: URLRequestConvertible,
+                                      cacheKey: String? = nil,
+                                      placeholderImage: UIImage? = nil,
+                                      serializer: ImageResponseSerializer? = nil,
+                                      filter: ImageFilter? = nil,
+                                      progress: ImageDownloader.ProgressHandler? = nil,
+                                      progressQueue: DispatchQueue = DispatchQueue.main,
+                                      completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
+        af.setBackgroundImage(for: state,
+                              urlRequest: urlRequest,
+                              cacheKey: cacheKey,
+                              placeholderImage: placeholderImage,
+                              serializer: serializer,
+                              filter: filter,
+                              progress: progress,
+                              progressQueue: progressQueue,
+                              completion: completion)
     }
 
     /// Cancels the active download request for the background image, if one exists.

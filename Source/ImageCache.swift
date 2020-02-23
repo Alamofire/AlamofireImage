@@ -78,13 +78,13 @@ open class AutoPurgingImageCache: ImageRequestCache {
         init(_ image: Image, identifier: String) {
             self.image = image
             self.identifier = identifier
-            self.lastAccessDate = Date()
+            lastAccessDate = Date()
 
-            self.totalBytes = {
+            totalBytes = {
                 #if os(iOS) || os(tvOS) || os(watchOS)
-                    let size = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
+                let size = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
                 #elseif os(macOS)
-                    let size = CGSize(width: image.size.width, height: image.size.height)
+                let size = CGSize(width: image.size.width, height: image.size.height)
                 #endif
 
                 let bytesPerPixel: CGFloat = 4.0
@@ -137,15 +137,13 @@ open class AutoPurgingImageCache: ImageRequestCache {
         self.memoryCapacity = memoryCapacity
         self.preferredMemoryUsageAfterPurge = preferredMemoryUsageAfterPurge
 
-        precondition(
-            memoryCapacity >= preferredMemoryUsageAfterPurge,
-            "The `memoryCapacity` must be greater than or equal to `preferredMemoryUsageAfterPurge`"
-        )
+        precondition(memoryCapacity >= preferredMemoryUsageAfterPurge,
+                     "The `memoryCapacity` must be greater than or equal to `preferredMemoryUsageAfterPurge`")
 
-        self.cachedImages = [:]
-        self.currentMemoryUsage = 0
+        cachedImages = [:]
+        currentMemoryUsage = 0
 
-        self.synchronizationQueue = {
+        synchronizationQueue = {
             let name = String(format: "org.alamofire.autopurgingimagecache-%08x%08x", arc4random(), arc4random())
             return DispatchQueue(label: name, attributes: .concurrent)
         }()
@@ -153,12 +151,10 @@ open class AutoPurgingImageCache: ImageRequestCache {
         #if os(iOS) || os(tvOS)
         let notification = UIApplication.didReceiveMemoryWarningNotification
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(AutoPurgingImageCache.removeAllImages),
-            name: notification,
-            object: nil
-        )
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AutoPurgingImageCache.removeAllImages),
+                                               name: notification,
+                                               object: nil)
         #endif
     }
 

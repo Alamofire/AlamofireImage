@@ -101,7 +101,7 @@ class ImageFilterTestCase: BaseTestCase {
         // Given
         let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = DynamicImageFilter("DynamicScaleToSizeFilter") { image in
-            return image.af.imageScaled(to: CGSize(width: 50.0, height: 50.0))
+            image.af.imageScaled(to: CGSize(width: 50.0, height: 50.0))
         }
 
         // When
@@ -118,19 +118,15 @@ class ImageFilterTestCase: BaseTestCase {
     func _testThatDynamicCompositeImageFilterReturnsCorrectFilteredImage() {
         // Given
         let image = self.image(forResource: "pirate", withExtension: "jpg")
-        let filter = DynamicCompositeImageFilter(
-            ScaledToSizeFilter(size: largeSquareSize),
-            RoundedCornersFilter(radius: 20)
-        )
+        let filter = DynamicCompositeImageFilter(ScaledToSizeFilter(size: largeSquareSize),
+                                                 RoundedCornersFilter(radius: 20))
 
         // When
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(
-            forResource: "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
-            withExtension: "png"
-        )
+        let expectedFilteredImage = self.image(forResource: "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
+                                               withExtension: "png")
 
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
@@ -235,10 +231,8 @@ class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(
-            forResource: "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
-            withExtension: "png"
-        )
+        let expectedFilteredImage = self.image(forResource: "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
+                                               withExtension: "png")
 
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
@@ -253,10 +247,8 @@ class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(
-            forResource: "pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@\(scale)x",
-            withExtension: "png"
-        )
+        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@\(scale)x",
+                                               withExtension: "png")
 
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
@@ -270,10 +262,8 @@ class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(
-            forResource: "pirate-scaled.to.size.circle-100x100-@\(scale)x",
-            withExtension: "png"
-        )
+        let expectedFilteredImage = self.image(forResource: "pirate-scaled.to.size.circle-100x100-@\(scale)x",
+                                               withExtension: "png")
 
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
@@ -287,10 +277,8 @@ class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(
-            forResource: "pirate-aspect.scaled.to.fill.size.circle-100x100-@\(scale)x",
-            withExtension: "png"
-        )
+        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fill.size.circle-100x100-@\(scale)x",
+                                               withExtension: "png")
 
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }

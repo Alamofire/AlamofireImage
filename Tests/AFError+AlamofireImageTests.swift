@@ -25,7 +25,6 @@
 import Alamofire
 
 extension AFError {
-
     // ResponseSerializationFailureReason
 
     var isInputDataNilOrZeroLength: Bool {

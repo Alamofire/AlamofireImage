@@ -30,7 +30,6 @@ import UIKit
 import XCTest
 
 class UIImageTestCase: BaseTestCase {
-
     // MARK: - Properties
 
     var appleImage: UIImage { return image(forResource: "apple", withExtension: "jpg") }
@@ -147,6 +146,7 @@ class UIImageTestCase: BaseTestCase {
     }
 
     // MARK: - Scaling Tests
+
     #if !os(tvOS)
     func testThatImageIsScaledToSquareSize() {
         executeImageScaledToSizeTest(squareSize)

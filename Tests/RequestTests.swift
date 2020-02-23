@@ -22,8 +22,8 @@
 //  THE SOFTWARE.
 //
 
-import Alamofire
 @testable import AlamofireImage
+import Alamofire
 import Foundation
 import XCTest
 
@@ -83,13 +83,13 @@ class DataRequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.main.scale
-                let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
-                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-                XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+            let screenScale = UIScreen.main.scale
+            let expectedSize = CGSize(width: CGFloat(100) / screenScale, height: CGFloat(100) / screenScale)
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+            XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
             #elseif os(macOS)
-                let expectedSize = CGSize(width: 100.0, height: 100.0)
-                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+            let expectedSize = CGSize(width: 100.0, height: 100.0)
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
             #endif
         } else {
             XCTFail("result image should not be nil")
@@ -119,13 +119,13 @@ class DataRequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.main.scale
-                let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
-                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-                XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+            let screenScale = UIScreen.main.scale
+            let expectedSize = CGSize(width: CGFloat(239) / screenScale, height: CGFloat(178) / screenScale)
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+            XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
             #elseif os(macOS)
-                let expectedSize = CGSize(width: 239.0, height: 178.0)
-                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+            let expectedSize = CGSize(width: 239.0, height: 178.0)
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
             #endif
         } else {
             XCTFail("result image should not be nil")
@@ -155,20 +155,20 @@ class DataRequestTestCase: BaseTestCase {
 
         if let image = response?.result.value {
             #if os(iOS)
-                let screenScale = UIScreen.main.scale
-                let expectedSize = CGSize(width: CGFloat(180) / screenScale, height: CGFloat(260) / screenScale)
-                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
-                XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+            let screenScale = UIScreen.main.scale
+            let expectedSize = CGSize(width: CGFloat(180) / screenScale, height: CGFloat(260) / screenScale)
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+            XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
             #elseif os(macOS)
-                let expectedSize = CGSize(width: 180.0, height: 260.0)
-                XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+            let expectedSize = CGSize(width: 180.0, height: 260.0)
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
             #endif
         } else {
             XCTFail("result image should not be nil")
         }
     }
 
-#if os(iOS) || os(tvOS)
+    #if os(iOS) || os(tvOS)
 
     // MARK: - Tests - Image Inflation
 
@@ -236,7 +236,7 @@ class DataRequestTestCase: BaseTestCase {
         }
     }
 
-#endif
+    #endif
 
     // MARK: - Tests - Image Serialization Errors
 

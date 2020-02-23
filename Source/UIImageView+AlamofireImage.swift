@@ -42,33 +42,31 @@ extension UIImageView {
         case flipFromLeft(TimeInterval)
         case flipFromRight(TimeInterval)
         case flipFromTop(TimeInterval)
-        case custom(
-            duration: TimeInterval,
-            animationOptions: AnimationOptions,
-            animations: (UIImageView, Image) -> Void,
-            completion: ((Bool) -> Void)?
-        )
+        case custom(duration: TimeInterval,
+                    animationOptions: AnimationOptions,
+                    animations: (UIImageView, Image) -> Void,
+                    completion: ((Bool) -> Void)?)
 
         /// The duration of the image transition in seconds.
         public var duration: TimeInterval {
             switch self {
             case .noTransition:
                 return 0.0
-            case .crossDissolve(let duration):
+            case let .crossDissolve(duration):
                 return duration
-            case .curlDown(let duration):
+            case let .curlDown(duration):
                 return duration
-            case .curlUp(let duration):
+            case let .curlUp(duration):
                 return duration
-            case .flipFromBottom(let duration):
+            case let .flipFromBottom(duration):
                 return duration
-            case .flipFromLeft(let duration):
+            case let .flipFromLeft(duration):
                 return duration
-            case .flipFromRight(let duration):
+            case let .flipFromRight(duration):
                 return duration
-            case .flipFromTop(let duration):
+            case let .flipFromTop(duration):
                 return duration
-            case .custom(let duration, _, _, _):
+            case let .custom(duration, _, _, _):
                 return duration
             }
         }
@@ -92,15 +90,15 @@ extension UIImageView {
                 return .transitionFlipFromRight
             case .flipFromTop:
                 return .transitionFlipFromTop
-            case .custom(_, let animationOptions, _, _):
+            case let .custom(_, animationOptions, _, _):
                 return animationOptions
             }
         }
 
         /// The animation options of the image transition.
-        public var animations: ((UIImageView, Image) -> Void) {
+        public var animations: (UIImageView, Image) -> Void {
             switch self {
-            case .custom(_, _, let animations, _):
+            case let .custom(_, _, animations, _):
                 return animations
             default:
                 return { $0.image = $1 }
@@ -110,7 +108,7 @@ extension UIImageView {
         /// The completion closure associated with the image transition.
         public var completion: ((Bool) -> Void)? {
             switch self {
-            case .custom(_, _, _, let completion):
+            case let .custom(_, _, _, completion):
                 return completion
             default:
                 return nil
@@ -123,7 +121,6 @@ extension UIImageView {
 
 extension UIImageView: AlamofireExtended {}
 extension AlamofireExtension where ExtendedType: UIImageView {
-
     // MARK: - Properties
 
     /// The instance image downloader used to download all images. If this property is `nil`, the `UIImageView` will
@@ -202,30 +199,26 @@ extension AlamofireExtension where ExtendedType: UIImageView {
     ///                                         the response from the server and the result containing either the
     ///                                         image or the error that occurred. If the image was returned from the
     ///                                         image cache, the response will be `nil`. Defaults to `nil`.
-    public func setImage(
-        withURL url: URL,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        imageTransition: UIImageView.ImageTransition = .noTransition,
-        runImageTransitionIfCached: Bool = false,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
-        setImage(
-            withURLRequest: urlRequest(with: url),
-            cacheKey: cacheKey,
-            placeholderImage: placeholderImage,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            imageTransition: imageTransition,
-            runImageTransitionIfCached: runImageTransitionIfCached,
-            completion: completion
-        )
+    public func setImage(withURL url: URL,
+                         cacheKey: String? = nil,
+                         placeholderImage: UIImage? = nil,
+                         serializer: ImageResponseSerializer? = nil,
+                         filter: ImageFilter? = nil,
+                         progress: ImageDownloader.ProgressHandler? = nil,
+                         progressQueue: DispatchQueue = DispatchQueue.main,
+                         imageTransition: UIImageView.ImageTransition = .noTransition,
+                         runImageTransitionIfCached: Bool = false,
+                         completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
+        setImage(withURLRequest: urlRequest(with: url),
+                 cacheKey: cacheKey,
+                 placeholderImage: placeholderImage,
+                 serializer: serializer,
+                 filter: filter,
+                 progress: progress,
+                 progressQueue: progressQueue,
+                 imageTransition: imageTransition,
+                 runImageTransitionIfCached: runImageTransitionIfCached,
+                 completion: completion)
     }
 
     /// Asynchronously downloads an image from the specified URL Request, applies the specified image filter to the downloaded
@@ -264,27 +257,23 @@ extension AlamofireExtension where ExtendedType: UIImageView {
     ///                                         the response from the server and the result containing either the
     ///                                         image or the error that occurred. If the image was returned from the
     ///                                         image cache, the response will be `nil`. Defaults to `nil`.
-    public func setImage(
-        withURLRequest urlRequest: URLRequestConvertible,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        imageTransition: UIImageView.ImageTransition = .noTransition,
-        runImageTransitionIfCached: Bool = false,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+    public func setImage(withURLRequest urlRequest: URLRequestConvertible,
+                         cacheKey: String? = nil,
+                         placeholderImage: UIImage? = nil,
+                         serializer: ImageResponseSerializer? = nil,
+                         filter: ImageFilter? = nil,
+                         progress: ImageDownloader.ProgressHandler? = nil,
+                         progressQueue: DispatchQueue = DispatchQueue.main,
+                         imageTransition: UIImageView.ImageTransition = .noTransition,
+                         runImageTransitionIfCached: Bool = false,
+                         completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
         guard !isURLRequestURLEqualToActiveRequestURL(urlRequest) else {
-            let response = AFIDataResponse<UIImage>(
-                request: nil,
-                response: nil,
-                data: nil,
-                metrics: nil,
-                serializationDuration: 0.0,
-                result: .failure(AFIError.requestCancelled)
-            )
+            let response = AFIDataResponse<UIImage>(request: nil,
+                                                    response: nil,
+                                                    data: nil,
+                                                    metrics: nil,
+                                                    serializationDuration: 0.0,
+                                                    result: .failure(AFIError.requestCancelled))
 
             completion?(response)
 
@@ -307,14 +296,12 @@ extension AlamofireExtension where ExtendedType: UIImageView {
             }
 
             if let image = cachedImage {
-                let response = AFIDataResponse<UIImage>(
-                    request: request,
-                    response: nil,
-                    data: nil,
-                    metrics: nil,
-                    serializationDuration: 0.0,
-                    result: .success(image)
-                )
+                let response = AFIDataResponse<UIImage>(request: request,
+                                                        response: nil,
+                                                        data: nil,
+                                                        metrics: nil,
+                                                        serializationDuration: 0.0,
+                                                        result: .success(image))
 
                 if runImageTransitionIfCached {
                     // It's important to display the placeholder image again otherwise you have some odd disparity
@@ -331,7 +318,7 @@ extension AlamofireExtension where ExtendedType: UIImageView {
                         completion?(response)
                     }
                 } else {
-                    self.type.image = image
+                    type.image = image
                     completion?(response)
                 }
 
@@ -346,36 +333,34 @@ extension AlamofireExtension where ExtendedType: UIImageView {
         let downloadID = UUID().uuidString
 
         // Weakify the image view to allow it to go out-of-memory while download is running if deallocated
-        weak var imageView = self.type
+        weak var imageView = type
 
         // Download the image, then run the image transition or completion handler
-        let requestReceipt = imageDownloader.download(
-            urlRequest,
-            cacheKey: cacheKey,
-            receiptID: downloadID,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            completion: { response in
-                guard
-                    let strongSelf = imageView?.af,
-                    strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) &&
-                    strongSelf.activeRequestReceipt?.receiptID == downloadID
-                else {
-                    completion?(response)
-                    return
-                }
+        let requestReceipt = imageDownloader.download(urlRequest,
+                                                      cacheKey: cacheKey,
+                                                      receiptID: downloadID,
+                                                      serializer: serializer,
+                                                      filter: filter,
+                                                      progress: progress,
+                                                      progressQueue: progressQueue,
+                                                      completion: { response in
+                                                          guard
+                                                              let strongSelf = imageView?.af,
+                                                              strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) &&
+                                                              strongSelf.activeRequestReceipt?.receiptID == downloadID
+                                                          else {
+                                                              completion?(response)
+                                                              return
+                                                          }
 
-                if case .success(let image) = response.result {
-                    strongSelf.run(imageTransition, with: image)
-                }
+                                                          if case let .success(image) = response.result {
+                                                              strongSelf.run(imageTransition, with: image)
+                                                          }
 
-                strongSelf.activeRequestReceipt = nil
+                                                          strongSelf.activeRequestReceipt = nil
 
-                completion?(response)
-            }
-        )
+                                                          completion?(response)
+            })
 
         activeRequestReceipt = requestReceipt
     }
@@ -401,13 +386,11 @@ extension AlamofireExtension where ExtendedType: UIImageView {
     public func run(_ imageTransition: UIImageView.ImageTransition, with image: Image) {
         let imageView = type
 
-        UIView.transition(
-            with: type,
-            duration: imageTransition.duration,
-            options: imageTransition.animationOptions,
-            animations: { imageTransition.animations(imageView, image) },
-            completion: imageTransition.completion
-        )
+        UIView.transition(with: type,
+                          duration: imageTransition.duration,
+                          options: imageTransition.animationOptions,
+                          animations: { imageTransition.animations(imageView, image) },
+                          completion: imageTransition.completion)
     }
 
     // MARK: - Private - URL Request Helper Methods
@@ -426,8 +409,7 @@ extension AlamofireExtension where ExtendedType: UIImageView {
         if
             let currentRequestURL = activeRequestReceipt?.request.task?.originalRequest?.url,
             let requestURL = urlRequest?.urlRequest?.url,
-            currentRequestURL == requestURL
-        {
+            currentRequestURL == requestURL {
             return true
         }
 
@@ -451,57 +433,49 @@ extension UIImageView {
     }
 
     @available(*, deprecated, message: "Replaced by `imageView.af.setImage(withURL: ...)`")
-    public func af_setImage(
-        withURL url: URL,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        imageTransition: ImageTransition = .noTransition,
-        runImageTransitionIfCached: Bool = false,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
-        af.setImage(
-            withURL: url,
-            cacheKey: cacheKey,
-            placeholderImage: placeholderImage,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            imageTransition: imageTransition,
-            runImageTransitionIfCached: runImageTransitionIfCached,
-            completion: completion
-        )
+    public func af_setImage(withURL url: URL,
+                            cacheKey: String? = nil,
+                            placeholderImage: UIImage? = nil,
+                            serializer: ImageResponseSerializer? = nil,
+                            filter: ImageFilter? = nil,
+                            progress: ImageDownloader.ProgressHandler? = nil,
+                            progressQueue: DispatchQueue = DispatchQueue.main,
+                            imageTransition: ImageTransition = .noTransition,
+                            runImageTransitionIfCached: Bool = false,
+                            completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
+        af.setImage(withURL: url,
+                    cacheKey: cacheKey,
+                    placeholderImage: placeholderImage,
+                    serializer: serializer,
+                    filter: filter,
+                    progress: progress,
+                    progressQueue: progressQueue,
+                    imageTransition: imageTransition,
+                    runImageTransitionIfCached: runImageTransitionIfCached,
+                    completion: completion)
     }
 
     @available(*, deprecated, message: "Replaced by `imageView.af.setImage(withURLRequest: ...)`")
-    public func af_setImage(
-        withURLRequest urlRequest: URLRequestConvertible,
-        cacheKey: String? = nil,
-        placeholderImage: UIImage? = nil,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ImageDownloader.ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        imageTransition: ImageTransition = .noTransition,
-        runImageTransitionIfCached: Bool = false,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
-        af.setImage(
-            withURLRequest: urlRequest,
-            cacheKey: cacheKey,
-            placeholderImage: placeholderImage,
-            serializer: serializer,
-            filter: filter,
-            progress: progress,
-            progressQueue: progressQueue,
-            imageTransition: imageTransition,
-            runImageTransitionIfCached: runImageTransitionIfCached,
-            completion: completion
-        )
+    public func af_setImage(withURLRequest urlRequest: URLRequestConvertible,
+                            cacheKey: String? = nil,
+                            placeholderImage: UIImage? = nil,
+                            serializer: ImageResponseSerializer? = nil,
+                            filter: ImageFilter? = nil,
+                            progress: ImageDownloader.ProgressHandler? = nil,
+                            progressQueue: DispatchQueue = DispatchQueue.main,
+                            imageTransition: ImageTransition = .noTransition,
+                            runImageTransitionIfCached: Bool = false,
+                            completion: ((AFIDataResponse<UIImage>) -> Void)? = nil) {
+        af.setImage(withURLRequest: urlRequest,
+                    cacheKey: cacheKey,
+                    placeholderImage: placeholderImage,
+                    serializer: serializer,
+                    filter: filter,
+                    progress: progress,
+                    progressQueue: progressQueue,
+                    imageTransition: imageTransition,
+                    runImageTransitionIfCached: runImageTransitionIfCached,
+                    completion: completion)
     }
 
     @available(*, deprecated, message: "Replaced by `imageView.af.cancelImageRequest()`")

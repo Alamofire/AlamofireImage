@@ -26,7 +26,7 @@ import AlamofireImage
 import Foundation
 import UIKit
 
-class ImageViewController : UIViewController {
+class ImageViewController: UIViewController {
     var gravatar: Gravatar!
     var imageView: UIImageView!
 
@@ -53,12 +53,10 @@ class ImageViewController : UIViewController {
 
         let URL = gravatar.url(size: view.bounds.size.width)
 
-        imageView.af_setImage(
-            withURL: URL,
-            placeholderImage: nil,
-            filter: CircleFilter(),
-            imageTransition: .flipFromBottom(0.5)
-        )
+        imageView.af_setImage(withURL: URL,
+                              placeholderImage: nil,
+                              filter: CircleFilter(),
+                              imageTransition: .flipFromBottom(0.5))
 
         view.addSubview(imageView)
 

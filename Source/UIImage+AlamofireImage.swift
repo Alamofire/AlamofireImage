@@ -135,9 +135,9 @@ extension AlamofireExtension where ExtendedType: UIImage {
 
         return (
             alphaInfo == .first ||
-            alphaInfo == .last ||
-            alphaInfo == .premultipliedFirst ||
-            alphaInfo == .premultipliedLast
+                alphaInfo == .last ||
+                alphaInfo == .premultipliedFirst ||
+                alphaInfo == .premultipliedLast
         )
     }
 
@@ -314,10 +314,8 @@ extension AlamofireExtension where ExtendedType: UIImage {
 
         UIGraphicsBeginImageContextWithOptions(squareImage.size, false, type.scale)
 
-        let clippingPath = UIBezierPath(
-            roundedRect: CGRect(origin: CGPoint.zero, size: squareImage.size),
-            cornerRadius: radius
-        )
+        let clippingPath = UIBezierPath(roundedRect: CGRect(origin: CGPoint.zero, size: squareImage.size),
+                                        cornerRadius: radius)
 
         clippingPath.addClip()
 
