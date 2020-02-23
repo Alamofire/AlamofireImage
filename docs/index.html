@@ -22,7 +22,7 @@
         <a class="header-link" href="index.html">
           AlamofireImage Docs
         </a>
-         (85% documented)
+         (77% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -86,6 +86,9 @@
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/AlamofireExtension.html">AlamofireExtension</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/DataRequest.html">DataRequest</a>
               </li>
@@ -201,7 +204,7 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             
             <h1 id='alamofireimage' class='heading'>AlamofireImage</h1>
 
@@ -225,25 +228,26 @@
 <li>[x] UIImageView Async Remote Downloads with Placeholders</li>
 <li>[x] UIImageView Filters and Transitions</li>
 <li>[x] Comprehensive Test Coverage</li>
-<li>[x] <a href="http://cocoadocs.org/docsets/AlamofireImage">Complete Documentation</a></li>
+<li>[x] <a href="https://alamofire.github.io/AlamofireImage/">Complete Documentation</a></li>
 </ul>
 <h2 id='requirements' class='heading'>Requirements</h2>
 
 <ul>
-<li>iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+</li>
-<li>Xcode 8.3+</li>
-<li>Swift 3.1+</li>
+<li>iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+</li>
+<li>Xcode 10.2+</li>
+<li>Swift 5+</li>
 </ul>
 <h2 id='migration-guides' class='heading'>Migration Guides</h2>
 
 <ul>
 <li><a href="https://github.com/Alamofire/AlamofireImage/blob/master/Documentation/AlamofireImage%202.0%20Migration%20Guide.md">AlamofireImage 2.0 Migration Guide</a></li>
 <li><a href="https://github.com/Alamofire/AlamofireImage/blob/master/Documentation/AlamofireImage%203.0%20Migration%20Guide.md">AlamofireImage 3.0 Migration Guide</a></li>
+<li><a href="https://github.com/Alamofire/AlamofireImage/blob/master/Documentation/AlamofireImage%204.0%20Migration%20Guide.md">AlamofireImage 4.0 Migration Guide</a></li>
 </ul>
 <h2 id='dependencies' class='heading'>Dependencies</h2>
 
 <ul>
-<li><a href="https://github.com/Alamofire/Alamofire">Alamofire 4.8+</a></li>
+<li><a href="https://github.com/Alamofire/Alamofire">Alamofire 5.0+</a></li>
 </ul>
 <h2 id='communication' class='heading'>Communication</h2>
 
@@ -258,48 +262,30 @@
 <h2 id='installation' class='heading'>Installation</h2>
 <h3 id='cocoapods' class='heading'>CocoaPods</h3>
 
-<p><a href="http://cocoapods.org">CocoaPods</a> is a dependency manager for Cocoa projects. You can install it with the following command:</p>
-<pre class="highlight shell"><code><span class="nv">$ </span>gem <span class="nb">install </span>cocoapods
-</code></pre>
-
-<blockquote>
-<p>CocoaPods 1.1+ is required.</p>
-</blockquote>
-
-<p>To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your <code>Podfile</code>:</p>
-<pre class="highlight ruby"><code><span class="n">source</span> <span class="s1">'https://github.com/CocoaPods/Specs.git'</span>
-<span class="n">platform</span> <span class="ss">:ios</span><span class="p">,</span> <span class="s1">'10.0'</span>
-<span class="n">use_frameworks!</span>
-
-<span class="n">target</span> <span class="s1">'&lt;Your Target Name&gt;'</span> <span class="k">do</span>
-    <span class="n">pod</span> <span class="s1">'AlamofireImage'</span><span class="p">,</span> <span class="s1">'~&gt; 3.5'</span>
-<span class="k">end</span>
-</code></pre>
-
-<p>Then, run the following command:</p>
-<pre class="highlight shell"><code><span class="nv">$ </span>pod <span class="nb">install</span>
+<p><a href="https://cocoapods.org">CocoaPods</a> is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your <code>Podfile</code>:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'AlamofireImage'</span><span class="p">,</span> <span class="s1">'~&gt; 4.0'</span>
 </code></pre>
 <h3 id='carthage' class='heading'>Carthage</h3>
 
-<p><a href="https://github.com/Carthage/Carthage">Carthage</a> is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.</p>
-
-<p>You can install Carthage with <a href="http://brew.sh/">Homebrew</a> using the following command:</p>
-<pre class="highlight shell"><code><span class="nv">$ </span>brew update
-<span class="nv">$ </span>brew <span class="nb">install </span>carthage
+<p><a href="https://github.com/Carthage/Carthage">Carthage</a> is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate AlamofireImage into your Xcode project using Carthage, specify it in your <code>Cartfile</code>:</p>
+<pre class="highlight plaintext"><code>github "Alamofire/AlamofireImage" "4.0"
 </code></pre>
+<h3 id='swift-package-manager' class='heading'>Swift Package Manager</h3>
 
-<p>To integrate AlamofireImage into your Xcode project using Carthage, specify it in your <code>Cartfile</code>:</p>
-<pre class="highlight plaintext"><code>github "Alamofire/AlamofireImage" ~&gt; 3.5
+<p>The <a href="https://swift.org/package-manager/">Swift Package Manager</a> is a tool for automating the distribution of Swift code and is integrated into the <code>swift</code> compiler. It is in early development, but AlamofireImage does support its use on supported platforms.</p>
+
+<p>Once you have your Swift package set up, adding AlamofireImage as a dependency is as easy as adding it to the <code>dependencies</code> value of your <code>Package.swift</code>.</p>
+<pre class="highlight swift"><code><span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+    <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Alamofire/AlamofireImage.git"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"4.0"</span><span class="p">)</span>
+<span class="p">]</span>
 </code></pre>
-
-<p>Run <code>carthage update</code> to build the framework and drag the built <code>AlamofireImage.framework</code> into your Xcode project.</p>
 <h3 id='manually' class='heading'>Manually</h3>
 
 <p>If you prefer not to use either of the aforementioned dependency managers, you can integrate AlamofireImage into your project manually.</p>
 <h4 id='embedded-framework' class='heading'>Embedded Framework</h4>
 
 <ul>
-<li>Open up Terminal, <code>cd</code> into your top-level project directory, and run the following command <q>if</q> your project is not initialized as a git repository:</li>
+<li>Open up Terminal, <code>cd</code> into your top-level project directory, and run the following command &ldquo;if&rdquo; your project is not initialized as a git repository:</li>
 </ul>
 <pre class="highlight shell"><code><span class="nv">$ </span>git init
 </code></pre>
@@ -317,9 +303,9 @@
 <p>It should appear nested underneath your application&rsquo;s blue project icon. Whether it is above or below all the other Xcode groups does not matter.</p>
 </blockquote></li>
 <li><p>Select the <code>AlamofireImage.xcodeproj</code> in the Project Navigator and verify the deployment target matches that of your application target.</p></li>
-<li><p>Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the <q>Targets</q> heading in the sidebar.</p></li>
-<li><p>In the tab bar at the top of that window, open the <q>General</q> panel.</p></li>
-<li><p>Click on the <code>+</code> button under the <q>Embedded Binaries</q> section.</p></li>
+<li><p>Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the &ldquo;Targets&rdquo; heading in the sidebar.</p></li>
+<li><p>In the tab bar at the top of that window, open the &ldquo;General&rdquo; panel.</p></li>
+<li><p>Click on the <code>+</code> button under the &ldquo;Embedded Binaries&rdquo; section.</p></li>
 <li><p>You will see two different <code>AlamofireImage.xcodeproj</code> folders each with two different versions of the <code>AlamofireImage.framework</code> nested inside a <code>Products</code> folder.</p>
 
 <blockquote>
@@ -350,7 +336,7 @@
     <span class="nf">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
     <span class="nf">debugPrint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">value</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">image</span><span class="p">)</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span> <span class="p">{</span>
         <span class="nf">print</span><span class="p">(</span><span class="s">"image downloaded: </span><span class="se">\(</span><span class="n">image</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -368,7 +354,9 @@
 <li><code>image/bmp</code></li>
 <li><code>image/x-bmp</code></li>
 <li><code>image/x-xbitmap</code></li>
+<li><code>image/x-ms-bmp</code></li>
 <li><code>image/x-win-bitmap</code></li>
+<li><code>application/octet-stream</code> (added for iOS 13 support)</li>
 </ul>
 
 <blockquote>
@@ -382,7 +370,7 @@
 <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">Data</span><span class="p">(</span><span class="nv">contentsOf</span><span class="p">:</span> <span class="n">url</span><span class="p">)</span>
 <span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">UIScreen</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span><span class="o">!</span>
 
-<span class="n">image</span><span class="o">.</span><span class="nf">af_inflate</span><span class="p">()</span>
+<span class="n">image</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">inflate</span><span class="p">()</span>
 </code></pre>
 
 <blockquote>
@@ -393,27 +381,27 @@
 <span class="k">let</span> <span class="nv">size</span> <span class="o">=</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mf">100.0</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mf">100.0</span><span class="p">)</span>
 
 <span class="c1">// Scale image to size disregarding aspect ratio</span>
-<span class="k">let</span> <span class="nv">scaledImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="nf">af_imageScaled</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">size</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">scaledImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">imageScaled</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">size</span><span class="p">)</span>
 
 <span class="c1">// Scale image to fit within specified size while maintaining aspect ratio</span>
-<span class="k">let</span> <span class="nv">aspectScaledToFitImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="nf">af_imageAspectScaled</span><span class="p">(</span><span class="nv">toFit</span><span class="p">:</span> <span class="n">size</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">aspectScaledToFitImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">imageAspectScaled</span><span class="p">(</span><span class="nv">toFit</span><span class="p">:</span> <span class="n">size</span><span class="p">)</span>
 
 <span class="c1">// Scale image to fill specified size while maintaining aspect ratio</span>
-<span class="k">let</span> <span class="nv">aspectScaledToFillImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="nf">af_imageAspectScaled</span><span class="p">(</span><span class="nv">toFill</span><span class="p">:</span> <span class="n">size</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">aspectScaledToFillImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">imageAspectScaled</span><span class="p">(</span><span class="nv">toFill</span><span class="p">:</span> <span class="n">size</span><span class="p">)</span>
 </code></pre>
 <h4 id='rounded-corners' class='heading'>Rounded Corners</h4>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"unicorn"</span><span class="p">)</span><span class="o">!</span>
 <span class="k">let</span> <span class="nv">radius</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mf">20.0</span>
 
-<span class="k">let</span> <span class="nv">roundedImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="nf">af_imageRounded</span><span class="p">(</span><span class="nv">withCornerRadius</span><span class="p">:</span> <span class="n">radius</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">circularImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="nf">af_imageRoundedIntoCircle</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">roundedImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">imageRounded</span><span class="p">(</span><span class="nv">withCornerRadius</span><span class="p">:</span> <span class="n">radius</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">circularImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">imageRoundedIntoCircle</span><span class="p">()</span>
 </code></pre>
 <h4 id='core-image-filters' class='heading'>Core Image Filters</h4>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"unicorn"</span><span class="p">)</span><span class="o">!</span>
 
-<span class="k">let</span> <span class="nv">sepiaImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="nf">af_imageFiltered</span><span class="p">(</span><span class="nv">withCoreImageFilter</span><span class="p">:</span> <span class="s">"CISepiaTone"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">sepiaImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">imageFiltered</span><span class="p">(</span><span class="nv">withCoreImageFilter</span><span class="p">:</span> <span class="s">"CISepiaTone"</span><span class="p">)</span>
 
-<span class="k">let</span> <span class="nv">blurredImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="nf">af_imageFiltered</span><span class="p">(</span>
+<span class="k">let</span> <span class="nv">blurredImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">imageFiltered</span><span class="p">(</span>
     <span class="nv">withCoreImageFilter</span><span class="p">:</span> <span class="s">"CIGaussianBlur"</span><span class="p">,</span>
     <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="s">"inputRadius"</span><span class="p">:</span> <span class="mi">25</span><span class="p">]</span>
 <span class="p">)</span>
@@ -502,7 +490,7 @@
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">imageCache</span> <span class="o">=</span> <span class="kt">AutoPurgingImageCache</span><span class="p">()</span>
 
 <span class="k">let</span> <span class="nv">urlRequest</span> <span class="o">=</span> <span class="kt">URLRequest</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"https://httpbin.org/image/png"</span><span class="p">)</span><span class="o">!</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">avatarImage</span> <span class="o">=</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"avatar"</span><span class="p">)</span><span class="o">!.</span><span class="nf">af_imageRoundedIntoCircle</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">avatarImage</span> <span class="o">=</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"avatar"</span><span class="p">)</span><span class="o">!.</span><span class="n">af</span><span class="o">.</span><span class="nf">imageRoundedIntoCircle</span><span class="p">()</span>
 
 <span class="c1">// Add</span>
 <span class="n">imageCache</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">avatarImage</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="n">urlRequest</span><span class="p">,</span> <span class="nv">withIdentifier</span><span class="p">:</span> <span class="s">"circle"</span><span class="p">)</span>
@@ -551,7 +539,7 @@
     <span class="nf">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
     <span class="nf">debugPrint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">value</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">image</span><span class="p">)</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span> <span class="p">{</span>
         <span class="nf">print</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -570,7 +558,7 @@
     <span class="nf">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
     <span class="nf">debugPrint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">value</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">image</span><span class="p">)</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span> <span class="p">{</span>
         <span class="nf">print</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -610,14 +598,14 @@
 <p>Determining the ideal the in-memory and on-disk capacity limits of the <code>URLCache</code> and <code><a href="Classes/AutoPurgingImageCache.html">AutoPurgingImageCache</a></code> requires a bit of forethought. You must carefully consider your application&rsquo;s needs, and tailor the limits accordingly. By default, the combination of caches offers the following storage capacities:</p>
 
 <ul>
-<li>150 MB of on-disk storage</li>
-<li>20 MB of in-memory original image data storage</li>
-<li>100 MB of in-memory storage of filtered image content</li>
+<li>150 MB of on-disk storage (original image only)</li>
+<li>20 MB of in-memory original image data storage (original image only)</li>
+<li>100 MB of in-memory storage of filtered image content (filtered image if using filters, otherwise original image)</li>
 <li>60 MB preferred memory capacity after purge of filtered image content</li>
 </ul>
 
 <blockquote>
-<p>If you do not use image filters, it is advised to set the memory capacity of the <code>URLCache</code> to zero to avoid storing the same content in-memory twice.</p>
+<p>If you do not use image filters, it is advised to set the memory capacity of the <code>URLCache</code> to zero. Otherwise, you will be storing the original image data in both the URLCache&rsquo;s in-memory store as well as the AlamofireImage in-memory store.</p>
 </blockquote>
 <h4 id='duplicate-downloads' class='heading'>Duplicate Downloads</h4>
 
@@ -643,7 +631,7 @@
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">imageView</span> <span class="o">=</span> <span class="kt">UIImageView</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="n">frame</span><span class="p">)</span>
 <span class="k">let</span> <span class="nv">url</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"https://httpbin.org/image/png"</span><span class="p">)</span><span class="o">!</span>
 
-<span class="n">imageView</span><span class="o">.</span><span class="nf">af_setImage</span><span class="p">(</span><span class="nv">withURL</span><span class="p">:</span> <span class="n">url</span><span class="p">)</span>
+<span class="n">imageView</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">setImage</span><span class="p">(</span><span class="nv">withURL</span><span class="p">:</span> <span class="n">url</span><span class="p">)</span>
 </code></pre>
 
 <blockquote>
@@ -656,7 +644,7 @@
 <span class="k">let</span> <span class="nv">url</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"https://httpbin.org/image/png"</span><span class="p">)</span><span class="o">!</span>
 <span class="k">let</span> <span class="nv">placeholderImage</span> <span class="o">=</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"placeholder"</span><span class="p">)</span><span class="o">!</span>
 
-<span class="n">imageView</span><span class="o">.</span><span class="nf">af_setImage</span><span class="p">(</span><span class="nv">withURL</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nv">placeholderImage</span><span class="p">:</span> <span class="n">placeholderImage</span><span class="p">)</span>
+<span class="n">imageView</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">setImage</span><span class="p">(</span><span class="nv">withURL</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nv">placeholderImage</span><span class="p">:</span> <span class="n">placeholderImage</span><span class="p">)</span>
 </code></pre>
 
 <blockquote>
@@ -675,7 +663,7 @@
     <span class="nv">radius</span><span class="p">:</span> <span class="mf">20.0</span>
 <span class="p">)</span>
 
-<span class="n">imageView</span><span class="o">.</span><span class="nf">af_setImage</span><span class="p">(</span>
+<span class="n">imageView</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">setImage</span><span class="p">(</span>
     <span class="nv">withURL</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
     <span class="nv">placeholderImage</span><span class="p">:</span> <span class="n">placeholderImage</span><span class="p">,</span>
     <span class="nv">filter</span><span class="p">:</span> <span class="n">filter</span>
@@ -698,7 +686,7 @@
     <span class="nv">radius</span><span class="p">:</span> <span class="mf">20.0</span>
 <span class="p">)</span>
 
-<span class="n">imageView</span><span class="o">.</span><span class="nf">af_setImage</span><span class="p">(</span>
+<span class="n">imageView</span><span class="o">.</span><span class="n">af</span><span class="o">.</span><span class="nf">setImage</span><span class="p">(</span>
     <span class="nv">withURL</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
     <span class="nv">placeholderImage</span><span class="p">:</span> <span class="n">placeholderImage</span><span class="p">,</span>
     <span class="nv">filter</span><span class="p">:</span> <span class="n">filter</span><span class="p">,</span>
@@ -747,7 +735,7 @@ Any amount you can donate today to help us reach our goal would be greatly appre
 <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W34WPEE74APJQ"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" alt="paypal"></a></p>
 <h2 id='license' class='heading'>License</h2>
 
-<p>AlamofireImage is released under the MIT license. See LICENSE for details.</p>
+<p>AlamofireImage is released under the MIT license. <a href="https://github.com/Alamofire/AlamofireImage/blob/master/LICENSE">See LICENSE</a> for details.</p>
 
           </div>
         </section>
@@ -756,8 +744,8 @@ Any amount you can donate today to help us reach our goal would be greatly appre
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2019-10-27)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2020-02-23)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

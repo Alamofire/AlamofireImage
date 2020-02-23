@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           AlamofireImage Docs
         </a>
-         (85% documented)
+         (77% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -87,6 +87,9 @@
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/AlamofireExtension.html">AlamofireExtension</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/DataRequest.html">DataRequest</a>
               </li>
@@ -202,11 +205,11 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             <h1>UIImage</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIImage</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIImage</span><span class="p">:</span> <span class="kt">AlamofireExtended</span></code></pre>
 
                 </div>
               </div>
@@ -217,6 +220,15 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initialization"></a>
+                <a name="//apple_ref/swift/Section/Initialization" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initialization"></a>
+                  <h3 class="section-name"><p>Initialization</p>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
@@ -231,11 +243,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializes and returns the image object with the specified data in a thread-safe manner.</p>
-
-<p>It has been reported that there are thread-safety issues when initializing large amounts of images
-simultaneously. In the event of these issues occurring, this method can be used in place of
-the <code>init?(data:)</code> method.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
@@ -245,29 +253,6 @@ the <code>init?(data:)</code> method.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">af_threadSafeImage</span><span class="p">(</span><span class="n">with</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span><span class="p">?</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>data</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The data object containing the image data.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>An initialized <code>UIImage</code> object, or <code>nil</code> if the method failed.</p>
                       </div>
                     </section>
                   </div>
@@ -285,11 +270,7 @@ the <code>init?(data:)</code> method.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializes and returns the image object with the specified data and scale in a thread-safe manner.</p>
-
-<p>It has been reported that there are thread-safety issues when initializing large amounts of images
-simultaneously. In the event of these issues occurring, this method can be used in place of
-the <code>init?(data:scale:)</code> method.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
@@ -300,49 +281,21 @@ the <code>init?(data:scale:)</code> method.</p>
 
                         </div>
                       </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>data</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The data object containing the image data.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>scale</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The scale factor to assume when interpreting the image data. Applying a scale factor of 1.0
-               results in an image whose size matches the pixel-based dimensions of the image. Applying a
-               different scale factor changes the size of the image as reported by the size property.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>An initialized <code>UIImage</code> object, or <code>nil</code> if the method failed.</p>
-                      </div>
                     </section>
                   </div>
                 </li>
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Inflation"></a>
+                <a name="//apple_ref/swift/Section/Inflation" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Inflation"></a>
+                  <h3 class="section-name"><p>Inflation</p>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
@@ -357,14 +310,14 @@ the <code>init?(data:scale:)</code> method.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns whether the image is inflated.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">af_inflated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">af_inflated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -384,10 +337,7 @@ the <code>init?(data:scale:)</code> method.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Inflates the underlying compressed image data to be backed by an uncompressed bitmap representation.</p>
-
-<p>Inflating compressed image formats (such as PNG or JPEG) can significantly improve drawing performance as it
-allows a bitmap representation to be constructed in the background rather than on the main thread.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
@@ -404,6 +354,15 @@ allows a bitmap representation to be constructed in the background rather than o
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Alpha"></a>
+                <a name="//apple_ref/swift/Section/Alpha" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Alpha"></a>
+                  <h3 class="section-name"><p>Alpha</p>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
@@ -418,7 +377,7 @@ allows a bitmap representation to be constructed in the background rather than o
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns whether the image contains an alpha component.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
@@ -445,7 +404,7 @@ allows a bitmap representation to be constructed in the background rather than o
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns whether the image is opaque.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
@@ -462,13 +421,22 @@ allows a bitmap representation to be constructed in the background rather than o
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Scaling"></a>
+                <a name="//apple_ref/swift/Section/Scaling" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Scaling"></a>
+                  <h3 class="section-name"><p>Scaling</p>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:So7UIImageC14AlamofireImageE14af_imageScaled2toABSo6CGSizeV_tF"></a>
-                    <a name="//apple_ref/swift/Method/af_imageScaled(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:So7UIImageC14AlamofireImageE14af_imageScaled2toABSo6CGSizeV_tF">af_imageScaled(to:)</a>
+                    <a name="/s:So7UIImageC14AlamofireImageE14af_imageScaled2to5scaleABSo6CGSizeV_12CoreGraphics7CGFloatVSgtF"></a>
+                    <a name="//apple_ref/swift/Method/af_imageScaled(to:scale:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So7UIImageC14AlamofireImageE14af_imageScaled2to5scaleABSo6CGSizeV_12CoreGraphics7CGFloatVSgtF">af_imageScaled(to:scale:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -476,39 +444,16 @@ allows a bitmap representation to be constructed in the background rather than o
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a new version of the image scaled to the specified size.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_imageScaled</span><span class="p">(</span><span class="n">to</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_imageScaled</span><span class="p">(</span><span class="n">to</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>size</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The size to use when scaling the new image.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A new image object.</p>
                       </div>
                     </section>
                   </div>
@@ -516,9 +461,9 @@ allows a bitmap representation to be constructed in the background rather than o
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:So7UIImageC14AlamofireImageE20af_imageAspectScaled5toFitABSo6CGSizeV_tF"></a>
-                    <a name="//apple_ref/swift/Method/af_imageAspectScaled(toFit:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:So7UIImageC14AlamofireImageE20af_imageAspectScaled5toFitABSo6CGSizeV_tF">af_imageAspectScaled(toFit:)</a>
+                    <a name="/s:So7UIImageC14AlamofireImageE20af_imageAspectScaled5toFit5scaleABSo6CGSizeV_12CoreGraphics7CGFloatVSgtF"></a>
+                    <a name="//apple_ref/swift/Method/af_imageAspectScaled(toFit:scale:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So7UIImageC14AlamofireImageE20af_imageAspectScaled5toFit5scaleABSo6CGSizeV_12CoreGraphics7CGFloatVSgtF">af_imageAspectScaled(toFit:scale:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -526,45 +471,16 @@ allows a bitmap representation to be constructed in the background rather than o
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a new version of the image scaled from the center while maintaining the aspect ratio to fit within
-a specified size.</p>
-
-<p>The resulting image contains an alpha component used to pad the width or height with the necessary transparent
-pixels to fit the specified size. In high performance critical situations, this may not be the optimal approach.
-To maintain an opaque image, you could compute the <code>scaledSize</code> manually, then use the <code>af_imageScaledToSize</code>
-method in conjunction with a <code>.Center</code> content mode to achieve the same visual result.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_imageAspectScaled</span><span class="p">(</span><span class="n">toFit</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_imageAspectScaled</span><span class="p">(</span><span class="n">toFit</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>size</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The size to use when scaling the new image.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A new image object.</p>
                       </div>
                     </section>
                   </div>
@@ -572,9 +488,9 @@ method in conjunction with a <code>.Center</code> content mode to achieve the sa
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:So7UIImageC14AlamofireImageE20af_imageAspectScaled6toFillABSo6CGSizeV_tF"></a>
-                    <a name="//apple_ref/swift/Method/af_imageAspectScaled(toFill:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:So7UIImageC14AlamofireImageE20af_imageAspectScaled6toFillABSo6CGSizeV_tF">af_imageAspectScaled(toFill:)</a>
+                    <a name="/s:So7UIImageC14AlamofireImageE20af_imageAspectScaled6toFill5scaleABSo6CGSizeV_12CoreGraphics7CGFloatVSgtF"></a>
+                    <a name="//apple_ref/swift/Method/af_imageAspectScaled(toFill:scale:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:So7UIImageC14AlamofireImageE20af_imageAspectScaled6toFill5scaleABSo6CGSizeV_12CoreGraphics7CGFloatVSgtF">af_imageAspectScaled(toFill:scale:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -582,40 +498,16 @@ method in conjunction with a <code>.Center</code> content mode to achieve the sa
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a new version of the image scaled from the center while maintaining the aspect ratio to fill a
-specified size. Any pixels that fall outside the specified size are clipped.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_imageAspectScaled</span><span class="p">(</span><span class="n">toFill</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_imageAspectScaled</span><span class="p">(</span><span class="n">toFill</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>size</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The size to use when scaling the new image.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A new image object.</p>
                       </div>
                     </section>
                   </div>
@@ -623,6 +515,15 @@ specified size. Any pixels that fall outside the specified size are clipped.</p>
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Rounded%20Corners"></a>
+                <a name="//apple_ref/swift/Section/Rounded Corners" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Rounded%20Corners"></a>
+                  <h3 class="section-name"><p>Rounded Corners</p>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
@@ -637,7 +538,7 @@ specified size. Any pixels that fall outside the specified size are clipped.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a new version of the image with the corners rounded to the specified radius.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
@@ -647,45 +548,6 @@ specified size. Any pixels that fall outside the specified size are clipped.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_imageRounded</span><span class="p">(</span><span class="n">withCornerRadius</span> <span class="nv">radius</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> <span class="nv">divideRadiusByImageScale</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>radius</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The radius to use when rounding the new image.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>divideRadiusByImageScale</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Whether to divide the radius by the image scale. Set to <code>true</code> when the
-                                  image has the same resolution for all screen scales such as @1x, @2x and
-                                  @3x (i.e. single image from web server). Set to <code>false</code> for images loaded
-                                  from an asset catalog with varying resolutions for each screen scale.
-                                  <code>false</code> by default.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A new image object.</p>
                       </div>
                     </section>
                   </div>
@@ -703,7 +565,7 @@ specified size. Any pixels that fall outside the specified size are clipped.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a new version of the image rounded into a circle.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
@@ -714,16 +576,21 @@ specified size. Any pixels that fall outside the specified size are clipped.</p>
 
                         </div>
                       </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A new image object.</p>
-                      </div>
                     </section>
                   </div>
                 </li>
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Core%20Image%20Filters"></a>
+                <a name="//apple_ref/swift/Section/Core Image Filters" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Core%20Image%20Filters"></a>
+                  <h3 class="section-name"><p>Core Image Filters</p>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
@@ -738,7 +605,7 @@ specified size. Any pixels that fall outside the specified size are clipped.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a new version of the image using a CoreImage filter with the specified name and parameters.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
@@ -748,41 +615,6 @@ specified size. Any pixels that fall outside the specified size are clipped.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">af_imageFiltered</span><span class="p">(</span><span class="n">withCoreImageFilter</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span><span class="p">?</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>name</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The name of the CoreImage filter to use on the new image.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>parameters</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The parameters to apply to the CoreImage filter.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A new image object, or <code>nil</code> if the filter failed for any reason.</p>
                       </div>
                     </section>
                   </div>
@@ -795,8 +627,8 @@ specified size. Any pixels that fall outside the specified size are clipped.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2019-10-27)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2020-02-23)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

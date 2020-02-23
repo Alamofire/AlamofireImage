@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 4.x Releases
+- `4.0.0` - [4.0.0](#400)
 - `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2) | [4.0.0-beta.3](#400-beta3) | [4.0.0-beta.4](#400-beta4) | [4.0.0-beta.5](#400-beta5) | [4.0.0-beta.6](#400-beta6)
 
 #### 3.x Releases
@@ -27,6 +28,52 @@ All notable changes to this project will be documented in this file.
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
+
+---
+
+## [4.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0)
+Released on 2020-02-23. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/23?closed=1).
+
+#### Added
+- Custom `cacheKey` support to `ImageDownloader` and `UIImageView` and `UIButton` extensions. 
+  - Added by [Måns Severin](https://github.com/graphiclife) in Pull Request [#324](https://github.com/Alamofire/AlamofireImage/pull/324) in regards to Issue [#222](https://github.com/Alamofire/AlamofireImage/issues/222).
+- The `application/octet-stream` to the list of acceptable image content types to support iOS 13.
+  - Added by [Rafael Costa](https://github.com/rafaelc0sta) in Pull Request [#390](https://github.com/Alamofire/AlamofireImage/pull/390) in regards to Issues [#370](https://github.com/Alamofire/AlamofireImage/issues/370) and [#378](https://github.com/Alamofire/AlamofireImage/issues/378).
+- Custom `ImageResponseSerializer` support to `ImageDownloader` and `UIImageView` and `UIButton` extensions.
+  - Added by [Christian Noon](https://github.com/cnoon) in regards to Issues [#277](https://github.com/Alamofire/AlamofireImage/issues/277) and [#332](https://github.com/Alamofire/AlamofireImage/issues/332).
+- Tests to various types to verify they can handle `URLRequestConvertible` types that throw.
+  - Added by [Marina Gornostaeva](https://github.com/hybridcattt) in Pull Request [#392](https://github.com/Alamofire/AlamofireImage/pull/392).
+- `AlamofireExtended` support to `UIImage`, `UIImageView`, and `UIButton` types to use `af.` prefixing instead of `af_`.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request [#394](https://github.com/Alamofire/AlamofireImage/pull/394) in regards to Issue [#197](https://github.com/Alamofire/AlamofireImage/issues/197).
+- A 4.0 migration guide to the project and linked in the README.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request [#395](https://github.com/Alamofire/AlamofireImage/pull/395).
+- SwiftFormat support to the project.
+  - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#396](https://github.com/Alamofire/AlamofireImage/pull/396).
+
+#### Updated
+- The license section of the README to link to the actual LICENSE file.
+  - Updated by [Yunsu Guk](https://github.com/krgoodnews) in Pull Request [#364](https://github.com/Alamofire/AlamofireImage/pull/364).
+- The `ImageDownloader` download image logic by removing variable shadowing to simplify logic flow.
+  - Updated by [Marina Gornostaeva](https://github.com/hybridcattt) in Pull Request [#392](https://github.com/Alamofire/AlamofireImage/pull/392).
+- The image cache capacity section in the README to improve in-memory setting recommendations.
+  - Updated by [Christian Noon](https://github.com/cnoon) in regards to Issue [#330](https://github.com/Alamofire/AlamofireImage/issues/330).
+- The Alamofire dependency to `~> 5.0` across dependency management files.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The README to match all the newer conventions with the Alamofire 5 changes and `af.` prefixing on extensions.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+
+#### Deprecated
+- The `af_` APIs on `UIImage`, `UIImageView`, and `UIButton` in favor of the new `af.` equivalent APIs. These APIs will be removed in AFI5.
+  - Deprecated by [Christian Noon](https://github.com/cnoon) in Pull Request [#394](https://github.com/Alamofire/AlamofireImage/pull/394).
+
+#### Fixed
+- Issue in the README where the documentation link was incorrect.
+  - Fixed by [Will Jessop](https://github.com/spnkr) in Pull Request [#367](https://github.com/Alamofire/AlamofireImage/pull/367).
+- Issue where `af_setBackgroundImage` was not setting the filter correctly on the image download.
+  - Fixed by [Dan Koza](https://github.com/djk12587) in Pull Request [#260](https://github.com/Alamofire/AlamofireImage/pull/260).
+- Issue where `runImageTransitionIfCached` on `UIImageView` was not setting the placeholder image correctly.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue [#293](https://github.com/Alamofire/AlamofireImage/issues/293).
 
 ---
 

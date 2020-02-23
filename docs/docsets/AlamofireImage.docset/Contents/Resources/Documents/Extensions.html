@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
           AlamofireImage Docs
         </a>
-         (85% documented)
+         (77% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -87,6 +87,9 @@
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/AlamofireExtension.html">AlamofireExtension</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/DataRequest.html">DataRequest</a>
               </li>
@@ -202,7 +205,7 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             <h1>Extensions</h1>
             <p>The following extensions are available globally.</p>
 
@@ -215,9 +218,11 @@
               <div class="task-name-container">
                 <a name="/Image%20Scale"></a>
                 <a name="//apple_ref/swift/Section/Image Scale" class="dashAnchor"></a>
-                <a href="#/Image%20Scale">
-                  <h3 class="section-name">Image Scale</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Image%20Scale"></a>
+                  <h3 class="section-name"><p>Image Scale</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -253,9 +258,11 @@
               <div class="task-name-container">
                 <a name="/macOS"></a>
                 <a name="//apple_ref/swift/Section/macOS" class="dashAnchor"></a>
-                <a href="#/macOS">
-                  <h3 class="section-name">macOS</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/macOS"></a>
+                  <h3 class="section-name"><p>macOS</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -277,10 +284,6 @@
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -301,7 +304,36 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIButton</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIButton</span><span class="p">:</span> <span class="kt">AlamofireExtended</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Alamofire0A9ExtensionV"></a>
+                    <a name="//apple_ref/swift/Extension/AlamofireExtension" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire0A9ExtensionV">AlamofireExtension</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                        <a href="Extensions/AlamofireExtension.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AlamofireExtension</span> <span class="k">where</span> <span class="kt">ExtendedType</span><span class="p">:</span> <span class="kt">UIButton</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AlamofireExtension</span> <span class="k">where</span> <span class="kt">ExtendedType</span><span class="p">:</span> <span class="kt">UIImage</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AlamofireExtension</span> <span class="k">where</span> <span class="kt">ExtendedType</span><span class="p">:</span> <span class="kt">UIImageView</span></code></pre>
 
                         </div>
                       </div>
@@ -314,9 +346,11 @@
               <div class="task-name-container">
                 <a name="/Initialization"></a>
                 <a name="//apple_ref/swift/Section/Initialization" class="dashAnchor"></a>
-                <a href="#/Initialization">
-                  <h3 class="section-name">Initialization</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initialization"></a>
+                  <h3 class="section-name"><p>Initialization</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -339,17 +373,13 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIImage</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIImage</span><span class="p">:</span> <span class="kt">AlamofireExtended</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -371,6 +401,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIImageView</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UIImageView</span><span class="p">:</span> <span class="kt">AlamofireExtended</span></code></pre>
 
                         </div>
                       </div>
@@ -385,8 +416,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2019-10-27)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2020-02-23)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
