@@ -102,11 +102,11 @@ public final class ImageResponseSerializer: ResponseSerializer {
         }
 
     #if os(iOS) || os(tvOS) || os(watchOS)
-        guard let image = UIImage.af_threadSafeImage(with: data, scale: imageScale) else {
+        guard let image = UIImage.af.threadSafeImage(with: data, scale: imageScale) else {
             throw AFIError.imageSerializationFailed
         }
 
-        if inflateResponseImage { image.af_inflate() }
+        if inflateResponseImage { image.af.inflate() }
     #elseif os(macOS)
         guard let bitmapImage = NSBitmapImageRep(data: data) else {
             throw AFIError.imageSerializationFailed

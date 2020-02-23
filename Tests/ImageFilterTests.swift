@@ -101,7 +101,7 @@ class ImageFilterTestCase: BaseTestCase {
         // Given
         let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = DynamicImageFilter("DynamicScaleToSizeFilter") { image in
-            return image.af_imageScaled(to: CGSize(width: 50.0, height: 50.0))
+            return image.af.imageScaled(to: CGSize(width: 50.0, height: 50.0))
         }
 
         // When
@@ -109,7 +109,7 @@ class ImageFilterTestCase: BaseTestCase {
 
         // Then
         let expectedFilteredImage = self.image(forResource: "pirate-scaled-50x50-@\(scale)x", withExtension: "png")
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     // MARK: - DynamicCompositeImageFilter Tests
@@ -132,7 +132,7 @@ class ImageFilterTestCase: BaseTestCase {
             withExtension: "png"
         )
 
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     // MARK: - Single Pass Image Filter Tests
@@ -147,7 +147,7 @@ class ImageFilterTestCase: BaseTestCase {
 
         // Then
         let expectedFilteredImage = self.image(forResource: "pirate-scaled-50x50-@\(scale)x", withExtension: "png")
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     func testThatAspectScaledToFitSizeFilterReturnsCorrectFilteredImage() {
@@ -160,7 +160,7 @@ class ImageFilterTestCase: BaseTestCase {
 
         // Then
         let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fit-50x50-@\(scale)x", withExtension: "png")
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     func testThatAspectScaledToFillSizeFilterReturnsCorrectFilteredImage() {
@@ -173,7 +173,7 @@ class ImageFilterTestCase: BaseTestCase {
 
         // Then
         let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fill-50x50-@\(scale)x", withExtension: "png")
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     // TODO: Needs updates for latest rendering results.
@@ -187,7 +187,7 @@ class ImageFilterTestCase: BaseTestCase {
 
         // Then
         let expectedFilteredImage = self.image(forResource: "pirate-radius-20", withExtension: "png")
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
 
         let expectedIdentifier = "RoundedCornersFilter-radius:(20)-divided:(true)"
         XCTAssertEqual(filter.identifier, expectedIdentifier, "filter identifier does not match")
@@ -203,7 +203,7 @@ class ImageFilterTestCase: BaseTestCase {
 
         // Then
         let expectedFilteredImage = self.image(forResource: "pirate-circle", withExtension: "png")
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     func testThatBlurFilterReturnsCorrectFilteredImage() {
@@ -218,7 +218,7 @@ class ImageFilterTestCase: BaseTestCase {
 
         // Then
         let expectedFilteredImage = self.image(forResource: "unicorn-blurred-8", withExtension: "png")
-        let pixelsMatch = filteredImage.af_isEqualToImage(expectedFilteredImage)
+        let pixelsMatch = filteredImage.af.isEqualToImage(expectedFilteredImage)
 
         XCTAssertTrue(pixelsMatch, "pixels match should be true")
     }
@@ -240,7 +240,7 @@ class ImageFilterTestCase: BaseTestCase {
             withExtension: "png"
         )
 
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     // TODO: Needs updates for latest rendering results.
@@ -258,7 +258,7 @@ class ImageFilterTestCase: BaseTestCase {
             withExtension: "png"
         )
 
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     func testThatScaledToSizeCircleFilterReturnsCorrectFilteredImage() {
@@ -275,7 +275,7 @@ class ImageFilterTestCase: BaseTestCase {
             withExtension: "png"
         )
 
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
     func testThatAspectScaledToFillSizeCircleFilterReturnsCorrectFilteredImage() {
@@ -292,7 +292,7 @@ class ImageFilterTestCase: BaseTestCase {
             withExtension: "png"
         )
 
-        XCTAssertTrue(filteredImage.af_isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
+        XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 }
 

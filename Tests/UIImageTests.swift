@@ -92,8 +92,8 @@ class UIImageTestCase: BaseTestCase {
             let expectation = self.expectation(description: "image should be created successfully")
 
             DispatchQueue.global(qos: .utility).async {
-                let image = UIImage.af_threadSafeImage(with: data)
-                let imageWithScale = UIImage.af_threadSafeImage(with: data, scale: CGFloat(self.scale))
+                let image = UIImage.af.threadSafeImage(with: data)
+                let imageWithScale = UIImage.af.threadSafeImage(with: data, scale: CGFloat(self.scale))
 
                 lock.lock()
                 images.append(image)
@@ -118,32 +118,32 @@ class UIImageTestCase: BaseTestCase {
         let unicornImage = image(forResource: "unicorn", withExtension: "png")
 
         // When, Then
-        rainbowImage.af_inflate()
-        unicornImage.af_inflate()
+        rainbowImage.af.inflate()
+        unicornImage.af.inflate()
     }
 
     func testThatImageThatHasAlreadyBeenInflatedIsNotInflatedAgain() {
         // Given
         let unicornImage = image(forResource: "unicorn", withExtension: "png")
-        unicornImage.af_inflate()
+        unicornImage.af.inflate()
 
         // When, Then
-        unicornImage.af_inflate()
+        unicornImage.af.inflate()
     }
 
     // MARK: - Alpha Tests
 
     func testThatImageAlphaComponentPropertiesReturnExpectedValues() {
         // Given, When, Then
-        XCTAssertTrue(appleImage.af_isOpaque)
-        XCTAssertTrue(pirateImage.af_isOpaque)
-        XCTAssertTrue(rainbowImage.af_isOpaque)
-        XCTAssertFalse(unicornImage.af_isOpaque)
+        XCTAssertTrue(appleImage.af.isOpaque)
+        XCTAssertTrue(pirateImage.af.isOpaque)
+        XCTAssertTrue(rainbowImage.af.isOpaque)
+        XCTAssertFalse(unicornImage.af.isOpaque)
 
-        XCTAssertFalse(appleImage.af_containsAlphaComponent)
-        XCTAssertFalse(pirateImage.af_containsAlphaComponent)
-        XCTAssertFalse(rainbowImage.af_containsAlphaComponent)
-        XCTAssertTrue(unicornImage.af_containsAlphaComponent)
+        XCTAssertFalse(appleImage.af.containsAlphaComponent)
+        XCTAssertFalse(pirateImage.af.containsAlphaComponent)
+        XCTAssertFalse(rainbowImage.af.containsAlphaComponent)
+        XCTAssertTrue(unicornImage.af.containsAlphaComponent)
     }
 
     // MARK: - Scaling Tests
@@ -167,10 +167,10 @@ class UIImageTestCase: BaseTestCase {
         let h = Int(size.height.rounded())
 
         // When
-        let scaledAppleImage = appleImage.af_imageScaled(to: size)
-        let scaledPirateImage = pirateImage.af_imageScaled(to: size)
-        let scaledRainbowImage = rainbowImage.af_imageScaled(to: size)
-        let scaledUnicornImage = unicornImage.af_imageScaled(to: size)
+        let scaledAppleImage = appleImage.af.imageScaled(to: size)
+        let scaledPirateImage = pirateImage.af.imageScaled(to: size)
+        let scaledRainbowImage = rainbowImage.af.imageScaled(to: size)
+        let scaledUnicornImage = unicornImage.af.imageScaled(to: size)
 
         // Then
         let expectedAppleImage = image(forResource: "apple-scaled-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -178,10 +178,10 @@ class UIImageTestCase: BaseTestCase {
         let expectedRainbowImage = image(forResource: "rainbow-scaled-\(w)x\(h)-@\(scale)x", withExtension: "png")
         let expectedUnicornImage = image(forResource: "unicorn-scaled-\(w)x\(h)-@\(scale)x", withExtension: "png")
 
-        XCTAssertTrue(scaledAppleImage.af_isEqualToImage(expectedAppleImage), "scaled apple image pixels do not match")
-        XCTAssertTrue(scaledPirateImage.af_isEqualToImage(expectedPirateImage), "scaled pirate image pixels do not match")
-        XCTAssertTrue(scaledRainbowImage.af_isEqualToImage(expectedRainbowImage), "scaled rainbow image pixels do not match")
-        XCTAssertTrue(scaledUnicornImage.af_isEqualToImage(expectedUnicornImage), "scaled unicorn image pixels do not match")
+        XCTAssertTrue(scaledAppleImage.af.isEqualToImage(expectedAppleImage), "scaled apple image pixels do not match")
+        XCTAssertTrue(scaledPirateImage.af.isEqualToImage(expectedPirateImage), "scaled pirate image pixels do not match")
+        XCTAssertTrue(scaledRainbowImage.af.isEqualToImage(expectedRainbowImage), "scaled rainbow image pixels do not match")
+        XCTAssertTrue(scaledUnicornImage.af.isEqualToImage(expectedUnicornImage), "scaled unicorn image pixels do not match")
 
         XCTAssertEqual(scaledAppleImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
         XCTAssertEqual(scaledPirateImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
@@ -207,10 +207,10 @@ class UIImageTestCase: BaseTestCase {
         let h = Int(size.height.rounded())
 
         // When
-        let scaledAppleImage = appleImage.af_imageAspectScaled(toFit: size)
-        let scaledPirateImage = pirateImage.af_imageAspectScaled(toFit: size)
-        let scaledRainbowImage = rainbowImage.af_imageAspectScaled(toFit: size)
-        let scaledUnicornImage = unicornImage.af_imageAspectScaled(toFit: size)
+        let scaledAppleImage = appleImage.af.imageAspectScaled(toFit: size)
+        let scaledPirateImage = pirateImage.af.imageAspectScaled(toFit: size)
+        let scaledRainbowImage = rainbowImage.af.imageAspectScaled(toFit: size)
+        let scaledUnicornImage = unicornImage.af.imageAspectScaled(toFit: size)
 
         // Then
         let expectedAppleImage = image(forResource: "apple-aspect.scaled.to.fit-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -218,10 +218,10 @@ class UIImageTestCase: BaseTestCase {
         let expectedRainbowImage = image(forResource: "rainbow-aspect.scaled.to.fit-\(w)x\(h)-@\(scale)x", withExtension: "png")
         let expectedUnicornImage = image(forResource: "unicorn-aspect.scaled.to.fit-\(w)x\(h)-@\(scale)x", withExtension: "png")
 
-        XCTAssertTrue(scaledAppleImage.af_isEqualToImage(expectedAppleImage, withinTolerance: 53), "scaled apple image pixels do not match")
-        XCTAssertTrue(scaledPirateImage.af_isEqualToImage(expectedPirateImage), "scaled pirate image pixels do not match")
-        XCTAssertTrue(scaledRainbowImage.af_isEqualToImage(expectedRainbowImage, withinTolerance: 46), "scaled rainbow image pixels do not match")
-        XCTAssertTrue(scaledUnicornImage.af_isEqualToImage(expectedUnicornImage, withinTolerance: 26), "scaled unicorn image pixels do not match")
+        XCTAssertTrue(scaledAppleImage.af.isEqualToImage(expectedAppleImage, withinTolerance: 53), "scaled apple image pixels do not match")
+        XCTAssertTrue(scaledPirateImage.af.isEqualToImage(expectedPirateImage), "scaled pirate image pixels do not match")
+        XCTAssertTrue(scaledRainbowImage.af.isEqualToImage(expectedRainbowImage, withinTolerance: 46), "scaled rainbow image pixels do not match")
+        XCTAssertTrue(scaledUnicornImage.af.isEqualToImage(expectedUnicornImage, withinTolerance: 26), "scaled unicorn image pixels do not match")
 
         XCTAssertEqual(scaledAppleImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
         XCTAssertEqual(scaledPirateImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
@@ -247,10 +247,10 @@ class UIImageTestCase: BaseTestCase {
         let h = Int(size.height.rounded())
 
         // When
-        let scaledAppleImage = appleImage.af_imageAspectScaled(toFill: size)
-        let scaledPirateImage = pirateImage.af_imageAspectScaled(toFill: size)
-        let scaledRainbowImage = rainbowImage.af_imageAspectScaled(toFill: size)
-        let scaledUnicornImage = unicornImage.af_imageAspectScaled(toFill: size)
+        let scaledAppleImage = appleImage.af.imageAspectScaled(toFill: size)
+        let scaledPirateImage = pirateImage.af.imageAspectScaled(toFill: size)
+        let scaledRainbowImage = rainbowImage.af.imageAspectScaled(toFill: size)
+        let scaledUnicornImage = unicornImage.af.imageAspectScaled(toFill: size)
 
         // Then
         let expectedAppleImage = image(forResource: "apple-aspect.scaled.to.fill-\(w)x\(h)-@\(scale)x", withExtension: "png")
@@ -258,10 +258,10 @@ class UIImageTestCase: BaseTestCase {
         let expectedRainbowImage = image(forResource: "rainbow-aspect.scaled.to.fill-\(w)x\(h)-@\(scale)x", withExtension: "png")
         let expectedUnicornImage = image(forResource: "unicorn-aspect.scaled.to.fill-\(w)x\(h)-@\(scale)x", withExtension: "png")
 
-        XCTAssertTrue(scaledAppleImage.af_isEqualToImage(expectedAppleImage), "scaled apple image pixels do not match")
-        XCTAssertTrue(scaledPirateImage.af_isEqualToImage(expectedPirateImage), "scaled pirate image pixels do not match")
-        XCTAssertTrue(scaledRainbowImage.af_isEqualToImage(expectedRainbowImage), "scaled rainbow image pixels do not match")
-        XCTAssertTrue(scaledUnicornImage.af_isEqualToImage(expectedUnicornImage), "scaled unicorn image pixels do not match")
+        XCTAssertTrue(scaledAppleImage.af.isEqualToImage(expectedAppleImage), "scaled apple image pixels do not match")
+        XCTAssertTrue(scaledPirateImage.af.isEqualToImage(expectedPirateImage), "scaled pirate image pixels do not match")
+        XCTAssertTrue(scaledRainbowImage.af.isEqualToImage(expectedRainbowImage), "scaled rainbow image pixels do not match")
+        XCTAssertTrue(scaledUnicornImage.af.isEqualToImage(expectedUnicornImage), "scaled unicorn image pixels do not match")
 
         XCTAssertEqual(scaledAppleImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
         XCTAssertEqual(scaledPirateImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
@@ -278,10 +278,10 @@ class UIImageTestCase: BaseTestCase {
         let r = Int(radius.rounded())
 
         // When
-        let roundedAppleImage = appleImage.af_imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
-        let roundedPirateImage = pirateImage.af_imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
-        let roundedRainbowImage = rainbowImage.af_imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
-        let roundedUnicornImage = unicornImage.af_imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
+        let roundedAppleImage = appleImage.af.imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
+        let roundedPirateImage = pirateImage.af.imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
+        let roundedRainbowImage = rainbowImage.af.imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
+        let roundedUnicornImage = unicornImage.af.imageRounded(withCornerRadius: radius, divideRadiusByImageScale: true)
 
         // Then
         let expectedAppleImage = image(forResource: "apple-radius-\(r)", withExtension: "png")
@@ -289,10 +289,10 @@ class UIImageTestCase: BaseTestCase {
         let expectedRainbowImage = image(forResource: "rainbow-radius-\(r)", withExtension: "png")
         let expectedUnicornImage = image(forResource: "unicorn-radius-\(r)", withExtension: "png")
 
-        XCTAssertTrue(roundedAppleImage.af_isEqualToImage(expectedAppleImage), "rounded apple image pixels do not match")
-        XCTAssertTrue(roundedPirateImage.af_isEqualToImage(expectedPirateImage), "rounded pirate image pixels do not match")
-        XCTAssertTrue(roundedRainbowImage.af_isEqualToImage(expectedRainbowImage), "rounded rainbow image pixels do not match")
-        XCTAssertTrue(roundedUnicornImage.af_isEqualToImage(expectedUnicornImage), "rounded unicorn image pixels do not match")
+        XCTAssertTrue(roundedAppleImage.af.isEqualToImage(expectedAppleImage), "rounded apple image pixels do not match")
+        XCTAssertTrue(roundedPirateImage.af.isEqualToImage(expectedPirateImage), "rounded pirate image pixels do not match")
+        XCTAssertTrue(roundedRainbowImage.af.isEqualToImage(expectedRainbowImage), "rounded rainbow image pixels do not match")
+        XCTAssertTrue(roundedUnicornImage.af.isEqualToImage(expectedUnicornImage), "rounded unicorn image pixels do not match")
 
         XCTAssertEqual(roundedAppleImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
         XCTAssertEqual(roundedPirateImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
@@ -302,10 +302,10 @@ class UIImageTestCase: BaseTestCase {
 
     func testThatImageIsRoundedIntoCircle() {
         // Given, When
-        let circularAppleImage = appleImage.af_imageRoundedIntoCircle()
-        let circularPirateImage = pirateImage.af_imageRoundedIntoCircle()
-        let circularRainbowImage = rainbowImage.af_imageRoundedIntoCircle()
-        let circularUnicornImage = unicornImage.af_imageRoundedIntoCircle()
+        let circularAppleImage = appleImage.af.imageRoundedIntoCircle()
+        let circularPirateImage = pirateImage.af.imageRoundedIntoCircle()
+        let circularRainbowImage = rainbowImage.af.imageRoundedIntoCircle()
+        let circularUnicornImage = unicornImage.af.imageRoundedIntoCircle()
 
         // Then
         let expectedAppleImage = image(forResource: "apple-circle", withExtension: "png")
@@ -313,10 +313,10 @@ class UIImageTestCase: BaseTestCase {
         let expectedRainbowImage = image(forResource: "rainbow-circle", withExtension: "png")
         let expectedUnicornImage = image(forResource: "unicorn-circle", withExtension: "png")
 
-        XCTAssertTrue(circularAppleImage.af_isEqualToImage(expectedAppleImage), "rounded apple image pixels do not match")
-        XCTAssertTrue(circularPirateImage.af_isEqualToImage(expectedPirateImage), "rounded pirate image pixels do not match")
-        XCTAssertTrue(circularRainbowImage.af_isEqualToImage(expectedRainbowImage), "rounded rainbow image pixels do not match")
-        XCTAssertTrue(circularUnicornImage.af_isEqualToImage(expectedUnicornImage), "rounded unicorn image pixels do not match")
+        XCTAssertTrue(circularAppleImage.af.isEqualToImage(expectedAppleImage), "rounded apple image pixels do not match")
+        XCTAssertTrue(circularPirateImage.af.isEqualToImage(expectedPirateImage), "rounded pirate image pixels do not match")
+        XCTAssertTrue(circularRainbowImage.af.isEqualToImage(expectedRainbowImage), "rounded rainbow image pixels do not match")
+        XCTAssertTrue(circularUnicornImage.af.isEqualToImage(expectedUnicornImage), "rounded unicorn image pixels do not match")
 
         XCTAssertEqual(circularAppleImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
         XCTAssertEqual(circularPirateImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
@@ -348,12 +348,12 @@ class UIImageTestCase: BaseTestCase {
         let parameters: [String: Any] = ["inputRadius": 8]
 
         // When
-        let blurredImage = unicornImage.af_imageFiltered(withCoreImageFilter: "CIGaussianBlur", parameters: parameters)
+        let blurredImage = unicornImage.af.imageFiltered(withCoreImageFilter: "CIGaussianBlur", parameters: parameters)
 
         // Then
         if let blurredImage = blurredImage {
             let expectedBlurredImage = image(forResource: "unicorn-blurred-8", withExtension: "png")
-            let pixelsMatch = blurredImage.af_isEqualToImage(expectedBlurredImage)
+            let pixelsMatch = blurredImage.af.isEqualToImage(expectedBlurredImage)
 
             XCTAssertTrue(pixelsMatch, "pixels match should be true")
         } else {
@@ -365,12 +365,12 @@ class UIImageTestCase: BaseTestCase {
         guard #available(iOS 9.0, *) else { return }
 
         // Given, When
-        let sepiaImage = unicornImage.af_imageFiltered(withCoreImageFilter: "CISepiaTone")
+        let sepiaImage = unicornImage.af.imageFiltered(withCoreImageFilter: "CISepiaTone")
 
         // Then
         if let sepiaImage = sepiaImage {
             let expectedSepiaImage = image(forResource: "unicorn-sepia.tone", withExtension: "png")
-            XCTAssertTrue(sepiaImage.af_isEqualToImage(expectedSepiaImage), "sepia image pixels do not match")
+            XCTAssertTrue(sepiaImage.af.isEqualToImage(expectedSepiaImage), "sepia image pixels do not match")
         } else {
             XCTFail("sepia image should not be nil")
         }
@@ -383,7 +383,7 @@ class UIImageTestCase: BaseTestCase {
         let filterName = "SomeFilterThatDoesNotExist"
 
         // When
-        let filteredImage = unicornImage.af_imageFiltered(withCoreImageFilter: filterName)
+        let filteredImage = unicornImage.af.imageFiltered(withCoreImageFilter: filterName)
 
         // Then
         XCTAssertNil(filteredImage, "filtered image should be nil")

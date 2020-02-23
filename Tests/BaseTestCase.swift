@@ -67,7 +67,7 @@ class BaseTestCase : XCTestCase {
         let data = try! Data(contentsOf: resourceURL)
 
         #if os(iOS) || os(tvOS)
-            let image = Image.af_threadSafeImage(with: data, scale: UIScreen.main.scale)!
+            let image = Image.af.threadSafeImage(with: data, scale: UIScreen.main.scale)!
         #elseif os(macOS)
             let image = Image(data: data)!
         #endif
