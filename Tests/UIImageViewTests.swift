@@ -780,17 +780,25 @@ class UIImageViewTestCase: BaseTestCase {
 
     func testThatAcceptHeaderMatchesAcceptableContentTypes() {
         // Given
-        let imageView = UIImageView()
+        var imageView: UIImageView?
+
+        let expectation = self.expectation(description: "image should download successfully")
+        var acceptField: String?
+
+        imageView = TestImageView {
+            acceptField = imageView?.af.activeRequestReceipt?.request.request?.headers["Accept"]
+            expectation.fulfill()
+        }
 
         // When
-        imageView.af.setImage(withURL: url)
-        let acceptField = imageView.af.activeRequestReceipt?.request.request?.headers["Accept"]
-        imageView.af.cancelImageRequest()
+        imageView?.af.setImage(withURL: url)
+        waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
         XCTAssertNotNil(acceptField)
 
         if let acceptField = acceptField {
+            print(acceptField)
             XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.joined(separator: ","))
         }
     }

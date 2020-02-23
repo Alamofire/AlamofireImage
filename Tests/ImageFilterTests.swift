@@ -203,8 +203,6 @@ class ImageFilterTestCase: BaseTestCase {
     }
 
     func testThatBlurFilterReturnsCorrectFilteredImage() {
-        guard #available(iOS 9.0, *) else { return }
-
         // Given
         let image = self.image(forResource: "unicorn", withExtension: "png")
         let filter = BlurFilter(blurRadius: 8)
@@ -213,7 +211,10 @@ class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(forResource: "unicorn-blurred-8", withExtension: "png")
+        var expectedResource = "unicorn-blurred-8"
+        if #available(iOS 13.0, macOS 10.15, tvOS 13.0, *) { expectedResource.append("-ios-13") }
+        let expectedFilteredImage = self.image(forResource: expectedResource, withExtension: "png")
+
         let pixelsMatch = filteredImage.af.isEqualToImage(expectedFilteredImage)
 
         XCTAssertTrue(pixelsMatch, "pixels match should be true")
