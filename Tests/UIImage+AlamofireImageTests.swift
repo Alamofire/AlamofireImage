@@ -24,14 +24,15 @@
 
 #if !os(macOS)
 
+@testable import AlamofireImage
 import UIKit
 
-extension UIImage {
-    func af_isEqualToImage(_ image: UIImage, withinTolerance tolerance: UInt8 = 3) -> Bool {
-        guard size.equalTo(image.size) else { return false }
+extension AlamofireImageExtension where ExtendedType: UIImage {
+    func isEqualToImage(_ image: UIImage, withinTolerance tolerance: UInt8 = 3) -> Bool {
+        guard type.size.equalTo(image.size) else { return false }
 
-        let image1 = af_imageWithPNGRepresentation().af_renderedImage()
-        let image2 = image.af_imageWithPNGRepresentation().af_renderedImage()
+        let image1 = imageWithPNGRepresentation().af.renderedImage()
+        let image2 = image.af.imageWithPNGRepresentation().af.renderedImage()
 
         guard let rendered1 = image1, let rendered2 = image2 else { return false }
 
@@ -56,12 +57,12 @@ extension UIImage {
         return true
     }
 
-    public func af_renderedImage() -> UIImage? {
+    public func renderedImage() -> UIImage? {
         // Do not attempt to render animated images
-        guard images == nil else { return nil }
+        guard type.images == nil else { return nil }
 
         // Do not attempt to render if not backed by a CGImage
-        guard let image = cgImage?.copy() else { return nil }
+        guard let image = type.cgImage?.copy() else { return nil }
 
         let width = image.width
         let height = image.height
@@ -101,7 +102,7 @@ extension UIImage {
         // Make sure the inflation was successful
         guard let renderedImage = context?.makeImage() else { return nil }
 
-        return UIImage(cgImage: renderedImage, scale: scale, orientation: imageOrientation)
+        return UIImage(cgImage: renderedImage, scale: type.scale, orientation: type.imageOrientation)
     }
 
     /**
@@ -113,8 +114,8 @@ extension UIImage {
 
         - returns: The PNG representation image.
     */
-    func af_imageWithPNGRepresentation() -> UIImage {
-        let data = pngData()!
+    func imageWithPNGRepresentation() -> UIImage {
+        let data = type.pngData()!
         let image = UIImage(data: data, scale: UIScreen.main.scale)!
 
         return image

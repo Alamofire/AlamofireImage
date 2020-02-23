@@ -171,7 +171,7 @@ public struct ScaledToSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageScaled(to: self.size)
+            return image.af.imageScaled(to: self.size)
         }
     }
 }
@@ -195,7 +195,7 @@ public struct AspectScaledToFitSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageAspectScaled(toFit: self.size)
+            return image.af.imageAspectScaled(toFit: self.size)
         }
     }
 }
@@ -220,7 +220,7 @@ public struct AspectScaledToFillSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageAspectScaled(toFill: self.size)
+            return image.af.imageAspectScaled(toFill: self.size)
         }
     }
 }
@@ -253,7 +253,7 @@ public struct RoundedCornersFilter: ImageFilter, Roundable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageRounded(
+            return image.af.imageRounded(
                 withCornerRadius: self.radius,
                 divideRadiusByImageScale: self.divideRadiusByImageScale
             )
@@ -279,7 +279,7 @@ public struct CircleFilter: ImageFilter {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            return image.af_imageRoundedIntoCircle()
+            return image.af.imageRoundedIntoCircle()
         }
     }
 }
@@ -303,7 +303,7 @@ public extension ImageFilter where Self: CoreImageFilter {
 	/// The filter closure used to create the modified representation of the given image.
 	var filter: (Image) -> Image {
 		return { image in
-            return image.af_imageFiltered(withCoreImageFilter: self.filterName, parameters: self.parameters) ?? image
+            return image.af.imageFiltered(withCoreImageFilter: self.filterName, parameters: self.parameters) ?? image
 		}
 	}
 

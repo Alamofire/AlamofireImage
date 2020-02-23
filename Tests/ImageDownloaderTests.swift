@@ -50,7 +50,7 @@ private class TestCircleFilter: ImageFilter {
     var filter: (Image) -> Image {
         return { image in
             self.filterOperationCompleted = true
-            return image.af_imageRoundedIntoCircle()
+            return image.af.imageRoundedIntoCircle()
         }
     }
 }

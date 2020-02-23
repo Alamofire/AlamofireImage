@@ -21,6 +21,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4C0846E7240212E600194A69 /* AlamofireImageExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0846E6240212E600194A69 /* AlamofireImageExtended.swift */; };
+		4C0846E8240212E600194A69 /* AlamofireImageExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0846E6240212E600194A69 /* AlamofireImageExtended.swift */; };
+		4C0846E9240212E600194A69 /* AlamofireImageExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0846E6240212E600194A69 /* AlamofireImageExtended.swift */; };
+		4C0846EA240212E600194A69 /* AlamofireImageExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0846E6240212E600194A69 /* AlamofireImageExtended.swift */; };
 		4C0893EC1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */; };
 		4C0893F51B937404005125D9 /* UIImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893F41B937404005125D9 /* UIImageTests.swift */; };
 		4C0894E41B9382EB005125D9 /* apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894501B9382EB005125D9 /* apple.jpg */; };
@@ -577,6 +581,7 @@
 		3143544B1F4A16FE00266E5F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3143544C1F4A16FE00266E5F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		314354501F4A16FE00266E5F /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		4C0846E6240212E600194A69 /* AlamofireImageExtended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireImageExtended.swift; sourceTree = "<group>"; };
 		4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImageTests.swift"; sourceTree = "<group>"; };
 		4C0893F41B937404005125D9 /* UIImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageTests.swift; sourceTree = "<group>"; };
 		4C0894501B9382EB005125D9 /* apple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = apple.jpg; sourceTree = "<group>"; };
@@ -942,6 +947,7 @@
 			isa = PBXGroup;
 			children = (
 				4CD5BCE91D7F9D1E0055E232 /* AFIError.swift */,
+				4C0846E6240212E600194A69 /* AlamofireImageExtended.swift */,
 				4C8290791B927CE6005E24C8 /* Image.swift */,
 				4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */,
 				4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */,
@@ -2056,6 +2062,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CFB865F1CA3655F007CE085 /* UIButton+AlamofireImage.swift in Sources */,
+				4C0846E9240212E600194A69 /* AlamofireImageExtended.swift in Sources */,
 				4C16B3A11BA93AB700A66EF0 /* ImageCache.swift in Sources */,
 				4CD5BCEC1D7F9D1E0055E232 /* AFIError.swift in Sources */,
 				4C16B3A61BA93AB700A66EF0 /* UIImageView+AlamofireImage.swift in Sources */,
@@ -2092,6 +2099,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C86C10A1DA0B30D0032ECC3 /* UIButton+AlamofireImage.swift in Sources */,
+				4C0846EA240212E600194A69 /* AlamofireImageExtended.swift in Sources */,
 				4C4D4ECB1B9297BB00C96855 /* ImageCache.swift in Sources */,
 				4CD5BCED1D7F9D1E0055E232 /* AFIError.swift in Sources */,
 				4C86C10E1DA0B3160032ECC3 /* UIImageView+AlamofireImage.swift in Sources */,
@@ -2108,6 +2116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C82907A1B927CE6005E24C8 /* Image.swift in Sources */,
+				4C0846E7240212E600194A69 /* AlamofireImageExtended.swift in Sources */,
 				4C96A4781AAE9488008AE0B6 /* ImageDownloader.swift in Sources */,
 				4CD5BCEA1D7F9D1E0055E232 /* AFIError.swift in Sources */,
 				4CFC0A091AB52BD90004D0B8 /* ImageFilter.swift in Sources */,
@@ -2144,6 +2153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C8290781B926F19005E24C8 /* ImageCache.swift in Sources */,
+				4C0846E8240212E600194A69 /* AlamofireImageExtended.swift in Sources */,
 				4C82907D1B927DA9005E24C8 /* ImageFilter.swift in Sources */,
 				4C82907B1B927CE6005E24C8 /* Image.swift in Sources */,
 				4C86C10D1DA0B3150032ECC3 /* UIImageView+AlamofireImage.swift in Sources */,
