@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     typealias OptionsKey = UIApplicationLaunchOptionsKey
     #endif
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [OptionsKey : Any]? = nil) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [OptionsKey: Any]? = nil) -> Bool {
         window = {
             let window = UIWindow(frame: UIScreen.main.bounds)
 

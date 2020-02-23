@@ -101,7 +101,7 @@ class ImageFilterTestCase: BaseTestCase {
         // Given
         let image = self.image(forResource: "pirate", withExtension: "jpg")
         let filter = DynamicImageFilter("DynamicScaleToSizeFilter") { image in
-            return image.af.imageScaled(to: CGSize(width: 50.0, height: 50.0))
+            image.af.imageScaled(to: CGSize(width: 50.0, height: 50.0))
         }
 
         // When

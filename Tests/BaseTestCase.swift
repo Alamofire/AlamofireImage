@@ -27,7 +27,7 @@ import AlamofireImage
 import Foundation
 import XCTest
 
-class BaseTestCase : XCTestCase {
+class BaseTestCase: XCTestCase {
     let timeout = 5.0
     var session: Session!
 
@@ -67,9 +67,9 @@ class BaseTestCase : XCTestCase {
         let data = try! Data(contentsOf: resourceURL)
 
         #if os(iOS) || os(tvOS)
-            let image = Image.af.threadSafeImage(with: data, scale: UIScreen.main.scale)!
+        let image = Image.af.threadSafeImage(with: data, scale: UIScreen.main.scale)!
         #elseif os(macOS)
-            let image = Image(data: data)!
+        let image = Image(data: data)!
         #endif
 
         return image

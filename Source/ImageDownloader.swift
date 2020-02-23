@@ -90,12 +90,12 @@ open class ImageDownloader {
             handlerID: String,
             receiptID: String,
             filter: ImageFilter?,
-            completion: CompletionHandler?)
-        {
+            completion: CompletionHandler?
+        ) {
             self.request = request
-            self.urlID = ImageDownloader.urlIdentifier(for: request.convertible)
+            urlID = ImageDownloader.urlIdentifier(for: request.convertible)
             self.handlerID = handlerID
-            self.operations = [(receiptID: receiptID, filter: filter, completion: completion)]
+            operations = [(receiptID: receiptID, filter: filter, completion: completion)]
         }
     }
 
@@ -196,9 +196,9 @@ open class ImageDownloader {
         configuration: URLSessionConfiguration = ImageDownloader.defaultURLSessionConfiguration(),
         downloadPrioritization: DownloadPrioritization = .fifo,
         maximumActiveDownloads: Int = 4,
-        imageCache: ImageRequestCache? = AutoPurgingImageCache())
-    {
-        self.session = Session(configuration: configuration, startRequestsImmediately: false)
+        imageCache: ImageRequestCache? = AutoPurgingImageCache()
+    ) {
+        session = Session(configuration: configuration, startRequestsImmediately: false)
         self.downloadPrioritization = downloadPrioritization
         self.maximumActiveDownloads = maximumActiveDownloads
         self.imageCache = imageCache
@@ -217,8 +217,8 @@ open class ImageDownloader {
         session: Session,
         downloadPrioritization: DownloadPrioritization = .fifo,
         maximumActiveDownloads: Int = 4,
-        imageCache: ImageRequestCache? = AutoPurgingImageCache())
-    {
+        imageCache: ImageRequestCache? = AutoPurgingImageCache()
+    ) {
         precondition(!session.startRequestsImmediately, "Session must set `startRequestsImmediately` to `false`.")
 
         self.session = session
@@ -237,8 +237,8 @@ open class ImageDownloader {
     open func addAuthentication(
         user: String,
         password: String,
-        persistence: URLCredential.Persistence = .forSession)
-    {
+        persistence: URLCredential.Persistence = .forSession
+    ) {
         let credential = URLCredential(user: user, password: password, persistence: persistence)
         addAuthentication(usingCredential: credential)
     }
@@ -291,9 +291,9 @@ open class ImageDownloader {
         filter: ImageFilter? = nil,
         progress: ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: CompletionHandler?)
-        -> RequestReceipt?
-    {
+        completion: CompletionHandler?
+    )
+        -> RequestReceipt? {
         var queuedRequest: DataRequest?
 
         synchronizationQueue.sync {
@@ -342,7 +342,7 @@ open class ImageDownloader {
             // 3) Create the request and set up authentication, validation and response serialization
             let request = self.session.request(urlRequest)
             queuedRequest = request
-            
+
             if let credential = self.credential {
                 request.authenticate(with: credential)
             }
@@ -375,7 +375,7 @@ open class ImageDownloader {
                     }
 
                     switch response.result {
-                    case .success(let image):
+                    case let .success(image):
                         var filteredImages: [String: Image] = [:]
 
                         for (_, filter, completion) in responseHandler.operations {
@@ -474,9 +474,9 @@ open class ImageDownloader {
         filter: ImageFilter? = nil,
         progress: ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: CompletionHandler? = nil)
-        -> [RequestReceipt]
-    {
+        completion: CompletionHandler? = nil
+    )
+        -> [RequestReceipt] {
         return urlRequests.compactMap {
             download($0, filter: filter, progress: progress, progressQueue: progressQueue, completion: completion)
         }

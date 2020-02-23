@@ -51,7 +51,7 @@ class ImagesViewController: UIViewController {
     private func setUpInstanceProperties() {
         title = "Random Images"
 
-        for _ in 1...1_000 {
+        for _ in 1...1000 {
             let gravatar = Gravatar(
                 emailAddress: UUID().uuidString,
                 defaultImage: Gravatar.DefaultImage.identicon,
@@ -71,9 +71,9 @@ class ImagesViewController: UIViewController {
 
         collectionView.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.ReuseIdentifier)
 
-        view.addSubview(self.collectionView)
+        view.addSubview(collectionView)
 
-        collectionView.frame = self.view.bounds
+        collectionView.frame = view.bounds
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
@@ -92,15 +92,15 @@ class ImagesViewController: UIViewController {
 
 // MARK: - UICollectionViewDataSource
 
-extension ImagesViewController : UICollectionViewDataSource {
+extension ImagesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return gravatars.count
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    {
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: ImageCell.ReuseIdentifier,
             for: indexPath
@@ -119,49 +119,49 @@ extension ImagesViewController : UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension ImagesViewController : UICollectionViewDelegateFlowLayout {
+extension ImagesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath) -> CGSize
-    {
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         return sizeForCollectionViewItem()
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAt section: Int) -> UIEdgeInsets
-    {
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int) -> CGFloat
-    {
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return 8.0
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
-    {
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return 8.0
     }
 }
 
 // MARK: - UICollectionViewDelegate
 
-extension ImagesViewController : UICollectionViewDelegate {
+extension ImagesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let gravatar = self.gravatars[(indexPath as NSIndexPath).row]
+        let gravatar = gravatars[(indexPath as NSIndexPath).row]
 
         let imageViewController = ImageViewController()
         imageViewController.gravatar = gravatar
 
-        self.navigationController?.pushViewController(imageViewController, animated: true)
+        navigationController?.pushViewController(imageViewController, animated: true)
     }
 }

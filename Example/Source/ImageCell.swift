@@ -27,7 +27,7 @@ import AlamofireImage
 import Foundation
 import UIKit
 
-class ImageCell : UICollectionViewCell {
+class ImageCell: UICollectionViewCell {
     class var ReuseIdentifier: String { return "org.alamofire.identifier.\(type(of: self))" }
     let imageView: UIImageView
 

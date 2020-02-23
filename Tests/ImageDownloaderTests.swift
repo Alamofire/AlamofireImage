@@ -60,7 +60,6 @@ private class TestCircleFilter: ImageFilter {
 // MARK: -
 
 class ImageDownloaderTestCase: BaseTestCase {
-
     // MARK: - Setup and Teardown
 
     override func setUp() {
@@ -106,7 +105,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         var downloader: ImageDownloader? = ImageDownloader()
 
         // When
-        let _ = downloader?.download(urlRequest) { _ in
+        _ = downloader?.download(urlRequest) { _ in
             // No-op
         }
 
@@ -255,7 +254,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertNotNil(response?.response, "response should not be nil")
         XCTAssertTrue(response?.result.isFailure ?? false, "result should be a failure case")
     }
-    
+
     func testThatItCallsTheCompletionHandlerEvenWhenURLRequestConvertibleThrows() {
         // Given
         let downloader = ImageDownloader()
@@ -311,7 +310,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isSuccess ?? false, "result should be a success case")
     }
 
-#if os(iOS) || os(tvOS)
+    #if os(iOS) || os(tvOS)
 
     // MARK: - Image Download Tests (iOS and tvOS Only)
 
@@ -433,7 +432,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertFalse(filter2.filterOperationCompleted, "the filter 2 filter operation completed flag should be false")
     }
 
-#endif
+    #endif
 
     // MARK: - Progress Closure Tests
 
@@ -738,7 +737,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Then
         XCTAssertTrue(calledOnMainQueue, "completion handler should be called on main queue")
     }
-    
+
     func testThatItCallsTheCompletionHandlerOnTheMainQueueIfRequestFailed() {
         // Given
         let downloader = ImageDownloader()
@@ -759,7 +758,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Then
         XCTAssertTrue(calledOnMainQueue, "completion handler should be called on main queue")
     }
-    
+
     func testThatItCallsTheCompletionHandlerOnTheMainQueueIfURLRequestConvertibleThrows() {
         // Given
         let downloader = ImageDownloader()
@@ -926,13 +925,13 @@ class ImageDownloaderTestCase: BaseTestCase {
         }
     }
 
-#if os(iOS) || os(tvOS)
+    #if os(iOS) || os(tvOS)
 
     func testThatFilteredImageIsStoredInCacheIfCacheIsAvailable() {
         // Given
         let downloader = ImageDownloader()
         let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
-        let size  = CGSize(width: 20, height: 20)
+        let size = CGSize(width: 20, height: 20)
         let filter = ScaledToSizeFilter(size: size)
 
         let expectation1 = expectation(description: "image download should succeed")
@@ -976,7 +975,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         }
     }
 
-#endif
+    #endif
 
     // MARK: - Internal Logic Tests
 

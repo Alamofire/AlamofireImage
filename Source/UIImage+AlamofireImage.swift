@@ -135,9 +135,9 @@ extension AlamofireExtension where ExtendedType: UIImage {
 
         return (
             alphaInfo == .first ||
-            alphaInfo == .last ||
-            alphaInfo == .premultipliedFirst ||
-            alphaInfo == .premultipliedLast
+                alphaInfo == .last ||
+                alphaInfo == .premultipliedFirst ||
+                alphaInfo == .premultipliedLast
         )
     }
 

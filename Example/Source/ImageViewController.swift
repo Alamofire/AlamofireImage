@@ -26,7 +26,7 @@ import AlamofireImage
 import Foundation
 import UIKit
 
-class ImageViewController : UIViewController {
+class ImageViewController: UIViewController {
     var gravatar: Gravatar!
     var imageView: UIImageView!
 

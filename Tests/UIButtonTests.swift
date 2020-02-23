@@ -105,7 +105,7 @@ class UIButtonTests: BaseTestCase {
         XCTAssertTrue(backgroundImageDownloadComplete)
     }
 
-    func testThatImageCanBeCancelledAndDownloadedFromURL () {
+    func testThatImageCanBeCancelledAndDownloadedFromURL() {
         // Given
         let expectation = self.expectation(description: "image should cancel and download successfully")
         let button = UIButton()
@@ -129,7 +129,7 @@ class UIButtonTests: BaseTestCase {
         XCTAssertNotNil(result?.value)
     }
 
-    func testThatBackgroundImageCanBeCancelledAndDownloadedFromURL () {
+    func testThatBackgroundImageCanBeCancelledAndDownloadedFromURL() {
         // Given
         let expectation = self.expectation(description: "background image should cancel and download successfully")
         let button = UIButton()
@@ -449,7 +449,7 @@ class UIButtonTests: BaseTestCase {
         let download = try! URLRequest(url: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.download(download, filter: CircleFilter()) { (_) in
+        downloader.download(download, filter: CircleFilter()) { _ in
             expectation.fulfill()
         }
 
@@ -515,11 +515,11 @@ class UIButtonTests: BaseTestCase {
 
         // When
         button.af.setImage(for: [], url: url, placeholderImage: placeholderImage)
-        let initialImageEqualsPlaceholderImage = button.image(for:[]) === placeholderImage
+        let initialImageEqualsPlaceholderImage = button.image(for: []) === placeholderImage
 
         button.imageObserver = {
             imageDownloadComplete = true
-            finalImageEqualsPlaceholderImage = button.image(for:[]) === placeholderImage
+            finalImageEqualsPlaceholderImage = button.image(for: []) === placeholderImage
             expectation.fulfill()
         }
 
@@ -539,15 +539,15 @@ class UIButtonTests: BaseTestCase {
         var backgroundImageDownloadComplete = false
         var finalBackgroundImageEqualsPlaceholderImage = false
 
-        let button = TestButton ()
+        let button = TestButton()
 
         // When
         button.af.setBackgroundImage(for: [], url: url, placeholderImage: placeholderImage)
-        let initialImageEqualsPlaceholderImage = button.backgroundImage(for:[]) === placeholderImage
+        let initialImageEqualsPlaceholderImage = button.backgroundImage(for: []) === placeholderImage
 
         button.imageObserver = {
             backgroundImageDownloadComplete = true
-            finalBackgroundImageEqualsPlaceholderImage = button.backgroundImage(for:[]) === placeholderImage
+            finalBackgroundImageEqualsPlaceholderImage = button.backgroundImage(for: []) === placeholderImage
             expectation.fulfill()
         }
 
@@ -579,7 +579,7 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertNotNil(button.image(for: []), "button image should not be nil")
-        XCTAssertFalse(button.image(for:[]) === placeholderImage, "button image should not equal placeholder image")
+        XCTAssertFalse(button.image(for: []) === placeholderImage, "button image should not equal placeholder image")
     }
 
     func testThatBackgroundPlaceholderIsNeverDisplayedIfCachedImageIsAvailable() {
@@ -602,18 +602,18 @@ class UIButtonTests: BaseTestCase {
 
         // Then
         XCTAssertNotNil(button.backgroundImage(for: []), "button background image should not be nil")
-        XCTAssertFalse(button.backgroundImage(for:[]) === placeholderImage, "button background image should not equal placeholder image")
+        XCTAssertFalse(button.backgroundImage(for: []) === placeholderImage, "button background image should not equal placeholder image")
     }
-    
+
     func testThatPlaceholderImageIsDisplayedWithThrowingURLConvertible() {
         // Given
         let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
-        let button = TestButton ()
-        
+        let button = TestButton()
+
         // When
         button.af.setImage(for: [], url: url, placeholderImage: placeholderImage)
-        let initialImageEqualsPlaceholderImage = button.image(for:[]) === placeholderImage
-        
+        let initialImageEqualsPlaceholderImage = button.image(for: []) === placeholderImage
+
         // Then
         XCTAssertTrue(initialImageEqualsPlaceholderImage, "initial image should equal placeholder image")
     }
@@ -621,16 +621,15 @@ class UIButtonTests: BaseTestCase {
     func testThatBackgroundPlaceholderImageIsDisplayedWithThrowingURLConvertible() {
         // Given
         let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
-        let button = TestButton ()
+        let button = TestButton()
 
         // When
         button.af.setBackgroundImage(for: [], url: url, placeholderImage: placeholderImage)
-        let initialImageEqualsPlaceholderImage = button.backgroundImage(for:[]) === placeholderImage
+        let initialImageEqualsPlaceholderImage = button.backgroundImage(for: []) === placeholderImage
 
         // Then
         XCTAssertTrue(initialImageEqualsPlaceholderImage, "initial image should equal placeholder image")
     }
-
 
     // MARK: - Image Filters
 
@@ -797,7 +796,7 @@ class UIButtonTests: BaseTestCase {
         XCTAssertNil(button.backgroundImage(for: []), "button background image should be nil")
         XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
     }
-    
+
     func testThatCompletionHandlerIsCalledWhenURLRequestConvertibleThrows() {
         // Given
         let button = UIButton()
@@ -926,7 +925,7 @@ class UIButtonTests: BaseTestCase {
             for: [],
             urlRequest: URLRequest(url: url),
             placeholderImage: nil,
-            completion: { closureResponse in
+            completion: { _ in
                 completion1Called = true
             }
         )
@@ -965,7 +964,7 @@ class UIButtonTests: BaseTestCase {
             for: [],
             urlRequest: URLRequest(url: url),
             placeholderImage: nil,
-            completion: { closureResponse in
+            completion: { _ in
                 completion1Called = true
             }
         )
@@ -1004,7 +1003,7 @@ class UIButtonTests: BaseTestCase {
             for: [],
             urlRequest: URLRequest(url: url),
             placeholderImage: nil,
-            completion: { closureResponse in
+            completion: { _ in
                 completion1Called = true
             }
         )
@@ -1045,7 +1044,7 @@ class UIButtonTests: BaseTestCase {
             for: [],
             urlRequest: URLRequest(url: url),
             placeholderImage: nil,
-            completion: { closureResponse in
+            completion: { _ in
                 completion1Called = true
             }
         )

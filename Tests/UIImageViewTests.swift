@@ -293,7 +293,7 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(initialImageEqualsPlaceholderImage, "initial image should equal placeholder image")
         XCTAssertFalse(finalImageEqualsPlaceholderImage, "final image should not equal placeholder image")
     }
-    
+
     func testThatPlaceholderImageIsDisplayedWithThrowingURLConvertible() {
         // Given
         let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
@@ -523,7 +523,7 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertNil(imageView.image, "image view image should be nil when completion handler is not nil")
         XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
     }
-    
+
     func testThatCompletionHandlerIsCalledWhenURLRequestConvertibleThrows() {
         // Given
         let imageView = UIImageView()
@@ -821,7 +821,7 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertNotNil(acceptField)
 
         if let acceptField = acceptField {
-            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.joined(separator:","))
+            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.joined(separator: ","))
         }
     }
 }

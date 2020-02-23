@@ -33,7 +33,6 @@ public typealias ControlState = UIControl.State
 
 extension UIButton: AlamofireExtended {}
 extension AlamofireExtension where ExtendedType: UIButton {
-
     // MARK: - Properties
 
     /// The instance image downloader used to download all images. If this property is `nil`, the `UIButton` will
@@ -125,8 +124,8 @@ extension AlamofireExtension where ExtendedType: UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil
+    ) {
         setImage(
             for: state,
             urlRequest: urlRequest(with: url),
@@ -172,8 +171,8 @@ extension AlamofireExtension where ExtendedType: UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil
+    ) {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
             let response = AFIDataResponse<UIImage>(
                 request: nil,
@@ -222,13 +221,13 @@ extension AlamofireExtension where ExtendedType: UIButton {
         }
 
         // Set the placeholder since we're going to have to download
-        if let placeholderImage = placeholderImage { type.setImage(placeholderImage, for: state)  }
+        if let placeholderImage = placeholderImage { type.setImage(placeholderImage, for: state) }
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
         // Weakify the button to allow it to go out-of-memory while download is running if deallocated
-        weak var button = self.type
+        weak var button = type
 
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(
@@ -249,7 +248,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
                     return
                 }
 
-                if case .success(let image) = response.result {
+                if case let .success(image) = response.result {
                     strongSelf.type.setImage(image, for: state)
                 }
 
@@ -306,8 +305,8 @@ extension AlamofireExtension where ExtendedType: UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil
+    ) {
         setBackgroundImage(
             for: state,
             urlRequest: urlRequest(with: url),
@@ -353,8 +352,8 @@ extension AlamofireExtension where ExtendedType: UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil
+    ) {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
             let response = AFIDataResponse<UIImage>(
                 request: nil,
@@ -403,13 +402,13 @@ extension AlamofireExtension where ExtendedType: UIButton {
         }
 
         // Set the placeholder since we're going to have to download
-        if let placeholderImage = placeholderImage { type.setBackgroundImage(placeholderImage, for: state)  }
+        if let placeholderImage = placeholderImage { type.setBackgroundImage(placeholderImage, for: state) }
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
         // Weakify the button to allow it to go out-of-memory while download is running if deallocated
-        weak var button = self.type
+        weak var button = type
 
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(
@@ -430,7 +429,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
                     return
                 }
 
-                if case .success(let image) = response.result {
+                if case let .success(image) = response.result {
                     strongSelf.type.setBackgroundImage(image, for: state)
                 }
 
@@ -485,14 +484,13 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
     private func isImageURLRequest(
         _ urlRequest: URLRequestConvertible?,
-        equalToActiveRequestURLForState state: ControlState)
-        -> Bool
-    {
+        equalToActiveRequestURLForState state: ControlState
+    )
+        -> Bool {
         if
             let currentURL = imageRequestReceipt(for: state)?.request.task?.originalRequest?.url,
             let requestURL = urlRequest?.urlRequest?.url,
-            currentURL == requestURL
-        {
+            currentURL == requestURL {
             return true
         }
 
@@ -501,14 +499,13 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
     private func isBackgroundImageURLRequest(
         _ urlRequest: URLRequestConvertible?,
-        equalToActiveRequestURLForState state: ControlState)
-        -> Bool
-    {
+        equalToActiveRequestURLForState state: ControlState
+    )
+        -> Bool {
         if
             let currentRequestURL = backgroundImageRequestReceipt(for: state)?.request.task?.originalRequest?.url,
             let requestURL = urlRequest?.urlRequest?.url,
-            currentRequestURL == requestURL
-        {
+            currentRequestURL == requestURL {
             return true
         }
 
@@ -551,8 +548,8 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil
+    ) {
         af.setImage(
             for: state,
             url: url,
@@ -576,8 +573,8 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil
+    ) {
         af.setImage(
             for: state,
             urlRequest: urlRequest,
@@ -606,8 +603,8 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil
+    ) {
         af.setBackgroundImage(
             for: state,
             url: url,
@@ -631,8 +628,8 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((AFIDataResponse<UIImage>) -> Void)? = nil
+    ) {
         af.setBackgroundImage(
             for: state,
             urlRequest: urlRequest,

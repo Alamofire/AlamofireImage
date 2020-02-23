@@ -219,7 +219,7 @@ final class ImageCacheTestCase: BaseTestCase {
         XCTAssertFalse(cachedImageExistsAfterRemoval, "cached image exists after removal should be false")
     }
 
-#if os(iOS) || os(tvOS)
+    #if os(iOS) || os(tvOS)
 
     func testThatItRemovesAllImagesFromCacheWhenReceivingMemoryWarningNotification() {
         // Given
@@ -241,7 +241,7 @@ final class ImageCacheTestCase: BaseTestCase {
         XCTAssertFalse(cachedImageExistsAfterNotification, "cached image exists after notification should be false")
     }
 
-#endif
+    #endif
 
     // MARK: - Fetch Image Tests
 
@@ -290,7 +290,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
         // Then
         XCTAssertEqual(initialMemoryUsage, 0, "initial memory usage should be 0")
-        XCTAssertEqual(currentMemoryUsage, 164000, "current memory usage should be 164000")
+        XCTAssertEqual(currentMemoryUsage, 164_000, "current memory usage should be 164000")
     }
 
     func testThatItDecrementsMemoryUsageWhenRemovingImageFromCache() {
@@ -305,7 +305,7 @@ final class ImageCacheTestCase: BaseTestCase {
         let currentMemoryUsage = cache.memoryUsage
 
         // Then
-        XCTAssertEqual(initialMemoryUsage, 164000, "initial memory usage should be 164000")
+        XCTAssertEqual(initialMemoryUsage, 164_000, "initial memory usage should be 164000")
         XCTAssertEqual(currentMemoryUsage, 0, "current memory usage should be 0")
     }
 
@@ -321,7 +321,7 @@ final class ImageCacheTestCase: BaseTestCase {
         let currentMemoryUsage = cache.memoryUsage
 
         // Then
-        XCTAssertEqual(initialMemoryUsage, 164000, "initial memory usage should be 164000")
+        XCTAssertEqual(initialMemoryUsage, 164_000, "initial memory usage should be 164000")
         XCTAssertEqual(currentMemoryUsage, 0, "current memory usage should be 0")
     }
 
@@ -343,8 +343,8 @@ final class ImageCacheTestCase: BaseTestCase {
         memoryUsage = Array(memoryUsage.dropFirst(638))
 
         // Then
-        XCTAssertEqual(memoryUsage[0], 104796000, "memory usage prior to purge does not match expected value")
-        XCTAssertEqual(memoryUsage[1], 62812000, "memory usage after purge does not match expected value")
+        XCTAssertEqual(memoryUsage[0], 104_796_000, "memory usage prior to purge does not match expected value")
+        XCTAssertEqual(memoryUsage[1], 62_812_000, "memory usage after purge does not match expected value")
     }
 
     func testThatItPrioritizesImagesWithOldestLastAccessDatesDuringPurge() {

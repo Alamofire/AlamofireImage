@@ -25,7 +25,7 @@
 import Foundation
 import UIKit
 
-private extension String  {
+private extension String {
     var md5Hash: String {
         let trimmedString = lowercased().trimmingCharacters(in: .whitespaces)
         let utf8String = trimmedString.cString(using: .utf8)!
@@ -50,7 +50,7 @@ private extension String  {
 // MARK: - QueryItemConvertible
 
 private protocol QueryItemConvertible {
-    var queryItem: URLQueryItem {get}
+    var queryItem: URLQueryItem { get }
 }
 
 // MARK: -
@@ -59,11 +59,11 @@ public struct Gravatar {
     public enum DefaultImage: String, QueryItemConvertible {
         case http404 = "404"
         case mysteryMan = "mm"
-        case identicon = "identicon"
+        case identicon
         case monsterID = "monsterid"
-        case wavatar = "wavatar"
-        case retro = "retro"
-        case blank = "blank"
+        case wavatar
+        case retro
+        case blank
 
         var queryItem: URLQueryItem {
             return URLQueryItem(name: "d", value: rawValue)
@@ -71,10 +71,10 @@ public struct Gravatar {
     }
 
     public enum Rating: String, QueryItemConvertible {
-        case g = "g"
-        case pg = "pg"
-        case r = "r"
-        case x = "x"
+        case g
+        case pg
+        case r
+        case x
 
         var queryItem: URLQueryItem {
             return URLQueryItem(name: "r", value: rawValue)
@@ -92,9 +92,9 @@ public struct Gravatar {
         emailAddress: String,
         defaultImage: DefaultImage = .mysteryMan,
         forceDefault: Bool = false,
-        rating: Rating = .pg)
-    {
-        self.email = emailAddress
+        rating: Rating = .pg
+    ) {
+        email = emailAddress
         self.defaultImage = defaultImage
         self.forceDefault = forceDefault
         self.rating = rating
@@ -108,7 +108,7 @@ public struct Gravatar {
         if forceDefault {
             queryItems.append(URLQueryItem(name: "f", value: "y"))
         }
-        queryItems.append(URLQueryItem(name: "s", value: String(format: "%.0f",size * scale)))
+        queryItems.append(URLQueryItem(name: "s", value: String(format: "%.0f", size * scale)))
 
         components.queryItems = queryItems
 

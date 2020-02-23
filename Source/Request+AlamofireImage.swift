@@ -35,7 +35,6 @@ import Cocoa
 #endif
 
 public final class ImageResponseSerializer: ResponseSerializer {
-
     // MARK: Properties
 
     public static var deviceScreenScale: CGFloat { return DataRequest.imageScale }
@@ -68,8 +67,8 @@ public final class ImageResponseSerializer: ResponseSerializer {
         imageScale: CGFloat = ImageResponseSerializer.deviceScreenScale,
         inflateResponseImage: Bool = true,
         emptyResponseCodes: Set<Int> = ImageResponseSerializer.defaultEmptyResponseCodes,
-        emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods)
-    {
+        emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods
+    ) {
         self.imageScale = imageScale
         self.inflateResponseImage = inflateResponseImage
         self.emptyResponseCodes = emptyResponseCodes
@@ -101,20 +100,20 @@ public final class ImageResponseSerializer: ResponseSerializer {
             throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
         }
 
-    #if os(iOS) || os(tvOS) || os(watchOS)
+        #if os(iOS) || os(tvOS) || os(watchOS)
         guard let image = UIImage.af.threadSafeImage(with: data, scale: imageScale) else {
             throw AFIError.imageSerializationFailed
         }
 
         if inflateResponseImage { image.af.inflate() }
-    #elseif os(macOS)
+        #elseif os(macOS)
         guard let bitmapImage = NSBitmapImageRep(data: data) else {
             throw AFIError.imageSerializationFailed
         }
 
         let image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
         image.addRepresentation(bitmapImage)
-    #endif
+        #endif
 
         return image
     }
@@ -150,13 +149,13 @@ public final class ImageResponseSerializer: ResponseSerializer {
 
 extension DataRequest {
     public class var imageScale: CGFloat {
-    #if os(iOS) || os(tvOS)
+        #if os(iOS) || os(tvOS)
         return UIScreen.main.scale
-    #elseif os(watchOS)
+        #elseif os(watchOS)
         return WKInterfaceDevice.current().screenScale
-    #elseif os(macOS)
+        #elseif os(macOS)
         return 1.0
-    #endif
+        #endif
     }
 }
 
@@ -190,9 +189,9 @@ extension DataRequest {
         imageScale: CGFloat = DataRequest.imageScale,
         inflateResponseImage: Bool = true,
         queue: DispatchQueue = .main,
-        completionHandler: @escaping (AFDataResponse<Image>) -> Void)
-        -> Self
-    {
+        completionHandler: @escaping (AFDataResponse<Image>) -> Void
+    )
+        -> Self {
         return response(
             queue: queue,
             responseSerializer: ImageResponseSerializer(
@@ -221,9 +220,9 @@ extension DataRequest {
     @discardableResult
     public func responseImage(
         queue: DispatchQueue = .main,
-        completionHandler: @escaping (AFDataResponse<Image>) -> Void)
-        -> Self
-    {
+        completionHandler: @escaping (AFDataResponse<Image>) -> Void
+    )
+        -> Self {
         return response(
             queue: queue,
             responseSerializer: ImageResponseSerializer(inflateResponseImage: false),

@@ -1,0 +1,26 @@
+# file options
+
+--symlinks ignore
+--exclude Pods
+--swiftversion 5
+
+# format options
+
+--closingparen balanced
+--commas inline
+--comments indent
+--decimalgrouping 3,5
+--exponentcase lowercase
+--exponentgrouping disabled
+--fractiongrouping disabled
+--ifdef no-indent
+--importgrouping testable-top
+--nospaceoperators ..<, ...
+--stripunusedargs closure-only
+--wraparguments preserve
+--wrapcollections preserve
+
+# rules
+
+--enable isEmpty
+--disable andOperator
