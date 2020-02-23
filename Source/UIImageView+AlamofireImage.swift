@@ -345,6 +345,9 @@ extension AlamofireImageExtension where ExtendedType: UIImageView {
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
+        // Weakify the image view to allow it to go out-of-memory while download is running if deallocated
+        weak var imageView = self.type
+
         // Download the image, then run the image transition or completion handler
         let requestReceipt = imageDownloader.download(
             urlRequest,
@@ -356,24 +359,25 @@ extension AlamofireImageExtension where ExtendedType: UIImageView {
             progressQueue: progressQueue,
             completion: { response in
                 guard
-                    self.isURLRequestURLEqualToActiveRequestURL(response.request) &&
-                    self.activeRequestReceipt?.receiptID == downloadID
+                    let strongSelf = imageView?.af,
+                    strongSelf.isURLRequestURLEqualToActiveRequestURL(response.request) &&
+                    strongSelf.activeRequestReceipt?.receiptID == downloadID
                 else {
                     completion?(response)
                     return
                 }
 
                 if case .success(let image) = response.result {
-                    self.run(imageTransition, with: image)
+                    strongSelf.run(imageTransition, with: image)
                 }
 
-                self.activeRequestReceipt = nil
+                strongSelf.activeRequestReceipt = nil
 
                 completion?(response)
             }
         )
 
-        self.activeRequestReceipt = requestReceipt
+        activeRequestReceipt = requestReceipt
     }
 
     // MARK: - Image Download Cancellation

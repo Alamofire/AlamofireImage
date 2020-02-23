@@ -227,6 +227,9 @@ extension AlamofireImageExtension where ExtendedType: UIButton {
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
+        // Weakify the button to allow it to go out-of-memory while download is running if deallocated
+        weak var button = self.type
+
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(
             urlRequest,
@@ -238,18 +241,19 @@ extension AlamofireImageExtension where ExtendedType: UIButton {
             progressQueue: progressQueue,
             completion: { response in
                 guard
-                    self.isImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
-                    self.imageRequestReceipt(for: state)?.receiptID == downloadID
+                    let strongSelf = button?.af,
+                    strongSelf.isImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
+                    strongSelf.imageRequestReceipt(for: state)?.receiptID == downloadID
                 else {
                     completion?(response)
                     return
                 }
 
                 if case .success(let image) = response.result {
-                    self.type.setImage(image, for: state)
+                    strongSelf.type.setImage(image, for: state)
                 }
 
-                self.setImageRequestReceipt(nil, for: state)
+                strongSelf.setImageRequestReceipt(nil, for: state)
 
                 completion?(response)
             }
@@ -404,6 +408,9 @@ extension AlamofireImageExtension where ExtendedType: UIButton {
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
+        // Weakify the button to allow it to go out-of-memory while download is running if deallocated
+        weak var button = self.type
+
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(
             urlRequest,
@@ -415,18 +422,19 @@ extension AlamofireImageExtension where ExtendedType: UIButton {
             progressQueue: progressQueue,
             completion: { response in
                 guard
-                    self.isBackgroundImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
-                    self.backgroundImageRequestReceipt(for: state)?.receiptID == downloadID
+                    let strongSelf = button?.af,
+                    strongSelf.isBackgroundImageURLRequest(response.request, equalToActiveRequestURLForState: state) &&
+                    strongSelf.backgroundImageRequestReceipt(for: state)?.receiptID == downloadID
                 else {
                     completion?(response)
                     return
                 }
 
                 if case .success(let image) = response.result {
-                    self.type.setBackgroundImage(image, for: state)
+                    strongSelf.type.setBackgroundImage(image, for: state)
                 }
 
-                self.setBackgroundImageRequestReceipt(nil, for: state)
+                strongSelf.setBackgroundImageRequestReceipt(nil, for: state)
 
                 completion?(response)
             }

@@ -755,6 +755,33 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(result?.isSuccess ?? false, "result should be a success case")
     }
 
+    func testThatActiveRequestCanBeCancelledAndImageViewIsDeallocated() {
+        // Given
+        var imageView: UIImageView? = UIImageView()
+        let expectation = self.expectation(description: "image download should succeed")
+
+        var completionCalled: Bool?
+        var imageViewReleased: Bool?
+
+        // When
+        imageView?.af.setImage(
+            withURLRequest: URLRequest(url: url),
+            completion: { [weak imageView] _ in
+                completionCalled = true
+                imageViewReleased = imageView == nil
+
+                expectation.fulfill()
+            }
+        )
+
+        imageView = nil
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertEqual(completionCalled, true)
+        XCTAssertEqual(imageViewReleased, true)
+    }
+
     // MARK: - Redirects
 
     func testThatImageBehindRedirectCanBeDownloaded() {

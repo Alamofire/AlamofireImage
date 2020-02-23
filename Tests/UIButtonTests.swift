@@ -1072,6 +1072,62 @@ class UIButtonTests: BaseTestCase {
         XCTAssertTrue(result?.isSuccess ?? false)
     }
 
+    func testThatImageRequestCanBeCancelledAndButtonIsDeallocated() {
+        // Given
+        var button: UIButton? = UIButton()
+        let expectation = self.expectation(description: "image download should succeed")
+
+        var completionCalled: Bool?
+        var buttonReleased: Bool?
+
+        // When
+        button?.af.setImage(
+            for: .normal,
+            urlRequest: URLRequest(url: url),
+            completion: { [weak button] _ in
+                completionCalled = true
+                buttonReleased = button == nil
+
+                expectation.fulfill()
+            }
+        )
+
+        button = nil
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertEqual(completionCalled, true)
+        XCTAssertEqual(buttonReleased, true)
+    }
+
+    func testThatBackgroundImageRequestCanBeCancelledAndButtonIsDeallocated() {
+        // Given
+        var button: UIButton? = UIButton()
+        let expectation = self.expectation(description: "image download should succeed")
+
+        var completionCalled: Bool?
+        var buttonReleased: Bool?
+
+        // When
+        button?.af.setBackgroundImage(
+            for: .normal,
+            urlRequest: URLRequest(url: url),
+            completion: { [weak button] _ in
+                completionCalled = true
+                buttonReleased = button == nil
+
+                expectation.fulfill()
+            }
+        )
+
+        button = nil
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertEqual(completionCalled, true)
+        XCTAssertEqual(buttonReleased, true)
+    }
+
     // MARK: - Redirects
 
     func testThatImageBehindRedirectCanBeDownloaded() {
