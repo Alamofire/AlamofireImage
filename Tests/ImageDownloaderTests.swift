@@ -255,6 +255,28 @@ class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertNotNil(response?.response, "response should not be nil")
         XCTAssertTrue(response?.result.isFailure ?? false, "result should be a failure case")
     }
+    
+    func testThatItCallsTheCompletionHandlerEvenWhenURLRequestConvertibleThrows() {
+        // Given
+        let downloader = ImageDownloader()
+        let urlRequest = ThrowingURLRequestConvertible()
+        let expectation = self.expectation(description: "download request should fail")
+
+        var response: AFIDataResponse<Image>?
+
+        // When
+        downloader.download(urlRequest) { closureResponse in
+            response = closureResponse
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertNil(response?.request, "request should not be nil")
+        XCTAssertNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.error?.isAlamofireError ?? false, "result should be a failure case")
+    }
 
     func testThatItCanDownloadImagesWithDisabledURLCacheInSessionConfiguration() {
         // Given
@@ -696,10 +718,52 @@ class ImageDownloaderTestCase: BaseTestCase {
 
     // MARK: - Threading Tests
 
-    func testThatItAlwaysCallsTheCompletionHandlerOnTheMainQueue() {
+    func testThatItCallsTheCompletionHandlerOnTheMainQueue() {
         // Given
         let downloader = ImageDownloader()
         let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
+
+        let expectation = self.expectation(description: "download request should succeed")
+
+        var calledOnMainQueue = false
+
+        // When
+        downloader.download(urlRequest) { _ in
+            calledOnMainQueue = Thread.isMainThread
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(calledOnMainQueue, "completion handler should be called on main queue")
+    }
+    
+    func testThatItCallsTheCompletionHandlerOnTheMainQueueIfRequestFailed() {
+        // Given
+        let downloader = ImageDownloader()
+        let urlRequest = try! URLRequest(url: "does-not-exist", method: .get)
+
+        let expectation = self.expectation(description: "download request should succeed")
+
+        var calledOnMainQueue = false
+
+        // When
+        downloader.download(urlRequest) { _ in
+            calledOnMainQueue = Thread.isMainThread
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(calledOnMainQueue, "completion handler should be called on main queue")
+    }
+    
+    func testThatItCallsTheCompletionHandlerOnTheMainQueueIfURLRequestConvertibleThrows() {
+        // Given
+        let downloader = ImageDownloader()
+        let urlRequest = ThrowingURLRequestConvertible()
 
         let expectation = self.expectation(description: "download request should succeed")
 

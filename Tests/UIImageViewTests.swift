@@ -293,6 +293,19 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(initialImageEqualsPlaceholderImage, "initial image should equal placeholder image")
         XCTAssertFalse(finalImageEqualsPlaceholderImage, "final image should not equal placeholder image")
     }
+    
+    func testThatPlaceholderImageIsDisplayedWithThrowingURLConvertible() {
+        // Given
+        let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
+        let imageView = TestImageView()
+
+        // When
+        imageView.af_setImage(withURLRequest: ThrowingURLRequestConvertible(), placeholderImage: placeholderImage)
+        let initialImageEqualsPlaceholderImage = imageView.image === placeholderImage
+
+        // Then
+        XCTAssertTrue(initialImageEqualsPlaceholderImage, "initial image should equal placeholder image")
+    }
 
     func testThatPlaceholderIsNeverDisplayedIfCachedImageIsAvailable() {
         // Given
@@ -485,7 +498,7 @@ class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
         let urlRequest = URLRequest(url: URL(string: "domain-name-does-not-exist")!)
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = self.expectation(description: "image download should complete")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -509,6 +522,37 @@ class UIImageViewTestCase: BaseTestCase {
         XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
         XCTAssertNil(imageView.image, "image view image should be nil when completion handler is not nil")
         XCTAssertTrue(result?.isFailure ?? false, "result should be a failure case")
+    }
+    
+    func testThatCompletionHandlerIsCalledWhenURLRequestConvertibleThrows() {
+        // Given
+        let imageView = UIImageView()
+        let urlRequest = ThrowingURLRequestConvertible()
+
+        let expectation = self.expectation(description: "image download should complete")
+
+        var completionHandlerCalled = false
+        var result: AFIResult<UIImage>?
+
+        // When
+        imageView.af_setImage(
+            withURLRequest: urlRequest,
+            placeholderImage: nil,
+            filter: nil,
+            imageTransition: .noTransition,
+            completion: { closureResponse in
+                completionHandlerCalled = true
+                result = closureResponse.result
+                expectation.fulfill()
+            }
+        )
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertTrue(completionHandlerCalled, "completion handler called should be true")
+        XCTAssertNil(imageView.image, "image view image should be nil when completion handler is not nil")
+        XCTAssertEqual(result?.isFailure, true, "result should be a failure case")
     }
 
     func testThatCompletionHandlerAndCustomTransitionHandlerAreBothCalled() {
