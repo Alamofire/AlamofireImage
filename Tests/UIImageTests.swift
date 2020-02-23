@@ -342,8 +342,6 @@ class UIImageTestCase: BaseTestCase {
     // MARK: - Core Image Filters
 
     func testThatImageWithAppliedGaussianBlurFilterReturnsBlurredImage() {
-        guard #available(iOS 9.0, *) else { return }
-
         // Given
         let parameters: [String: Any] = ["inputRadius": 8]
 
@@ -352,7 +350,10 @@ class UIImageTestCase: BaseTestCase {
 
         // Then
         if let blurredImage = blurredImage {
-            let expectedBlurredImage = image(forResource: "unicorn-blurred-8", withExtension: "png")
+            var expectedResource = "unicorn-blurred-8"
+            if #available(iOS 13.0, macOS 10.15, tvOS 13.0, *) { expectedResource.append("-ios-13") }
+            let expectedBlurredImage = self.image(forResource: expectedResource, withExtension: "png")
+
             let pixelsMatch = blurredImage.af.isEqualToImage(expectedBlurredImage)
 
             XCTAssertTrue(pixelsMatch, "pixels match should be true")
@@ -362,8 +363,6 @@ class UIImageTestCase: BaseTestCase {
     }
 
     func testThatImageWithAppliedSepiaToneFilterReturnsSepiaImage() {
-        guard #available(iOS 9.0, *) else { return }
-
         // Given, When
         let sepiaImage = unicornImage.af.imageFiltered(withCoreImageFilter: "CISepiaTone")
 
@@ -377,8 +376,6 @@ class UIImageTestCase: BaseTestCase {
     }
 
     func testThatInvalidCoreImageFilterReturnsNil() {
-        guard #available(iOS 9.0, *) else { return }
-
         // Given
         let filterName = "SomeFilterThatDoesNotExist"
 

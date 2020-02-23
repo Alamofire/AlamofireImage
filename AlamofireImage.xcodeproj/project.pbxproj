@@ -191,6 +191,9 @@
 		4C16B4351BA93AFD00A66EF0 /* unicorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894531B9382EB005125D9 /* unicorn.png */; };
 		4C16B4361BA93B3300A66EF0 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE611321AABC24E00D35044 /* AlamofireImage.framework */; };
 		4C16B4371BA93B4000A66EF0 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9043771AABBFC5001B4E60 /* AlamofireImage.framework */; };
+		4C38F7C92402F98600C63ECC /* unicorn-blurred-8-ios-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C38F7C82402F98600C63ECC /* unicorn-blurred-8-ios-13.png */; };
+		4C38F7CA2402F98600C63ECC /* unicorn-blurred-8-ios-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C38F7C82402F98600C63ECC /* unicorn-blurred-8-ios-13.png */; };
+		4C38F7CB2402F98600C63ECC /* unicorn-blurred-8-ios-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C38F7C82402F98600C63ECC /* unicorn-blurred-8-ios-13.png */; };
 		4C4D4EC91B9297B300C96855 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C4D4ECA1B9297BB00C96855 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290791B927CE6005E24C8 /* Image.swift */; };
 		4C4D4ECB1B9297BB00C96855 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
@@ -594,6 +597,7 @@
 		4C1E86501F5FC16A004FF7F8 /* AlamofireImage.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = AlamofireImage.podspec; sourceTree = "<group>"; };
 		4C1E86511F5FC16A004FF7F8 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		4C38F7C724024BAF00C63ECC /* AlamofireImage 4.0 Migration Guide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "AlamofireImage 4.0 Migration Guide.md"; path = "Documentation/AlamofireImage 4.0 Migration Guide.md"; sourceTree = "<group>"; };
+		4C38F7C82402F98600C63ECC /* unicorn-blurred-8-ios-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unicorn-blurred-8-ios-13.png"; sourceTree = "<group>"; };
 		4C4D4EC11B92976900C96855 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImage.swift"; sourceTree = "<group>"; };
 		4C54EE8F1AABC04900CD894C /* AlamofireImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlamofireImage.h; sourceTree = "<group>"; };
@@ -1106,6 +1110,7 @@
 		4C58734C1B93EFFB00407E58 /* Core Image Filters */ = {
 			isa = PBXGroup;
 			children = (
+				4C38F7C82402F98600C63ECC /* unicorn-blurred-8-ios-13.png */,
 				4CEA70E51DE163B000E631C6 /* unicorn-blurred-8.png */,
 				4C58734E1B93EFFB00407E58 /* unicorn-sepia.tone.png */,
 			);
@@ -1568,6 +1573,7 @@
 				4C16B3B61BA93AE600A66EF0 /* apple-aspect.scaled.to.fill-60x30-@2x.png in Resources */,
 				4C16B3B21BA93AE600A66EF0 /* apple-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
 				4C16B3D41BA93AE600A66EF0 /* pirate-aspect.scaled.to.fill.size.circle-100x100-@2x.png in Resources */,
+				4C38F7CB2402F98600C63ECC /* unicorn-blurred-8-ios-13.png in Resources */,
 				4C16B3B31BA93AE600A66EF0 /* apple-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
 				4C16B3BE1BA93AE600A66EF0 /* pirate-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
 				4C16B4221BA93AFD00A66EF0 /* unicorn-scaled-30x60-@1x.png in Resources */,
@@ -1724,6 +1730,7 @@
 				4C5873A31B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
 				4C5874671B93EFFB00407E58 /* unicorn-scaled-30x60-@1x.png in Resources */,
 				4C5873B51B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
+				4C38F7C92402F98600C63ECC /* unicorn-blurred-8-ios-13.png in Resources */,
 				4C58738B1B93EFFB00407E58 /* apple-aspect.scaled.to.fill-50x50-@3x.png in Resources */,
 				4C5874231B93EFFB00407E58 /* unicorn-circle.png in Resources */,
 				4C5874491B93EFFB00407E58 /* pirate-scaled-50x50-@1x.png in Resources */,
@@ -1873,6 +1880,7 @@
 				4C5873A41B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
 				4C5874681B93EFFB00407E58 /* unicorn-scaled-30x60-@1x.png in Resources */,
 				4C5873B61B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
+				4C38F7CA2402F98600C63ECC /* unicorn-blurred-8-ios-13.png in Resources */,
 				4C58738C1B93EFFB00407E58 /* apple-aspect.scaled.to.fill-50x50-@3x.png in Resources */,
 				4C5874241B93EFFB00407E58 /* unicorn-circle.png in Resources */,
 				4C58744A1B93EFFB00407E58 /* pirate-scaled-50x50-@1x.png in Resources */,
