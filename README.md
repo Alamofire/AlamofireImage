@@ -441,14 +441,14 @@ The `ImageCache` is used to cache all the potentially filtered image content aft
 
 Determining the ideal the in-memory and on-disk capacity limits of the `URLCache` and `AutoPurgingImageCache` requires a bit of forethought. You must carefully consider your application's needs, and tailor the limits accordingly. By default, the combination of caches offers the following storage capacities:
 
-- 150 MB of on-disk storage
-- 20 MB of in-memory original image data storage
-- 100 MB of in-memory storage of filtered image content
+- 150 MB of on-disk storage (original image only)
+- 20 MB of in-memory original image data storage (original image only)
+- 100 MB of in-memory storage of filtered image content (filtered image if using filters, otherwise original image)
 - 60 MB preferred memory capacity after purge of filtered image content
 
-> If you do not use image filters, it is advised to set the memory capacity of the `URLCache` to zero to avoid storing the same content in-memory twice.
+> If you do not use image filters, it is advised to set the memory capacity of the `URLCache` to zero. Otherwise, you will be storing the original image data in both the URLCache's in-memory store as well as the AlamofireImage in-memory store.
 
-#### Duplicate Downloads
+#### Duplicate Downloads    
 
 Sometimes application logic can end up attempting to download an image more than once before the initial download request is complete. Most often, this results in the image being downloaded more than once. AlamofireImage handles this case elegantly by merging the duplicate downloads. The image will only be downloaded once, yet both completion handlers will be called.
 
