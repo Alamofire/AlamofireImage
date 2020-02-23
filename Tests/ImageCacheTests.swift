@@ -39,10 +39,8 @@ final class ImageCacheTestCase: BaseTestCase {
             let memoryCapacity: UInt64 = 100 * 1024 * 1024 // 10 MB
             let preferredSizeAfterPurge: UInt64 = 60 * 1024 * 1024 // 4 MB
 
-            return AutoPurgingImageCache(
-                memoryCapacity: memoryCapacity,
-                preferredMemoryUsageAfterPurge: preferredSizeAfterPurge
-            )
+            return AutoPurgingImageCache(memoryCapacity: memoryCapacity,
+                                         preferredMemoryUsageAfterPurge: preferredSizeAfterPurge)
         }()
     }
 

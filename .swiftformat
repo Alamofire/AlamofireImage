@@ -1,12 +1,15 @@
 # file options
 
 --symlinks ignore
---exclude Pods
 --swiftversion 5
+
+# rules
+--enable isEmpty
+--disable andOperator
 
 # format options
 
---closingparen balanced
+--closingparen same-line
 --commas inline
 --comments indent
 --decimalgrouping 3,5
@@ -15,12 +18,10 @@
 --fractiongrouping disabled
 --ifdef no-indent
 --importgrouping testable-top
+--operatorfunc no-space
 --nospaceoperators ..<, ...
+--selfrequired validate
 --stripunusedargs closure-only
---wraparguments preserve
---wrapcollections preserve
-
-# rules
-
---enable isEmpty
---disable andOperator
+--wraparguments after-first
+--wrapcollections after-first
+--wrapparameters after-first

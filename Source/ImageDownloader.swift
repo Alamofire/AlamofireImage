@@ -85,13 +85,11 @@ open class ImageDownloader {
         let request: DataRequest
         var operations: [(receiptID: String, filter: ImageFilter?, completion: CompletionHandler?)]
 
-        init(
-            request: DataRequest,
-            handlerID: String,
-            receiptID: String,
-            filter: ImageFilter?,
-            completion: CompletionHandler?
-        ) {
+        init(request: DataRequest,
+             handlerID: String,
+             receiptID: String,
+             filter: ImageFilter?,
+             completion: CompletionHandler?) {
             self.request = request
             urlID = ImageDownloader.urlIdentifier(for: request.convertible)
             self.handlerID = handlerID
@@ -164,11 +162,9 @@ open class ImageDownloader {
         let imageDownloaderPath = "org.alamofire.imagedownloader"
 
         #if targetEnvironment(macCatalyst)
-        return URLCache(
-            memoryCapacity: memoryCapacity,
-            diskCapacity: diskCapacity,
-            directory: cacheDirectory?.appendingPathComponent(imageDownloaderPath)
-        )
+        return URLCache(memoryCapacity: memoryCapacity,
+                        diskCapacity: diskCapacity,
+                        directory: cacheDirectory?.appendingPathComponent(imageDownloaderPath))
         #else
         #if os(macOS)
         return URLCache(memoryCapacity: memoryCapacity,
@@ -192,12 +188,10 @@ open class ImageDownloader {
     /// - parameter imageCache:             The image cache used to store all downloaded images in.
     ///
     /// - returns: The new `ImageDownloader` instance.
-    public init(
-        configuration: URLSessionConfiguration = ImageDownloader.defaultURLSessionConfiguration(),
-        downloadPrioritization: DownloadPrioritization = .fifo,
-        maximumActiveDownloads: Int = 4,
-        imageCache: ImageRequestCache? = AutoPurgingImageCache()
-    ) {
+    public init(configuration: URLSessionConfiguration = ImageDownloader.defaultURLSessionConfiguration(),
+                downloadPrioritization: DownloadPrioritization = .fifo,
+                maximumActiveDownloads: Int = 4,
+                imageCache: ImageRequestCache? = AutoPurgingImageCache()) {
         session = Session(configuration: configuration, startRequestsImmediately: false)
         self.downloadPrioritization = downloadPrioritization
         self.maximumActiveDownloads = maximumActiveDownloads
@@ -213,12 +207,10 @@ open class ImageDownloader {
     /// - parameter imageCache:             The image cache used to store all downloaded images in.
     ///
     /// - returns: The new `ImageDownloader` instance.
-    public init(
-        session: Session,
-        downloadPrioritization: DownloadPrioritization = .fifo,
-        maximumActiveDownloads: Int = 4,
-        imageCache: ImageRequestCache? = AutoPurgingImageCache()
-    ) {
+    public init(session: Session,
+                downloadPrioritization: DownloadPrioritization = .fifo,
+                maximumActiveDownloads: Int = 4,
+                imageCache: ImageRequestCache? = AutoPurgingImageCache()) {
         precondition(!session.startRequestsImmediately, "Session must set `startRequestsImmediately` to `false`.")
 
         self.session = session
@@ -234,11 +226,9 @@ open class ImageDownloader {
     /// - parameter user:        The user.
     /// - parameter password:    The password.
     /// - parameter persistence: The URL credential persistence. `.forSession` by default.
-    open func addAuthentication(
-        user: String,
-        password: String,
-        persistence: URLCredential.Persistence = .forSession
-    ) {
+    open func addAuthentication(user: String,
+                                password: String,
+                                persistence: URLCredential.Persistence = .forSession) {
         let credential = URLCredential(user: user, password: password, persistence: persistence)
         addAuthentication(usingCredential: credential)
     }
@@ -283,16 +273,14 @@ open class ImageDownloader {
     /// - returns: The request receipt for the download request if available. `nil` if the image is stored in the image
     ///            cache and the URL request cache policy allows the cache to be used.
     @discardableResult
-    open func download(
-        _ urlRequest: URLRequestConvertible,
-        cacheKey: String? = nil,
-        receiptID: String = UUID().uuidString,
-        serializer: ImageResponseSerializer? = nil,
-        filter: ImageFilter? = nil,
-        progress: ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: CompletionHandler?
-    )
+    open func download(_ urlRequest: URLRequestConvertible,
+                       cacheKey: String? = nil,
+                       receiptID: String = UUID().uuidString,
+                       serializer: ImageResponseSerializer? = nil,
+                       filter: ImageFilter? = nil,
+                       progress: ProgressHandler? = nil,
+                       progressQueue: DispatchQueue = DispatchQueue.main,
+                       completion: CompletionHandler?)
         -> RequestReceipt? {
         var queuedRequest: DataRequest?
 
@@ -320,14 +308,12 @@ open class ImageDownloader {
 
                     if let image = cachedImage {
                         DispatchQueue.main.async {
-                            let response = AFIDataResponse<Image>(
-                                request: urlRequest.urlRequest,
-                                response: nil,
-                                data: nil,
-                                metrics: nil,
-                                serializationDuration: 0.0,
-                                result: .success(image)
-                            )
+                            let response = AFIDataResponse<Image>(request: urlRequest.urlRequest,
+                                                                  response: nil,
+                                                                  data: nil,
+                                                                  metrics: nil,
+                                                                  serializationDuration: 0.0,
+                                                                  result: .success(image))
 
                             completion?(response)
                         }
@@ -356,77 +342,71 @@ open class ImageDownloader {
             // Generate a unique handler id to check whether the active request has changed while downloading
             let handlerID = UUID().uuidString
 
-            request.response(
-                queue: self.responseQueue,
-                responseSerializer: serializer ?? imageResponseSerializer,
-                completionHandler: { response in
-                    defer {
-                        self.safelyDecrementActiveRequestCount()
-                        self.safelyStartNextRequestIfNecessary()
-                    }
+            request.response(queue: self.responseQueue,
+                             responseSerializer: serializer ?? imageResponseSerializer,
+                             completionHandler: { response in
+                                 defer {
+                                     self.safelyDecrementActiveRequestCount()
+                                     self.safelyStartNextRequestIfNecessary()
+                                 }
 
-                    // Early out if the request has changed out from under us
-                    guard
-                        let handler = self.safelyFetchResponseHandler(withURLIdentifier: urlID),
-                        handler.handlerID == handlerID,
-                        let responseHandler = self.safelyRemoveResponseHandler(withURLIdentifier: urlID)
-                    else {
-                        return
-                    }
+                                 // Early out if the request has changed out from under us
+                                 guard
+                                     let handler = self.safelyFetchResponseHandler(withURLIdentifier: urlID),
+                                     handler.handlerID == handlerID,
+                                     let responseHandler = self.safelyRemoveResponseHandler(withURLIdentifier: urlID)
+                                 else {
+                                     return
+                                 }
 
-                    switch response.result {
-                    case let .success(image):
-                        var filteredImages: [String: Image] = [:]
+                                 switch response.result {
+                                 case let .success(image):
+                                     var filteredImages: [String: Image] = [:]
 
-                        for (_, filter, completion) in responseHandler.operations {
-                            var filteredImage: Image
+                                     for (_, filter, completion) in responseHandler.operations {
+                                         var filteredImage: Image
 
-                            if let filter = filter {
-                                if let alreadyFilteredImage = filteredImages[filter.identifier] {
-                                    filteredImage = alreadyFilteredImage
-                                } else {
-                                    filteredImage = filter.filter(image)
-                                    filteredImages[filter.identifier] = filteredImage
-                                }
-                            } else {
-                                filteredImage = image
-                            }
+                                         if let filter = filter {
+                                             if let alreadyFilteredImage = filteredImages[filter.identifier] {
+                                                 filteredImage = alreadyFilteredImage
+                                             } else {
+                                                 filteredImage = filter.filter(image)
+                                                 filteredImages[filter.identifier] = filteredImage
+                                             }
+                                         } else {
+                                             filteredImage = image
+                                         }
 
-                            if let cacheKey = cacheKey {
-                                self.imageCache?.add(filteredImage, withIdentifier: cacheKey)
-                            } else if let request = response.request {
-                                self.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
-                            }
+                                         if let cacheKey = cacheKey {
+                                             self.imageCache?.add(filteredImage, withIdentifier: cacheKey)
+                                         } else if let request = response.request {
+                                             self.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
+                                         }
 
-                            DispatchQueue.main.async {
-                                let response = AFIDataResponse<Image>(
-                                    request: response.request,
-                                    response: response.response,
-                                    data: response.data,
-                                    metrics: response.metrics,
-                                    serializationDuration: response.serializationDuration,
-                                    result: .success(filteredImage)
-                                )
+                                         DispatchQueue.main.async {
+                                             let response = AFIDataResponse<Image>(request: response.request,
+                                                                                   response: response.response,
+                                                                                   data: response.data,
+                                                                                   metrics: response.metrics,
+                                                                                   serializationDuration: response.serializationDuration,
+                                                                                   result: .success(filteredImage))
 
-                                completion?(response)
-                            }
-                        }
-                    case .failure:
-                        for (_, _, completion) in responseHandler.operations {
-                            DispatchQueue.main.async { completion?(response.mapError { AFIError.alamofireError($0) }) }
-                        }
-                    }
-                }
-            )
+                                             completion?(response)
+                                         }
+                                     }
+                                 case .failure:
+                                     for (_, _, completion) in responseHandler.operations {
+                                         DispatchQueue.main.async { completion?(response.mapError { AFIError.alamofireError($0) }) }
+                                     }
+                                 }
+                })
 
             // 4) Store the response handler for use when the request completes
-            let responseHandler = ResponseHandler(
-                request: request,
-                handlerID: handlerID,
-                receiptID: receiptID,
-                filter: filter,
-                completion: completion
-            )
+            let responseHandler = ResponseHandler(request: request,
+                                                  handlerID: handlerID,
+                                                  receiptID: receiptID,
+                                                  filter: filter,
+                                                  completion: completion)
 
             self.responseHandlers[urlID] = responseHandler
 
@@ -469,13 +449,11 @@ open class ImageDownloader {
     ///            cache and the URL request cache policy allows the cache to be used, a receipt will not be returned
     ///            for that request.
     @discardableResult
-    open func download(
-        _ urlRequests: [URLRequestConvertible],
-        filter: ImageFilter? = nil,
-        progress: ProgressHandler? = nil,
-        progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: CompletionHandler? = nil
-    )
+    open func download(_ urlRequests: [URLRequestConvertible],
+                       filter: ImageFilter? = nil,
+                       progress: ProgressHandler? = nil,
+                       progressQueue: DispatchQueue = DispatchQueue.main,
+                       completion: CompletionHandler? = nil)
         -> [RequestReceipt] {
         return urlRequests.compactMap {
             download($0, filter: filter, progress: progress, progressQueue: progressQueue, completion: completion)
@@ -499,14 +477,12 @@ open class ImageDownloader {
                     let urlRequest = requestReceipt.request.request
                     let error = AFIError.requestCancelled
 
-                    return DataResponse(
-                        request: urlRequest,
-                        response: nil,
-                        data: nil,
-                        metrics: nil,
-                        serializationDuration: 0.0,
-                        result: .failure(error)
-                    )
+                    return DataResponse(request: urlRequest,
+                                        response: nil,
+                                        data: nil,
+                                        metrics: nil,
+                                        serializationDuration: 0.0,
+                                        result: .failure(error))
                 }()
 
                 DispatchQueue.main.async { operation.completion?(response) }

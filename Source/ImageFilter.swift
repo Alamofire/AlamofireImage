@@ -253,10 +253,8 @@ public struct RoundedCornersFilter: ImageFilter, Roundable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         return { image in
-            image.af.imageRounded(
-                withCornerRadius: self.radius,
-                divideRadiusByImageScale: self.divideRadiusByImageScale
-            )
+            image.af.imageRounded(withCornerRadius: self.radius,
+                                  divideRadiusByImageScale: self.divideRadiusByImageScale)
         }
     }
 
@@ -348,10 +346,8 @@ public struct ScaledToSizeWithRoundedCornersFilter: CompositeImageFilter {
     ///
     /// - returns: The new `ScaledToSizeWithRoundedCornersFilter` instance.
     public init(size: CGSize, radius: CGFloat, divideRadiusByImageScale: Bool = false) {
-        filters = [
-            ScaledToSizeFilter(size: size),
-            RoundedCornersFilter(radius: radius, divideRadiusByImageScale: divideRadiusByImageScale)
-        ]
+        filters = [ScaledToSizeFilter(size: size),
+                   RoundedCornersFilter(radius: radius, divideRadiusByImageScale: divideRadiusByImageScale)]
     }
 
     /// The image filters to apply to the image in sequential order.
@@ -375,10 +371,8 @@ public struct AspectScaledToFillSizeWithRoundedCornersFilter: CompositeImageFilt
     ///
     /// - returns: The new `AspectScaledToFillSizeWithRoundedCornersFilter` instance.
     public init(size: CGSize, radius: CGFloat, divideRadiusByImageScale: Bool = false) {
-        filters = [
-            AspectScaledToFillSizeFilter(size: size),
-            RoundedCornersFilter(radius: radius, divideRadiusByImageScale: divideRadiusByImageScale)
-        ]
+        filters = [AspectScaledToFillSizeFilter(size: size),
+                   RoundedCornersFilter(radius: radius, divideRadiusByImageScale: divideRadiusByImageScale)]
     }
 
     /// The image filters to apply to the image in sequential order.

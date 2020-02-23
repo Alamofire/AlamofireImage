@@ -60,12 +60,10 @@ class ImageCell: UICollectionViewCell {
     func configureCell(with urlString: String, placeholderImage: UIImage) {
         let size = imageView.frame.size
 
-        imageView.af_setImage(
-            withURL: URL(string: urlString)!,
-            placeholderImage: placeholderImage,
-            filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-            imageTransition: .crossDissolve(0.3)
-        )
+        imageView.af_setImage(withURL: URL(string: urlString)!,
+                              placeholderImage: placeholderImage,
+                              filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
+                              imageTransition: .crossDissolve(0.3))
     }
 
     override func prepareForReuse() {

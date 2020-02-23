@@ -88,12 +88,10 @@ public struct Gravatar {
 
     private static let baseURL = URL(string: "https://secure.gravatar.com/avatar")!
 
-    public init(
-        emailAddress: String,
-        defaultImage: DefaultImage = .mysteryMan,
-        forceDefault: Bool = false,
-        rating: Rating = .pg
-    ) {
+    public init(emailAddress: String,
+                defaultImage: DefaultImage = .mysteryMan,
+                forceDefault: Bool = false,
+                rating: Rating = .pg) {
         email = emailAddress
         self.defaultImage = defaultImage
         self.forceDefault = forceDefault

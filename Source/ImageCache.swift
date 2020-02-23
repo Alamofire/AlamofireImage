@@ -137,10 +137,8 @@ open class AutoPurgingImageCache: ImageRequestCache {
         self.memoryCapacity = memoryCapacity
         self.preferredMemoryUsageAfterPurge = preferredMemoryUsageAfterPurge
 
-        precondition(
-            memoryCapacity >= preferredMemoryUsageAfterPurge,
-            "The `memoryCapacity` must be greater than or equal to `preferredMemoryUsageAfterPurge`"
-        )
+        precondition(memoryCapacity >= preferredMemoryUsageAfterPurge,
+                     "The `memoryCapacity` must be greater than or equal to `preferredMemoryUsageAfterPurge`")
 
         cachedImages = [:]
         currentMemoryUsage = 0
@@ -153,12 +151,10 @@ open class AutoPurgingImageCache: ImageRequestCache {
         #if os(iOS) || os(tvOS)
         let notification = UIApplication.didReceiveMemoryWarningNotification
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(AutoPurgingImageCache.removeAllImages),
-            name: notification,
-            object: nil
-        )
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AutoPurgingImageCache.removeAllImages),
+                                               name: notification,
+                                               object: nil)
         #endif
     }
 

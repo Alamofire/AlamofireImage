@@ -52,11 +52,9 @@ class ImagesViewController: UIViewController {
         title = "Random Images"
 
         for _ in 1...1000 {
-            let gravatar = Gravatar(
-                emailAddress: UUID().uuidString,
-                defaultImage: Gravatar.DefaultImage.identicon,
-                forceDefault: true
-            )
+            let gravatar = Gravatar(emailAddress: UUID().uuidString,
+                                    defaultImage: Gravatar.DefaultImage.identicon,
+                                    forceDefault: true)
 
             gravatars.append(gravatar)
         }
@@ -97,21 +95,15 @@ extension ImagesViewController: UICollectionViewDataSource {
         return gravatars.count
     }
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ImageCell.ReuseIdentifier,
-            for: indexPath
-        ) as! ImageCell
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.ReuseIdentifier,
+                                                      for: indexPath) as! ImageCell
 
         let gravatar = gravatars[indexPath.row]
 
-        cell.configureCell(
-            with: gravatar.url(size: sizeForCollectionViewItem().width).absoluteString,
-            placeholderImage: placeholderImage
-        )
+        cell.configureCell(with: gravatar.url(size: sizeForCollectionViewItem().width).absoluteString,
+                           placeholderImage: placeholderImage)
 
         return cell
     }
@@ -120,35 +112,27 @@ extension ImagesViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension ImagesViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return sizeForCollectionViewItem()
     }
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAt section: Int
-    ) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int
-    ) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 8.0
     }
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumInteritemSpacingForSectionAt section: Int
-    ) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 8.0
     }
 }

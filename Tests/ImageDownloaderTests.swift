@@ -448,19 +448,17 @@ class ImageDownloaderTestCase: BaseTestCase {
         var calledOnMainQueue = false
 
         // When
-        downloader.download(
-            urlRequest,
-            progress: { _ in
-                if progressCalled == false {
-                    progressCalled = true
-                    calledOnMainQueue = Thread.isMainThread
-                    progressExpectation.fulfill()
-                }
-            },
-            completion: { _ in
-                completedExpectation.fulfill()
-            }
-        )
+        downloader.download(urlRequest,
+                            progress: { _ in
+                                if progressCalled == false {
+                                    progressCalled = true
+                                    calledOnMainQueue = Thread.isMainThread
+                                    progressExpectation.fulfill()
+                                }
+                            },
+                            completion: { _ in
+                                completedExpectation.fulfill()
+            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -480,21 +478,19 @@ class ImageDownloaderTestCase: BaseTestCase {
         var calledOnExpectedQueue = false
 
         // When
-        downloader.download(
-            urlRequest,
-            progress: { _ in
-                if progressCalled == false {
-                    progressCalled = true
-                    calledOnExpectedQueue = !Thread.isMainThread
+        downloader.download(urlRequest,
+                            progress: { _ in
+                                if progressCalled == false {
+                                    progressCalled = true
+                                    calledOnExpectedQueue = !Thread.isMainThread
 
-                    progressExpectation.fulfill()
-                }
-            },
-            progressQueue: DispatchQueue.global(qos: .utility),
-            completion: { _ in
-                completedExpectation.fulfill()
-            }
-        )
+                                    progressExpectation.fulfill()
+                                }
+                            },
+                            progressQueue: DispatchQueue.global(qos: .utility),
+                            completion: { _ in
+                                completedExpectation.fulfill()
+            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -590,13 +586,11 @@ class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let imageRequests: [URLRequest] = [
-            "https://secure.gravatar.com/avatar/5a105e8b9d40e1329780d62ea2265d8a?d=identicon",
-            "https://secure.gravatar.com/avatar/6a105e8b9d40e1329780d62ea2265d8a?d=identicon",
-            "https://secure.gravatar.com/avatar/7a105e8b9d40e1329780d62ea2265d8a?d=identicon",
-            "https://secure.gravatar.com/avatar/8a105e8b9d40e1329780d62ea2265d8a?d=identicon",
-            "https://secure.gravatar.com/avatar/9a105e8b9d40e1329780d62ea2265d8a?d=identicon"
-        ].map { URLRequest(url: URL(string: $0)!) }
+        let imageRequests: [URLRequest] = ["https://secure.gravatar.com/avatar/5a105e8b9d40e1329780d62ea2265d8a?d=identicon",
+                                           "https://secure.gravatar.com/avatar/6a105e8b9d40e1329780d62ea2265d8a?d=identicon",
+                                           "https://secure.gravatar.com/avatar/7a105e8b9d40e1329780d62ea2265d8a?d=identicon",
+                                           "https://secure.gravatar.com/avatar/8a105e8b9d40e1329780d62ea2265d8a?d=identicon",
+                                           "https://secure.gravatar.com/avatar/9a105e8b9d40e1329780d62ea2265d8a?d=identicon"].map { URLRequest(url: URL(string: $0)!) }
 
         var initialResults: [AFIResult<Image>] = []
         var finalResults: [AFIResult<Image>] = []

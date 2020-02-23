@@ -44,31 +44,27 @@ public final class ImageResponseSerializer: ResponseSerializer {
     public let emptyResponseCodes: Set<Int>
     public let emptyRequestMethods: Set<HTTPMethod>
 
-    static var acceptableImageContentTypes: Set<String> = [
-        "application/octet-stream",
-        "image/tiff",
-        "image/jpeg",
-        "image/gif",
-        "image/png",
-        "image/ico",
-        "image/x-icon",
-        "image/bmp",
-        "image/x-bmp",
-        "image/x-xbitmap",
-        "image/x-ms-bmp",
-        "image/x-win-bitmap"
-    ]
+    static var acceptableImageContentTypes: Set<String> = ["application/octet-stream",
+                                                           "image/tiff",
+                                                           "image/jpeg",
+                                                           "image/gif",
+                                                           "image/png",
+                                                           "image/ico",
+                                                           "image/x-icon",
+                                                           "image/bmp",
+                                                           "image/x-bmp",
+                                                           "image/x-xbitmap",
+                                                           "image/x-ms-bmp",
+                                                           "image/x-win-bitmap"]
 
     static let streamImageInitialBytePattern = Data([255, 216]) // 0xffd8
 
     // MARK: Initialization
 
-    public init(
-        imageScale: CGFloat = ImageResponseSerializer.deviceScreenScale,
-        inflateResponseImage: Bool = true,
-        emptyResponseCodes: Set<Int> = ImageResponseSerializer.defaultEmptyResponseCodes,
-        emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods
-    ) {
+    public init(imageScale: CGFloat = ImageResponseSerializer.deviceScreenScale,
+                inflateResponseImage: Bool = true,
+                emptyResponseCodes: Set<Int> = ImageResponseSerializer.defaultEmptyResponseCodes,
+                emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods) {
         self.imageScale = imageScale
         self.inflateResponseImage = inflateResponseImage
         self.emptyResponseCodes = emptyResponseCodes
@@ -185,21 +181,15 @@ extension DataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseImage(
-        imageScale: CGFloat = DataRequest.imageScale,
-        inflateResponseImage: Bool = true,
-        queue: DispatchQueue = .main,
-        completionHandler: @escaping (AFDataResponse<Image>) -> Void
-    )
+    public func responseImage(imageScale: CGFloat = DataRequest.imageScale,
+                              inflateResponseImage: Bool = true,
+                              queue: DispatchQueue = .main,
+                              completionHandler: @escaping (AFDataResponse<Image>) -> Void)
         -> Self {
-        return response(
-            queue: queue,
-            responseSerializer: ImageResponseSerializer(
-                imageScale: imageScale,
-                inflateResponseImage: inflateResponseImage
-            ),
-            completionHandler: completionHandler
-        )
+        return response(queue: queue,
+                        responseSerializer: ImageResponseSerializer(imageScale: imageScale,
+                                                                    inflateResponseImage: inflateResponseImage),
+                        completionHandler: completionHandler)
     }
 }
 
@@ -218,16 +208,12 @@ extension DataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func responseImage(
-        queue: DispatchQueue = .main,
-        completionHandler: @escaping (AFDataResponse<Image>) -> Void
-    )
+    public func responseImage(queue: DispatchQueue = .main,
+                              completionHandler: @escaping (AFDataResponse<Image>) -> Void)
         -> Self {
-        return response(
-            queue: queue,
-            responseSerializer: ImageResponseSerializer(inflateResponseImage: false),
-            completionHandler: completionHandler
-        )
+        return response(queue: queue,
+                        responseSerializer: ImageResponseSerializer(inflateResponseImage: false),
+                        completionHandler: completionHandler)
     }
 }
 
