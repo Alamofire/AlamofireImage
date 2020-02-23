@@ -24,6 +24,7 @@
 
 #if os(iOS) || os(tvOS) || os(watchOS)
 
+import Alamofire
 import CoreGraphics
 import Foundation
 import UIKit
@@ -32,8 +33,8 @@ import UIKit
 
 private let lock = NSLock()
 
-extension UIImage: AlamofireImageExtended {}
-extension AlamofireImageExtension where ExtendedType: UIImage {
+extension UIImage: AlamofireExtended {}
+extension AlamofireExtension where ExtendedType: UIImage {
     /// Initializes and returns the image object with the specified data in a thread-safe manner.
     ///
     /// It has been reported that there are thread-safety issues when initializing large amounts of images
@@ -86,7 +87,7 @@ extension UIImage {
 
 // MARK: - Inflation
 
-extension AlamofireImageExtension where ExtendedType: UIImage {
+extension AlamofireExtension where ExtendedType: UIImage {
     /// Returns whether the image is inflated.
     public var isInflated: Bool {
         get {
@@ -127,7 +128,7 @@ extension UIImage {
 
 // MARK: - Alpha
 
-extension AlamofireImageExtension where ExtendedType: UIImage {
+extension AlamofireExtension where ExtendedType: UIImage {
     /// Returns whether the image contains an alpha component.
     public var containsAlphaComponent: Bool {
         let alphaInfo = type.cgImage?.alphaInfo
@@ -154,7 +155,7 @@ extension UIImage {
 
 // MARK: - Scaling
 
-extension AlamofireImageExtension where ExtendedType: UIImage {
+extension AlamofireExtension where ExtendedType: UIImage {
     /// Returns a new version of the image scaled to the specified size.
     ///
     /// - Parameters:
@@ -267,7 +268,7 @@ extension UIImage {
 
 // MARK: - Rounded Corners
 
-extension AlamofireImageExtension where ExtendedType: UIImage {
+extension AlamofireExtension where ExtendedType: UIImage {
     /// Returns a new version of the image with the corners rounded to the specified radius.
     ///
     /// - Parameters:
@@ -349,7 +350,7 @@ import CoreImage
 
 // MARK: - Core Image Filters
 
-extension AlamofireImageExtension where ExtendedType: UIImage {
+extension AlamofireExtension where ExtendedType: UIImage {
     /// Returns a new version of the image using a CoreImage filter with the specified name and parameters.
     ///
     /// - Parameters:

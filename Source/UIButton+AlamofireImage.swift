@@ -31,8 +31,8 @@ import UIKit
 
 public typealias ControlState = UIControl.State
 
-extension UIButton: AlamofireImageExtended {}
-extension AlamofireImageExtension where ExtendedType: UIButton {
+extension UIButton: AlamofireExtended {}
+extension AlamofireExtension where ExtendedType: UIButton {
 
     // MARK: - Properties
 

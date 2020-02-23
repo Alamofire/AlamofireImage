@@ -121,8 +121,8 @@ extension UIImageView {
 
 // MARK: -
 
-extension UIImageView: AlamofireImageExtended {}
-extension AlamofireImageExtension where ExtendedType: UIImageView {
+extension UIImageView: AlamofireExtended {}
+extension AlamofireExtension where ExtendedType: UIImageView {
 
     // MARK: - Properties
 
