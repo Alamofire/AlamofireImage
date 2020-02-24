@@ -352,7 +352,7 @@ class UIImageTestCase: BaseTestCase {
         if let blurredImage = blurredImage {
             var expectedResource = "unicorn-blurred-8"
             if #available(iOS 13.0, macOS 10.15, tvOS 13.0, *) { expectedResource.append("-ios-13") }
-            let expectedBlurredImage = self.image(forResource: expectedResource, withExtension: "png")
+            let expectedBlurredImage = image(forResource: expectedResource, withExtension: "png")
 
             let pixelsMatch = blurredImage.af.isEqualToImage(expectedBlurredImage)
 
