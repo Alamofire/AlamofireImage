@@ -1,355 +1,355 @@
 {
   "warnings": [
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/AFIError.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/AFIError.swift",
       "line": 33,
       "symbol": "AFIError.requestCancelled",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/AFIError.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/AFIError.swift",
       "line": 34,
       "symbol": "AFIError.imageSerializationFailed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/AFIError.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/AFIError.swift",
       "line": 35,
       "symbol": "AFIError.alamofireError(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/AFIError.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/AFIError.swift",
       "line": 53,
       "symbol": "AFIError.isAlamofireError",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Image.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Image.swift",
       "line": 29,
       "symbol": "Image",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/ImageDownloader.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/ImageDownloader.swift",
       "line": 79,
       "symbol": "ImageDownloader.DownloadPrioritization.fifo",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/ImageDownloader.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/ImageDownloader.swift",
       "line": 79,
       "symbol": "ImageDownloader.DownloadPrioritization.lifo",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
       "line": 37,
       "symbol": "ImageResponseSerializer",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
       "line": 40,
       "symbol": "ImageResponseSerializer.deviceScreenScale",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
       "line": 42,
       "symbol": "ImageResponseSerializer.imageScale",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
       "line": 43,
       "symbol": "ImageResponseSerializer.inflateResponseImage",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
       "line": 64,
       "symbol": "ImageResponseSerializer.init(imageScale:inflateResponseImage:emptyResponseCodes:emptyRequestMethods:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
       "line": 94,
       "symbol": "ImageResponseSerializer.serializeImage(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
       "line": 126,
       "symbol": "ImageResponseSerializer.validateContentType(for:response:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
       "line": 147,
       "symbol": "DataRequest.imageScale",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIButton+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
       "line": 32,
       "symbol": "ControlState",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIButton+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
       "line": 502,
       "symbol": "UIButton.af_imageDownloader",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIButton+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
       "line": 508,
       "symbol": "UIButton.af_sharedImageDownloader",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIButton+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
       "line": 514,
       "symbol": "UIButton.af_setImage(for:url:cacheKey:placeholderImage:serializer:filter:progress:progressQueue:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIButton+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
       "line": 535,
       "symbol": "UIButton.af_setImage(for:urlRequest:cacheKey:placeholderImage:serializer:filter:progress:progressQueue:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIButton+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
       "line": 561,
       "symbol": "UIButton.af_setBackgroundImage(for:url:cacheKey:placeholderImage:serializer:filter:progress:progressQueue:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIButton+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
       "line": 582,
       "symbol": "UIButton.af_setBackgroundImage(for:urlRequest:cacheKey:placeholderImage:serializer:filter:progress:progressQueue:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 78,
       "symbol": "UIImage.af_threadSafeImage(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 83,
       "symbol": "UIImage.af_threadSafeImage(with:scale:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 119,
       "symbol": "UIImage.af_inflated",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 124,
       "symbol": "UIImage.af_inflate()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 150,
       "symbol": "UIImage.af_containsAlphaComponent",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 153,
       "symbol": "UIImage.af_isOpaque",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 254,
       "symbol": "UIImage.af_imageScaled(to:scale:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 259,
       "symbol": "UIImage.af_imageAspectScaled(toFit:scale:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 264,
       "symbol": "UIImage.af_imageAspectScaled(toFill:scale:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 333,
       "symbol": "UIImage.af_imageRounded(withCornerRadius:divideRadiusByImageScale:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 338,
       "symbol": "UIImage.af_imageRoundedIntoCircle()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImage+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
       "line": 384,
       "symbol": "UIImage.af_imageFiltered(withCoreImageFilter:parameters:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 32,
       "symbol": "AnimationOptions",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 37,
       "symbol": "UIImageView.ImageTransition.noTransition",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 38,
       "symbol": "UIImageView.ImageTransition.crossDissolve(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 39,
       "symbol": "UIImageView.ImageTransition.curlDown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 40,
       "symbol": "UIImageView.ImageTransition.curlUp(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 41,
       "symbol": "UIImageView.ImageTransition.flipFromBottom(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 42,
       "symbol": "UIImageView.ImageTransition.flipFromLeft(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 43,
       "symbol": "UIImageView.ImageTransition.flipFromRight(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 44,
       "symbol": "UIImageView.ImageTransition.flipFromTop(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 45,
       "symbol": "UIImageView.ImageTransition.custom(duration:animationOptions:animations:completion:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 424,
       "symbol": "UIImageView.af_imageDownloader",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 430,
       "symbol": "UIImageView.af_sharedImageDownloader",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 436,
       "symbol": "UIImageView.af_setImage(withURL:cacheKey:placeholderImage:serializer:filter:progress:progressQueue:imageTransition:runImageTransitionIfCached:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 459,
       "symbol": "UIImageView.af_setImage(withURLRequest:cacheKey:placeholderImage:serializer:filter:progress:progressQueue:imageTransition:runImageTransitionIfCached:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 482,
       "symbol": "UIImageView.af_cancelImageRequest()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
       "line": 487,
       "symbol": "UIImageView.run(_:with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/cnoon/Programming/GitHub/Alamofire/AlamofireImage"
+  "source_directory": "/Users/jshier/Desktop/Code/AlamofireImage"
 }
