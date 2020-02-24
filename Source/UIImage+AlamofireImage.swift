@@ -382,7 +382,7 @@ extension AlamofireExtension where ExtendedType: UIImage {
 extension UIImage {
     @available(*, deprecated, message: "Replaced by `image.af.imageFiltered(withCoreImageFilter:parameters:)`")
     public func af_imageFiltered(withCoreImageFilter name: String, parameters: [String: Any]? = nil) -> UIImage? {
-        af.imageFiltered(withCoreImageFilter: name, parameters: parameters)
+        return af.imageFiltered(withCoreImageFilter: name, parameters: parameters)
     }
 }
 
