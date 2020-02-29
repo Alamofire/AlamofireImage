@@ -31,13 +31,21 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.0.2](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.2)
+Released on 2020-02-29. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/38?closed=1).
+
+#### Fixed
+- Swift Package Manager compatibility with local submodules.
+  - Fixed by[Jon Shier](https://github.com/jshier) in Pull Request [#403](https://github.com/Alamofire/AlamofireImage/pull/403).
+
 ## [4.0.1](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.1)
 Released on 2020-02-23. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/37?closed=1).
 
 #### Fixed
 - Swift 5 compatibility.
-  - Fixed by[Jon Shier](https://github.com/jshier) in Pull Request [#401](https://github.com/Alamofire/AlamofireImage/pull/401). 
+  - Fixed by[Jon Shier](https://github.com/jshier) in Pull Request [#401](https://github.com/Alamofire/AlamofireImage/pull/401).
 
 ## [4.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0)
 Released on 2020-02-23. All issues associated with this milestone can be found using this
