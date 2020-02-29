@@ -17,9 +17,10 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode_11.3.1.app/Contents/Developer
     steps:
-      - uses: actions/checkout@v1
-        with:
-          submodules: true
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Dependencies
+        run: carthage bootstrap --no-use-binaries --platform macOS
       - name: macOS
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage macOS" -destination "platform=macOS" clean test | xcpretty
   iOS:
@@ -31,9 +32,10 @@ jobs:
       matrix:
         destination: ["OS=13.3,name=iPhone 11 Pro"]
     steps:
-      - uses: actions/checkout@v1
-        with:
-          submodules: true   
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Dependencies
+        run: carthage bootstrap --no-use-binaries --platform iOS  
       - name: iOS - ${{ matrix.destination }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage iOS" -destination "${{ matrix.destination }}" clean test | xcpretty
   tvOS:
@@ -45,9 +47,10 @@ jobs:
       matrix:
         destination: ["OS=13.3,name=Apple TV 4K"]
     steps:
-      - uses: actions/checkout@v1
-        with:
-          submodules: true
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Dependencies
+        run: carthage bootstrap --no-use-binaries --platform tvOS
       - name: tvOS - ${{ matrix.destination }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage tvOS" -destination "${{ matrix.destination }}" clean test | xcpretty
   watchOS:
@@ -59,9 +62,10 @@ jobs:
       matrix:
         destination: ["OS=6.1.1,name=Apple Watch Series 5 - 44mm"]
     steps:
-      - uses: actions/checkout@v1
-        with:
-          submodules: true
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Dependencies
+        run: carthage bootstrap --no-use-binaries --platform watchOS
       - name: watchOS - ${{ matrix.destination }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage watchOS" -destination "${{ matrix.destination }}" clean build | xcpretty
   spm:
