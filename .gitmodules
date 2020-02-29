@@ -1,3 +1,0 @@
-[submodule "Carthage/Checkouts/Alamofire"]
-	path = Carthage/Checkouts/Alamofire
-	url = https://github.com/Alamofire/Alamofire.git
