@@ -280,7 +280,7 @@ open class ImageDownloader {
                        filter: ImageFilter? = nil,
                        progress: ProgressHandler? = nil,
                        progressQueue: DispatchQueue = DispatchQueue.main,
-                       completion: CompletionHandler?)
+                       completion: CompletionHandler? = nil)
         -> RequestReceipt? {
         var queuedRequest: DataRequest?
 
