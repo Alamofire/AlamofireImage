@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 4.x Releases
-- `4.0.x` Releases - [4.0.0](#400) | [4.0.1](#401)
+- `4.0.x` Releases - [4.0.0](#400) | [4.0.1](#401) | [4.0.2](#402) | [4.0.3](#403)
 - `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2) | [4.0.0-beta.3](#400-beta3) | [4.0.0-beta.4](#400-beta4) | [4.0.0-beta.5](#400-beta5) | [4.0.0-beta.6](#400-beta6)
 
 #### 3.x Releases
@@ -30,6 +30,16 @@ All notable changes to this project will be documented in this file.
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
+
+## [4.0.3](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.3)
+Released on 2020-03-07. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/39?closed=1).
+
+#### Fixed
+- Missing `nil` default for `completionHandler` parameter of `download` method.
+  - Fixed by [Rob Ryan](https://github.com/robertmryan) in Pull Request [#407](https://github.com/Alamofire/AlamofireImage/pull/407).
+- Swift Package Manager compatibility with local submodules, for real this time.
+  - Fixed by[Jon Shier](https://github.com/jshier) in direct commit [35151b1](https://github.com/Alamofire/AlamofireImage/commit/35151b1da85e6c1539a55c8a267850e5fc579def).
 
 ## [4.0.2](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.2)
 Released on 2020-02-29. All issues associated with this milestone can be found using this
