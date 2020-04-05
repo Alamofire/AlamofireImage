@@ -32,10 +32,10 @@ import XCTest
 class UIImageTestCase: BaseTestCase {
     // MARK: - Properties
 
-    var appleImage: UIImage { return image(forResource: "apple", withExtension: "jpg") }
-    var pirateImage: UIImage { return image(forResource: "pirate", withExtension: "jpg") }
-    var rainbowImage: UIImage { return image(forResource: "rainbow", withExtension: "jpg") }
-    var unicornImage: UIImage { return image(forResource: "unicorn", withExtension: "png") }
+    var appleImage: UIImage { image(forResource: "apple", withExtension: "jpg") }
+    var pirateImage: UIImage { image(forResource: "pirate", withExtension: "jpg") }
+    var rainbowImage: UIImage { image(forResource: "rainbow", withExtension: "jpg") }
+    var unicornImage: UIImage { image(forResource: "unicorn", withExtension: "png") }
 
     let scale = Int(UIScreen.main.scale.rounded())
 

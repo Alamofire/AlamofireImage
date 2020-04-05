@@ -66,7 +66,7 @@ public struct Gravatar {
         case blank
 
         var queryItem: URLQueryItem {
-            return URLQueryItem(name: "d", value: rawValue)
+            URLQueryItem(name: "d", value: rawValue)
         }
     }
 
@@ -77,7 +77,7 @@ public struct Gravatar {
         case x
 
         var queryItem: URLQueryItem {
-            return URLQueryItem(name: "r", value: rawValue)
+            URLQueryItem(name: "r", value: rawValue)
         }
     }
 

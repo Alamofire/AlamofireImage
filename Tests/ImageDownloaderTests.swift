@@ -33,7 +33,7 @@ private class ThreadCheckFilter: ImageFilter {
     init() {}
 
     var filter: (Image) -> Image {
-        return { image in
+        { image in
             self.calledOnMainQueue = Thread.isMainThread
             return image
         }
@@ -48,7 +48,7 @@ private class TestCircleFilter: ImageFilter {
     var filterOperationCompleted = false
 
     var filter: (Image) -> Image {
-        return { image in
+        { image in
             self.filterOperationCompleted = true
             return image.af.imageRoundedIntoCircle()
         }

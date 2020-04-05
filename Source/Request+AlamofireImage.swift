@@ -37,7 +37,7 @@ import Cocoa
 public final class ImageResponseSerializer: ResponseSerializer {
     // MARK: Properties
 
-    public static var deviceScreenScale: CGFloat { return DataRequest.imageScale }
+    public static var deviceScreenScale: CGFloat { DataRequest.imageScale }
 
     public let imageScale: CGFloat
     public let inflateResponseImage: Bool
@@ -186,10 +186,10 @@ extension DataRequest {
                               queue: DispatchQueue = .main,
                               completionHandler: @escaping (AFDataResponse<Image>) -> Void)
         -> Self {
-        return response(queue: queue,
-                        responseSerializer: ImageResponseSerializer(imageScale: imageScale,
-                                                                    inflateResponseImage: inflateResponseImage),
-                        completionHandler: completionHandler)
+        response(queue: queue,
+                 responseSerializer: ImageResponseSerializer(imageScale: imageScale,
+                                                             inflateResponseImage: inflateResponseImage),
+                 completionHandler: completionHandler)
     }
 }
 
@@ -211,9 +211,9 @@ extension DataRequest {
     public func responseImage(queue: DispatchQueue = .main,
                               completionHandler: @escaping (AFDataResponse<Image>) -> Void)
         -> Self {
-        return response(queue: queue,
-                        responseSerializer: ImageResponseSerializer(inflateResponseImage: false),
-                        completionHandler: completionHandler)
+        response(queue: queue,
+                 responseSerializer: ImageResponseSerializer(inflateResponseImage: false),
+                 completionHandler: completionHandler)
     }
 }
 

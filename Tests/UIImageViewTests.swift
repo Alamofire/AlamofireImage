@@ -48,7 +48,7 @@ private class TestImageView: UIImageView {
 
     override var image: UIImage? {
         get {
-            return super.image
+            super.image
         }
         set {
             super.image = newValue
