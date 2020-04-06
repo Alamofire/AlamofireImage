@@ -114,34 +114,6 @@
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
-      "line": 433,
-      "symbol": "AlamofireExtension.imageRequestReceipt(for:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
-      "line": 438,
-      "symbol": "AlamofireExtension.setImageRequestReceipt(_:for:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
-      "line": 447,
-      "symbol": "AlamofireExtension.backgroundImageRequestReceipt(for:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
-      "line": 452,
-      "symbol": "AlamofireExtension.setBackgroundImageRequestReceipt(_:for:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIButton+AlamofireImage.swift",
       "line": 502,
       "symbol": "UIButton.af_imageDownloader",
       "symbol_kind": "source.lang.swift.decl.var.instance",
@@ -334,13 +306,6 @@
       "line": 45,
       "symbol": "UIImageView.ImageTransition.custom(duration:animationOptions:animations:completion:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImageView+AlamofireImage.swift",
-      "line": 155,
-      "symbol": "AlamofireExtension.activeRequestReceipt",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
