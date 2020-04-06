@@ -31,6 +31,16 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.1.0)
+Released on 2020-04-05. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/40?closed=1).
+
+#### Updated
+- Project to require Swift 5.1.
+  - Updated by[Jon Shier](https://github.com/jshier) in Pull Request [#413](https://github.com/Alamofire/AlamofireImage/pull/413).
+
+---
+
 ## [4.0.3](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.3)
 Released on 2020-03-07. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/39?closed=1).
