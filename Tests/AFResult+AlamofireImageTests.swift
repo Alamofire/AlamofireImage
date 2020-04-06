@@ -32,7 +32,7 @@ extension AFResult {
     }
 
     var isFailure: Bool {
-        return !isSuccess
+        !isSuccess
     }
 
     var value: Success? {

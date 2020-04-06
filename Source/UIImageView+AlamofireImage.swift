@@ -128,7 +128,7 @@ extension AlamofireExtension where ExtendedType: UIImageView {
     /// instance image downloader is when images are behind different basic auth credentials.
     public var imageDownloader: ImageDownloader? {
         get {
-            return objc_getAssociatedObject(type, &AssociatedKeys.imageDownloader) as? ImageDownloader
+            objc_getAssociatedObject(type, &AssociatedKeys.imageDownloader) as? ImageDownloader
         }
         nonmutating set(downloader) {
             objc_setAssociatedObject(type, &AssociatedKeys.imageDownloader, downloader, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -154,7 +154,7 @@ extension AlamofireExtension where ExtendedType: UIImageView {
 
     var activeRequestReceipt: RequestReceipt? {
         get {
-            return objc_getAssociatedObject(type, &AssociatedKeys.activeRequestReceipt) as? RequestReceipt
+            objc_getAssociatedObject(type, &AssociatedKeys.activeRequestReceipt) as? RequestReceipt
         }
         nonmutating set {
             objc_setAssociatedObject(type, &AssociatedKeys.activeRequestReceipt, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -422,13 +422,13 @@ extension AlamofireExtension where ExtendedType: UIImageView {
 extension UIImageView {
     @available(*, deprecated, message: "Replaced by `imageView.af.imageDownloader`")
     public var af_imageDownloader: ImageDownloader? {
-        get { return af.imageDownloader }
+        get { af.imageDownloader }
         set { af.imageDownloader = newValue }
     }
 
     @available(*, deprecated, message: "Replaced by `imageView.af.sharedImageDownloader`")
     public class var af_sharedImageDownloader: ImageDownloader {
-        get { return af.sharedImageDownloader }
+        get { af.sharedImageDownloader }
         set { af.sharedImageDownloader = newValue }
     }
 

@@ -25,8 +25,8 @@ AlamofireImage is an image component library for Alamofire.
 ## Requirements
 
 - iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+
-- Xcode 10.2+
-- Swift 5+
+- Xcode 11+
+- Swift 5.1+
 
 ## Migration Guides
 
@@ -36,7 +36,7 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Dependencies
 
-- [Alamofire 5.0+](https://github.com/Alamofire/Alamofire)
+- [Alamofire 5.1+](https://github.com/Alamofire/Alamofire)
 
 ## Communication
 
@@ -54,7 +54,7 @@ AlamofireImage is an image component library for Alamofire.
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'AlamofireImage', '~> 4.0'
+pod 'AlamofireImage', '~> 4.1'
 ```
 
 ### Carthage
@@ -62,7 +62,7 @@ pod 'AlamofireImage', '~> 4.0'
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate AlamofireImage into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/AlamofireImage" "4.0"
+github "Alamofire/AlamofireImage" ~> 4.1
 ```
 
 ### Swift Package Manager
@@ -73,7 +73,7 @@ Once you have your Swift package set up, adding AlamofireImage as a dependency i
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.0")
+    .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMajor(from: "4.1.0"))
 ]
 ```
 

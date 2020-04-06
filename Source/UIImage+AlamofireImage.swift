@@ -76,12 +76,12 @@ extension AlamofireExtension where ExtendedType: UIImage {
 extension UIImage {
     @available(*, deprecated, message: "Replaced by `UIImage.af.threadSafeImage(with:)`")
     public static func af_threadSafeImage(with data: Data) -> UIImage? {
-        return af.threadSafeImage(with: data)
+        af.threadSafeImage(with: data)
     }
 
     @available(*, deprecated, message: "Replaced by `UIImage.af.threadSafeImage(with:scale:)`")
     public static func af_threadSafeImage(with data: Data, scale: CGFloat) -> UIImage? {
-        return af.threadSafeImage(with: data, scale: scale)
+        af.threadSafeImage(with: data, scale: scale)
     }
 }
 
@@ -117,7 +117,7 @@ extension AlamofireExtension where ExtendedType: UIImage {
 extension UIImage {
     @available(*, deprecated, message: "Replaced by `image.af.isInflated`")
     public var af_inflated: Bool {
-        return af.isInflated
+        af.isInflated
     }
 
     @available(*, deprecated, message: "Replaced by `image.af.inflate()`")
@@ -142,15 +142,15 @@ extension AlamofireExtension where ExtendedType: UIImage {
     }
 
     /// Returns whether the image is opaque.
-    public var isOpaque: Bool { return !containsAlphaComponent }
+    public var isOpaque: Bool { !containsAlphaComponent }
 }
 
 extension UIImage {
     @available(*, deprecated, message: "Replaced by `image.af.containsAlphaComponent`")
-    public var af_containsAlphaComponent: Bool { return af.containsAlphaComponent }
+    public var af_containsAlphaComponent: Bool { af.containsAlphaComponent }
 
     @available(*, deprecated, message: "Replaced by `image.af.isOpaque`")
-    public var af_isOpaque: Bool { return af.isOpaque }
+    public var af_isOpaque: Bool { af.isOpaque }
 }
 
 // MARK: - Scaling
@@ -252,17 +252,17 @@ extension AlamofireExtension where ExtendedType: UIImage {
 extension UIImage {
     @available(*, deprecated, message: "Replaced by `image.af.imageScale(to:scale:)`")
     public func af_imageScaled(to size: CGSize, scale: CGFloat? = nil) -> UIImage {
-        return af.imageScaled(to: size, scale: scale)
+        af.imageScaled(to: size, scale: scale)
     }
 
     @available(*, deprecated, message: "Replaced by `image.af.imageAspectScale(toFit:scale:)`")
     public func af_imageAspectScaled(toFit size: CGSize, scale: CGFloat? = nil) -> UIImage {
-        return af.imageAspectScaled(toFit: size, scale: scale)
+        af.imageAspectScaled(toFit: size, scale: scale)
     }
 
     @available(*, deprecated, message: "Replaced by `image.af.imageAspectScale(toFill:scale:)`")
     public func af_imageAspectScaled(toFill size: CGSize, scale: CGFloat? = nil) -> UIImage {
-        return af.imageAspectScaled(toFill: size, scale: scale)
+        af.imageAspectScaled(toFill: size, scale: scale)
     }
 }
 
@@ -331,12 +331,12 @@ extension AlamofireExtension where ExtendedType: UIImage {
 extension UIImage {
     @available(*, deprecated, message: "Replaced by `image.af.imageRounded(withCornerRadius:divideRadiusByImageScale:)`")
     public func af_imageRounded(withCornerRadius radius: CGFloat, divideRadiusByImageScale: Bool = false) -> UIImage {
-        return af.imageRounded(withCornerRadius: radius, divideRadiusByImageScale: divideRadiusByImageScale)
+        af.imageRounded(withCornerRadius: radius, divideRadiusByImageScale: divideRadiusByImageScale)
     }
 
     @available(*, deprecated, message: "Replaced by `image.af.imageRoundedIntoCircle()`")
     public func af_imageRoundedIntoCircle() -> UIImage {
-        return af.imageRoundedIntoCircle()
+        af.imageRoundedIntoCircle()
     }
 }
 
@@ -382,7 +382,7 @@ extension AlamofireExtension where ExtendedType: UIImage {
 extension UIImage {
     @available(*, deprecated, message: "Replaced by `image.af.imageFiltered(withCoreImageFilter:parameters:)`")
     public func af_imageFiltered(withCoreImageFilter name: String, parameters: [String: Any]? = nil) -> UIImage? {
-        return af.imageFiltered(withCoreImageFilter: name, parameters: parameters)
+        af.imageFiltered(withCoreImageFilter: name, parameters: parameters)
     }
 }
 

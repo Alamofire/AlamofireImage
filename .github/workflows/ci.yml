@@ -7,33 +7,55 @@ on:
       - hotfix
   pull_request:
     branches:
-      - master
-      - hotfix
+      - '*'
 
 jobs:
-  macOS:
-    name: Test macOS
+  macOS_5_1:
+    name: Test macOS (5.1)
     runs-on: macOS-latest
     env:
       DEVELOPER_DIR: /Applications/Xcode_11.3.1.app/Contents/Developer
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Dependencies
         run: carthage bootstrap --no-use-binaries --platform macOS
       - name: macOS
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage macOS" -destination "platform=macOS" clean test | xcpretty
+  macOS_5_2:
+    name: Test macOS (5.2)
+    runs-on: macOS-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_11.4.app/Contents/Developer
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Dependencies
+        run: carthage bootstrap --no-use-binaries --platform macOS
+      - name: macOS
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage macOS" -destination "platform=macOS" clean test | xcpretty
+  # Catalyst:
+  #   name: Test Catalyst
+  #   runs-on: macOS-latest
+  #   env:
+  #     DEVELOPER_DIR: /Applications/Xcode_11.4.app/Contents/Developer
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Dependencies
+  #       run: carthage bootstrap --no-use-binaries --platform macCatalyst
+  #     - name: Catalyst
+  #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "Alamofire iOS" -destination "platform=macOS" clean test | xcpretty
   iOS:
     name: Test iOS 
     runs-on: macOS-latest
     env: 
-      DEVELOPER_DIR: /Applications/Xcode_11.3.1.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_11.4.app/Contents/Developer
     strategy:
       matrix:
-        destination: ["OS=13.3,name=iPhone 11 Pro"]
+        destination: ["OS=13.4,name=iPhone 11 Pro"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Dependencies
         run: carthage bootstrap --no-use-binaries --platform iOS  
       - name: iOS - ${{ matrix.destination }}
@@ -42,13 +64,13 @@ jobs:
     name: Test tvOS 
     runs-on: macOS-latest
     env: 
-      DEVELOPER_DIR: /Applications/Xcode_11.3.1.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_11.4.app/Contents/Developer
     strategy:
       matrix:
-        destination: ["OS=13.3,name=Apple TV 4K"]
+        destination: ["OS=13.4,name=Apple TV 4K"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Dependencies
         run: carthage bootstrap --no-use-binaries --platform tvOS
       - name: tvOS - ${{ matrix.destination }}
@@ -57,25 +79,24 @@ jobs:
     name: Build watchOS
     runs-on: macOS-latest
     env: 
-      DEVELOPER_DIR: /Applications/Xcode_11.3.1.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_11.4.app/Contents/Developer
     strategy:
       matrix:
-        destination: ["OS=6.1.1,name=Apple Watch Series 5 - 44mm"]
+        destination: ["OS=6.2,name=Apple Watch Series 5 - 44mm"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Dependencies
         run: carthage bootstrap --no-use-binaries --platform watchOS
       - name: watchOS - ${{ matrix.destination }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage watchOS" -destination "${{ matrix.destination }}" clean build | xcpretty
   spm:
-    name: Test SPM Integration
+    name: Build with SPM
     runs-on: macOS-latest    
-    needs: [macOS]
     env:
-      DEVELOPER_DIR: /Applications/Xcode_11.3.1.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_11.4.app/Contents/Developer
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: SPM Build
-        run: swift build
+        run: swift build -c debug
 
