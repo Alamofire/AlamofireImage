@@ -73,7 +73,7 @@ Once you have your Swift package set up, adding AlamofireImage as a dependency i
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMajor(from: "5.1.0"))
+    .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMajor(from: "4.1.0"))
 ]
 ```
 
