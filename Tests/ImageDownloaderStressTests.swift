@@ -184,10 +184,7 @@ class ImageDownloaderStressTestCase: BaseTestCase {
     }
 
     private func uniqueKittenURLString() -> String {
-        let width = Int.random(in: 100...400)
-        let height = Int.random(in: 100...400)
-
-        let urlString = "https://placekitten.com/\(width)/\(height)"
+        let urlString = TestEnvironment.URL.kittenImageOfRandomSize
 
         if kittenCache.contains(urlString) {
             return uniqueKittenURLString()

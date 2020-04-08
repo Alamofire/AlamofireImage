@@ -60,7 +60,7 @@ private class TestImageView: UIImageView {
 // MARK: -
 
 class UIImageViewTestCase: BaseTestCase {
-    let url = URL(string: "https://httpbin.org/image/jpeg")!
+    let url = URL(string: TestEnvironment.URL.jpegImage)!
 
     // MARK: - Setup and Teardown
 
@@ -190,7 +190,7 @@ class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
 
         let downloader = ImageDownloader.default
-        let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
+        let urlRequest = try! URLRequest(url: TestEnvironment.URL.jpegImage, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
         downloader.download(urlRequest) { _ in
@@ -212,7 +212,7 @@ class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
 
         let downloader = ImageDownloader.default
-        let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
+        let urlRequest = try! URLRequest(url: TestEnvironment.URL.jpegImage, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
         downloader.download(urlRequest, filter: CircleFilter()) { _ in
@@ -311,7 +311,7 @@ class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
 
         let downloader = ImageDownloader.default
-        let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
+        let urlRequest = try! URLRequest(url: TestEnvironment.URL.jpegImage, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
         downloader.download(urlRequest) { _ in
             expectation.fulfill()
@@ -669,7 +669,7 @@ class UIImageViewTestCase: BaseTestCase {
                                   completion1Called = true
             })
 
-        imageView.af.setImage(withURLRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
+        imageView.af.setImage(withURLRequest: URLRequest(url: URL(string: TestEnvironment.URL.pngImage)!),
                               placeholderImage: nil,
                               filter: nil,
                               imageTransition: .noTransition,
@@ -756,8 +756,7 @@ class UIImageViewTestCase: BaseTestCase {
 
     func testThatImageBehindRedirectCanBeDownloaded() {
         // Given
-        let redirectURLString = "https://httpbin.org/image/png"
-        let url = URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
+        let url = URL(string: TestEnvironment.URL.pngImageWithRedirect)!
 
         let expectation = self.expectation(description: "image should download successfully")
         var imageDownloadComplete = false

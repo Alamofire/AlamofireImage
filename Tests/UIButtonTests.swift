@@ -55,7 +55,7 @@ private class TestButton: UIButton {
 // MARK: -
 
 class UIButtonTests: BaseTestCase {
-    let url = URL(string: "https://httpbin.org/image/jpeg")!
+    let url = URL(string: TestEnvironment.URL.jpegImage)!
 
     // MARK: - Setup and Teardown
 
@@ -206,7 +206,7 @@ class UIButtonTests: BaseTestCase {
 
         let expectation2 = expectation(description: "background image should download successfully")
         var selectedStateImageDownloadComplete = false
-        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: TestEnvironment.URL.randomJPEGImage)!
 
         button.af.setImage(for: [.selected], url: url)
         button.imageObserver = {
@@ -218,7 +218,7 @@ class UIButtonTests: BaseTestCase {
 
         let expectation3 = expectation(description: "background image should download successfully")
         var highlightedStateImageDownloadComplete = false
-        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: TestEnvironment.URL.randomJPEGImage)!
 
         button.af.setImage(for: [.highlighted], url: url)
         button.imageObserver = {
@@ -230,7 +230,7 @@ class UIButtonTests: BaseTestCase {
 
         let expectation4 = expectation(description: "background image should download successfully")
         var disabledStateImageDownloadComplete = false
-        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: TestEnvironment.URL.randomJPEGImage)!
 
         button.af.setImage(for: [.disabled], url: url)
         button.imageObserver = {
@@ -271,7 +271,7 @@ class UIButtonTests: BaseTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
         let expectation2 = expectation(description: "background image should download successfully")
         var selectedStateBackgroundImageDownloadComplete = false
-        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: TestEnvironment.URL.randomJPEGImage)!
 
         button.af.setBackgroundImage(for: [.selected], url: url)
         button.imageObserver = {
@@ -283,7 +283,7 @@ class UIButtonTests: BaseTestCase {
 
         let expectation3 = expectation(description: "background image should download successfully")
         var highlightedStateBackgroundImageDownloadComplete = false
-        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: TestEnvironment.URL.randomJPEGImage)!
 
         button.af.setBackgroundImage(for: [.highlighted], url: url)
         button.imageObserver = {
@@ -295,7 +295,7 @@ class UIButtonTests: BaseTestCase {
 
         let expectation4 = expectation(description: "background image should download successfully")
         var disabledStateBackgroundImageDownloadComplete = false
-        url = URL(string: "https://httpbin.org/image/jpeg?random=\(arc4random())")!
+        url = URL(string: TestEnvironment.URL.randomJPEGImage)!
 
         button.af.setBackgroundImage(for: [.disabled], url: url)
         button.imageObserver = {
@@ -917,7 +917,7 @@ class UIButtonTests: BaseTestCase {
             })
 
         button.af.setImage(for: [],
-                           urlRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
+                           urlRequest: URLRequest(url: URL(string: TestEnvironment.URL.pngImage)!),
                            placeholderImage: nil,
                            completion: { closureResponse in
                                completion2Called = true
@@ -952,7 +952,7 @@ class UIButtonTests: BaseTestCase {
             })
 
         button.af.setBackgroundImage(for: [],
-                                     urlRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
+                                     urlRequest: URLRequest(url: URL(string: TestEnvironment.URL.pngImage)!),
                                      placeholderImage: nil,
                                      completion: { closureResponse in
                                          completion2Called = true
@@ -1099,8 +1099,7 @@ class UIButtonTests: BaseTestCase {
 
     func testThatImageBehindRedirectCanBeDownloaded() {
         // Given
-        let redirectURLString = "https://httpbin.org/image/png"
-        let url = URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
+        let url = URL(string: TestEnvironment.URL.pngImageWithRedirect)!
 
         let expectation = self.expectation(description: "image should download successfully")
         var imageDownloadComplete = false
@@ -1121,8 +1120,7 @@ class UIButtonTests: BaseTestCase {
 
     func testThatBackgroundImageBehindRedirectCanBeDownloaded() {
         // Given
-        let redirectURLString = "https://httpbin.org/image/png"
-        let url = URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
+        let url = URL(string: TestEnvironment.URL.pngImageWithRedirect)!
 
         let expectation = self.expectation(description: "image should download successfully")
         var backgroundImageDownloadComplete = false

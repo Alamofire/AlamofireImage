@@ -62,7 +62,7 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatImageResponseSerializerCanDownloadPNGImage() {
         // Given
-        let urlString = "https://httpbin.org/image/png"
+        let urlString = TestEnvironment.URL.pngImage
         let expectation = self.expectation(description: "Request should return PNG response image")
 
         var response: AFDataResponse<Image>?
@@ -98,7 +98,7 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatImageResponseSerializerCanDownloadJPGImage() {
         // Given
-        let urlString = "https://httpbin.org/image/jpeg"
+        let urlString = TestEnvironment.URL.jpegImage
         let expectation = self.expectation(description: "Request should return JPG response image")
 
         var response: AFDataResponse<Image>?
@@ -174,7 +174,7 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatImageResponseSerializerCanDownloadAndInflatePNGImage() {
         // Given
-        let urlString = "https://httpbin.org/image/png"
+        let urlString = TestEnvironment.URL.pngImage
         let expectation = self.expectation(description: "Request should return PNG response image")
 
         var response: AFDataResponse<Image>?
@@ -206,7 +206,7 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatImageResponseSerializerCanDownloadAndInflateJPGImage() {
         // Given
-        let urlString = "https://httpbin.org/image/jpeg"
+        let urlString = TestEnvironment.URL.jpegImage
         let expectation = self.expectation(description: "Request should return JPG response image")
 
         var response: AFDataResponse<Image>?
@@ -242,7 +242,7 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatAttemptingToDownloadImageFromBadURLReturnsFailureResult() {
         // Given
-        let urlString = "https://invalid.for.sure"
+        let urlString = TestEnvironment.URL.nonExistent
         let expectation = self.expectation(description: "Request should fail with bad URL")
 
         var response: AFDataResponse<Image>?
@@ -265,7 +265,7 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatAttemptingToDownloadUnsupportedImageTypeReturnsFailureResult() {
         // Given
-        let urlString = "https://httpbin.org/image/webp"
+        let urlString = TestEnvironment.URL.webpImage
         let expectation = self.expectation(description: "Request should return webp response image")
 
         var response: AFDataResponse<Image>?
@@ -294,7 +294,7 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatAttemptingToSerializeEmptyDataReturnsFailureResult() {
         // Given
-        let urlString = "https://httpbin.org/bytes/0"
+        let urlString = TestEnvironment.URL.zeroBytes
         let expectation = self.expectation(description: "Request should download no bytes")
 
         var response: AFDataResponse<Image>?
@@ -323,8 +323,7 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatAttemptingToSerializeRandomStreamDataReturnsFailureResult() {
         // Given
-        let randomBytes = 4 * 1024 * 1024
-        let urlString = "https://httpbin.org/bytes/\(randomBytes)"
+        let urlString = TestEnvironment.URL.randomBytes
         let expectation = self.expectation(description: "Request should download random bytes")
 
         var response: AFDataResponse<Image>?
@@ -353,7 +352,7 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatAttemptingToSerializeJSONResponseIntoImageReturnsFailureResult() {
         // Given
-        let urlString = "https://httpbin.org/get"
+        let urlString = TestEnvironment.URL.json
         let expectation = self.expectation(description: "Request should return JSON")
 
         var response: AFDataResponse<Image>?

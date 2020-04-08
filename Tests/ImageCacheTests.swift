@@ -76,7 +76,7 @@ final class ImageCacheTestCase: BaseTestCase {
     func testThatItCanAddImageToCacheWithRequestIdentifier() {
         // Given
         let image = self.image(forResource: "unicorn", withExtension: "png")
-        let request = try! URLRequest(url: "https://images.example.com/animals", method: .get)
+        let request = try! URLRequest(url: TestEnvironment.URL.nonExistent, method: .get)
         let identifier = "-unicorn"
 
         // When
@@ -114,7 +114,7 @@ final class ImageCacheTestCase: BaseTestCase {
         // Given
         let unicornImage = image(forResource: "unicorn", withExtension: "png")
         let pirateImage = image(forResource: "pirate", withExtension: "jpg")
-        let request = try! URLRequest(url: "https://images.example.com/animals", method: .get)
+        let request = try! URLRequest(url: TestEnvironment.URL.nonExistent, method: .get)
         let identifier = "animal"
 
         // When
@@ -156,7 +156,7 @@ final class ImageCacheTestCase: BaseTestCase {
     func testThatItCanRemoveImageFromCacheWithRequestIdentifier() {
         // Given
         let image = self.image(forResource: "unicorn", withExtension: "png")
-        let request = try! URLRequest(url: "https://images.example.com/animals", method: .get)
+        let request = try! URLRequest(url: TestEnvironment.URL.nonExistent, method: .get)
         let identifier = "unicorn"
 
         // When
@@ -175,7 +175,7 @@ final class ImageCacheTestCase: BaseTestCase {
     func testThatItCanRemoveImagesFromCacheMatchingRequestIdentifier() {
         // Given
         let image = self.image(forResource: "unicorn", withExtension: "png")
-        let request = try! URLRequest(url: "https://images.example.com/animals", method: .get)
+        let request = try! URLRequest(url: TestEnvironment.URL.nonExistent, method: .get)
 
         let identifier1 = "unicorn-100"
         let identifier2 = "unicorn-400"
@@ -261,7 +261,7 @@ final class ImageCacheTestCase: BaseTestCase {
     func testThatItCanFetchImageFromCacheWithRequestIdentifier() {
         // Given
         let image = self.image(forResource: "unicorn", withExtension: "png")
-        let request = try! URLRequest(url: "https://images.example.com/animals", method: .get)
+        let request = try! URLRequest(url: TestEnvironment.URL.nonExistent, method: .get)
         let identifier = "unicorn"
 
         // When
