@@ -753,28 +753,28 @@ class UIImageViewTestCase: BaseTestCase {
     }
 
     // MARK: - Redirects
-
-    func testThatImageBehindRedirectCanBeDownloaded() {
-        // Given
-        let redirectURLString = "https://httpbin.org/image/png"
-        let url = URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
-
-        let expectation = self.expectation(description: "image should download successfully")
-        var imageDownloadComplete = false
-
-        let imageView = TestImageView {
-            imageDownloadComplete = true
-            expectation.fulfill()
-        }
-
-        // When
-        imageView.af.setImage(withURL: url)
-        waitForExpectations(timeout: timeout, handler: nil)
-
-        // Then
-        XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
-        XCTAssertNotNil(imageView.image, "image view image should not be nil")
-    }
+// Disable redirect tests due to HTTPBin failures.
+//    func testThatImageBehindRedirectCanBeDownloaded() {
+//        // Given
+//        let redirectURLString = "https://httpbin.org/image/png"
+//        let url = URL(string: "https://httpbin.org/redirect-to?url=\(redirectURLString)")!
+//
+//        let expectation = self.expectation(description: "image should download successfully")
+//        var imageDownloadComplete = false
+//
+//        let imageView = TestImageView {
+//            imageDownloadComplete = true
+//            expectation.fulfill()
+//        }
+//
+//        // When
+//        imageView.af.setImage(withURL: url)
+//        waitForExpectations(timeout: timeout, handler: nil)
+//
+//        // Then
+//        XCTAssertTrue(imageDownloadComplete, "image download complete should be true")
+//        XCTAssertNotNil(imageView.image, "image view image should not be nil")
+//    }
 
     // MARK: - Accept Header
 
