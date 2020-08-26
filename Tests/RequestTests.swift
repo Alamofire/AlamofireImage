@@ -54,8 +54,8 @@ class DataRequestTestCase: BaseTestCase {
         let afterCount = ImageResponseSerializer.acceptableImageContentTypes.count
 
         // Then
-        XCTAssertEqual(beforeCount, 12, "before count should be 12")
-        XCTAssertEqual(afterCount, 14, "after count should be 14")
+        XCTAssertEqual(beforeCount, 13, "before count should be 13")
+        XCTAssertEqual(afterCount, 15, "after count should be 15")
     }
 
     // MARK: - Tests - Image Serialization

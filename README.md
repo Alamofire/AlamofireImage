@@ -152,6 +152,7 @@ The AlamofireImage response image serializers support a wide range of image type
 - `image/x-xbitmap`
 - `image/x-ms-bmp`
 - `image/x-win-bitmap`
+- `image/heic`
 - `application/octet-stream` (added for iOS 13 support)
 
 > If the image you are attempting to download is an invalid MIME type not in the list, you can add custom acceptable content types using the `addAcceptableImageContentTypes` extension on the `DataRequest` type.
