@@ -57,8 +57,6 @@ public final class ImageResponseSerializer: ResponseSerializer {
                                                            "image/x-ms-bmp",
                                                            "image/x-win-bitmap"]
 
-    static let streamImageInitialBytePattern = Data([255, 216]) // 0xffd8
-
     // MARK: Initialization
 
     public init(imageScale: CGFloat = ImageResponseSerializer.deviceScreenScale,
@@ -81,7 +79,6 @@ public final class ImageResponseSerializer: ResponseSerializer {
                 throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
             }
 
-            print("Returning empty image!")
             return Image()
         }
 
@@ -218,3 +215,77 @@ extension DataRequest {
 }
 
 #endif
+
+public final class ImageStreamSerializer: DataStreamSerializer {
+    public let imageScale: CGFloat
+    public let shouldInflateResponseImage: Bool
+
+    public init(imageScale: CGFloat = ImageResponseSerializer.deviceScreenScale,
+                shouldInflateResponseImage: Bool = true) {
+        self.imageScale = imageScale
+        self.shouldInflateResponseImage = shouldInflateResponseImage
+    }
+    
+    public func serialize(_ data: Data) throws -> Image {
+        #if os(iOS) || os(tvOS) || os(watchOS)
+        guard let image = UIImage.af.threadSafeImage(with: data, scale: imageScale) else {
+            throw AFIError.imageSerializationFailed
+        }
+        
+        if shouldInflateResponseImage { image.af.inflate() }
+        #elseif os(macOS)
+        guard let bitmapImage = NSBitmapImageRep(data: data) else {
+            throw AFIError.imageSerializationFailed
+        }
+        
+        let image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
+        image.addRepresentation(bitmapImage)
+        #endif
+        
+        return image
+    }
+}
+
+extension DataStreamRequest {
+    #if os(macOS)
+    
+    /// Adds a `StreamHandler` which parses incoming `Data` an an `Image`.
+    ///
+    /// - Parameters:
+    ///   - queue: `DispatchQueue` on which to perform the `StreamHandler` closure. `.main` by default.
+    ///   - stream: `StreamHandler` closure called as `Data` is received. May be called multiple times.
+    ///
+    /// - Returns: The `DataStreamRequest`.
+    @discardableResult
+    public func responseStreamImage(on queue: DispatchQueue = .main,
+                                    stream: @escaping Handler<Image, AFError>) -> Self {
+        responseStream(using: ImageStreamSerializer(shouldInflateResponseImage: false),
+                       on: queue,
+                       stream: stream)
+    }
+    
+    #else
+    
+    /// Adds a `StreamHandler` which parses incoming `Data` an an `Image`.
+    ///
+    /// - Parameters:
+    ///   - queue:                `DispatchQueue` on which to perform the `StreamHandler` closure. `.main` by default.
+    ///   - imageScale:           Scale at which the response `Image` is interpreted. Device scale by default.
+    ///   - inflateResponseImage: Whether or not the response `Image` should be decompressed before being returned. Can
+    ///                           cause crashes if images are especially large. `true` by default.
+    ///   - stream:               `StreamHandler` closure called as `Data` is received. May be called multiple times.
+    ///
+    /// - Returns: The `DataStreamRequest`.
+    @discardableResult
+    public func responseStreamImage(on queue: DispatchQueue = .main,
+                                    imageScale: CGFloat = ImageResponseSerializer.deviceScreenScale,
+                                    shouldInflateResponseImage: Bool = true,
+                                    stream: @escaping Handler<Image, AFError>) -> Self {
+        responseStream(using: ImageStreamSerializer(imageScale: imageScale,
+                                                    shouldInflateResponseImage: shouldInflateResponseImage),
+                       on: queue,
+                       stream: stream)
+    }
+    
+    #endif
+}
