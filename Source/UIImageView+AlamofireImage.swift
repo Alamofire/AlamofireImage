@@ -360,7 +360,7 @@ extension AlamofireExtension where ExtendedType: UIImageView {
                                                           strongSelf.activeRequestReceipt = nil
 
                                                           completion?(response)
-            })
+                                                      })
 
         activeRequestReceipt = requestReceipt
     }

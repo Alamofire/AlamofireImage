@@ -225,30 +225,30 @@ public final class ImageStreamSerializer: DataStreamSerializer {
         self.imageScale = imageScale
         self.shouldInflateResponseImage = shouldInflateResponseImage
     }
-    
+
     public func serialize(_ data: Data) throws -> Image {
         #if os(iOS) || os(tvOS) || os(watchOS)
         guard let image = UIImage.af.threadSafeImage(with: data, scale: imageScale) else {
             throw AFIError.imageSerializationFailed
         }
-        
+
         if shouldInflateResponseImage { image.af.inflate() }
         #elseif os(macOS)
         guard let bitmapImage = NSBitmapImageRep(data: data) else {
             throw AFIError.imageSerializationFailed
         }
-        
+
         let image = NSImage(size: NSSize(width: bitmapImage.pixelsWide, height: bitmapImage.pixelsHigh))
         image.addRepresentation(bitmapImage)
         #endif
-        
+
         return image
     }
 }
 
 extension DataStreamRequest {
     #if os(macOS)
-    
+
     /// Adds a `StreamHandler` which parses incoming `Data` an an `Image`.
     ///
     /// - Parameters:
@@ -263,9 +263,9 @@ extension DataStreamRequest {
                        on: queue,
                        stream: stream)
     }
-    
+
     #else
-    
+
     /// Adds a `StreamHandler` which parses incoming `Data` an an `Image`.
     ///
     /// - Parameters:
@@ -286,6 +286,6 @@ extension DataStreamRequest {
                        on: queue,
                        stream: stream)
     }
-    
+
     #endif
 }

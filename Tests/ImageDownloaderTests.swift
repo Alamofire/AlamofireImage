@@ -458,7 +458,7 @@ class ImageDownloaderTestCase: BaseTestCase {
                             },
                             completion: { _ in
                                 completedExpectation.fulfill()
-            })
+                            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -490,7 +490,7 @@ class ImageDownloaderTestCase: BaseTestCase {
                             progressQueue: DispatchQueue.global(qos: .utility),
                             completion: { _ in
                                 completedExpectation.fulfill()
-            })
+                            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 

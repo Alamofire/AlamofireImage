@@ -42,6 +42,7 @@ private class TestImageView: UIImageView {
         super.init(frame: frame)
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -475,7 +476,7 @@ class UIImageViewTestCase: BaseTestCase {
                                   completionHandlerCalled = true
                                   result = closureResponse.result
                                   expectation.fulfill()
-            })
+                              })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -504,7 +505,7 @@ class UIImageViewTestCase: BaseTestCase {
                                   completionHandlerCalled = true
                                   result = closureResponse.result
                                   expectation.fulfill()
-            })
+                              })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -533,7 +534,7 @@ class UIImageViewTestCase: BaseTestCase {
                                   completionHandlerCalled = true
                                   result = closureResponse.result
                                   expectation.fulfill()
-            })
+                              })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -565,13 +566,13 @@ class UIImageViewTestCase: BaseTestCase {
                                                        completion: { _ in
                                                            transitionCompletionHandlerCalled = true
                                                            transitionExpectation.fulfill()
-                }),
+                                                       }),
                               completion: { closureResponse in
                                   completionHandlerCalled = true
                                   result = closureResponse.result
 
                                   completionExpectation.fulfill()
-            })
+                              })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -610,7 +611,7 @@ class UIImageViewTestCase: BaseTestCase {
                               completion: { closureResponse in
                                   result = closureResponse.result
                                   cachedExpectation.fulfill()
-            })
+                              })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -640,7 +641,7 @@ class UIImageViewTestCase: BaseTestCase {
                                   completionHandlerCalled = true
                                   result = closureResponse.result
                                   expectation.fulfill()
-            })
+                              })
 
         imageView.af.cancelImageRequest()
         waitForExpectations(timeout: timeout, handler: nil)
@@ -667,7 +668,7 @@ class UIImageViewTestCase: BaseTestCase {
                               imageTransition: .noTransition,
                               completion: { _ in
                                   completion1Called = true
-            })
+                              })
 
         imageView.af.setImage(withURLRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
                               placeholderImage: nil,
@@ -677,7 +678,7 @@ class UIImageViewTestCase: BaseTestCase {
                                   completion2Called = true
                                   result = closureResponse.result
                                   expectation.fulfill()
-            })
+                              })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -704,7 +705,7 @@ class UIImageViewTestCase: BaseTestCase {
                               imageTransition: .noTransition,
                               completion: { _ in
                                   completion1Called = true
-            })
+                              })
 
         imageView.af.cancelImageRequest()
 
@@ -716,7 +717,7 @@ class UIImageViewTestCase: BaseTestCase {
                                   completion2Called = true
                                   result = closureResponse.result
                                   expectation.fulfill()
-            })
+                              })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -742,7 +743,7 @@ class UIImageViewTestCase: BaseTestCase {
                                    imageViewReleased = imageView == nil
 
                                    expectation.fulfill()
-            })
+                               })
 
         imageView = nil
         waitForExpectations(timeout: timeout, handler: nil)
@@ -753,7 +754,8 @@ class UIImageViewTestCase: BaseTestCase {
     }
 
     // MARK: - Redirects
-// Disable redirect tests due to HTTPBin failures.
+
+    // Disable redirect tests due to HTTPBin failures.
 //    func testThatImageBehindRedirectCanBeDownloaded() {
 //        // Given
 //        let redirectURLString = "https://httpbin.org/image/png"

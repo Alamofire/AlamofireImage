@@ -244,7 +244,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
                                                           strongSelf.setImageRequestReceipt(nil, for: state)
 
                                                           completion?(response)
-            })
+                                                      })
 
         setImageRequestReceipt(requestReceipt, for: state)
     }
@@ -413,7 +413,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
                                                           strongSelf.setBackgroundImageRequestReceipt(nil, for: state)
 
                                                           completion?(response)
-            })
+                                                      })
 
         setBackgroundImageRequestReceipt(requestReceipt, for: state)
     }

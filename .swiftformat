@@ -2,10 +2,12 @@
 
 --symlinks ignore
 --swiftversion 5.1
+--exclude Carthage
 
 # rules
 --enable isEmpty
 --disable andOperator
+--disable wrapMultilineStatementBraces
 
 # format options
 

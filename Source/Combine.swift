@@ -29,7 +29,7 @@ import CoreGraphics
 
 extension DataRequest {
     #if os(macOS)
-    
+
     /// Creates a `DownloadResponsePublisher<Image>` for this instance using the given parameters.
     ///
     /// - Parameters:
@@ -43,16 +43,15 @@ extension DataRequest {
     @available(macOS 10.15, *)
     public func publishImage(queue: DispatchQueue = .main,
                              emptyResponseCodes: Set<Int> = ImageResponseSerializer.defaultEmptyResponseCodes,
-                             emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods
-    ) -> DataResponsePublisher<Image> {
+                             emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods) -> DataResponsePublisher<Image> {
         publishResponse(using: ImageResponseSerializer(inflateResponseImage: false,
                                                        emptyResponseCodes: emptyResponseCodes,
                                                        emptyRequestMethods: emptyRequestMethods),
                         on: queue)
     }
-    
+
     #else
-    
+
     /// Creates a `DownloadResponsePublisher<Image>` for this instance using the given parameters.
     ///
     /// - Parameters:
@@ -71,21 +70,20 @@ extension DataRequest {
                              imageScale: CGFloat = ImageResponseSerializer.deviceScreenScale,
                              inflateResponseImage: Bool = true,
                              emptyResponseCodes: Set<Int> = ImageResponseSerializer.defaultEmptyResponseCodes,
-                             emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods
-    ) -> DataResponsePublisher<Image> {
+                             emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods) -> DataResponsePublisher<Image> {
         publishResponse(using: ImageResponseSerializer(imageScale: imageScale,
                                                        inflateResponseImage: inflateResponseImage,
                                                        emptyResponseCodes: emptyResponseCodes,
                                                        emptyRequestMethods: emptyRequestMethods),
                         on: queue)
     }
-    
+
     #endif
 }
 
 extension DownloadRequest {
     #if os(macOS)
-    
+
     /// Creates a `DownloadResponsePublisher<Image>` for this instance using the given parameters.
     ///
     /// - Parameters:
@@ -99,16 +97,15 @@ extension DownloadRequest {
     @available(macOS 10.15, *)
     public func publishImage(queue: DispatchQueue = .main,
                              emptyResponseCodes: Set<Int> = ImageResponseSerializer.defaultEmptyResponseCodes,
-                             emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods
-    ) -> DownloadResponsePublisher<Image> {
+                             emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods) -> DownloadResponsePublisher<Image> {
         publishResponse(using: ImageResponseSerializer(inflateResponseImage: false,
                                                        emptyResponseCodes: emptyResponseCodes,
                                                        emptyRequestMethods: emptyRequestMethods),
                         on: queue)
     }
-    
+
     #else
-    
+
     /// Creates a `DownloadResponsePublisher<Image>` for this instance using the given parameters.
     ///
     /// - Parameters:
@@ -127,15 +124,14 @@ extension DownloadRequest {
                              imageScale: CGFloat = ImageResponseSerializer.deviceScreenScale,
                              inflateResponseImage: Bool = true,
                              emptyResponseCodes: Set<Int> = ImageResponseSerializer.defaultEmptyResponseCodes,
-                             emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods
-    ) -> DownloadResponsePublisher<Image> {
+                             emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods) -> DownloadResponsePublisher<Image> {
         publishResponse(using: ImageResponseSerializer(imageScale: imageScale,
                                                        inflateResponseImage: inflateResponseImage,
                                                        emptyResponseCodes: emptyResponseCodes,
                                                        emptyRequestMethods: emptyRequestMethods),
                         on: queue)
     }
-    
+
     #endif
 }
 

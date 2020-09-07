@@ -37,6 +37,7 @@ private class TestButton: UIButton {
         super.init(frame: CGRect.zero)
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -120,7 +121,7 @@ class UIButtonTests: BaseTestCase {
                            completion: { response in
                                result = response.result
                                expectation.fulfill()
-            })
+                           })
 
         // Then
         waitForExpectations(timeout: timeout, handler: nil)
@@ -142,7 +143,7 @@ class UIButtonTests: BaseTestCase {
                                      completion: { response in
                                          result = response.result
                                          expectation.fulfill()
-            })
+                                     })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -859,7 +860,7 @@ class UIButtonTests: BaseTestCase {
                                completionHandlerCalled = true
                                result = closureResponse.result
                                expectation.fulfill()
-            })
+                           })
 
         button.af.cancelImageRequest(for: [])
         waitForExpectations(timeout: timeout, handler: nil)
@@ -888,7 +889,7 @@ class UIButtonTests: BaseTestCase {
                                          completionHandlerCalled = true
                                          result = closureResponse.result
                                          expectation.fulfill()
-            })
+                                     })
 
         button.af.cancelBackgroundImageRequest(for: [])
         waitForExpectations(timeout: timeout, handler: nil)
@@ -914,7 +915,7 @@ class UIButtonTests: BaseTestCase {
                            placeholderImage: nil,
                            completion: { _ in
                                completion1Called = true
-            })
+                           })
 
         button.af.setImage(for: [],
                            urlRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
@@ -923,7 +924,7 @@ class UIButtonTests: BaseTestCase {
                                completion2Called = true
                                result = closureResponse.result
                                expectation.fulfill()
-            })
+                           })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -949,7 +950,7 @@ class UIButtonTests: BaseTestCase {
                                      placeholderImage: nil,
                                      completion: { _ in
                                          completion1Called = true
-            })
+                                     })
 
         button.af.setBackgroundImage(for: [],
                                      urlRequest: URLRequest(url: URL(string: "https://httpbin.org/image/png")!),
@@ -958,7 +959,7 @@ class UIButtonTests: BaseTestCase {
                                          completion2Called = true
                                          result = closureResponse.result
                                          expectation.fulfill()
-            })
+                                     })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -984,7 +985,7 @@ class UIButtonTests: BaseTestCase {
                            placeholderImage: nil,
                            completion: { _ in
                                completion1Called = true
-            })
+                           })
 
         button.af.cancelImageRequest(for: [])
 
@@ -995,7 +996,7 @@ class UIButtonTests: BaseTestCase {
                                completion2Called = true
                                result = closureResponse.result
                                expectation.fulfill()
-            })
+                           })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -1021,7 +1022,7 @@ class UIButtonTests: BaseTestCase {
                                      placeholderImage: nil,
                                      completion: { _ in
                                          completion1Called = true
-            })
+                                     })
 
         button.af.cancelBackgroundImageRequest(for: [])
 
@@ -1032,7 +1033,7 @@ class UIButtonTests: BaseTestCase {
                                          completion2Called = true
                                          result = closureResponse.result
                                          expectation.fulfill()
-            })
+                                     })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -1059,7 +1060,7 @@ class UIButtonTests: BaseTestCase {
                                 buttonReleased = button == nil
 
                                 expectation.fulfill()
-            })
+                            })
 
         button = nil
         waitForExpectations(timeout: timeout, handler: nil)
@@ -1085,7 +1086,7 @@ class UIButtonTests: BaseTestCase {
                                           buttonReleased = button == nil
 
                                           expectation.fulfill()
-            })
+                                      })
 
         button = nil
         waitForExpectations(timeout: timeout, handler: nil)
@@ -1096,7 +1097,8 @@ class UIButtonTests: BaseTestCase {
     }
 
     // MARK: - Redirects
-// Disable redirect tests due to HTTPBin failures.
+
+    // Disable redirect tests due to HTTPBin failures.
 //    func testThatImageBehindRedirectCanBeDownloaded() {
 //        // Given
 //        let redirectURLString = "https://httpbin.org/image/png"
