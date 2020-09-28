@@ -81,6 +81,28 @@ extension DataRequest {
     #endif
 }
 
+extension DataStreamRequest {
+    #if os(macOS)
+    
+    @available(macOS 10.15, *)
+    public func publishImage(queue: DispatchQueue = .main) -> DataStreamPublisher<Image> {
+        publishStream(using: ImageStreamSerializer(shouldInflateResponseImage: false), on: queue)
+    }
+    
+    #else
+    
+    @available(iOS 13, watchOS 6, tvOS 13, *)
+    public func publishImage(queue: DispatchQueue = .main,
+                             imageScale: CGFloat = ImageResponseSerializer.deviceScreenScale,
+                             inflateResponseImage: Boll = true) -> DataStreamPublisher<Image> {
+        publishStream(using: ImageStreamSerializer(imageScale: imageScale,
+                                                   shouldInflateResponseImage: inflateResponseImage),
+                      on: queue)
+    }
+    
+    #endif
+}
+
 extension DownloadRequest {
     #if os(macOS)
 
