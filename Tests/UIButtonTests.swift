@@ -1156,7 +1156,7 @@ class UIButtonTests: BaseTestCase {
         XCTAssertNotNil(acceptField)
 
         if let acceptField = acceptField {
-            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.joined(separator: ","))
+            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.sorted().joined(separator: ","))
         }
     }
 }
