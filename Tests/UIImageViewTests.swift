@@ -799,7 +799,7 @@ class UIImageViewTestCase: BaseTestCase {
 
         if let acceptField = acceptField {
             print(acceptField)
-            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.joined(separator: ","))
+            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.sorted().joined(separator: ","))
         }
     }
 }

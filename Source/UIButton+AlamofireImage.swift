@@ -487,7 +487,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
     private func urlRequest(with url: URL) -> URLRequest {
         var urlRequest = URLRequest(url: url)
 
-        for mimeType in ImageResponseSerializer.acceptableImageContentTypes {
+        for mimeType in ImageResponseSerializer.acceptableImageContentTypes.sorted() {
             urlRequest.addValue(mimeType, forHTTPHeaderField: "Accept")
         }
 
