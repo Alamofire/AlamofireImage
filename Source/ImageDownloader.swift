@@ -169,7 +169,7 @@ open class ImageDownloader {
         #if os(macOS)
         return URLCache(memoryCapacity: memoryCapacity,
                         diskCapacity: diskCapacity,
-                        diskPath: cacheDirectory?.appendingPathComponent(imageDownloaderPath).absoluteString)
+                        diskPath: cacheDirectory?.appendingPathComponent(imageDownloaderPath).path)
         #else
         return URLCache(memoryCapacity: memoryCapacity,
                         diskCapacity: diskCapacity,
