@@ -47,6 +47,7 @@ public final class ImageResponseSerializer: ResponseSerializer {
     static var acceptableImageContentTypes: Set<String> = {
         var contentTypes: Set<String> = ["application/octet-stream",
                                          "image/tiff",
+                                         "image/jpg",
                                          "image/jpeg",
                                          "image/jp2",
                                          "image/gif",
@@ -59,9 +60,13 @@ public final class ImageResponseSerializer: ResponseSerializer {
                                          "image/x-ms-bmp",
                                          "image/x-win-bitmap"]
 
-        if #available(macOS 11, iOS 14, tvOS 14, watchOS 7, *) {
-            contentTypes.formUnion(["image/heic", "image/heif", "image/webp"])
-        } else if #available(macOS 10.13, iOS 11, tvOS 11, watchOS 4, *) {
+        #if os(macOS) || os(iOS) // No WebP support on tvOS or watchOS.
+        if #available(macOS 11, iOS 14, *) {
+            contentTypes.formUnion(["image/webp"])
+        }
+        #endif
+
+        if #available(macOS 10.13, iOS 11, tvOS 11, watchOS 4, *) {
             contentTypes.formUnion(["image/heic", "image/heif"])
         }
 
