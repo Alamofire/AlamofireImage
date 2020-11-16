@@ -390,6 +390,6 @@ extension UIImage {
 
 // MARK: -
 
-private struct AssociatedKeys {
+private enum AssociatedKeys {
     static var isInflated = "UIImage.af.isInflated"
 }

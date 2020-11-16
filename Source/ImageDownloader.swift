@@ -399,7 +399,7 @@ open class ImageDownloader {
                                          DispatchQueue.main.async { completion?(response.mapError { AFIError.alamofireError($0) }) }
                                      }
                                  }
-                })
+                             })
 
             // 4) Store the response handler for use when the request completes
             let responseHandler = ResponseHandler(request: request,

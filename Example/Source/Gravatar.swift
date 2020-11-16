@@ -25,8 +25,8 @@
 import Foundation
 import UIKit
 
-private extension String {
-    var md5Hash: String {
+extension String {
+    fileprivate var md5Hash: String {
         let trimmedString = lowercased().trimmingCharacters(in: .whitespaces)
         let utf8String = trimmedString.cString(using: .utf8)!
         let stringLength = CC_LONG(trimmedString.lengthOfBytes(using: .utf8))

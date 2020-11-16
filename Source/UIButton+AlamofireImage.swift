@@ -244,7 +244,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
                                                           strongSelf.setImageRequestReceipt(nil, for: state)
 
                                                           completion?(response)
-            })
+                                                      })
 
         setImageRequestReceipt(requestReceipt, for: state)
     }
@@ -413,7 +413,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
                                                           strongSelf.setBackgroundImageRequestReceipt(nil, for: state)
 
                                                           completion?(response)
-            })
+                                                      })
 
         setBackgroundImageRequestReceipt(requestReceipt, for: state)
     }
@@ -607,7 +607,7 @@ extension UIButton {
 
 // MARK: - Private - AssociatedKeys
 
-private struct AssociatedKeys {
+private enum AssociatedKeys {
     static var imageDownloader = "UIButton.af.imageDownloader"
     static var sharedImageDownloader = "UIButton.af.sharedImageDownloader"
     static var imageReceipts = "UIButton.af.imageReceipts"

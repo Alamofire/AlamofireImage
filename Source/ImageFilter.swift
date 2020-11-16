@@ -110,14 +110,14 @@ public protocol CompositeImageFilter: ImageFilter {
     var filters: [ImageFilter] { get }
 }
 
-public extension CompositeImageFilter {
+extension CompositeImageFilter {
     /// The unique idenitifier for any `CompositeImageFilter` type.
-    var identifier: String {
+    public var identifier: String {
         filters.map { $0.identifier }.joined(separator: "_")
     }
 
     /// The filter closure for any `CompositeImageFilter` type.
-    var filter: (Image) -> Image {
+    public var filter: (Image) -> Image {
         { image in
             self.filters.reduce(image) { $1.filter($0) }
         }
@@ -297,16 +297,16 @@ public protocol CoreImageFilter: ImageFilter {
 }
 
 @available(iOS 9.0, *)
-public extension ImageFilter where Self: CoreImageFilter {
+extension ImageFilter where Self: CoreImageFilter {
     /// The filter closure used to create the modified representation of the given image.
-    var filter: (Image) -> Image {
+    public var filter: (Image) -> Image {
         { image in
             image.af.imageFiltered(withCoreImageFilter: self.filterName, parameters: self.parameters) ?? image
         }
     }
 
     /// The unique idenitifier for an `ImageFilter` conforming to the `CoreImageFilter` protocol.
-    var identifier: String { "\(type(of: self))-parameters:(\(parameters))" }
+    public var identifier: String { "\(type(of: self))-parameters:(\(parameters))" }
 }
 
 /// Blurs an image using a `CIGaussianBlur` filter with the specified blur radius.

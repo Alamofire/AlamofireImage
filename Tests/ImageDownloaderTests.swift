@@ -105,9 +105,9 @@ class ImageDownloaderTestCase: BaseTestCase {
         var downloader: ImageDownloader? = ImageDownloader()
 
         // When
-        _ = downloader?.download(urlRequest) { _ in
+        _ = downloader?.download(urlRequest, completion: { _ in
             // No-op
-        }
+        })
 
         downloader = nil
 
@@ -126,10 +126,10 @@ class ImageDownloaderTestCase: BaseTestCase {
         var response: AFIDataResponse<Image>?
 
         // When
-        downloader.download(urlRequest) { closureResponse in
+        downloader.download(urlRequest, completion: { closureResponse in
             response = closureResponse
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -154,15 +154,15 @@ class ImageDownloaderTestCase: BaseTestCase {
         var result2: Result<Image, AFIError>?
 
         // When
-        downloader.download(urlRequest1) { closureResponse in
+        downloader.download(urlRequest1, completion: { closureResponse in
             result1 = closureResponse.result
             expectation1.fulfill()
-        }
+        })
 
-        downloader.download(urlRequest2) { closureResponse in
+        downloader.download(urlRequest2, completion: { closureResponse in
             result2 = closureResponse.result
             expectation2.fulfill()
-        }
+        })
 
         let activeRequestCount = downloader.activeRequestCount
 
@@ -192,11 +192,11 @@ class ImageDownloaderTestCase: BaseTestCase {
         var results: [AFIResult<Image>] = []
 
         // When
-        downloader.download([urlRequest1, urlRequest2], filter: nil) { closureResponse in
+        downloader.download([urlRequest1, urlRequest2], filter: nil, completion: { closureResponse in
             results.append(closureResponse.result)
             completedDownloads += 1
             expectation.fulfill()
-        }
+        })
 
         let activeRequestCount = downloader.activeRequestCount
 
@@ -217,13 +217,13 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest2 = try! URLRequest(url: "https://httpbin.org/image/png", method: .get)
 
         // When
-        let requestReceipt1 = downloader.download(urlRequest1) { _ in
+        let requestReceipt1 = downloader.download(urlRequest1, completion: { _ in
             // No-op
-        }
+        })
 
-        let requestReceipt2 = downloader.download(urlRequest2) { _ in
+        let requestReceipt2 = downloader.download(urlRequest2, completion: { _ in
             // No-op
-        }
+        })
 
         let activeRequestCount = downloader.activeRequestCount
         requestReceipt1?.request.cancel()
@@ -242,10 +242,10 @@ class ImageDownloaderTestCase: BaseTestCase {
         var response: AFIDataResponse<Image>?
 
         // When
-        downloader.download(urlRequest) { closureResponse in
+        downloader.download(urlRequest, completion: { closureResponse in
             response = closureResponse
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -264,10 +264,10 @@ class ImageDownloaderTestCase: BaseTestCase {
         var response: AFIDataResponse<Image>?
 
         // When
-        downloader.download(urlRequest) { closureResponse in
+        downloader.download(urlRequest, completion: { closureResponse in
             response = closureResponse
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -297,10 +297,10 @@ class ImageDownloaderTestCase: BaseTestCase {
         var response: AFIDataResponse<Image>?
 
         // When
-        downloader.download(urlRequest) { closureResponse in
+        downloader.download(urlRequest, completion: { closureResponse in
             response = closureResponse
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -458,7 +458,7 @@ class ImageDownloaderTestCase: BaseTestCase {
                             },
                             completion: { _ in
                                 completedExpectation.fulfill()
-            })
+                            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -490,7 +490,7 @@ class ImageDownloaderTestCase: BaseTestCase {
                             progressQueue: DispatchQueue.global(qos: .utility),
                             completion: { _ in
                                 completedExpectation.fulfill()
-            })
+                            })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -510,10 +510,10 @@ class ImageDownloaderTestCase: BaseTestCase {
         var response: AFIDataResponse<Image>?
 
         // When
-        let requestReceipt = downloader.download(urlRequest) { closureResponse in
+        let requestReceipt = downloader.download(urlRequest, completion: { closureResponse in
             response = closureResponse
             expectation.fulfill()
-        }
+        })
 
         downloader.cancelRequest(with: requestReceipt!)
 
@@ -546,15 +546,15 @@ class ImageDownloaderTestCase: BaseTestCase {
         var response2: AFIDataResponse<Image>?
 
         // When
-        let requestReceipt1 = downloader.download(urlRequest1) { closureResponse in
+        let requestReceipt1 = downloader.download(urlRequest1, completion: { closureResponse in
             response1 = closureResponse
             expectation1.fulfill()
-        }
+        })
 
-        let requestReceipt2 = downloader.download(urlRequest2) { closureResponse in
+        let requestReceipt2 = downloader.download(urlRequest2, completion: { closureResponse in
             response2 = closureResponse
             expectation2.fulfill()
-        }
+        })
 
         downloader.cancelRequest(with: requestReceipt1!)
 
@@ -599,7 +599,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         for (index, imageRequest) in imageRequests.enumerated() {
             let expectation = self.expectation(description: "Download \(index) should be cancelled: \(imageRequest)")
 
-            let receipt = downloader.download(imageRequest) { response in
+            let receipt = downloader.download(imageRequest, completion: { response in
                 switch response.result {
                 case .success:
                     initialResults.append(response.result)
@@ -608,7 +608,7 @@ class ImageDownloaderTestCase: BaseTestCase {
                     initialResults.append(response.result)
                     expectation.fulfill()
                 }
-            }
+            })
 
             if let receipt = receipt {
                 downloader.cancelRequest(with: receipt)
@@ -618,7 +618,7 @@ class ImageDownloaderTestCase: BaseTestCase {
         for (index, imageRequest) in imageRequests.enumerated() {
             let expectation = self.expectation(description: "Download \(index) should complete: \(imageRequest)")
 
-            downloader.download(imageRequest) { response in
+            downloader.download(imageRequest, completion: { response in
                 switch response.result {
                 case .success:
                     finalResults.append(response.result)
@@ -627,7 +627,7 @@ class ImageDownloaderTestCase: BaseTestCase {
                     finalResults.append(response.result)
                     expectation.fulfill()
                 }
-            }
+            })
         }
 
         waitForExpectations(timeout: timeout, handler: nil)
@@ -659,9 +659,9 @@ class ImageDownloaderTestCase: BaseTestCase {
         let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
 
         // When
-        let requestReceipt = downloader.download(urlRequest) { _ in
+        let requestReceipt = downloader.download(urlRequest, completion: { _ in
             // No-op
-        }
+        })
 
         let credential = requestReceipt?.request.credential
         requestReceipt?.request.cancel()
@@ -678,9 +678,9 @@ class ImageDownloaderTestCase: BaseTestCase {
         // When
         downloader.addAuthentication(user: "foo", password: "bar")
 
-        let requestReceipt = downloader.download(urlRequest) { _ in
+        let requestReceipt = downloader.download(urlRequest, completion: { _ in
             // No-op
-        }
+        })
 
         let credential = requestReceipt?.request.credential
         requestReceipt?.request.cancel()
@@ -698,9 +698,9 @@ class ImageDownloaderTestCase: BaseTestCase {
         let credential = URLCredential(user: "foo", password: "bar", persistence: .forSession)
         downloader.addAuthentication(usingCredential: credential)
 
-        let requestReceipt = downloader.download(urlRequest) { _ in
+        let requestReceipt = downloader.download(urlRequest, completion: { _ in
             // No-op
-        }
+        })
 
         let requestCredential = requestReceipt?.request.credential
         requestReceipt?.request.cancel()
@@ -721,10 +721,10 @@ class ImageDownloaderTestCase: BaseTestCase {
         var calledOnMainQueue = false
 
         // When
-        downloader.download(urlRequest) { _ in
+        downloader.download(urlRequest, completion: { _ in
             calledOnMainQueue = Thread.isMainThread
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -742,10 +742,10 @@ class ImageDownloaderTestCase: BaseTestCase {
         var calledOnMainQueue = false
 
         // When
-        downloader.download(urlRequest) { _ in
+        downloader.download(urlRequest, completion: { _ in
             calledOnMainQueue = Thread.isMainThread
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -763,10 +763,10 @@ class ImageDownloaderTestCase: BaseTestCase {
         var calledOnMainQueue = false
 
         // When
-        downloader.download(urlRequest) { _ in
+        downloader.download(urlRequest, completion: { _ in
             calledOnMainQueue = Thread.isMainThread
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -783,9 +783,9 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation = self.expectation(description: "download request should succeed")
 
         // When
-        downloader.download(urlRequest, filter: filter) { _ in
+        downloader.download(urlRequest, filter: filter, completion: { _ in
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -803,9 +803,9 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectation(description: "image download should succeed")
 
         // When
-        let requestReceipt1 = downloader.download(urlRequest1) { _ in
+        let requestReceipt1 = downloader.download(urlRequest1, completion: { _ in
             expectation1.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -814,9 +814,9 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation2 = expectation(description: "image download should succeed")
 
-        let requestReceipt2 = downloader.download(urlRequest2) { _ in
+        let requestReceipt2 = downloader.download(urlRequest2, completion: { _ in
             expectation2.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -833,9 +833,9 @@ class ImageDownloaderTestCase: BaseTestCase {
         let expectation1 = expectation(description: "image download should succeed")
 
         // When
-        let requestReceipt1 = downloader.download(urlRequest1) { _ in
+        let requestReceipt1 = downloader.download(urlRequest1, completion: { _ in
             expectation1.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -844,9 +844,9 @@ class ImageDownloaderTestCase: BaseTestCase {
 
         let expectation2 = expectation(description: "image download should succeed")
 
-        let requestReceipt2 = downloader.download(urlRequest2) { _ in
+        let requestReceipt2 = downloader.download(urlRequest2, completion: { _ in
             expectation2.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -864,10 +864,10 @@ class ImageDownloaderTestCase: BaseTestCase {
         var response: AFIDataResponse<Image>?
 
         // When
-        downloader.download(urlRequest) { closureResponse in
+        downloader.download(urlRequest, completion: { closureResponse in
             response = closureResponse
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -888,19 +888,19 @@ class ImageDownloaderTestCase: BaseTestCase {
         var result2: AFIResult<Image>?
 
         // When
-        let requestReceipt1 = downloader.download(urlRequest) { closureResponse in
+        let requestReceipt1 = downloader.download(urlRequest, completion: { closureResponse in
             result1 = closureResponse.result
             expectation1.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         let expectation2 = expectation(description: "image download should succeed")
 
-        let requestReceipt2 = downloader.download(urlRequest) { closureResponse in
+        let requestReceipt2 = downloader.download(urlRequest, completion: { closureResponse in
             result2 = closureResponse.result
             expectation2.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
