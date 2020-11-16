@@ -55,8 +55,13 @@ class DataRequestTestCase: BaseTestCase {
 
         // Then
         #if os(iOS) || os(macOS)
-        XCTAssertEqual(beforeCount, 17, "before count should be 17")
-        XCTAssertEqual(afterCount, 18, "after count should be 18")
+        if #available(macOS 11, iOS 14, *) {
+            XCTAssertEqual(beforeCount, 17, "before count should be 17")
+            XCTAssertEqual(afterCount, 18, "after count should be 18")
+        } else {
+            XCTAssertEqual(beforeCount, 16, "before count should be 16")
+            XCTAssertEqual(afterCount, 17, "after count should be 17")
+        }
         #else
         XCTAssertEqual(beforeCount, 16, "before count should be 16")
         XCTAssertEqual(afterCount, 17, "after count should be 17")
