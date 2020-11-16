@@ -143,6 +143,8 @@ class DataRequestTestCase: BaseTestCase {
     }
 
     #if os(macOS) || os(iOS) // No WebP support on tvOS or watchOS.
+
+    @available(macOS 11, iOS 14, *)
     func testThatImageResponseSerializerCanDownloadWebPImage() {
         // Given
         let urlString = "https://httpbin.org/image/webp"
