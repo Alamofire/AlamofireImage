@@ -406,9 +406,9 @@ class UIButtonTests: BaseTestCase {
         let urlRequest = try! URLRequest(url: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.download(urlRequest) { _ in
+        downloader.download(urlRequest, completion: { _ in
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -442,9 +442,9 @@ class UIButtonTests: BaseTestCase {
         let download = try! URLRequest(url: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.download(download, filter: CircleFilter()) { _ in
+        downloader.download(download, filter: CircleFilter(), completion: { _ in
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -561,9 +561,9 @@ class UIButtonTests: BaseTestCase {
         let urlRequest = try! URLRequest(url: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.download(urlRequest) { _ in
+        downloader.download(urlRequest, completion: { _ in
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -584,9 +584,9 @@ class UIButtonTests: BaseTestCase {
         let urlRequest = try! URLRequest(url: url.absoluteString, method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.download(urlRequest) { _ in
+        downloader.download(urlRequest, completion: { _ in
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -696,11 +696,11 @@ class UIButtonTests: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        button.af.setImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
+        button.af.setImage(for: [], urlRequest: urlRequest, placeholderImage: nil, completion: { response in
             completionHandlerCalled = true
             result = response.result
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -726,11 +726,11 @@ class UIButtonTests: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        button.af.setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
+        button.af.setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil, completion: { response in
             completionHandlerCalled = true
             result = response.result
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -751,11 +751,11 @@ class UIButtonTests: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        button.af.setImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
+        button.af.setImage(for: [], urlRequest: urlRequest, placeholderImage: nil, completion: { response in
             completionHandlerCalled = true
             result = response.result
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -776,11 +776,11 @@ class UIButtonTests: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        button.af.setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
+        button.af.setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil, completion: { response in
             completionHandlerCalled = true
             result = response.result
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -801,11 +801,11 @@ class UIButtonTests: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        button.af.setImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
+        button.af.setImage(for: [], urlRequest: urlRequest, placeholderImage: nil, completion: { response in
             completionHandlerCalled = true
             result = response.result
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -826,11 +826,11 @@ class UIButtonTests: BaseTestCase {
         var result: AFIResult<UIImage>?
 
         // When
-        button.af.setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil) { response in
+        button.af.setBackgroundImage(for: [], urlRequest: urlRequest, placeholderImage: nil, completion: { response in
             completionHandlerCalled = true
             result = response.result
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 

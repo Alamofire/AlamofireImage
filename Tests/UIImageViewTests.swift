@@ -194,9 +194,9 @@ class UIImageViewTestCase: BaseTestCase {
         let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.download(urlRequest) { _ in
+        downloader.download(urlRequest, completion: { _ in
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -216,9 +216,9 @@ class UIImageViewTestCase: BaseTestCase {
         let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
 
-        downloader.download(urlRequest, filter: CircleFilter()) { _ in
+        downloader.download(urlRequest, filter: CircleFilter(), completion: { _ in
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -314,9 +314,9 @@ class UIImageViewTestCase: BaseTestCase {
         let downloader = ImageDownloader.default
         let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
         let expectation = self.expectation(description: "image download should succeed")
-        downloader.download(urlRequest) { _ in
+        downloader.download(urlRequest, completion: { _ in
             expectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
@@ -595,9 +595,9 @@ class UIImageViewTestCase: BaseTestCase {
         let downloadExpectation = expectation(description: "image download should succeed")
 
         // When
-        UIImageView.af.sharedImageDownloader.download(urlRequest) { _ in
+        UIImageView.af.sharedImageDownloader.download(urlRequest, completion: { _ in
             downloadExpectation.fulfill()
-        }
+        })
 
         waitForExpectations(timeout: timeout, handler: nil)
 
