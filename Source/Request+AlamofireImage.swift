@@ -44,19 +44,29 @@ public final class ImageResponseSerializer: ResponseSerializer {
     public let emptyResponseCodes: Set<Int>
     public let emptyRequestMethods: Set<HTTPMethod>
 
-    static var acceptableImageContentTypes: Set<String> = ["application/octet-stream",
-                                                           "image/tiff",
-                                                           "image/jpeg",
-                                                           "image/gif",
-                                                           "image/png",
-                                                           "image/ico",
-                                                           "image/x-icon",
-                                                           "image/bmp",
-                                                           "image/x-bmp",
-                                                           "image/x-xbitmap",
-                                                           "image/x-ms-bmp",
-                                                           "image/x-win-bitmap",
-                                                           "image/heic"]
+    static var acceptableImageContentTypes: Set<String> = {
+        var contentTypes: Set<String> = ["application/octet-stream",
+                                         "image/tiff",
+                                         "image/jpeg",
+                                         "image/jp2",
+                                         "image/gif",
+                                         "image/png",
+                                         "image/ico",
+                                         "image/x-icon",
+                                         "image/bmp",
+                                         "image/x-bmp",
+                                         "image/x-xbitmap",
+                                         "image/x-ms-bmp",
+                                         "image/x-win-bitmap"]
+
+        if #available(macOS 11, iOS 14, tvOS 14, watchOS 7, *) {
+            contentTypes.formUnion(["image/heic", "image/heif", "image/webp"])
+        } else if #available(macOS 10.13, iOS 11, tvOS 11, watchOS 4, *) {
+            contentTypes.formUnion(["image/heic", "image/heif"])
+        }
+
+        return contentTypes
+    }()
 
     static let streamImageInitialBytePattern = Data([255, 216]) // 0xffd8
 
