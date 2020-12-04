@@ -184,9 +184,18 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
         let imageDownloader = self.imageDownloader ?? UIButton.af.sharedImageDownloader
         let imageCache = imageDownloader.imageCache
+        
+        let useCache: Bool = {
+            switch urlRequest.urlRequest?.cachePolicy {
+            case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
+                return true
+            default:
+                return false
+            }
+        }()
 
         // Use the image from the image cache if it exists
-        if let request = urlRequest.urlRequest {
+        if let request = urlRequest.urlRequest, useCache {
             let cachedImage: Image?
 
             if let cacheKey = cacheKey {
@@ -353,9 +362,18 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
         let imageDownloader = self.imageDownloader ?? UIButton.af.sharedImageDownloader
         let imageCache = imageDownloader.imageCache
+        
+        let useCache: Bool = {
+            switch urlRequest.urlRequest?.cachePolicy {
+            case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
+                return true
+            default:
+                return false
+            }
+        }()
 
         // Use the image from the image cache if it exists
-        if let request = urlRequest.urlRequest {
+        if let request = urlRequest.urlRequest, useCache {
             let cachedImage: Image?
 
             if let cacheKey = cacheKey {
