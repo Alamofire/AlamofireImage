@@ -79,7 +79,7 @@ jobs:
       DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
     strategy:
       matrix:
-        destination: ["OS=14.4,name=Apple TV 4K"]
+        destination: ["OS=14.3,name=Apple TV 4K"]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
