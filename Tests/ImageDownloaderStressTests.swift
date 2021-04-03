@@ -53,10 +53,10 @@ class ImageDownloaderStressTestCase: BaseTestCase {
 
         // When
         for imageRequest in imageRequests {
-            let receipt = imageDownloader.download(imageRequest) { response in
+            let receipt = imageDownloader.download(imageRequest, completion: { response in
                 responses.append(response)
                 expect.fulfill()
-            }
+            })
 
             receipt.flatMap { receipts.append($0) }
         }
@@ -83,10 +83,10 @@ class ImageDownloaderStressTestCase: BaseTestCase {
 
         // When
         for imageRequest in imageRequests {
-            let receipt = imageDownloader.download(imageRequest) { response in
+            let receipt = imageDownloader.download(imageRequest, completion: { response in
                 responses.append(response)
                 expect.fulfill()
-            }
+            })
 
             receipt.flatMap { receipts.append($0) }
         }
@@ -121,10 +121,10 @@ class ImageDownloaderStressTestCase: BaseTestCase {
 
         // When
         for imageRequest in imageRequests {
-            let receipt = imageDownloader.download(imageRequest) { response in
+            let receipt = imageDownloader.download(imageRequest, completion: { response in
                 responses.append(response)
                 expect.fulfill()
-            }
+            })
 
             receipt.flatMap { receipts.append($0) }
         }
@@ -153,10 +153,10 @@ class ImageDownloaderStressTestCase: BaseTestCase {
 
         // When
         for imageRequest in imageRequests {
-            let receipt = imageDownloader.download(imageRequest) { response in
+            let receipt = imageDownloader.download(imageRequest, completion: { response in
                 responses.append(response)
                 expect.fulfill()
-            }
+            })
 
             receipt.flatMap { receipts.append($0) }
         }

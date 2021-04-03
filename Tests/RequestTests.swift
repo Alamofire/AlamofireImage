@@ -46,7 +46,7 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatAddingAcceptableImageContentTypesInsertsThemIntoTheGlobalList() {
         // Given
-        let contentTypes: Set<String> = ["image/jpg", "binary/octet-stream"]
+        let contentTypes: Set<String> = ["binary/octet-stream"]
 
         // When
         let beforeCount = ImageResponseSerializer.acceptableImageContentTypes.count
@@ -54,8 +54,18 @@ class DataRequestTestCase: BaseTestCase {
         let afterCount = ImageResponseSerializer.acceptableImageContentTypes.count
 
         // Then
-        XCTAssertEqual(beforeCount, 13, "before count should be 13")
-        XCTAssertEqual(afterCount, 15, "after count should be 15")
+        #if os(iOS) || os(macOS)
+        if #available(macOS 11, iOS 14, *) {
+            XCTAssertEqual(beforeCount, 17, "before count should be 17")
+            XCTAssertEqual(afterCount, 18, "after count should be 18")
+        } else {
+            XCTAssertEqual(beforeCount, 16, "before count should be 16")
+            XCTAssertEqual(afterCount, 17, "after count should be 17")
+        }
+        #else
+        XCTAssertEqual(beforeCount, 16, "before count should be 16")
+        XCTAssertEqual(afterCount, 17, "after count should be 17")
+        #endif
     }
 
     // MARK: - Tests - Image Serialization
@@ -132,6 +142,46 @@ class DataRequestTestCase: BaseTestCase {
         }
     }
 
+    #if os(macOS) || os(iOS) // No WebP support on tvOS or watchOS.
+
+    @available(macOS 11, iOS 14, *)
+    func testThatImageResponseSerializerCanDownloadWebPImage() {
+        // Given
+        let urlString = "https://httpbin.org/image/webp"
+        let expectation = self.expectation(description: "Request should return WebP response image")
+
+        var response: AFDataResponse<Image>?
+
+        // When
+        session.request(urlString)
+            .responseImage { closureResponse in
+                response = closureResponse
+                expectation.fulfill()
+            }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
+
+        if let image = response?.result.value {
+            #if os(iOS)
+            let screenScale = UIScreen.main.scale
+            let expectedSize = CGSize(width: CGFloat(274) / screenScale, height: CGFloat(367) / screenScale)
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+            XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+            #elseif os(macOS)
+            let expectedSize = CGSize(width: 274, height: 367)
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+            #endif
+        } else {
+            XCTFail("result image should not be nil")
+        }
+    }
+    #endif
+
     func testThatImageResponseSerializerCanDownloadImageFromFileURL() {
         // Given
         let url = self.url(forResource: "apple", withExtension: "jpg")
@@ -168,10 +218,9 @@ class DataRequestTestCase: BaseTestCase {
         }
     }
 
-    #if os(iOS) || os(tvOS)
-
     // MARK: - Tests - Image Inflation
 
+    #if os(iOS) || os(tvOS)
     func testThatImageResponseSerializerCanDownloadAndInflatePNGImage() {
         // Given
         let urlString = "https://httpbin.org/image/png"
@@ -235,7 +284,40 @@ class DataRequestTestCase: BaseTestCase {
             XCTFail("result image should not be nil")
         }
     }
+    #endif
 
+    #if os(iOS)
+    func testThatImageResponseSerializerCanDownloadAndInflateWebPImage() {
+        // Given
+        let urlString = "https://httpbin.org/image/webp"
+        let expectation = self.expectation(description: "Request should return WebP response image")
+
+        var response: AFDataResponse<Image>?
+
+        // When
+        session.request(urlString)
+            .responseImage { closureResponse in
+                response = closureResponse
+                expectation.fulfill()
+            }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
+
+        if let image = response?.result.value {
+            let screenScale = UIScreen.main.scale
+            let expectedSize = CGSize(width: CGFloat(274) / screenScale, height: CGFloat(367) / screenScale)
+
+            XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+            XCTAssertEqual(image.scale, screenScale, "image scale does not match expected value")
+        } else {
+            XCTFail("result image should not be nil")
+        }
+    }
     #endif
 
     // MARK: - Tests - Image Serialization Errors
@@ -265,8 +347,8 @@ class DataRequestTestCase: BaseTestCase {
 
     func testThatAttemptingToDownloadUnsupportedImageTypeReturnsFailureResult() {
         // Given
-        let urlString = "https://httpbin.org/image/webp"
-        let expectation = self.expectation(description: "Request should return webp response image")
+        let urlString = "https://httpbin.org/image/svg"
+        let expectation = self.expectation(description: "Request should return svg response image")
 
         var response: AFDataResponse<Image>?
 
