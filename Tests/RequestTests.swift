@@ -146,8 +146,6 @@ class DataRequestTestCase: BaseTestCase {
 
     @available(macOS 11, iOS 14, *)
     func testThatImageResponseSerializerCanDownloadWebPImage() {
-        guard #available(macOS 11, iOS 14, *) else { return }
-
         // Given
         let urlString = "https://httpbin.org/image/webp"
         let expectation = self.expectation(description: "Request should return WebP response image")
