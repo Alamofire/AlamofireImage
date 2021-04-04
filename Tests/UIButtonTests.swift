@@ -985,6 +985,7 @@ final class UIButtonTests: BaseTestCase {
         // Given
         let button = UIButton()
         let expectation = self.expectation(description: "image download should succeed")
+        expectation.expectedFulfillmentCount = 2
 
         var completion1Called = false
         var completion2Called = false
@@ -996,6 +997,7 @@ final class UIButtonTests: BaseTestCase {
                            placeholderImage: nil,
                            completion: { _ in
                                completion1Called = true
+                               expectation.fulfill()
                            })
 
         button.af.cancelImageRequest(for: [])

@@ -540,7 +540,6 @@ final class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertEqual(requestReceipt1?.request.task, requestReceipt2?.request.task, "tasks 1 and 2 should be equal")
 
         XCTAssertNotNil(response1, "response 1 should not be nil")
-        XCTAssertNotNil(response1?.request, "response 1 request should not be nil")
         XCTAssertNil(response1?.response, "response 1 response should be nil")
         XCTAssertNil(response1?.data, "response 1 data should be nil")
         XCTAssertTrue(response1?.result.isFailure ?? false, "response 1 result should be a failure case")
