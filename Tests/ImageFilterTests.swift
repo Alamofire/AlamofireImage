@@ -29,7 +29,7 @@ import Foundation
 import UIKit
 import XCTest
 
-class ImageFilterTestCase: BaseTestCase {
+final class ImageFilterTestCase: BaseTestCase {
     let squareSize = CGSize(width: 50, height: 50)
     let largeSquareSize = CGSize(width: 100, height: 100)
     let scale = Int(round(UIScreen.main.scale))

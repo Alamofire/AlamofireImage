@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31FA4D672619207200CEAD2B /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D662619207200CEAD2B /* TestHelpers.swift */; };
+		31FA4D682619207200CEAD2B /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D662619207200CEAD2B /* TestHelpers.swift */; };
+		31FA4D692619207200CEAD2B /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D662619207200CEAD2B /* TestHelpers.swift */; };
+		31FA4D7926192E4500CEAD2B /* CGSize.ScreenScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */; };
+		31FA4D7A26192E4500CEAD2B /* CGSize.ScreenScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */; };
+		31FA4D7B26192E4500CEAD2B /* CGSize.ScreenScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */; };
 		4C0893EC1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */; };
 		4C0893F51B937404005125D9 /* UIImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893F41B937404005125D9 /* UIImageTests.swift */; };
 		4C0894E41B9382EB005125D9 /* apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894501B9382EB005125D9 /* apple.jpg */; };
@@ -566,6 +572,8 @@
 		3143544B1F4A16FE00266E5F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3143544C1F4A16FE00266E5F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		314354501F4A16FE00266E5F /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		31FA4D662619207200CEAD2B /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.ScreenScaling.swift; sourceTree = "<group>"; };
 		4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImageTests.swift"; sourceTree = "<group>"; };
 		4C0893F41B937404005125D9 /* UIImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageTests.swift; sourceTree = "<group>"; };
 		4C0894501B9382EB005125D9 /* apple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = apple.jpg; sourceTree = "<group>"; };
@@ -1239,6 +1247,7 @@
 		4CBE9C642401FE2100B2AAC0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				31FA4D662619207200CEAD2B /* TestHelpers.swift */,
 				B30AFF7B23F49CC500883238 /* ThrowingURLRequestConvertible.swift */,
 			);
 			name = Helpers;
@@ -1265,6 +1274,7 @@
 			children = (
 				4CD5BCF41D7FBE380055E232 /* AFError+AlamofireImageTests.swift */,
 				4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */,
+				31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */,
 				4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */,
 			);
 			name = Extensions;
@@ -2057,8 +2067,10 @@
 				4C16B3AA1BA93ADB00A66EF0 /* ImageFilterTests.swift in Sources */,
 				4C16B3A71BA93ADB00A66EF0 /* BaseTestCase.swift in Sources */,
 				B30AFF7F23F4A3FD00883238 /* ThrowingURLRequestConvertible.swift in Sources */,
+				31FA4D692619207200CEAD2B /* TestHelpers.swift in Sources */,
 				4CBE8FB92316008300782A2E /* ImageDownloaderStressTests.swift in Sources */,
 				4C16B3AD1BA93ADB00A66EF0 /* UIImageViewTests.swift in Sources */,
+				31FA4D7B26192E4500CEAD2B /* CGSize.ScreenScaling.swift in Sources */,
 				4C16B3A91BA93ADB00A66EF0 /* ImageDownloaderTests.swift in Sources */,
 				4C16B3AC1BA93ADB00A66EF0 /* UIImageTests.swift in Sources */,
 			);
@@ -2109,8 +2121,10 @@
 				4CEBB5401B93C622001391DE /* ImageCacheTests.swift in Sources */,
 				4C0893EC1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift in Sources */,
 				B30AFF7D23F4A3FB00883238 /* ThrowingURLRequestConvertible.swift in Sources */,
+				31FA4D672619207200CEAD2B /* TestHelpers.swift in Sources */,
 				4CBE8FB72316008300782A2E /* ImageDownloaderStressTests.swift in Sources */,
 				4C1624851AABE8E600A0385D /* BaseTestCase.swift in Sources */,
+				31FA4D7926192E4500CEAD2B /* CGSize.ScreenScaling.swift in Sources */,
 				4C0893F51B937404005125D9 /* UIImageTests.swift in Sources */,
 				4C5874861B93F81800407E58 /* ImageDownloaderTests.swift in Sources */,
 			);
@@ -2145,8 +2159,10 @@
 				4CEBB5411B93C622001391DE /* ImageCacheTests.swift in Sources */,
 				4C86C1121DA0B3400032ECC3 /* UIImageViewTests.swift in Sources */,
 				B30AFF7E23F4A3FC00883238 /* ThrowingURLRequestConvertible.swift in Sources */,
+				31FA4D682619207200CEAD2B /* TestHelpers.swift in Sources */,
 				4CBE8FB82316008300782A2E /* ImageDownloaderStressTests.swift in Sources */,
 				4C5874871B93F81800407E58 /* ImageDownloaderTests.swift in Sources */,
+				31FA4D7A26192E4500CEAD2B /* CGSize.ScreenScaling.swift in Sources */,
 				4C86C1131DA0B3440032ECC3 /* UIImage+AlamofireImageTests.swift in Sources */,
 				4C0897EC1B93BC0D005125D9 /* RequestTests.swift in Sources */,
 			);
