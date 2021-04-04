@@ -28,7 +28,7 @@ import Foundation
 import XCTest
 
 final class ImageDownloaderStressTestCase: BaseTestCase {
-    let imageCount = 100
+    let imageCount = 1000
     var cache: Set<String> = []
 
     // MARK: - Setup and Teardown
