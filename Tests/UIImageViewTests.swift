@@ -774,11 +774,10 @@ final class UIImageViewTestCase: BaseTestCase {
 
     func testThatAcceptHeaderMatchesAcceptableContentTypes() {
         // Given
-        var imageView: UIImageView?
-
         let expectation = self.expectation(description: "image should download successfully")
         var acceptField: String?
 
+        var imageView: TestImageView?
         imageView = TestImageView {
             acceptField = imageView?.af.activeRequestReceipt?.request.request?.headers["Accept"]
             expectation.fulfill()

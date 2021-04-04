@@ -1153,19 +1153,21 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatAcceptHeaderMatchesAcceptableContentTypes() {
         // Given
-        let button = UIButton()
+        let expectation = self.expectation(description: "image should download successfully")
+        var acceptField: String?
+
+        var button: TestButton?
+        button = TestButton {
+            acceptField = button?.af.imageRequestReceipt(for: [])?.request.request?.headers["Accept"]
+            expectation.fulfill()
+        }
 
         // When
-        button.af.setImage(for: [], url: url)
-        let acceptField = button.af.imageRequestReceipt(for: [])?.request.request?.allHTTPHeaderFields?["Accept"]
-        button.af.cancelImageRequest(for: [])
+        button?.af.setImage(for: [], url: url)
+        waitForExpectations(timeout: timeout)
 
         // Then
-        XCTAssertNotNil(acceptField)
-
-        if let acceptField = acceptField {
-            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.sorted().joined(separator: ","))
-        }
+        XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.sorted().joined(separator: ","))
     }
 }
 
