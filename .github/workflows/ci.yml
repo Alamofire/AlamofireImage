@@ -63,7 +63,7 @@ jobs:
       - name: Dependencies
         run: carthage bootstrap --no-build
       - name: Catalyst
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "Alamofire iOS" -destination "platform=macOS" clean test | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage iOS" -destination "platform=macOS" clean test | xcpretty
   iOS:
     name: Test iOS 
     runs-on: macOS-latest
