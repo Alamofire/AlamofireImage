@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 4.x Releases
+- `4.2.x` Releases - [4.2.0](#420)
+- `4.1.x` Releases - [4.1.0](#410)
 - `4.0.x` Releases - [4.0.0](#400) | [4.0.1](#401) | [4.0.2](#402) | [4.0.3](#403)
 - `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2) | [4.0.0-beta.3](#400-beta3) | [4.0.0-beta.4](#400-beta4) | [4.0.0-beta.5](#400-beta5) | [4.0.0-beta.6](#400-beta6)
 
@@ -31,13 +33,31 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.2.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.2.0)
+Released on 2021-04-03. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/41?closed=1).
+
+#### Added
+- HEIC, JPEG2000, and WebP to `Accept` headers for relevant platforms.
+  - Added by [Taylor Paul](https://github.com/taylor-paul) and [Jon Shier](https://github.com/jshier) in Pull Requests [#424](https://github.com/Alamofire/AlamofireImage/pull/424) and [#434](https://github.com/Alamofire/AlamofireImage/pull/434).
+
+#### Updated
+- Sort `Accept` headers.
+  - Updated by [Junichiro Kasuya](https://github.com/jksy) in Pull Request [#429](https://github.com/Alamofire/AlamofireImage/pull/429).
+
+#### Fixed
+- Invalid `URL` to file path conversion in `URLCache` creation.
+  - Fixed by [Klaas](https://github.com/klaas) in Pull Request [#421](https://github.com/Alamofire/AlamofireImage/pull/421).
+
+---
+
 ## [4.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.1.0)
 Released on 2020-04-05. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/40?closed=1).
 
 #### Updated
 - Project to require Swift 5.1.
-  - Updated by[Jon Shier](https://github.com/jshier) in Pull Request [#413](https://github.com/Alamofire/AlamofireImage/pull/413).
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#413](https://github.com/Alamofire/AlamofireImage/pull/413).
 
 ---
 
@@ -49,7 +69,7 @@ Released on 2020-03-07. All issues associated with this milestone can be found u
 - Missing `nil` default for `completionHandler` parameter of `download` method.
   - Fixed by [Rob Ryan](https://github.com/robertmryan) in Pull Request [#407](https://github.com/Alamofire/AlamofireImage/pull/407).
 - Swift Package Manager compatibility with local submodules, for real this time.
-  - Fixed by[Jon Shier](https://github.com/jshier) in direct commit [35151b1](https://github.com/Alamofire/AlamofireImage/commit/35151b1da85e6c1539a55c8a267850e5fc579def).
+  - Fixed by [Jon Shier](https://github.com/jshier) in direct commit [35151b1](https://github.com/Alamofire/AlamofireImage/commit/35151b1da85e6c1539a55c8a267850e5fc579def).
 
 ## [4.0.2](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.2)
 Released on 2020-02-29. All issues associated with this milestone can be found using this
@@ -57,7 +77,7 @@ Released on 2020-02-29. All issues associated with this milestone can be found u
 
 #### Fixed
 - Swift Package Manager compatibility with local submodules.
-  - Fixed by[Jon Shier](https://github.com/jshier) in Pull Request [#403](https://github.com/Alamofire/AlamofireImage/pull/403).
+  - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#403](https://github.com/Alamofire/AlamofireImage/pull/403).
 
 ## [4.0.1](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.1)
 Released on 2020-02-23. All issues associated with this milestone can be found using this
@@ -65,7 +85,7 @@ Released on 2020-02-23. All issues associated with this milestone can be found u
 
 #### Fixed
 - Swift 5 compatibility.
-  - Fixed by[Jon Shier](https://github.com/jshier) in Pull Request [#401](https://github.com/Alamofire/AlamofireImage/pull/401).
+  - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#401](https://github.com/Alamofire/AlamofireImage/pull/401).
 
 ## [4.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0)
 Released on 2020-02-23. All issues associated with this milestone can be found using this
