@@ -79,7 +79,7 @@ open class ImageDownloader {
         case fifo, lifo
     }
 
-    class ResponseHandler {
+    final class ResponseHandler {
         let urlID: String
         let handlerID: String
         let request: DataRequest

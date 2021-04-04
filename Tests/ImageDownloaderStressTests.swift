@@ -27,33 +27,34 @@
 import Foundation
 import XCTest
 
-class ImageDownloaderStressTestCase: BaseTestCase {
-    let imageCount = 10
-    var kittenCache: Set<String> = []
+final class ImageDownloaderStressTestCase: BaseTestCase {
+    let imageCount = 100
+    var cache: Set<String> = []
 
     // MARK: - Setup and Teardown
 
     override func setUp() {
         super.setUp()
-        kittenCache.removeAll()
+
+        cache.removeAll()
     }
 
     // MARK: - Tests - Common Use Cases
 
     func testThatItCanDownloadManyImagesInParallel() {
         // Given
-        let imageRequests = (1...imageCount).map { _ in randomKittenURLRequest() }
+        let endpoints = (1...imageCount).map { _ in randomUniversalImageEndpoint() }
         let imageDownloader = ImageDownloader(configuration: .ephemeral)
 
         let expect = expectation(description: "all requests should complete")
-        expect.expectedFulfillmentCount = imageRequests.count
+        expect.expectedFulfillmentCount = endpoints.count
 
         var receipts: [RequestReceipt] = []
         var responses: [AFIDataResponse<Image>] = []
 
         // When
-        for imageRequest in imageRequests {
-            let receipt = imageDownloader.download(imageRequest, completion: { response in
+        for endpoint in endpoints {
+            let receipt = imageDownloader.download(endpoint, completion: { response in
                 responses.append(response)
                 expect.fulfill()
             })
@@ -72,18 +73,18 @@ class ImageDownloaderStressTestCase: BaseTestCase {
     func testThatItCanDownloadManyImagesInParallelWhileCancellingRequests() {
         // Given
         let cancelledImageCount = 4
-        let imageRequests = (1...imageCount).map { _ in randomKittenURLRequest() }
+        let endpoints = (1...imageCount).map { _ in randomUniversalImageEndpoint() }
         let imageDownloader = ImageDownloader(configuration: .ephemeral)
 
         let expect = expectation(description: "all requests should complete")
-        expect.expectedFulfillmentCount = imageRequests.count
+        expect.expectedFulfillmentCount = endpoints.count
 
         var receipts: [RequestReceipt] = []
         var responses: [AFIDataResponse<Image>] = []
 
         // When
-        for imageRequest in imageRequests {
-            let receipt = imageDownloader.download(imageRequest, completion: { response in
+        for endpoint in endpoints {
+            let receipt = imageDownloader.download(endpoint, completion: { response in
                 responses.append(response)
                 expect.fulfill()
             })
@@ -110,18 +111,18 @@ class ImageDownloaderStressTestCase: BaseTestCase {
 
     func testThatItCanDownloadManyImagesInParallelWhileResumingRequestsExternally() {
         // Given
-        let imageRequests = (1...imageCount).map { _ in randomKittenURLRequest() }
+        let endpoints = (1...imageCount).map { _ in randomUniversalImageEndpoint() }
         let imageDownloader = ImageDownloader(configuration: .ephemeral)
 
         let expect = expectation(description: "all requests should complete")
-        expect.expectedFulfillmentCount = imageRequests.count
+        expect.expectedFulfillmentCount = endpoints.count
 
         var receipts: [RequestReceipt] = []
         var responses: [AFIDataResponse<Image>] = []
 
         // When
-        for imageRequest in imageRequests {
-            let receipt = imageDownloader.download(imageRequest, completion: { response in
+        for endpoint in endpoints {
+            let receipt = imageDownloader.download(endpoint, completion: { response in
                 responses.append(response)
                 expect.fulfill()
             })
@@ -142,18 +143,18 @@ class ImageDownloaderStressTestCase: BaseTestCase {
     func testThatItCanDownloadManyImagesInParallelWhileCancellingRequestsExternally() {
         // Given
         let cancelledImageCount = 4
-        let imageRequests = (1...imageCount).map { _ in randomKittenURLRequest() }
+        let endpoints = (1...imageCount).map { _ in randomUniversalImageEndpoint() }
         let imageDownloader = ImageDownloader(configuration: .ephemeral)
 
         let expect = expectation(description: "all requests should complete")
-        expect.expectedFulfillmentCount = imageRequests.count
+        expect.expectedFulfillmentCount = endpoints.count
 
         var receipts: [RequestReceipt] = []
         var responses: [AFIDataResponse<Image>] = []
 
         // When
-        for imageRequest in imageRequests {
-            let receipt = imageDownloader.download(imageRequest, completion: { response in
+        for endpoint in endpoints {
+            let receipt = imageDownloader.download(endpoint, completion: { response in
                 responses.append(response)
                 expect.fulfill()
             })
@@ -176,24 +177,17 @@ class ImageDownloaderStressTestCase: BaseTestCase {
         XCTAssertEqual(failureCount, cancelledImageCount)
     }
 
-    private func randomKittenURLRequest() -> URLRequest {
-        let urlString = uniqueKittenURLString()
-        let url = URL(string: urlString)!
+    private func randomUniversalImageEndpoint() -> Endpoint {
+        let endpoint = Endpoint.image(Endpoint.Image.universalCases.randomElement()!)
+            .modifying(\.queryItems, to: [.init(name: "random", value: "\(arc4random())")])
 
-        return URLRequest(url: url)
-    }
+        let urlString = endpoint.url.absoluteString
 
-    private func uniqueKittenURLString() -> String {
-        let width = Int.random(in: 100...400)
-        let height = Int.random(in: 100...400)
-
-        let urlString = "https://placekitten.com/\(width)/\(height)"
-
-        if kittenCache.contains(urlString) {
-            return uniqueKittenURLString()
+        if cache.contains(urlString) {
+            return randomUniversalImageEndpoint()
         } else {
-            kittenCache.insert(urlString)
-            return urlString
+            cache.insert(urlString)
+            return endpoint
         }
     }
 }

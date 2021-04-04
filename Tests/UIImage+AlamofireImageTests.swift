@@ -28,6 +28,12 @@
 import Alamofire
 import UIKit
 
+extension UIImage {
+    var isScaledToScreen: Bool {
+        scale == UIScreen.main.scale
+    }
+}
+
 extension AlamofireExtension where ExtendedType: UIImage {
     func isEqualToImage(_ image: UIImage, withinTolerance tolerance: UInt8 = 3) -> Bool {
         guard type.size.equalTo(image.size) else { return false }

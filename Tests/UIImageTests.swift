@@ -71,7 +71,7 @@ class UIImageTestCase: BaseTestCase {
             }
         }
 
-        waitForExpectations(timeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout)
 
         // Then
         images.forEach { XCTAssertNotNil($0, "image should not be nil") }
@@ -103,7 +103,7 @@ class UIImageTestCase: BaseTestCase {
             }
         }
 
-        waitForExpectations(timeout: timeout, handler: nil)
+        waitForExpectations(timeout: timeout)
 
         // Then
         images.forEach { XCTAssertNotNil($0, "image should not be nil") }

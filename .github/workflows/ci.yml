@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Dependencies
-        run: ./carthage.sh bootstrap --no-use-binaries --platform macOS
+        run: carthage bootstrap --no-build
       - name: macOS (5.1)
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage macOS" -destination "platform=macOS" clean build | xcpretty
   macOS_5_2:
@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Dependencies
-        run: ./carthage.sh bootstrap --no-use-binaries --platform macOS
+        run: carthage bootstrap --no-build
       - name: macOS (5.2)
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage macOS" -destination "platform=macOS" clean test | xcpretty
   macOS_5_3:
@@ -43,20 +43,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Dependencies
-        run: ./carthage.sh bootstrap --no-use-binaries --platform macOS
+        run: carthage bootstrap --no-build
       - name: macOS (5.3)
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage macOS" -destination "platform=macOS" clean test | xcpretty
-  # Catalyst:
-  #   name: Test Catalyst
-  #   runs-on: macOS-latest
-  #   env:
-  #     DEVELOPER_DIR: /Applications/Xcode_11.6.app/Contents/Developer
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Dependencies
-  #       run: carthage bootstrap --no-use-binaries --platform macCatalyst
-  #     - name: Catalyst
-  #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "Alamofire iOS" -destination "platform=macOS" clean test | xcpretty
+  Catalyst:
+    name: Test Catalyst
+    runs-on: macOS-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@v2
+      - name: Dependencies
+        run: carthage bootstrap --no-build
+      - name: Catalyst
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "Alamofire iOS" -destination "platform=macOS" clean test | xcpretty
   iOS:
     name: Test iOS 
     runs-on: macOS-latest
@@ -69,7 +69,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Dependencies
-        run: ./carthage.sh bootstrap --no-use-binaries --platform iOS  
+        run: carthage bootstrap --no-build
       - name: iOS - ${{ matrix.destination }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage iOS" -destination "${{ matrix.destination }}" clean test | xcpretty
   tvOS:
@@ -84,7 +84,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Dependencies
-        run: ./carthage.sh bootstrap --no-use-binaries --platform tvOS
+        run: carthage bootstrap --no-build
       - name: tvOS - ${{ matrix.destination }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage tvOS" -destination "${{ matrix.destination }}" clean test | xcpretty
   watchOS:
@@ -99,7 +99,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Dependencies
-        run: ./carthage.sh bootstrap --no-use-binaries --platform watchOS
+        run: carthage bootstrap --no-build
       - name: watchOS - ${{ matrix.destination }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage watchOS" -destination "${{ matrix.destination }}" clean build | xcpretty
   spm:
