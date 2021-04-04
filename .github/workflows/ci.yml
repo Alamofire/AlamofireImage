@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install Firewalk
+        run: brew install alamofire/alamofire/firewalk && firewalk &
       - name: Dependencies
         run: carthage bootstrap --no-build
       - name: macOS (5.2)
@@ -42,6 +44,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install Firewalk
+        run: brew install alamofire/alamofire/firewalk && firewalk &
       - name: Dependencies
         run: carthage bootstrap --no-build
       - name: macOS (5.3)
@@ -52,7 +56,10 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Firewalk
+        run: brew install alamofire/alamofire/firewalk && firewalk &
       - name: Dependencies
         run: carthage bootstrap --no-build
       - name: Catalyst
@@ -68,6 +75,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install Firewalk
+        run: brew install alamofire/alamofire/firewalk && firewalk &
       - name: Dependencies
         run: carthage bootstrap --no-build
       - name: iOS - ${{ matrix.destination }}
@@ -83,6 +92,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install Firewalk
+        run: brew install alamofire/alamofire/firewalk && firewalk &
       - name: Dependencies
         run: carthage bootstrap --no-build
       - name: tvOS - ${{ matrix.destination }}
@@ -108,7 +119,8 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: SPM Build
         run: swift build -c debug
 
