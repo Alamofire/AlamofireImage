@@ -789,12 +789,7 @@ final class UIImageViewTestCase: BaseTestCase {
         waitForExpectations(timeout: timeout)
 
         // Then
-        XCTAssertNotNil(acceptField)
-
-        if let acceptField = acceptField {
-            print(acceptField)
-            XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.sorted().joined(separator: ","))
-        }
+        XCTAssertEqual(acceptField, ImageResponseSerializer.acceptableImageContentTypes.sorted().joined(separator: ","))
     }
 }
 
