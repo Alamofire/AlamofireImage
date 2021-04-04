@@ -79,28 +79,28 @@
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 64,
+      "line": 80,
       "symbol": "ImageResponseSerializer.init(imageScale:inflateResponseImage:emptyResponseCodes:emptyRequestMethods:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 94,
+      "line": 110,
       "symbol": "ImageResponseSerializer.serializeImage(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 126,
+      "line": 142,
       "symbol": "ImageResponseSerializer.validateContentType(for:response:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 147,
+      "line": 163,
       "symbol": "DataRequest.imageScale",
       "symbol_kind": "source.lang.swift.decl.var.class",
       "warning": "undocumented"
