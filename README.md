@@ -125,7 +125,7 @@ $ git submodule add https://github.com/Alamofire/AlamofireImage.git
 import Alamofire
 import AlamofireImage
 
-Alamofire.request("https://httpbin.org/image/png").responseImage { response in
+AF.request("https://httpbin.org/image/png").responseImage { response in
 	debugPrint(response)
 
 	print(response.request)
