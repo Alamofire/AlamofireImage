@@ -27,86 +27,112 @@ import SwiftUI
 
 // MARK: URLImageMaster
 
+/// `LazyImageDownloader` is used for `LazyImage` to avoid abundant `ImageDownloader`creations and placeholder passings
 @available(iOS 13.0, macOS 10.15, tvOS 13, watchOS 6, *)
 public final class LazyImageDownloader {
-    var placeholder: SwiftUI.Image
+    /// SwiftUI view displayed while image is downloading
+    var placeholder: AnyView = AnyView(EmptyView())
+    
+    /// `ImageDownloader` instance used to download images
     private var imageLoader: ImageDownloader
-
+    
+    /// `ImageFilter` applied to images downloaded using this `LazyImageDownloader`
+    private var filter: ImageFilter? = nil
+    
+    /// Creates image download request
+    ///
+    /// - parameter url - image URL
+    /// - parameter callback - callback called after the completion
+    /// - parameter progressQueue - DispatchQueue to be used in AlomofireImage
     public func image(url: URL,
-               callback: @escaping (SwiftUI.Image?,  AFIError?) -> Void,
-               filter: ImageFilter? = nil,
-               progressQueue: DispatchQueue = DispatchQueue.global(qos: .userInteractive)) {
+                      callback: @escaping (SwiftUI.Image?,  AFIError?) -> Void,
+                      progressQueue: DispatchQueue = DispatchQueue.main) {
         let urlRequest = URLRequest(url: url)
         imageLoader.download(urlRequest,
                              filter: filter,
                              progressQueue: progressQueue,
                              completion:  { response in
-            if case .success(let image) = response.result {
-                callback(self.toSwitUIImage(uiImage: image), nil)
-            } else {
-                callback(nil, response.error)
-            }
-        })
+                                if case .success(let image) = response.result {
+                                    callback(SwiftUI.Image(uiImage: image), nil)
+                                } else {
+                                    callback(nil, response.error)
+                                }
+                             })
     }
     
-    private func toSwitUIImage(uiImage: UIImage) -> SwiftUI.Image {
-        SwiftUI.Image(uiImage: uiImage)
-    }
-    
+    /// Basic init for most cases
     public init() {
         imageLoader = ImageDownloader(configuration: .default,
-                                                  downloadPrioritization: .fifo,
-                                                  maximumActiveDownloads: 4,
-                                                  imageCache:AutoPurgingImageCache())
-        self.placeholder = SwiftUI.Image(systemName: "cloud")
+                                      downloadPrioritization: .fifo,
+                                      maximumActiveDownloads: 4,
+                                      imageCache:AutoPurgingImageCache())
     }
     
-    public init(downloader:ImageDownloader, placeholder: SwiftUI.Image?=nil){
-        if placeholder == nil {
-            self.placeholder = SwiftUI.Image(systemName: "cloud")
-        } else {
-            self.placeholder = placeholder!
-        }
+    /// Specify `ImageDownloader` and placeholder
+    public init(downloader:ImageDownloader = .default, placeholder: AnyView=AnyView(EmptyView())){
+        self.placeholder = placeholder
         imageLoader = downloader
     }
     
+    /// Quick access to basic initialisation
     public static var `default`:LazyImageDownloader {
         LazyImageDownloader()
     }
 }
 
+// MARK: LazyImage
+
+/// `LazyImage` is a regular SwiftUI view that displays Image by asynchronously downloading it.
 @available(iOS 13.0, macOS 10.15, tvOS 13, watchOS 6, *)
 public struct LazyImage: View {
+    
+    /// Used to select internal image loading state
     enum URLImageState {
         case finished
         case loading
         case error
     }
+    
+    /// `LazyImageDownloader` used for this image
     private let loader: LazyImageDownloader
+    
+    /// Image URL
     private let url: URL;
+    
+    /// User-specified action to perform on load completion
     private var onLoad: (SwiftUI.Image?, AFIError?) -> Void;
     
+    /// Loaded image will be placed here
     @State private var loadedImage: SwiftUI.Image? = nil
+    
+    /// In case an error occurs, `AFIError` will be placed here
     @State private var error: AFIError? = nil
+    
+    /// Loading state
     @State private var loaded: URLImageState = .loading
     
+    /// Init `LazyImage`
+    /// - parameter url - image url
+    /// - parameter loader - `LazyImageDownloader` to be used
+    /// - parameter onLoad - closure to be called on load completion
     public init(url: URL,
-         loader: LazyImageDownloader = LazyImageDownloader.default,
-         onLoad:((SwiftUI.Image?, AFIError?) -> Void)? = nil) {
+                loader: LazyImageDownloader = LazyImageDownloader.default,
+                onLoad:((SwiftUI.Image?, AFIError?) -> Void)? = nil) {
         self.loader = loader
         self.url = url
         self.onLoad = onLoad ?? {_,_ in}
     }
     
+    /// Body to be displayed. Load action is fired through SwiftUI `.onAppear()` functionality
     public var body: some View {
         Group {
             switch loaded {
             case .loading:
                 loader.placeholder
             case .finished:
-                loadedImage!
+                loadedImage
             case .error:
-                Text(loadedImage.debugDescription)
+                Text(error?.errorDescription ?? "Unknown error")
             }
         }.onAppear(perform: {
             loader.image(url: url){ image, error in
