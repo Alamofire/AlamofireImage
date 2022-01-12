@@ -34,7 +34,7 @@ import WatchKit
 import Cocoa
 #endif
 
-public final class ImageResponseSerializer: ResponseSerializer {
+open class ImageResponseSerializer: ResponseSerializer {
     // MARK: Properties
 
     public static var deviceScreenScale: CGFloat { DataRequest.imageScale }
@@ -107,7 +107,7 @@ public final class ImageResponseSerializer: ResponseSerializer {
         return image
     }
 
-    public func serializeImage(from data: Data) throws -> Image {
+    open func serializeImage(from data: Data) throws -> Image {
         guard !data.isEmpty else {
             throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
         }
