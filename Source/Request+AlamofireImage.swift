@@ -89,7 +89,7 @@ open class ImageResponseSerializer: ResponseSerializer {
 
     // MARK: Serialization
 
-    public func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) throws -> Image {
+    open func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) throws -> Image {
         guard error == nil else { throw error! }
 
         guard let data = data, !data.isEmpty else {
