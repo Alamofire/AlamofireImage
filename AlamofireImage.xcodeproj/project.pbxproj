@@ -45,7 +45,6 @@
 		4C1624851AABE8E600A0385D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
 		4C1624861AABE8E600A0385D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
 		4C16B3871BA9399500A66EF0 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C16B37D1BA9399500A66EF0 /* AlamofireImage.framework */; };
-		4C16B39F1BA93AA600A66EF0 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C16B3A01BA93AB700A66EF0 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290791B927CE6005E24C8 /* Image.swift */; };
 		4C16B3A11BA93AB700A66EF0 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
 		4C16B3A21BA93AB700A66EF0 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
@@ -200,7 +199,6 @@
 		4C38F7C92402F98600C63ECC /* unicorn-blurred-8-ios-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C38F7C82402F98600C63ECC /* unicorn-blurred-8-ios-13.png */; };
 		4C38F7CA2402F98600C63ECC /* unicorn-blurred-8-ios-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C38F7C82402F98600C63ECC /* unicorn-blurred-8-ios-13.png */; };
 		4C38F7CB2402F98600C63ECC /* unicorn-blurred-8-ios-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C38F7C82402F98600C63ECC /* unicorn-blurred-8-ios-13.png */; };
-		4C4D4EC91B9297B300C96855 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C4D4ECA1B9297BB00C96855 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290791B927CE6005E24C8 /* Image.swift */; };
 		4C4D4ECB1B9297BB00C96855 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
 		4C4D4ECC1B9297BB00C96855 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
@@ -208,7 +206,6 @@
 		4C4D4ECE1B9297BB00C96855 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
 		4C4D4ECF1B9297BB00C96855 /* UIImage+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */; };
 		4C5308501AB561BF0051DBAC /* UIImage+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */; };
-		4C54EE911AABC04900CD894C /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C5872CA1B93DEAC00407E58 /* ImageFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5872C91B93DEAC00407E58 /* ImageFilterTests.swift */; };
 		4C5873811B93EFFB00407E58 /* apple-aspect.scaled.to.fill-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872F61B93EFFB00407E58 /* apple-aspect.scaled.to.fill-30x60-@1x.png */; };
 		4C5873821B93EFFB00407E58 /* apple-aspect.scaled.to.fill-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872F61B93EFFB00407E58 /* apple-aspect.scaled.to.fill-30x60-@1x.png */; };
@@ -501,7 +498,6 @@
 		4CD5BCF51D7FBE380055E232 /* AFError+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5BCF41D7FBE380055E232 /* AFError+AlamofireImageTests.swift */; };
 		4CD5BCF61D7FBE380055E232 /* AFError+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5BCF41D7FBE380055E232 /* AFError+AlamofireImageTests.swift */; };
 		4CD5BCF71D7FBE380055E232 /* AFError+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5BCF41D7FBE380055E232 /* AFError+AlamofireImageTests.swift */; };
-		4CE6112C1AABC24E00D35044 /* AlamofireImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C54EE8F1AABC04900CD894C /* AlamofireImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CE611551AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
 		4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
 		4CEA70E61DE163B000E631C6 /* unicorn-blurred-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEA70E51DE163B000E631C6 /* unicorn-blurred-8.png */; };
@@ -857,6 +853,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		31CFF7A028F355370087D7D3 /* Test Plans */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Test Plans";
+			sourceTree = "<group>";
+		};
 		4C0894021B9382EB005125D9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -968,6 +971,7 @@
 				4CBE9C642401FE2100B2AAC0 /* Helpers */,
 				4C0894021B9382EB005125D9 /* Resources */,
 				4C54EE991AABC09000CD894C /* Supporting Files */,
+				31CFF7A028F355370087D7D3 /* Test Plans */,
 				4CD5BCF21D7FBE110055E232 /* Tests */,
 			);
 			path = Tests;
@@ -1300,41 +1304,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		4C16B37A1BA9399500A66EF0 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C16B39F1BA93AA600A66EF0 /* AlamofireImage.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C4D4EBE1B92976900C96855 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C4D4EC91B9297B300C96855 /* AlamofireImage.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C9043741AABBFC5001B4E60 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C54EE911AABC04900CD894C /* AlamofireImage.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4CE6112B1AABC24E00D35044 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4CE6112C1AABC24E00D35044 /* AlamofireImage.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		4C11830A2150517E007A8298 /* iOS Example */ = {
 			isa = PBXNativeTarget;
@@ -1361,7 +1330,6 @@
 			buildPhases = (
 				4C16B3781BA9399500A66EF0 /* Sources */,
 				4C16B3791BA9399500A66EF0 /* Frameworks */,
-				4C16B37A1BA9399500A66EF0 /* Headers */,
 				4C16B37B1BA9399500A66EF0 /* Resources */,
 			);
 			buildRules = (
@@ -1397,7 +1365,6 @@
 			buildPhases = (
 				4C4D4EBC1B92976900C96855 /* Sources */,
 				4C4D4EBD1B92976900C96855 /* Frameworks */,
-				4C4D4EBE1B92976900C96855 /* Headers */,
 				4C4D4EBF1B92976900C96855 /* Resources */,
 			);
 			buildRules = (
@@ -1415,7 +1382,6 @@
 			buildPhases = (
 				4C9043721AABBFC5001B4E60 /* Sources */,
 				4C9043731AABBFC5001B4E60 /* Frameworks */,
-				4C9043741AABBFC5001B4E60 /* Headers */,
 				4C9043751AABBFC5001B4E60 /* Resources */,
 			);
 			buildRules = (
@@ -1451,7 +1417,6 @@
 			buildPhases = (
 				4CE611291AABC24E00D35044 /* Sources */,
 				4CE6112A1AABC24E00D35044 /* Frameworks */,
-				4CE6112B1AABC24E00D35044 /* Headers */,
 				4CE6112D1AABC24E00D35044 /* Resources */,
 			);
 			buildRules = (
@@ -1489,7 +1454,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = Alamofire;
 				TargetAttributes = {
 					4C11830A2150517E007A8298 = {
@@ -2617,6 +2582,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -2633,6 +2599,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";

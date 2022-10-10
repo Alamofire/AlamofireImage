@@ -1,7 +1,7 @@
 //
 //  RequestTests.swift
 //
-//  Copyright (c) 2015 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2022 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -115,7 +115,6 @@ final class DataRequestTestCase: BaseTestCase {
 
     #if os(macOS) || os(iOS) // No WebP support on tvOS or watchOS.
 
-    @available(macOS 11, iOS 14, *)
     func testThatImageResponseSerializerCanDownloadWebPImage() {
         guard #available(macOS 11, iOS 14, *) else { return }
 

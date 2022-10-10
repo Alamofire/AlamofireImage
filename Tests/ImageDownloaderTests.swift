@@ -686,14 +686,13 @@ final class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCallsTheCompletionHandlerOnTheMainQueue() {
         // Given
         let downloader = ImageDownloader()
-        let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
 
         let expectation = self.expectation(description: "download request should succeed")
 
         var calledOnMainQueue = false
 
         // When
-        downloader.download(urlRequest, completion: { _ in
+        downloader.download(.image(.jpeg), completion: { _ in
             calledOnMainQueue = Thread.isMainThread
             expectation.fulfill()
         })

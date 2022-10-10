@@ -113,7 +113,7 @@ public protocol CompositeImageFilter: ImageFilter {
 extension CompositeImageFilter {
     /// The unique idenitifier for any `CompositeImageFilter` type.
     public var identifier: String {
-        filters.map { $0.identifier }.joined(separator: "_")
+        filters.map(\.identifier).joined(separator: "_")
     }
 
     /// The filter closure for any `CompositeImageFilter` type.

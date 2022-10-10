@@ -1,6 +1,6 @@
-// swift-tools-version:5.7
+// swift-tools-version:5.4
 //
-//  Package.swift
+//  Package@swift-5.4.swift
 //
 //  Copyright (c) 2022 Alamofire Software Foundation (http://alamofire.org/)
 //
@@ -36,10 +36,5 @@ let package = Package(name: "AlamofireImage",
                       targets: [.target(name: "AlamofireImage",
                                         dependencies: ["Alamofire"],
                                         path: "Source",
-                                        exclude: ["Info.plist"]),
-                                .testTarget(name: "AlamofireImageTests",
-                                            dependencies: ["AlamofireImage"],
-                                            path: "Tests",
-                                            exclude: ["Info.plist", "Test Plans"],
-                                            resources: [.process("Resources")])],
+                                        exclude: ["Info.plist"])],
                       swiftLanguageVersions: [.v5])

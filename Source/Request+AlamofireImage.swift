@@ -234,3 +234,41 @@ extension DataRequest {
 }
 
 #endif
+
+#if !((os(iOS) && (arch(i386) || arch(arm))) || os(Windows) || os(Linux)) // Combine should be available.
+
+@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+extension DataRequest {
+    public func publishImage(queue: DispatchQueue = .main,
+                             imageScale: CGFloat = DataRequest.imageScale,
+                             inflateResponseImage: Bool = true,
+                             emptyResponseCodes: Set<Int> = ImageResponseSerializer.defaultEmptyResponseCodes,
+                             emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods) -> DataResponsePublisher<Image> {
+        publishResponse(using: ImageResponseSerializer(imageScale: imageScale,
+                                                       inflateResponseImage: inflateResponseImage,
+                                                       emptyResponseCodes: emptyResponseCodes,
+                                                       emptyRequestMethods: emptyRequestMethods),
+                        on: queue)
+    }
+}
+
+#endif
+
+#if compiler(>=5.6.0) && canImport(_Concurrency)
+
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension DataRequest {
+    public func serializingImage(automaticallyCancelling shouldAutomaticallyCancel: Bool = false,
+                                 imageScale: CGFloat = DataRequest.imageScale,
+                                 inflateResponseImage: Bool = true,
+                                 emptyResponseCodes: Set<Int> = ImageResponseSerializer.defaultEmptyResponseCodes,
+                                 emptyRequestMethods: Set<HTTPMethod> = ImageResponseSerializer.defaultEmptyRequestMethods) -> DataTask<Image> {
+        serializingResponse(using: ImageResponseSerializer(imageScale: imageScale,
+                                                           inflateResponseImage: inflateResponseImage,
+                                                           emptyResponseCodes: emptyResponseCodes,
+                                                           emptyRequestMethods: emptyRequestMethods),
+                            automaticallyCancelling: shouldAutomaticallyCancel)
+    }
+}
+
+#endif
