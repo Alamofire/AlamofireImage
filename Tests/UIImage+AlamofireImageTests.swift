@@ -24,8 +24,8 @@
 
 #if !os(macOS)
 
-import AlamofireImage
 import Alamofire
+import AlamofireImage
 import UIKit
 
 extension UIImage {

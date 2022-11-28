@@ -1,5 +1,6 @@
 # file options
 
+--exclude Carthage
 --symlinks ignore
 --swiftversion 5.3
 

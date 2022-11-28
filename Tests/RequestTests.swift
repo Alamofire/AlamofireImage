@@ -156,9 +156,9 @@ final class DataRequestTestCase: BaseTestCase {
     }
 
     #endif
-    
+
     #if !os(watchOS) // AVIF supported on all 2022 OSes except watchOS 9.
-    
+
     func testThatImageResponseSerializerCanDownloadAVIFImage() {
         guard #available(macOS 13, iOS 16, tvOS 16, *) else { return }
 
@@ -194,7 +194,7 @@ final class DataRequestTestCase: BaseTestCase {
         XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
         #endif
     }
-    
+
     #endif
 
 //    func testThatImageResponseSerializerCanDownloadImageFromFileURL() {
