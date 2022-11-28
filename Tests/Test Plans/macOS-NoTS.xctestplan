@@ -1,0 +1,36 @@
+{
+  "configurations" : [
+    {
+      "id" : "DB29FBD0-1FC1-43F8-98E6-A900A70BB340",
+      "name" : "Configuration",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "diagnosticCollectionPolicy" : "Never",
+    "environmentVariableEntries" : [
+      {
+        "key" : "SWIFT_DETERMINISTIC_HASHING",
+        "value" : "1"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:AlamofireImage.xcodeproj",
+      "identifier" : "4CE611281AABC24E00D35044",
+      "name" : "AlamofireImage macOS"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:AlamofireImage.xcodeproj",
+        "identifier" : "4CE611461AABC5C900D35044",
+        "name" : "AlamofireImage macOS Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

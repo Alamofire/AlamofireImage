@@ -45,20 +45,21 @@ public final class ImageResponseSerializer: ResponseSerializer {
     public let emptyRequestMethods: Set<HTTPMethod>
 
     static var acceptableImageContentTypes: Set<String> = {
-        var contentTypes: Set<String> = ["application/octet-stream",
-                                         "image/tiff",
-                                         "image/jpg",
-                                         "image/jpeg",
-                                         "image/jp2",
-                                         "image/gif",
-                                         "image/png",
-                                         "image/ico",
-                                         "image/x-icon",
+        var contentTypes: Set<String> = ["image/avif",
                                          "image/bmp",
+                                         "image/gif",
+                                         "image/ico",
+                                         "image/jp2",
+                                         "image/jpeg",
+                                         "image/jpg",
+                                         "image/png",
+                                         "image/tiff",
                                          "image/x-bmp",
-                                         "image/x-xbitmap",
+                                         "image/x-icon",
                                          "image/x-ms-bmp",
-                                         "image/x-win-bitmap"]
+                                         "image/x-win-bitmap",
+                                         "image/x-xbitmap",
+                                         "application/octet-stream"]
 
         #if os(macOS) || os(iOS) // No WebP support on tvOS or watchOS.
         if #available(macOS 11, iOS 14, *) {

@@ -22,8 +22,9 @@
 //  THE SOFTWARE.
 //
 
-#if !os(macOS)
+#if !os(macOS) && !os(watchOS)
 
+import Alamofire
 import AlamofireImage
 import Foundation
 import UIKit
@@ -37,7 +38,7 @@ class UIImageTestCase: BaseTestCase {
     var rainbowImage: UIImage { image(forResource: "rainbow", withExtension: "jpg") }
     var unicornImage: UIImage { image(forResource: "unicorn", withExtension: "png") }
 
-    let scale = Int(UIScreen.main.scale.rounded())
+    let scale = DataRequest.imageScale
 
     let squareSize = CGSize(width: 50, height: 50)
     let horizontalRectangularSize = CGSize(width: 60, height: 30)

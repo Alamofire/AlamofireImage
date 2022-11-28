@@ -132,13 +132,14 @@ struct Endpoint {
     enum Image: String, CaseIterable {
         static let universalCases: Set<Image> = {
             var images = Set(Endpoint.Image.allCases)
-            images.remove(.webp)
-            images.remove(.pdf)
+            images.remove(.webp) // WebP is only supported on macOS 11+ and iOS 14+.
+            images.remove(.pdf) // No platform supports direct PDF downloads.
+            images.remove(.avif) // No AVIF support on watchOS, only macOS 13+, iOS 16+.
 
             return images
         }()
 
-        case bmp, jp2, jpeg, gif, heic, heif, pdf, png, webp
+        case avif, bmp, jp2, jpeg, gif, heic, heif, pdf, png, webp
 
         var expectedSize: CGSize {
             switch self {
@@ -146,6 +147,8 @@ struct Endpoint {
                 return .init(width: 1, height: 1)
             case .heic, .heif:
                 return .init(width: 64, height: 64)
+            case .avif:
+                return .init(width: 2, height: 2)
             }
         }
     }

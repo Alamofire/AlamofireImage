@@ -27,6 +27,10 @@ import AlamofireImage
 import Foundation
 import XCTest
 
+#if canImport(WatchKit)
+import WatchKit
+#endif
+
 class BaseTestCase: XCTestCase {
     let timeout = 5.0
     var session: Session!
@@ -66,8 +70,8 @@ class BaseTestCase: XCTestCase {
         let resourceURL = url(forResource: fileName, withExtension: ext)
         let data = try! Data(contentsOf: resourceURL)
 
-        #if os(iOS) || os(tvOS)
-        let image = Image.af.threadSafeImage(with: data, scale: UIScreen.main.scale)!
+        #if os(iOS) || os(tvOS) || os(watchOS)
+        let image = Image.af.threadSafeImage(with: data, scale: DataRequest.imageScale)!
         #elseif os(macOS)
         let image = Image(data: data)!
         #endif

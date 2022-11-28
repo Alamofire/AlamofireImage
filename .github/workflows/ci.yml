@@ -6,16 +6,16 @@ push:
     - master
     - hotfix
   paths:
-    - '.github/workflows/**'
-    - 'Package.swift'
-    - 'Source/**'
-    - 'Tests/**'
+    - ".github/workflows/**"
+    - "Package.swift"
+    - "Source/**"
+    - "Tests/**"
 pull_request:
   paths:
-    - '.github/workflows/**'
-    - 'Package.swift'
-    - 'Source/**'
-    - 'Tests/**'
+    - ".github/workflows/**"
+    - "Package.swift"
+    - "Source/**"
+    - "Tests/**"
 
 concurrency:
   group: ${{ github.ref_name }}
@@ -31,6 +31,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - xcode: "Xcode_14.1.app"
+            runsOn: macOS-12
+            name: "macOS 12, Xcode 14.1, Swift 5.7.1"
+            testPlan: "macOS"
           - xcode: "Xcode_14.0.1.app"
             runsOn: macOS-12
             name: "macOS 12, Xcode 14.0.1, Swift 5.7.0"
@@ -87,7 +91,7 @@ jobs:
     name: Test Catalyst
     runs-on: macOS-12
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.0.1.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_14.1.app/Contents/Developer
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
@@ -101,19 +105,19 @@ jobs:
     name: Test Latest (iOS, tvOS, watchOS)
     runs-on: macOS-12
     env:
-      DEVELOPER_DIR: "/Applications/Xcode_14.0.1.app/Contents/Developer"
+      DEVELOPER_DIR: "/Applications/Xcode_14.1.app/Contents/Developer"
     timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
         include:
-          - destination: "OS=16.0,name=iPhone 14 Pro"
+          - destination: "OS=16.1,name=iPhone 14 Pro"
             name: "iOS"
             scheme: "AlamofireImage iOS"
-          - destination: "OS=16.0,name=Apple TV"
+          - destination: "OS=16.1,name=Apple TV"
             name: "tvOS"
             scheme: "AlamofireImage tvOS"
-          - destination: "OS=9.0,name=Apple Watch Series 8 (45mm)"
+          - destination: "OS=9.1,name=Apple Watch Series 8 (45mm)"
             name: "watchOS"
             scheme: "AlamofireImage watchOS"
     steps:
@@ -128,7 +132,7 @@ jobs:
     name: "Test Old iOS"
     runs-on: firebreak
     env:
-      DEVELOPER_DIR: "/Applications/Xcode_14.0.1.app/Contents/Developer"
+      DEVELOPER_DIR: "/Applications/Xcode_14.1.app/Contents/Developer"
     timeout-minutes: 10
     strategy:
       fail-fast: false
@@ -155,10 +159,10 @@ jobs:
       - name: ${{ matrix.destination }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage iOS" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test | xcpretty
   tvOS:
-    name: Test tvOS
+    name: Test Old tvOS
     runs-on: firebreak
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.0.1.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_14.1.app/Contents/Developer
     timeout-minutes: 10
     strategy:
       fail-fast: false
@@ -188,7 +192,7 @@ jobs:
     name: Test watchOS
     runs-on: firebreak
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.0.1.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_14.1.app/Contents/Developer
     timeout-minutes: 10
     strategy:
       fail-fast: false
@@ -218,6 +222,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - xcode: "Xcode_14.1.app"
+            runsOn: macOS-12
+            name: "macOS 12, SPM 5.7.1 Test"
+            run: "swift test -c debug"
           - xcode: "Xcode_14.0.1.app"
             runsOn: macOS-12
             name: "macOS 12, SPM 5.7.0 Test"

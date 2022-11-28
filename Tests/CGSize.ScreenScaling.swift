@@ -24,11 +24,13 @@
 
 #if canImport(UIKit)
 
+import Alamofire
+import AlamofireImage
 import UIKit
 
 extension CGSize {
     var scaledToScreen: CGSize {
-        scaled(by: UIScreen.main.scale)
+        scaled(by: DataRequest.imageScale)
     }
 
     func scaled(by scale: CGFloat) -> CGSize {

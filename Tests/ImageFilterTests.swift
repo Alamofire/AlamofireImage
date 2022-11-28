@@ -22,8 +22,9 @@
 //  THE SOFTWARE.
 //
 
-#if !os(macOS)
+#if !os(macOS) && !os(watchOS)
 
+import Alamofire
 import AlamofireImage
 import Foundation
 import UIKit
@@ -32,7 +33,7 @@ import XCTest
 final class ImageFilterTestCase: BaseTestCase {
     let squareSize = CGSize(width: 50, height: 50)
     let largeSquareSize = CGSize(width: 100, height: 100)
-    let scale = Int(round(UIScreen.main.scale))
+    let scale = DataRequest.imageScale
 
     // MARK: - ImageFilter Protocol Extension Identifiers
 

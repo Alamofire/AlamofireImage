@@ -24,13 +24,13 @@
 
 #if !os(macOS)
 
-@testable import AlamofireImage
+import AlamofireImage
 import Alamofire
 import UIKit
 
 extension UIImage {
     var isScaledToScreen: Bool {
-        scale == UIScreen.main.scale
+        scale == DataRequest.imageScale
     }
 }
 
@@ -121,7 +121,7 @@ extension AlamofireExtension where ExtendedType: UIImage {
      */
     func imageWithPNGRepresentation() -> UIImage {
         let data = type.pngData()!
-        let image = UIImage(data: data, scale: UIScreen.main.scale)!
+        let image = UIImage(data: data, scale: DataRequest.imageScale)!
 
         return image
     }

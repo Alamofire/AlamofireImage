@@ -22,7 +22,7 @@
 //  THE SOFTWARE.
 //
 
-#if !os(macOS)
+#if !os(macOS) && !os(watchOS)
 
 @testable import Alamofire
 @testable import AlamofireImage
