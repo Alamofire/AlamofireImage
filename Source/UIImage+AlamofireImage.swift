@@ -91,14 +91,14 @@ extension AlamofireExtension where ExtendedType: UIImage {
     /// Returns whether the image is inflated.
     public var isInflated: Bool {
         get {
-            if let isInflated = objc_getAssociatedObject(type, &AssociatedKeys.isInflated) as? Bool {
+            if let isInflated = objc_getAssociatedObject(type, AssociatedKeys.isInflated) as? Bool {
                 return isInflated
             } else {
                 return false
             }
         }
         nonmutating set {
-            objc_setAssociatedObject(type, &AssociatedKeys.isInflated, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(type, AssociatedKeys.isInflated, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -391,5 +391,5 @@ extension UIImage {
 // MARK: -
 
 private enum AssociatedKeys {
-    static var isInflated = "UIImage.af.isInflated"
+    @UniqueAddress static var isInflated
 }

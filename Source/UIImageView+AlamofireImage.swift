@@ -128,10 +128,10 @@ extension AlamofireExtension where ExtendedType: UIImageView {
     /// instance image downloader is when images are behind different basic auth credentials.
     public var imageDownloader: ImageDownloader? {
         get {
-            objc_getAssociatedObject(type, &AssociatedKeys.imageDownloader) as? ImageDownloader
+            objc_getAssociatedObject(type, AssociatedKeys.imageDownloader) as? ImageDownloader
         }
         nonmutating set(downloader) {
-            objc_setAssociatedObject(type, &AssociatedKeys.imageDownloader, downloader, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(type, AssociatedKeys.imageDownloader, downloader, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -141,23 +141,23 @@ extension AlamofireExtension where ExtendedType: UIImageView {
     /// `imageDownloader` is `nil`.
     public static var sharedImageDownloader: ImageDownloader {
         get {
-            if let downloader = objc_getAssociatedObject(UIImageView.self, &AssociatedKeys.sharedImageDownloader) as? ImageDownloader {
+            if let downloader = objc_getAssociatedObject(UIImageView.self, AssociatedKeys.sharedImageDownloader) as? ImageDownloader {
                 return downloader
             } else {
                 return ImageDownloader.default
             }
         }
         set {
-            objc_setAssociatedObject(UIImageView.self, &AssociatedKeys.sharedImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(UIImageView.self, AssociatedKeys.sharedImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     var activeRequestReceipt: RequestReceipt? {
         get {
-            objc_getAssociatedObject(type, &AssociatedKeys.activeRequestReceipt) as? RequestReceipt
+            objc_getAssociatedObject(type, AssociatedKeys.activeRequestReceipt) as? RequestReceipt
         }
         nonmutating set {
-            objc_setAssociatedObject(type, &AssociatedKeys.activeRequestReceipt, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(type, AssociatedKeys.activeRequestReceipt, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -492,9 +492,9 @@ extension UIImageView {
 // MARK: -
 
 private enum AssociatedKeys {
-    static var imageDownloader = "UIImageView.af.imageDownloader"
-    static var sharedImageDownloader = "UIImageView.af.sharedImageDownloader"
-    static var activeRequestReceipt = "UIImageView.af.activeRequestReceipt"
+    @UniqueAddress static var imageDownloader
+    @UniqueAddress static var sharedImageDownloader
+    @UniqueAddress static var activeRequestReceipt
 }
 
 #endif

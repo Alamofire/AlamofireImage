@@ -40,10 +40,10 @@ extension AlamofireExtension where ExtendedType: UIButton {
     /// custom instance image downloader is when images are behind different basic auth credentials.
     public var imageDownloader: ImageDownloader? {
         get {
-            objc_getAssociatedObject(type, &AssociatedKeys.imageDownloader) as? ImageDownloader
+            objc_getAssociatedObject(type, AssociatedKeys.imageDownloader) as? ImageDownloader
         }
         nonmutating set {
-            objc_setAssociatedObject(type, &AssociatedKeys.imageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(type, AssociatedKeys.imageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -54,39 +54,39 @@ extension AlamofireExtension where ExtendedType: UIButton {
     public static var sharedImageDownloader: ImageDownloader {
         get {
             guard let
-                downloader = objc_getAssociatedObject(UIButton.self, &AssociatedKeys.sharedImageDownloader) as? ImageDownloader
+                downloader = objc_getAssociatedObject(UIButton.self, AssociatedKeys.sharedImageDownloader) as? ImageDownloader
             else { return ImageDownloader.default }
 
             return downloader
         }
         set {
-            objc_setAssociatedObject(UIButton.self, &AssociatedKeys.sharedImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(UIButton.self, AssociatedKeys.sharedImageDownloader, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     private var imageRequestReceipts: [UInt: RequestReceipt] {
         get {
             guard let
-                receipts = objc_getAssociatedObject(type, &AssociatedKeys.imageReceipts) as? [UInt: RequestReceipt]
+                receipts = objc_getAssociatedObject(type, AssociatedKeys.imageReceipts) as? [UInt: RequestReceipt]
             else { return [:] }
 
             return receipts
         }
         nonmutating set {
-            objc_setAssociatedObject(type, &AssociatedKeys.imageReceipts, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(type, AssociatedKeys.imageReceipts, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     private var backgroundImageRequestReceipts: [UInt: RequestReceipt] {
         get {
             guard let
-                receipts = objc_getAssociatedObject(type, &AssociatedKeys.backgroundImageReceipts) as? [UInt: RequestReceipt]
+                receipts = objc_getAssociatedObject(type, AssociatedKeys.backgroundImageReceipts) as? [UInt: RequestReceipt]
             else { return [:] }
 
             return receipts
         }
         nonmutating set {
-            objc_setAssociatedObject(type, &AssociatedKeys.backgroundImageReceipts, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(type, AssociatedKeys.backgroundImageReceipts, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -608,10 +608,10 @@ extension UIButton {
 // MARK: - Private - AssociatedKeys
 
 private enum AssociatedKeys {
-    static var imageDownloader = "UIButton.af.imageDownloader"
-    static var sharedImageDownloader = "UIButton.af.sharedImageDownloader"
-    static var imageReceipts = "UIButton.af.imageReceipts"
-    static var backgroundImageReceipts = "UIButton.af.backgroundImageReceipts"
+    @UniqueAddress static var imageDownloader
+    @UniqueAddress static var sharedImageDownloader
+    @UniqueAddress static var imageReceipts
+    @UniqueAddress static var backgroundImageReceipts
 }
 
 #endif

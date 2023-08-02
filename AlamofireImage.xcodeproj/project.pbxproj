@@ -13,6 +13,10 @@
 		31FA4D7926192E4500CEAD2B /* CGSize.ScreenScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */; };
 		31FA4D7A26192E4500CEAD2B /* CGSize.ScreenScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */; };
 		31FA4D7B26192E4500CEAD2B /* CGSize.ScreenScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */; };
+		49B2E0622A7B1C3D00797C38 /* UniqueAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B2E0612A7B1C3D00797C38 /* UniqueAddress.swift */; };
+		49B2E0632A7B1C3D00797C38 /* UniqueAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B2E0612A7B1C3D00797C38 /* UniqueAddress.swift */; };
+		49B2E0642A7B1C3D00797C38 /* UniqueAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B2E0612A7B1C3D00797C38 /* UniqueAddress.swift */; };
+		49B2E0652A7B1C3D00797C38 /* UniqueAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B2E0612A7B1C3D00797C38 /* UniqueAddress.swift */; };
 		4C0893EC1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */; };
 		4C0893F51B937404005125D9 /* UIImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893F41B937404005125D9 /* UIImageTests.swift */; };
 		4C0894E41B9382EB005125D9 /* apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894501B9382EB005125D9 /* apple.jpg */; };
@@ -574,6 +578,7 @@
 		314354501F4A16FE00266E5F /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		31FA4D662619207200CEAD2B /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.ScreenScaling.swift; sourceTree = "<group>"; };
+		49B2E0612A7B1C3D00797C38 /* UniqueAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniqueAddress.swift; sourceTree = "<group>"; };
 		4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImageTests.swift"; sourceTree = "<group>"; };
 		4C0893F41B937404005125D9 /* UIImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageTests.swift; sourceTree = "<group>"; };
 		4C0894501B9382EB005125D9 /* apple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = apple.jpg; sourceTree = "<group>"; };
@@ -1283,6 +1288,7 @@
 		4CF6CC5D1AAD2822007A38CB /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				49B2E0612A7B1C3D00797C38 /* UniqueAddress.swift */,
 				CF24CF411C253CB100904E85 /* UIButton+AlamofireImage.swift */,
 				4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */,
 				4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */,
@@ -2047,6 +2053,7 @@
 				4CD5BCEC1D7F9D1E0055E232 /* AFIError.swift in Sources */,
 				4C16B3A61BA93AB700A66EF0 /* UIImageView+AlamofireImage.swift in Sources */,
 				4C16B3A41BA93AB700A66EF0 /* Request+AlamofireImage.swift in Sources */,
+				49B2E0642A7B1C3D00797C38 /* UniqueAddress.swift in Sources */,
 				4C16B3A51BA93AB700A66EF0 /* UIImage+AlamofireImage.swift in Sources */,
 				4C16B3A31BA93AB700A66EF0 /* ImageFilter.swift in Sources */,
 				4C16B3A21BA93AB700A66EF0 /* ImageDownloader.swift in Sources */,
@@ -2085,6 +2092,7 @@
 				4CD5BCED1D7F9D1E0055E232 /* AFIError.swift in Sources */,
 				4C86C10E1DA0B3160032ECC3 /* UIImageView+AlamofireImage.swift in Sources */,
 				4C4D4ECE1B9297BB00C96855 /* Request+AlamofireImage.swift in Sources */,
+				49B2E0652A7B1C3D00797C38 /* UniqueAddress.swift in Sources */,
 				4C4D4ECF1B9297BB00C96855 /* UIImage+AlamofireImage.swift in Sources */,
 				4C4D4ECD1B9297BB00C96855 /* ImageFilter.swift in Sources */,
 				4C4D4ECC1B9297BB00C96855 /* ImageDownloader.swift in Sources */,
@@ -2101,6 +2109,7 @@
 				4CD5BCEA1D7F9D1E0055E232 /* AFIError.swift in Sources */,
 				4CFC0A091AB52BD90004D0B8 /* ImageFilter.swift in Sources */,
 				CF24CF421C253CB100904E85 /* UIButton+AlamofireImage.swift in Sources */,
+				49B2E0622A7B1C3D00797C38 /* UniqueAddress.swift in Sources */,
 				4C78EA721AACD28C002C0569 /* UIImageView+AlamofireImage.swift in Sources */,
 				4C5308501AB561BF0051DBAC /* UIImage+AlamofireImage.swift in Sources */,
 				4CFC0A061AB4FEC90004D0B8 /* ImageCache.swift in Sources */,
@@ -2139,6 +2148,7 @@
 				4C82907B1B927CE6005E24C8 /* Image.swift in Sources */,
 				4C86C10D1DA0B3150032ECC3 /* UIImageView+AlamofireImage.swift in Sources */,
 				4C82907C1B927D13005E24C8 /* ImageDownloader.swift in Sources */,
+				49B2E0632A7B1C3D00797C38 /* UniqueAddress.swift in Sources */,
 				4CE611561AABC8D900D35044 /* Request+AlamofireImage.swift in Sources */,
 				4CD5BCEB1D7F9D1E0055E232 /* AFIError.swift in Sources */,
 				4C86C10C1DA0B3110032ECC3 /* UIImage+AlamofireImage.swift in Sources */,
