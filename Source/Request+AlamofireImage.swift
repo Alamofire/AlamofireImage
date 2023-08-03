@@ -44,10 +44,11 @@ public final class ImageResponseSerializer: ResponseSerializer {
     public let emptyResponseCodes: Set<Int>
     public let emptyRequestMethods: Set<HTTPMethod>
 
-    static var acceptableImageContentTypes: Set<String> = {
-        var contentTypes: Set<String> = ["image/avif",
-                                         "image/bmp",
+    public internal(set) static var acceptableImageContentTypes: Set<String> = {
+        var contentTypes: Set<String> = ["application/octet-stream",
+                                         "image/jp2",
                                          "image/gif",
+                                         "image/png",
                                          "image/ico",
                                          "image/jp2",
                                          "image/jpeg",
