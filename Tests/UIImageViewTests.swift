@@ -78,7 +78,7 @@ final class UIImageViewTestCase: BaseTestCase {
 
     func testThatImageCanBeDownloadedFromURL() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let imageView = TestImageView {
@@ -96,7 +96,7 @@ final class UIImageViewTestCase: BaseTestCase {
 
     func testThatImageDownloadSucceedsWhenDuplicateRequestIsSentToImageView() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let imageView = TestImageView {
@@ -116,7 +116,7 @@ final class UIImageViewTestCase: BaseTestCase {
 
     func testThatActiveRequestIsNilAfterImageDownloadCompletes() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let imageView = TestImageView {
@@ -137,7 +137,7 @@ final class UIImageViewTestCase: BaseTestCase {
 
     func testThatImageDownloaderOverridesSharedImageDownloader() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let imageView = TestImageView {
@@ -165,7 +165,7 @@ final class UIImageViewTestCase: BaseTestCase {
 
     func testThatCustomImageSerializerCanBeUsed() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let imageView = TestImageView {
@@ -192,7 +192,7 @@ final class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
 
         let downloader = ImageDownloader.default
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         downloader.download(endpoint, completion: { _ in
             expectation.fulfill()
@@ -213,7 +213,7 @@ final class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
 
         let downloader = ImageDownloader.default
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         downloader.download(endpoint, filter: CircleFilter(), completion: { _ in
             expectation.fulfill()
@@ -245,7 +245,7 @@ final class UIImageViewTestCase: BaseTestCase {
 
     func testThatImageCanBeCachedWithACustomCacheKey() {
         // Given
-        let expectation = self.expectation(description: "image should download and be cached with custom key")
+        let expectation = expectation(description: "image should download and be cached with custom key")
         let cacheKey = "cache-key"
         var imageCached = false
 
@@ -267,7 +267,7 @@ final class UIImageViewTestCase: BaseTestCase {
     func testThatPlaceholderImageIsDisplayedUntilImageIsDownloadedFromURL() {
         // Given
         let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
 
         var imageDownloadComplete = false
         var finalImageEqualsPlaceholderImage = false
@@ -311,7 +311,7 @@ final class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
 
         let downloader = ImageDownloader.default
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
         downloader.download(endpoint, completion: { _ in
             expectation.fulfill()
         })
@@ -333,7 +333,7 @@ final class UIImageViewTestCase: BaseTestCase {
         let size = CGSize(width: 20, height: 20)
         let filter = ScaledToSizeFilter(size: size)
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
         var imageDownloadComplete = false
 
         let imageView = TestImageView {
@@ -358,7 +358,7 @@ final class UIImageViewTestCase: BaseTestCase {
 
     func testThatImageTransitionIsAppliedAfterImageDownloadIsComplete() {
         // Given
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
         var imageDownloadComplete = false
 
         let imageView = TestImageView {
@@ -460,7 +460,7 @@ final class UIImageViewTestCase: BaseTestCase {
             return request
         }()
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -488,7 +488,7 @@ final class UIImageViewTestCase: BaseTestCase {
         // Given
         let imageView = UIImageView()
 
-        let expectation = self.expectation(description: "image download should complete")
+        let expectation = expectation(description: "image download should complete")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -517,7 +517,7 @@ final class UIImageViewTestCase: BaseTestCase {
         let imageView = UIImageView()
         let urlRequest = ThrowingURLRequestConvertible()
 
-        let expectation = self.expectation(description: "image download should complete")
+        let expectation = expectation(description: "image download should complete")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -623,7 +623,7 @@ final class UIImageViewTestCase: BaseTestCase {
         // Given
         let imageView = UIImageView()
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -651,7 +651,7 @@ final class UIImageViewTestCase: BaseTestCase {
     func testThatActiveRequestIsAutomaticallyCancelledBySettingNewURL() {
         // Given
         let imageView = UIImageView()
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completion1Called = false
         var completion2Called = false
@@ -688,7 +688,7 @@ final class UIImageViewTestCase: BaseTestCase {
     func testThatActiveRequestCanBeCancelledAndRestartedSuccessfully() {
         // Given
         let imageView = UIImageView()
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completion1Called = false
         var completion2Called = false
@@ -727,7 +727,7 @@ final class UIImageViewTestCase: BaseTestCase {
     func testThatActiveRequestCanBeCancelledAndImageViewIsDeallocated() {
         // Given
         var imageView: UIImageView? = UIImageView()
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completionCalled: Bool?
         var imageViewReleased: Bool?
@@ -753,7 +753,7 @@ final class UIImageViewTestCase: BaseTestCase {
 
     func testThatImageBehindRedirectCanBeDownloaded() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let imageView = TestImageView {
@@ -774,7 +774,7 @@ final class UIImageViewTestCase: BaseTestCase {
 
     func testThatAcceptHeaderMatchesAcceptableContentTypes() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var acceptField: String?
 
         var imageView: TestImageView?

@@ -67,17 +67,17 @@ public final class ImageResponseSerializer: ResponseSerializer {
             contentTypes.insert("image/webp")
         }
         #endif
-        
+
         if #available(macOS 10.13, iOS 11, tvOS 11, watchOS 4, *) {
             contentTypes.formUnion(["image/heic", "image/heif"])
         }
-        
+
         #if !os(watchOS)
         if #available(macOS 13.0, iOS 16.0, tvOS 16.0, *) {
             contentTypes.insert("image/avif")
         }
         #endif
-        
+
         if #available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *) {
             contentTypes.insert("image/jxl")
         }

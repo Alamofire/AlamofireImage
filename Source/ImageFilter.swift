@@ -75,7 +75,7 @@ public protocol Roundable {
 extension ImageFilter where Self: Roundable {
     /// The unique idenitifier for an `ImageFilter` conforming to the `Roundable` protocol.
     public var identifier: String {
-        let radius = Int64(self.radius.rounded())
+        let radius = Int64(radius.rounded())
         return "\(type(of: self))-radius:(\(radius))"
     }
 }
@@ -171,7 +171,7 @@ public struct ScaledToSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         { image in
-            image.af.imageScaled(to: self.size)
+            image.af.imageScaled(to: size)
         }
     }
 }
@@ -195,7 +195,7 @@ public struct AspectScaledToFitSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         { image in
-            image.af.imageAspectScaled(toFit: self.size)
+            image.af.imageAspectScaled(toFit: size)
         }
     }
 }
@@ -220,7 +220,7 @@ public struct AspectScaledToFillSizeFilter: ImageFilter, Sizable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         { image in
-            image.af.imageAspectScaled(toFill: self.size)
+            image.af.imageAspectScaled(toFill: size)
         }
     }
 }
@@ -253,14 +253,14 @@ public struct RoundedCornersFilter: ImageFilter, Roundable {
     /// The filter closure used to create the modified representation of the given image.
     public var filter: (Image) -> Image {
         { image in
-            image.af.imageRounded(withCornerRadius: self.radius,
-                                  divideRadiusByImageScale: self.divideRadiusByImageScale)
+            image.af.imageRounded(withCornerRadius: radius,
+                                  divideRadiusByImageScale: divideRadiusByImageScale)
         }
     }
 
     /// The unique idenitifier for an `ImageFilter` conforming to the `Roundable` protocol.
     public var identifier: String {
-        let radius = Int64(self.radius.rounded())
+        let radius = Int64(radius.rounded())
         return "\(type(of: self))-radius:(\(radius))-divided:(\(divideRadiusByImageScale))"
     }
 }

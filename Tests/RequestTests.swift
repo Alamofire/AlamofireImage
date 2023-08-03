@@ -81,7 +81,7 @@ final class DataRequestTestCase: BaseTestCase {
     func testThatImageResponseSerializerCanDownloadAllUniversalImageTypes() {
         func download(_ imageType: Endpoint.Image) {
             // Given
-            let expectation = self.expectation(description: "Request should return \(imageType.rawValue) response image")
+            let expectation = expectation(description: "Request should return \(imageType.rawValue) response image")
 
             var response: AFDataResponse<Image>?
 
@@ -123,7 +123,7 @@ final class DataRequestTestCase: BaseTestCase {
         guard #available(macOS 11, iOS 14, *) else { return }
 
         // Given
-        let expectation = self.expectation(description: "Request should return WebP response image")
+        let expectation = expectation(description: "Request should return WebP response image")
 
         var response: AFDataResponse<Image>?
 
@@ -163,7 +163,7 @@ final class DataRequestTestCase: BaseTestCase {
         guard #available(macOS 13, iOS 16, tvOS 16, *) else { return }
 
         // Given
-        let expectation = self.expectation(description: "Request should return AVIF response image")
+        let expectation = expectation(description: "Request should return AVIF response image")
 
         var response: AFDataResponse<Image>?
 
@@ -196,12 +196,12 @@ final class DataRequestTestCase: BaseTestCase {
     }
 
     #endif
-    
+
     func testThatImageResponseSerializerCanDownloadJPEGXLImage() {
         guard #available(macOS 14, iOS 17, tvOS 17, watchOS 10, *) else { return }
 
         // Given
-        let expectation = self.expectation(description: "Request should return JPEG XL response image")
+        let expectation = expectation(description: "Request should return JPEG XL response image")
 
         var response: AFDataResponse<Image>?
 
@@ -273,7 +273,7 @@ final class DataRequestTestCase: BaseTestCase {
 
     func testThatAttemptingToDownloadImageFromBadURLReturnsFailureResult() {
         // Given
-        let expectation = self.expectation(description: "Request should fail with bad URL")
+        let expectation = expectation(description: "Request should fail with bad URL")
 
         var response: AFDataResponse<Image>?
 
@@ -295,7 +295,7 @@ final class DataRequestTestCase: BaseTestCase {
 
     func testThatAttemptingToDownloadUnsupportedImageTypeReturnsFailureResult() {
         // Given
-        let expectation = self.expectation(description: "Request should return pdf response image")
+        let expectation = expectation(description: "Request should return pdf response image")
 
         var response: AFDataResponse<Image>?
 
@@ -323,7 +323,7 @@ final class DataRequestTestCase: BaseTestCase {
 
     func testThatAttemptingToSerializeEmptyDataReturnsFailureResult() {
         // Given
-        let expectation = self.expectation(description: "Request should download no bytes")
+        let expectation = expectation(description: "Request should download no bytes")
 
         var response: AFDataResponse<Image>?
 
@@ -352,7 +352,7 @@ final class DataRequestTestCase: BaseTestCase {
     func testThatAttemptingToSerializeRandomStreamDataReturnsFailureResult() {
         // Given
         let randomBytes = 4 * 1024 * 1024
-        let expectation = self.expectation(description: "Request should download random bytes")
+        let expectation = expectation(description: "Request should download random bytes")
 
         var response: AFDataResponse<Image>?
 
@@ -380,7 +380,7 @@ final class DataRequestTestCase: BaseTestCase {
 
     func testThatAttemptingToSerializeJSONResponseIntoImageReturnsFailureResult() {
         // Given
-        let expectation = self.expectation(description: "Request should return JSON")
+        let expectation = expectation(description: "Request should return JSON")
 
         var response: AFDataResponse<Image>?
 

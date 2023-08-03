@@ -48,7 +48,7 @@ class UIImageTestCase: BaseTestCase {
 
     func testThatHundredsOfLargeImagesCanBeInitializedAcrossMultipleThreads() {
         // Given
-        let url = self.url(forResource: "huge_map", withExtension: "jpg")
+        let url = url(forResource: "huge_map", withExtension: "jpg")
         let data = try! Data(contentsOf: url)
 
         let lock = NSLock()
@@ -57,7 +57,7 @@ class UIImageTestCase: BaseTestCase {
 
         // When
         for _ in 0..<totalIterations {
-            let expectation = self.expectation(description: "image should be created successfully")
+            let expectation = expectation(description: "image should be created successfully")
 
             DispatchQueue.global(qos: .utility).async {
                 let image = UIImage(data: data)
@@ -80,7 +80,7 @@ class UIImageTestCase: BaseTestCase {
 
     func testThatHundredsOfLargeImagesCanBeInitializedAcrossMultipleThreadsWithThreadSafeInitializers() {
         // Given
-        let url = self.url(forResource: "huge_map", withExtension: "jpg")
+        let url = url(forResource: "huge_map", withExtension: "jpg")
         let data = try! Data(contentsOf: url)
 
         let lock = NSLock()
@@ -89,7 +89,7 @@ class UIImageTestCase: BaseTestCase {
 
         // When
         for _ in 0..<totalIterations {
-            let expectation = self.expectation(description: "image should be created successfully")
+            let expectation = expectation(description: "image should be created successfully")
 
             DispatchQueue.global(qos: .utility).async {
                 let image = UIImage.af.threadSafeImage(with: data)
