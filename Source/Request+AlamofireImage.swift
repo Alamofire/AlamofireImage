@@ -48,6 +48,7 @@ public final class ImageResponseSerializer: ResponseSerializer {
         // Universally supported image types.
         var contentTypes: Set<String> = [
             "application/octet-stream", // As a fallback for things like AWS which provide no real type.
+            "image/bmp",
             "image/gif",
             "image/ico",
             "image/jp2",

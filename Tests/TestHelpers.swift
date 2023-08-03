@@ -144,12 +144,14 @@ struct Endpoint {
 
         var expectedSize: CGSize {
             switch self {
-            case .bmp, .jp2, .jpeg, .jxl, .gif, .pdf, .png, .webp:
+            case .bmp, .jp2, .jpeg, .gif, .pdf, .png, .webp:
                 return .init(width: 1, height: 1)
             case .heic, .heif:
                 return .init(width: 64, height: 64)
             case .avif:
                 return .init(width: 2, height: 2)
+            case .jxl:
+                return .init(width: 1000, height: 1000)
             }
         }
     }
