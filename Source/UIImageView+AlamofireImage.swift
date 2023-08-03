@@ -492,9 +492,9 @@ extension UIImageView {
 // MARK: -
 
 private enum AssociatedKeys {
-    static var imageDownloader = "UIImageView.af.imageDownloader"
-    static var sharedImageDownloader = "UIImageView.af.sharedImageDownloader"
-    static var activeRequestReceipt = "UIImageView.af.activeRequestReceipt"
+    static var imageDownloader = true
+    static var sharedImageDownloader = true
+    static var activeRequestReceipt = true
 }
 
 #endif

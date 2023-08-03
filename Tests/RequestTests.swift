@@ -196,6 +196,42 @@ final class DataRequestTestCase: BaseTestCase {
     }
 
     #endif
+    
+    func testThatImageResponseSerializerCanDownloadJPEGXLImage() {
+        guard #available(macOS 14, iOS 17, tvOS 17, watchOS 10, *) else { return }
+
+        // Given
+        let expectation = self.expectation(description: "Request should return JPEG XL response image")
+
+        var response: AFDataResponse<Image>?
+
+        // When
+        session.request(.image(.jxl))
+            .responseImage { closureResponse in
+                response = closureResponse
+                expectation.fulfill()
+            }
+
+        waitForExpectations(timeout: timeout)
+
+        // Then
+        XCTAssertNotNil(response?.request, "request should not be nil")
+        XCTAssertNotNil(response?.response, "response should not be nil")
+        XCTAssertTrue(response?.result.isSuccess ?? false, "result should be success")
+
+        guard let image = response?.result.value else {
+            XCTFail("JPEG XL image should not be nil")
+            return
+        }
+
+        let expectedSize = Endpoint.Image.jxl.expectedSize
+        #if os(iOS) || os(tvOS)
+        XCTAssertEqual(image.size, expectedSize.scaledToScreen, "image size does not match expected value")
+        XCTAssertTrue(image.isScaledToScreen, "image scale does not match expected value")
+        #elseif os(macOS)
+        XCTAssertEqual(image.size, expectedSize, "image size does not match expected value")
+        #endif
+    }
 
 //    func testThatImageResponseSerializerCanDownloadImageFromFileURL() {
 //        // Given

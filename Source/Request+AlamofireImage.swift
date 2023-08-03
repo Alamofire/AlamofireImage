@@ -45,8 +45,9 @@ public final class ImageResponseSerializer: ResponseSerializer {
     public let emptyRequestMethods: Set<HTTPMethod>
 
     public internal(set) static var acceptableImageContentTypes: Set<String> = {
+        // Universally supported image types.
         var contentTypes: Set<String> = [
-            "application/octet-stream",
+            "application/octet-stream", // As a fallback for things like AWS which provide no real type.
             "image/gif",
             "image/ico",
             "image/jp2",
@@ -70,6 +71,12 @@ public final class ImageResponseSerializer: ResponseSerializer {
         if #available(macOS 10.13, iOS 11, tvOS 11, watchOS 4, *) {
             contentTypes.formUnion(["image/heic", "image/heif"])
         }
+        
+        #if !os(watchOS)
+        if #available(macOS 13.0, iOS 16.0, tvOS 16.0, *) {
+            contentTypes.insert("image/avif")
+        }
+        #endif
         
         if #available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *) {
             contentTypes.insert("image/jxl")

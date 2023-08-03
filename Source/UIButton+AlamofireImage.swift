@@ -608,10 +608,10 @@ extension UIButton {
 // MARK: - Private - AssociatedKeys
 
 private enum AssociatedKeys {
-    static var imageDownloader = "UIButton.af.imageDownloader"
-    static var sharedImageDownloader = "UIButton.af.sharedImageDownloader"
-    static var imageReceipts = "UIButton.af.imageReceipts"
-    static var backgroundImageReceipts = "UIButton.af.backgroundImageReceipts"
+    static var imageDownloader = true
+    static var sharedImageDownloader = true
+    static var imageReceipts = true
+    static var backgroundImageReceipts = true
 }
 
 #endif

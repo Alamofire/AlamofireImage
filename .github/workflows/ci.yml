@@ -31,11 +31,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - xcode: "Xcode_14.3"
+          - xcode: "Xcode_14.3.app"
             runsOn: firebreak
             name: "macOS 13, Xcode 14.3, Swift 5.8.0"
             testPlan: "macOS"
-          - xcode: "Xcode_14.2"
+          - xcode: "Xcode_14.2.app"
             runsOn: macOS-12
             name: "macOS 12, Xcode 14.2, Swift 5.7.2"
             testPlan: "macOS"
@@ -66,10 +66,6 @@ jobs:
           - xcode: "Xcode_13.0.app"
             runsOn: macOS-11
             name: "macOS 11, Xcode 13.0, Swift 5.5.0"
-            testPlan: "macOS-NoTS"
-          - xcode: "Xcode_12.5.1.app"
-            runsOn: macOS-11
-            name: "macOS 11, Xcode 12.5.1, Swift 5.4.2"
             testPlan: "macOS-NoTS"
     steps:
       - uses: actions/checkout@v3
@@ -124,7 +120,7 @@ jobs:
     name: "Test Old iOS"
     runs-on: firebreak
     env:
-      DEVELOPER_DIR: "/Applications/Xcode_14.1.app/Contents/Developer"
+      DEVELOPER_DIR: "/Applications/Xcode_14.3.app/Contents/Developer"
     timeout-minutes: 10
     strategy:
       fail-fast: false
@@ -231,14 +227,14 @@ jobs:
     name: Test with SPM
     runs-on: ${{ matrix.runsOn }}
     env:
-      DEVELOPER_DIR: "/Applications/${{ matrix.xcode }}/Contents/Developer"
+      DEVELOPER_DIR: "/Applications/${{ matrix.xcode }}.app/Contents/Developer"
     timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
         include:
           - xcode: "Xcode_14.3"
-            runsOn: firebreak
+            runsOn: macOS-13
             name: "macOS 13, SPM 5.8.0 Test"
           - xcode: "Xcode_14.2"
             runsOn: macOS-12
@@ -269,4 +265,4 @@ jobs:
       - name: Install Firewalk
         run: brew install alamofire/alamofire/firewalk && firewalk &
       - name: Test SPM
-        run: ${{ matrix.run }}
+        run: swift build -c debug

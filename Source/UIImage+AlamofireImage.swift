@@ -391,5 +391,5 @@ extension UIImage {
 // MARK: -
 
 private enum AssociatedKeys {
-    static var isInflated = "UIImage.af.isInflated"
+    static var isInflated = true
 }
