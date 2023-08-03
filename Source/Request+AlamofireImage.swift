@@ -1,7 +1,7 @@
 //
 //  Request+AlamofireImage.swift
 //
-//  Copyright (c) 2015 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2023 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -45,31 +45,34 @@ public final class ImageResponseSerializer: ResponseSerializer {
     public let emptyRequestMethods: Set<HTTPMethod>
 
     public internal(set) static var acceptableImageContentTypes: Set<String> = {
-        var contentTypes: Set<String> = ["application/octet-stream",
-                                         "image/jp2",
-                                         "image/gif",
-                                         "image/png",
-                                         "image/ico",
-                                         "image/jp2",
-                                         "image/jpeg",
-                                         "image/jpg",
-                                         "image/png",
-                                         "image/tiff",
-                                         "image/x-bmp",
-                                         "image/x-icon",
-                                         "image/x-ms-bmp",
-                                         "image/x-win-bitmap",
-                                         "image/x-xbitmap",
-                                         "application/octet-stream"]
+        var contentTypes: Set<String> = [
+            "application/octet-stream",
+            "image/gif",
+            "image/ico",
+            "image/jp2",
+            "image/jpeg",
+            "image/jpg",
+            "image/png",
+            "image/tiff",
+            "image/x-bmp",
+            "image/x-icon",
+            "image/x-ms-bmp",
+            "image/x-win-bitmap",
+            "image/x-xbitmap"
+        ]
 
         #if os(macOS) || os(iOS) // No WebP support on tvOS or watchOS.
         if #available(macOS 11, iOS 14, *) {
-            contentTypes.formUnion(["image/webp"])
+            contentTypes.insert("image/webp")
         }
         #endif
-
+        
         if #available(macOS 10.13, iOS 11, tvOS 11, watchOS 4, *) {
             contentTypes.formUnion(["image/heic", "image/heif"])
+        }
+        
+        if #available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *) {
+            contentTypes.insert("image/jxl")
         }
 
         return contentTypes
@@ -99,7 +102,7 @@ public final class ImageResponseSerializer: ResponseSerializer {
                 throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
             }
 
-            print("Returning empty image!")
+            print("AlamofireImage: Returning empty image from serializer!")
             return Image()
         }
 
