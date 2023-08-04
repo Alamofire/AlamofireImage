@@ -222,7 +222,7 @@ jobs:
       - name: Dependencies
         run: carthage bootstrap --no-build
       - name: ${{ matrix.destination }}
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage watchOS" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean build | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage watchOS" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test | xcpretty
   SPM:
     name: Test with SPM
     runs-on: ${{ matrix.runsOn }}
