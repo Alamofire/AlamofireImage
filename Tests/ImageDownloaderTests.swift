@@ -561,11 +561,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let imageEndpoints: [Endpoint] = ["5a105e8b9d40e1329780d62ea2265d8a",
-                                          "6a105e8b9d40e1329780d62ea2265d8a",
-                                          "7a105e8b9d40e1329780d62ea2265d8a",
-                                          "8a105e8b9d40e1329780d62ea2265d8a",
-                                          "9a105e8b9d40e1329780d62ea2265d8a"].map(Endpoint.gravatar)
+        let imageEndpoints: [Endpoint] = [.image(.png), .image(.jpeg), .image(.jp2), .image(.gif), .image(.bmp)]
 
         var initialResults: [AFIResult<Image>] = []
         var finalResults: [AFIResult<Image>] = []
