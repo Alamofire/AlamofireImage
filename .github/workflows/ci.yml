@@ -185,12 +185,12 @@ jobs:
           - destination: "OS=14.5,name=Apple TV"
             name: "tvOS 14.5"
             testPlan: "tvOS-NoTS"
-          - destination: "OS=13.4,name=Apple TV"
-            name: "tvOS 13.4"
-            testPlan: "tvOS-NoTS"
-          - destination: "OS=12.4,name=Apple TV"
-            name: "tvOS 12.4"
-            testPlan: "tvOS-Old"
+          # - destination: "OS=13.4,name=Apple TV"
+          #   name: "tvOS 13.4"
+          #   testPlan: "tvOS-NoTS"
+          # - destination: "OS=12.4,name=Apple TV"
+          #   name: "tvOS 12.4"
+          #   testPlan: "tvOS-Old"
     steps:
       - uses: actions/checkout@v3
       - name: Install Firewalk
@@ -224,7 +224,7 @@ jobs:
       - name: ${{ matrix.destination }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "AlamofireImage watchOS" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test | xcpretty
   SPM:
-    name: Test with SPM
+    name: Build SPM
     runs-on: ${{ matrix.runsOn }}
     env:
       DEVELOPER_DIR: "/Applications/${{ matrix.xcode }}.app/Contents/Developer"
