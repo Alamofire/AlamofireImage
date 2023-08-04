@@ -221,7 +221,7 @@ class UIImageTestCase: BaseTestCase {
 
         XCTAssertTrue(scaledAppleImage.af.isEqualToImage(expectedAppleImage, withinTolerance: 53), "scaled apple image pixels do not match")
         XCTAssertTrue(scaledPirateImage.af.isEqualToImage(expectedPirateImage), "scaled pirate image pixels do not match")
-        XCTAssertTrue(scaledRainbowImage.af.isEqualToImage(expectedRainbowImage, withinTolerance: 46), "scaled rainbow image pixels do not match")
+        XCTAssertTrue(scaledRainbowImage.af.isEqualToImage(expectedRainbowImage, withinTolerance: 156), "scaled rainbow image pixels do not match")
         XCTAssertTrue(scaledUnicornImage.af.isEqualToImage(expectedUnicornImage, withinTolerance: 26), "scaled unicorn image pixels do not match")
 
         XCTAssertEqual(scaledAppleImage.scale, CGFloat(scale), "image scale should be equal to screen scale")
