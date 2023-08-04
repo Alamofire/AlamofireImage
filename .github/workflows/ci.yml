@@ -32,7 +32,7 @@ jobs:
       matrix:
         include:
           - xcode: "Xcode_14.3.1.app"
-            runsOn: firebreak
+            runsOn: macOS-13
             name: "macOS 13, Xcode 14.3, Swift 5.8.0"
             testPlan: "macOS"
           - xcode: "Xcode_14.2.app"
