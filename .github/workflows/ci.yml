@@ -168,7 +168,7 @@ jobs:
       - name: Dependencies
         run: carthage bootstrap --no-build
       - name: ${{ matrix.name }}
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "AlamofireImage.xcworkspace" -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -workspace "AlamofireImage.xcworkspace" -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test | xcpretty
   tvOS:
     name: Test Old tvOS
     runs-on: firebreak
