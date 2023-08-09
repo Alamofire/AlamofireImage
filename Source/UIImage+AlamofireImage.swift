@@ -133,12 +133,11 @@ extension AlamofireExtension where ExtendedType: UIImage {
     public var containsAlphaComponent: Bool {
         let alphaInfo = type.cgImage?.alphaInfo
 
-        return (
+        return
             alphaInfo == .first ||
-                alphaInfo == .last ||
-                alphaInfo == .premultipliedFirst ||
-                alphaInfo == .premultipliedLast
-        )
+            alphaInfo == .last ||
+            alphaInfo == .premultipliedFirst ||
+            alphaInfo == .premultipliedLast
     }
 
     /// Returns whether the image is opaque.
@@ -391,5 +390,5 @@ extension UIImage {
 // MARK: -
 
 private enum AssociatedKeys {
-    static var isInflated = "UIImage.af.isInflated"
+    static var isInflated = true
 }

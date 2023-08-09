@@ -1,7 +1,8 @@
+// swift-tools-version:5.6
 //
-//  CGSize.ScreenScaling.swift
+//  Package@swift-5.6.swift
 //
-//  Copyright (c) 2021 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2022 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,20 +23,18 @@
 //  THE SOFTWARE.
 //
 
-#if canImport(UIKit)
+import PackageDescription
 
-import Alamofire
-import AlamofireImage
-import UIKit
-
-extension CGSize {
-    var scaledToScreen: CGSize {
-        scaled(by: DataRequest.imageScale)
-    }
-
-    func scaled(by scale: CGFloat) -> CGSize {
-        CGSize(width: width / scale, height: height / scale)
-    }
-}
-
-#endif
+let package = Package(name: "AlamofireImage",
+                      platforms: [.iOS(.v10),
+                                  .macOS(.v10_12),
+                                  .tvOS(.v10),
+                                  .watchOS(.v3)],
+                      products: [.library(name: "AlamofireImage", targets: ["AlamofireImage"])],
+                      dependencies: [.package(url: "https://github.com/Alamofire/Alamofire.git",
+                                              from: "5.7.0")],
+                      targets: [.target(name: "AlamofireImage",
+                                        dependencies: ["Alamofire"],
+                                        path: "Source",
+                                        exclude: ["Info.plist"])],
+                      swiftLanguageVersions: [.v5])

@@ -76,7 +76,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatImageCanBeDownloadedFromURL() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -94,7 +94,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatBackgroundImageCanBeDownloadedFromURL() {
         // Given
-        let expectation = self.expectation(description: "background image should download successfully")
+        let expectation = expectation(description: "background image should download successfully")
         var backgroundImageDownloadComplete = false
 
         let button = TestButton {
@@ -112,7 +112,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatImageCanBeCancelledAndDownloadedFromURL() {
         // Given
-        let expectation = self.expectation(description: "image should cancel and download successfully")
+        let expectation = expectation(description: "image should cancel and download successfully")
         let button = UIButton()
         var result: AFIResult<UIImage>?
 
@@ -134,7 +134,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatBackgroundImageCanBeCancelledAndDownloadedFromURL() {
         // Given
-        let expectation = self.expectation(description: "background image should cancel and download successfully")
+        let expectation = expectation(description: "background image should cancel and download successfully")
         let button = UIButton()
         var result: AFIResult<UIImage>?
 
@@ -157,7 +157,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatActiveImageRequestReceiptIsNilAfterImageDownloadCompletes() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -176,7 +176,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatActiveBackgroundImageRequestReceiptIsNilAfterImageDownloadCompletes() {
         // Given
-        let expectation = self.expectation(description: "background image should download successfully")
+        let expectation = expectation(description: "background image should download successfully")
         var backgroundImageDownloadComplete = false
 
         let button = TestButton {
@@ -196,7 +196,7 @@ final class UIButtonTests: BaseTestCase {
     func testThatMultipleImageRequestReceiptStatesCanBeDownloadedInParallel() {
         // Given
         let button = TestButton()
-        var url = self.url
+        var url = url
 
         // When
         let expectation1 = expectation(description: "background image should download successfully")
@@ -268,7 +268,7 @@ final class UIButtonTests: BaseTestCase {
     func testThatMultipleBackgroundImageRequestReceiptStatesCanBeDownloadedInParallel() {
         // Given
         let button = TestButton()
-        var url = self.url
+        var url = url
 
         // When
         let expectation1 = expectation(description: "background image should download successfully")
@@ -340,7 +340,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatImageDownloaderOverridesSharedImageDownloader() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -368,7 +368,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatCustomImageSerializerCanBeUsed() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -391,7 +391,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatCustomImageSerializerCanBeUsedForBackgroundImage() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -420,7 +420,7 @@ final class UIButtonTests: BaseTestCase {
 
         let downloader = ImageDownloader.default
         let urlRequest = try! URLRequest(url: url.absoluteString, method: .get)
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         downloader.download(urlRequest, completion: { _ in
             expectation.fulfill()
@@ -455,7 +455,7 @@ final class UIButtonTests: BaseTestCase {
         let button = UIButton()
 
         let downloader = ImageDownloader.default
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         downloader.download(endpoint, filter: CircleFilter(), completion: { _ in
             expectation.fulfill()
@@ -473,7 +473,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatImageCanBeCachedWithACustomCacheKey() {
         // Given
-        let expectation = self.expectation(description: "image should download and be cached with custom key")
+        let expectation = expectation(description: "image should download and be cached with custom key")
         let cacheKey = "cache-key"
         var imageCached = false
 
@@ -492,7 +492,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatBackgroundImageCanBeCachedWithACustomCacheKey() {
         // Given
-        let expectation = self.expectation(description: "image should download and be cached with custom key")
+        let expectation = expectation(description: "image should download and be cached with custom key")
         let cacheKey = "cache-key"
         var imageCached = false
 
@@ -514,7 +514,7 @@ final class UIButtonTests: BaseTestCase {
     func testThatPlaceholderImageIsDisplayedUntilImageIsDownloadedFromURL() {
         // Given
         let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
 
         var imageDownloadComplete = false
         var finalImageEqualsPlaceholderImage = false
@@ -542,7 +542,7 @@ final class UIButtonTests: BaseTestCase {
     func testThatBackgroundPlaceholderImageIsDisplayedUntilImageIsDownloadedFromURL() {
         // Given
         let placeholderImage = image(forResource: "pirate", withExtension: "jpg")
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
 
         var backgroundImageDownloadComplete = false
         var finalBackgroundImageEqualsPlaceholderImage = false
@@ -574,7 +574,7 @@ final class UIButtonTests: BaseTestCase {
 
         let downloader = ImageDownloader.default
         let urlRequest = try! URLRequest(url: url.absoluteString, method: .get)
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         downloader.download(urlRequest, completion: { _ in
             expectation.fulfill()
@@ -597,7 +597,7 @@ final class UIButtonTests: BaseTestCase {
 
         let downloader = ImageDownloader.default
         let urlRequest = try! URLRequest(url: url.absoluteString, method: .get)
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         downloader.download(urlRequest, completion: { _ in
             expectation.fulfill()
@@ -646,7 +646,7 @@ final class UIButtonTests: BaseTestCase {
         let size = CGSize(width: 20, height: 20)
         let filter = ScaledToSizeFilter(size: size)
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -672,7 +672,7 @@ final class UIButtonTests: BaseTestCase {
         let size = CGSize(width: 20, height: 20)
         let filter = ScaledToSizeFilter(size: size)
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -705,7 +705,7 @@ final class UIButtonTests: BaseTestCase {
             return request
         }()
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -735,7 +735,7 @@ final class UIButtonTests: BaseTestCase {
             return request
         }()
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -759,7 +759,7 @@ final class UIButtonTests: BaseTestCase {
         // Given
         let button = UIButton()
 
-        let expectation = self.expectation(description: "image download should complete")
+        let expectation = expectation(description: "image download should complete")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -783,7 +783,7 @@ final class UIButtonTests: BaseTestCase {
         // Given
         let button = UIButton()
 
-        let expectation = self.expectation(description: "image download should complete")
+        let expectation = expectation(description: "image download should complete")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -808,7 +808,7 @@ final class UIButtonTests: BaseTestCase {
         let button = UIButton()
         let urlRequest = ThrowingURLRequestConvertible()
 
-        let expectation = self.expectation(description: "image download should complete")
+        let expectation = expectation(description: "image download should complete")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -833,7 +833,7 @@ final class UIButtonTests: BaseTestCase {
         let button = UIButton()
         let urlRequest = ThrowingURLRequestConvertible()
 
-        let expectation = self.expectation(description: "image download should complete")
+        let expectation = expectation(description: "image download should complete")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -859,7 +859,7 @@ final class UIButtonTests: BaseTestCase {
         // Given
         let button = UIButton()
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -887,7 +887,7 @@ final class UIButtonTests: BaseTestCase {
         // Given
         let button = UIButton()
 
-        let expectation = self.expectation(description: "background image download should succeed")
+        let expectation = expectation(description: "background image download should succeed")
 
         var completionHandlerCalled = false
         var result: AFIResult<UIImage>?
@@ -914,7 +914,7 @@ final class UIButtonTests: BaseTestCase {
     func testThatActiveImageRequestIsAutomaticallyCancelledBySettingNewURL() {
         // Given
         let button = UIButton()
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completion1Called = false
         var completion2Called = false
@@ -949,7 +949,7 @@ final class UIButtonTests: BaseTestCase {
     func testThatActiveBackgroundImageRequestIsAutomaticallyCancelledBySettingNewURL() {
         // Given
         let button = UIButton()
-        let expectation = self.expectation(description: "background image download should succeed")
+        let expectation = expectation(description: "background image download should succeed")
 
         var completion1Called = false
         var completion2Called = false
@@ -984,7 +984,7 @@ final class UIButtonTests: BaseTestCase {
     func testThatActiveImageRequestCanBeCancelledAndRestartedSuccessfully() {
         // Given
         let button = UIButton()
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
         expectation.expectedFulfillmentCount = 2
 
         var completion1Called = false
@@ -1023,7 +1023,7 @@ final class UIButtonTests: BaseTestCase {
     func testThatActiveBackgroundImageRequestCanBeCancelledAndRestartedSuccessfully() {
         // Given
         let button = UIButton()
-        let expectation = self.expectation(description: "background image download should succeed")
+        let expectation = expectation(description: "background image download should succeed")
 
         var completion1Called = false
         var completion2Called = false
@@ -1060,7 +1060,7 @@ final class UIButtonTests: BaseTestCase {
     func testThatImageRequestCanBeCancelledAndButtonIsDeallocated() {
         // Given
         var button: UIButton? = UIButton()
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completionCalled: Bool?
         var buttonReleased: Bool?
@@ -1086,7 +1086,7 @@ final class UIButtonTests: BaseTestCase {
     func testThatBackgroundImageRequestCanBeCancelledAndButtonIsDeallocated() {
         // Given
         var button: UIButton? = UIButton()
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var completionCalled: Bool?
         var buttonReleased: Bool?
@@ -1113,7 +1113,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatImageBehindRedirectCanBeDownloaded() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var imageDownloadComplete = false
 
         let button = TestButton {
@@ -1132,7 +1132,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatBackgroundImageBehindRedirectCanBeDownloaded() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var backgroundImageDownloadComplete = false
 
         let button = TestButton {
@@ -1153,7 +1153,7 @@ final class UIButtonTests: BaseTestCase {
 
     func testThatAcceptHeaderMatchesAcceptableContentTypes() {
         // Given
-        let expectation = self.expectation(description: "image should download successfully")
+        let expectation = expectation(description: "image should download successfully")
         var acceptField: String?
 
         var button: TestButton?

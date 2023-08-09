@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "9F3553D7-5AF9-4887-B538-3B815EA7A187",
+      "name" : "Configuration",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "diagnosticCollectionPolicy" : "Never",
+    "environmentVariableEntries" : [
+      {
+        "key" : "SWIFT_DETERMINISTIC_HASHING",
+        "value" : "1"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:AlamofireImage.xcodeproj",
+      "identifier" : "4C16B37C1BA9399500A66EF0",
+      "name" : "AlamofireImage tvOS"
+    },
+    "threadSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:AlamofireImage.xcodeproj",
+        "identifier" : "4C16B3851BA9399500A66EF0",
+        "name" : "AlamofireImage tvOS Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

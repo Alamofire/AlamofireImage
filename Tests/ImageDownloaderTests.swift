@@ -121,7 +121,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCanDownloadAnImage() {
         // Given
         let downloader = ImageDownloader()
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var response: AFIDataResponse<Image>?
 
@@ -179,7 +179,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let expectation = self.expectation(description: "both downloads should succeed")
+        let expectation = expectation(description: "both downloads should succeed")
         expectation.expectedFulfillmentCount = 2
 
         var completedDownloads = 0
@@ -227,7 +227,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCallsTheCompletionHandlerEvenWhenDownloadFails() {
         // Given
         let downloader = ImageDownloader()
-        let expectation = self.expectation(description: "download request should fail")
+        let expectation = expectation(description: "download request should fail")
 
         var response: AFIDataResponse<Image>?
 
@@ -249,7 +249,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
         let urlRequest = ThrowingURLRequestConvertible()
-        let expectation = self.expectation(description: "download request should fail")
+        let expectation = expectation(description: "download request should fail")
 
         var response: AFIDataResponse<Image>?
 
@@ -281,7 +281,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
             return downloader
         }()
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var response: AFIDataResponse<Image>?
 
@@ -309,7 +309,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         let scaledSize = CGSize(width: 100, height: 60)
         let filter = ScaledToSizeFilter(size: scaledSize)
 
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var response: AFIDataResponse<Image>?
 
@@ -484,7 +484,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let expectation = self.expectation(description: "download request should cancel")
+        let expectation = expectation(description: "download request should cancel")
 
         var response: AFIDataResponse<Image>?
 
@@ -561,18 +561,14 @@ final class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let imageEndpoints: [Endpoint] = ["5a105e8b9d40e1329780d62ea2265d8a",
-                                          "6a105e8b9d40e1329780d62ea2265d8a",
-                                          "7a105e8b9d40e1329780d62ea2265d8a",
-                                          "8a105e8b9d40e1329780d62ea2265d8a",
-                                          "9a105e8b9d40e1329780d62ea2265d8a"].map(Endpoint.gravatar)
+        let imageEndpoints: [Endpoint] = [.image(.png), .image(.jpeg), .image(.jp2), .image(.gif), .image(.bmp)]
 
         var initialResults: [AFIResult<Image>] = []
         var finalResults: [AFIResult<Image>] = []
 
         // When
         for (index, imageRequest) in imageEndpoints.enumerated() {
-            let expectation = self.expectation(description: "Download \(index) should be cancelled: \(imageRequest)")
+            let expectation = expectation(description: "Download \(index) should be cancelled: \(imageRequest)")
 
             let receipt = downloader.download(imageRequest, completion: { response in
                 switch response.result {
@@ -591,7 +587,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         }
 
         for (index, imageRequest) in imageEndpoints.enumerated() {
-            let expectation = self.expectation(description: "Download \(index) should complete: \(imageRequest)")
+            let expectation = expectation(description: "Download \(index) should complete: \(imageRequest)")
 
             downloader.download(imageRequest, completion: { response in
                 switch response.result {
@@ -686,14 +682,13 @@ final class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCallsTheCompletionHandlerOnTheMainQueue() {
         // Given
         let downloader = ImageDownloader()
-        let urlRequest = try! URLRequest(url: "https://httpbin.org/image/jpeg", method: .get)
 
-        let expectation = self.expectation(description: "download request should succeed")
+        let expectation = expectation(description: "download request should succeed")
 
         var calledOnMainQueue = false
 
         // When
-        downloader.download(urlRequest, completion: { _ in
+        downloader.download(.image(.jpeg), completion: { _ in
             calledOnMainQueue = Thread.isMainThread
             expectation.fulfill()
         })
@@ -708,7 +703,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         // Given
         let downloader = ImageDownloader()
 
-        let expectation = self.expectation(description: "download request should succeed")
+        let expectation = expectation(description: "download request should succeed")
 
         var calledOnMainQueue = false
 
@@ -729,7 +724,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         let downloader = ImageDownloader()
         let urlRequest = ThrowingURLRequestConvertible()
 
-        let expectation = self.expectation(description: "download request should succeed")
+        let expectation = expectation(description: "download request should succeed")
 
         var calledOnMainQueue = false
 
@@ -750,7 +745,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         let downloader = ImageDownloader()
         let filter = ThreadCheckFilter()
 
-        let expectation = self.expectation(description: "download request should succeed")
+        let expectation = expectation(description: "download request should succeed")
 
         // When
         downloader.download(.image(.jpeg), filter: filter, completion: { _ in
@@ -824,7 +819,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
     func testThatItCanDownloadImagesWhenNoImageCacheIsAvailable() {
         // Given
         let downloader = ImageDownloader(imageCache: nil)
-        let expectation = self.expectation(description: "image download should succeed")
+        let expectation = expectation(description: "image download should succeed")
 
         var response: AFIDataResponse<Image>?
 

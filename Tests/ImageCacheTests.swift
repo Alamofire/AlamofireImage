@@ -61,7 +61,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanAddImageToCacheWithIdentifier() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
@@ -75,7 +75,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanAddImageToCacheWithRequestIdentifier() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let request = Endpoint.get.urlRequest
         let identifier = "-unicorn"
 
@@ -137,7 +137,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanRemoveImageFromCacheWithIdentifier() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
@@ -155,7 +155,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanRemoveImageFromCacheWithRequestIdentifier() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let request = Endpoint.get.urlRequest
         let identifier = "unicorn"
 
@@ -174,7 +174,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanRemoveImagesFromCacheMatchingRequestIdentifier() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let request = Endpoint.get.urlRequest
 
         let identifier1 = "unicorn-100"
@@ -201,7 +201,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanRemoveAllImagesFromCache() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
@@ -221,7 +221,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItRemovesAllImagesFromCacheWhenReceivingMemoryWarningNotification() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
@@ -245,7 +245,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanFetchImageFromCacheWithIdentifier() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
@@ -260,7 +260,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItCanFetchImageFromCacheWithRequestIdentifier() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let request = Endpoint.get.urlRequest
         let identifier = "unicorn"
 
@@ -278,7 +278,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItIncrementsMemoryUsageWhenAddingImageToCache() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
@@ -293,7 +293,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItDecrementsMemoryUsageWhenRemovingImageFromCache() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
@@ -309,7 +309,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItDecrementsMemoryUsageWhenRemovingAllImagesFromCache() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
@@ -327,7 +327,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItPurgesImagesWhenMemoryCapacityIsReached() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         var memoryUsage: [UInt64] = []
@@ -347,7 +347,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatItPrioritizesImagesWithOldestLastAccessDatesDuringPurge() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
@@ -369,7 +369,7 @@ final class ImageCacheTestCase: BaseTestCase {
 
     func testThatAccessingCachedImageUpdatesLastAccessDate() {
         // Given
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
         let identifier = "unicorn"
 
         // When
@@ -400,7 +400,7 @@ final class ImageCacheThreadSafetyTests: BaseTestCase {
     func testMultipleReadsAndWrites() {
         // Given
         let cache = AutoPurgingImageCache(memoryCapacity: 1_000_000, preferredMemoryUsageAfterPurge: 100_000)
-        let image = self.image(forResource: "unicorn", withExtension: "png")
+        let image = image(forResource: "unicorn", withExtension: "png")
 
         // When
         DispatchQueue.concurrentPerform(iterations: 100) { iteration in

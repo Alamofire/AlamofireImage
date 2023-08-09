@@ -24,13 +24,13 @@
 
 #if !os(macOS)
 
-@testable import AlamofireImage
 import Alamofire
+import AlamofireImage
 import UIKit
 
 extension UIImage {
     var isScaledToScreen: Bool {
-        scale == UIScreen.main.scale
+        scale == DataRequest.imageScale
     }
 }
 
@@ -78,7 +78,7 @@ extension AlamofireExtension where ExtendedType: UIImage {
         // Do not attempt to render if too large or has more than 8-bit components
         guard width * height <= 4096 * 4096 && bitsPerComponent <= 8 else { return nil }
 
-        let bytesPerRow: Int = 0
+        let bytesPerRow = 0
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         var bitmapInfo = image.bitmapInfo
 
@@ -121,7 +121,7 @@ extension AlamofireExtension where ExtendedType: UIImage {
      */
     func imageWithPNGRepresentation() -> UIImage {
         let data = type.pngData()!
-        let image = UIImage(data: data, scale: UIScreen.main.scale)!
+        let image = UIImage(data: data, scale: DataRequest.imageScale)!
 
         return image
     }

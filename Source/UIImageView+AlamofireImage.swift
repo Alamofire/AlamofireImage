@@ -282,7 +282,7 @@ extension AlamofireExtension where ExtendedType: UIImageView {
 
         cancelImageRequest()
 
-        let imageDownloader = self.imageDownloader ?? UIImageView.af.sharedImageDownloader
+        let imageDownloader = imageDownloader ?? UIImageView.af.sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
@@ -371,7 +371,7 @@ extension AlamofireExtension where ExtendedType: UIImageView {
     public func cancelImageRequest() {
         guard let activeRequestReceipt = activeRequestReceipt else { return }
 
-        let imageDownloader = self.imageDownloader ?? UIImageView.af.sharedImageDownloader
+        let imageDownloader = imageDownloader ?? UIImageView.af.sharedImageDownloader
         imageDownloader.cancelRequest(with: activeRequestReceipt)
 
         self.activeRequestReceipt = nil
@@ -492,9 +492,9 @@ extension UIImageView {
 // MARK: -
 
 private enum AssociatedKeys {
-    static var imageDownloader = "UIImageView.af.imageDownloader"
-    static var sharedImageDownloader = "UIImageView.af.sharedImageDownloader"
-    static var activeRequestReceipt = "UIImageView.af.activeRequestReceipt"
+    static var imageDownloader = true
+    static var sharedImageDownloader = true
+    static var activeRequestReceipt = true
 }
 
 #endif

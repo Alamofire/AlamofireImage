@@ -1,0 +1,41 @@
+{
+  "configurations" : [
+    {
+      "id" : "896D89A9-F588-46F0-87A4-1F4D74C57B4B",
+      "name" : "Configuration",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "SWIFT_DETERMINISTIC_HASHING",
+            "value" : "1"
+          }
+        ]
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "diagnosticCollectionPolicy" : "Never",
+    "environmentVariableEntries" : [
+      {
+        "key" : "SWIFT_DETERMINISTIC_HASHING",
+        "value" : "1"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:AlamofireImage.xcodeproj",
+      "identifier" : "4C9043761AABBFC5001B4E60",
+      "name" : "AlamofireImage iOS"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:AlamofireImage.xcodeproj",
+        "identifier" : "4C9043811AABBFC5001B4E60",
+        "name" : "AlamofireImage iOS Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

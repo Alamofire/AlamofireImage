@@ -1,0 +1,30 @@
+{
+  "configurations" : [
+    {
+      "id" : "294BC284-3E58-4157-A1C9-539A86AE3DE0",
+      "name" : "Configuration",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "diagnosticCollectionPolicy" : "Never",
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:AlamofireImage.xcodeproj",
+      "identifier" : "4C4D4EC01B92976900C96855",
+      "name" : "AlamofireImage watchOS"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:AlamofireImage.xcodeproj",
+        "identifier" : "317911B8290F9AEE00BF6504",
+        "name" : "AlamofireImage watchOS Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

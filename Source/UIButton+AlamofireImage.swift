@@ -182,7 +182,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
         cancelImageRequest(for: state)
 
-        let imageDownloader = self.imageDownloader ?? UIButton.af.sharedImageDownloader
+        let imageDownloader = imageDownloader ?? UIButton.af.sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
@@ -253,7 +253,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
     public func cancelImageRequest(for state: ControlState) {
         guard let receipt = imageRequestReceipt(for: state) else { return }
 
-        let imageDownloader = self.imageDownloader ?? UIButton.af.sharedImageDownloader
+        let imageDownloader = imageDownloader ?? UIButton.af.sharedImageDownloader
         imageDownloader.cancelRequest(with: receipt)
 
         setImageRequestReceipt(nil, for: state)
@@ -351,7 +351,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
         cancelBackgroundImageRequest(for: state)
 
-        let imageDownloader = self.imageDownloader ?? UIButton.af.sharedImageDownloader
+        let imageDownloader = imageDownloader ?? UIButton.af.sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
@@ -422,7 +422,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
     public func cancelBackgroundImageRequest(for state: ControlState) {
         guard let receipt = backgroundImageRequestReceipt(for: state) else { return }
 
-        let imageDownloader = self.imageDownloader ?? UIButton.af.sharedImageDownloader
+        let imageDownloader = imageDownloader ?? UIButton.af.sharedImageDownloader
         imageDownloader.cancelRequest(with: receipt)
 
         setBackgroundImageRequestReceipt(nil, for: state)
@@ -608,10 +608,10 @@ extension UIButton {
 // MARK: - Private - AssociatedKeys
 
 private enum AssociatedKeys {
-    static var imageDownloader = "UIButton.af.imageDownloader"
-    static var sharedImageDownloader = "UIButton.af.sharedImageDownloader"
-    static var imageReceipts = "UIButton.af.imageReceipts"
-    static var backgroundImageReceipts = "UIButton.af.backgroundImageReceipts"
+    static var imageDownloader = true
+    static var sharedImageDownloader = true
+    static var imageReceipts = true
+    static var backgroundImageReceipts = true
 }
 
 #endif
