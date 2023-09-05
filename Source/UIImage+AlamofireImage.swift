@@ -22,7 +22,7 @@
 //  THE SOFTWARE.
 //
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 import Alamofire
 import CoreGraphics
@@ -341,7 +341,7 @@ extension UIImage {
 
 #endif
 
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 
 import CoreImage
 

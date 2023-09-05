@@ -24,7 +24,7 @@
 
 import Foundation
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 import UIKit
 public typealias Image = UIImage
 #elseif os(macOS)

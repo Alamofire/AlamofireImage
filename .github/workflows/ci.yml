@@ -120,7 +120,7 @@ jobs:
     name: "Test Old iOS"
     runs-on: firebreak
     env:
-      DEVELOPER_DIR: "/Applications/Xcode_14.3.app/Contents/Developer"
+      DEVELOPER_DIR: "/Applications/Xcode_14.3.1.app/Contents/Developer"
     timeout-minutes: 10
     strategy:
       fail-fast: false
@@ -157,10 +157,10 @@ jobs:
             name: "iOS 17.0"
             testPlan: "iOS"
             scheme: "AlamofireImage iOS"
-          # - destination: "OS=1.0,name=Apple Vision Pro"
-          #   name: "visionOS 1.0"
-          #   testPlan: "visionOS"
-          #   scheme: "Alamofire visionOS"
+          - destination: "OS=1.0,name=Apple Vision Pro"
+            name: "visionOS 1.0"
+            testPlan: "visionOS"
+            scheme: "AlamofireImage visionOS"
     steps:
       - uses: actions/checkout@v3
       - name: Install Firewalk
@@ -173,7 +173,7 @@ jobs:
     name: Test Old tvOS
     runs-on: firebreak
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.3.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_14.3.1.app/Contents/Developer
     timeout-minutes: 10
     strategy:
       fail-fast: false
@@ -203,7 +203,7 @@ jobs:
     name: Test watchOS
     runs-on: firebreak
     env:
-      DEVELOPER_DIR: /Applications/Xcode_14.3.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_14.3.1.app/Contents/Developer
     timeout-minutes: 10
     strategy:
       fail-fast: false

@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "6BC748D2-4DF9-4572-96B6-DC495E596366",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:AlamofireImage.xcodeproj",
+        "identifier" : "31C064202AA7AE2900D76648",
+        "name" : "AlamofireImage visionOS Tests"
+      }
+    }
+  ],
+  "version" : 1
+}
