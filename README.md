@@ -19,14 +19,14 @@ AlamofireImage is an image component library for Alamofire.
 - [x] Authentication with URLCredential
 - [x] UIImageView Async Remote Downloads with Placeholders
 - [x] UIImageView Filters and Transitions
-- [x] Comprehensive Test Coverage 
+- [x] Comprehensive Test Coverage
 - [x] [Complete Documentation](https://alamofire.github.io/AlamofireImage/)
 
 ## Requirements
 
-- iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+
-- Xcode 11+
-- Swift 5.1+
+- iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+ / vision OS 1.0+
+- Xcode 13+
+- Swift 5.5+
 
 ## Migration Guides
 
@@ -36,14 +36,14 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Dependencies
 
-- [Alamofire 5.1+](https://github.com/Alamofire/Alamofire)
+- [Alamofire 5.8+](https://github.com/Alamofire/Alamofire)
 
 ## Communication
 
 - If you need to **find or understand an API**, check [our documentation](https://alamofire.github.io/AlamofireImage/).
 - If you need **help with an AlamofireImage feature**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire).
 - If you'd like to **discuss AlamofireImage best practices**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire).
-- If you'd like to **discuss a feature request**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire). 
+- If you'd like to **discuss a feature request**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire).
 - If you **found a bug**, open an issue and follow the guide. The more detail the better!
 - If you **want to contribute**, submit a pull request.
 
@@ -97,7 +97,7 @@ $ git submodule add https://github.com/Alamofire/AlamofireImage.git
 
 - Open the new `AlamofireImage` folder, and drag the `AlamofireImage.xcodeproj` into the Project Navigator of your application's Xcode project.
 
-    > It should appear nested underneath your application's blue project icon. Whether it is above or below all the other Xcode groups does not matter.
+  > It should appear nested underneath your application's blue project icon. Whether it is above or below all the other Xcode groups does not matter.
 
 - Select the `AlamofireImage.xcodeproj` in the Project Navigator and verify the deployment target matches that of your application target.
 - Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
@@ -105,11 +105,11 @@ $ git submodule add https://github.com/Alamofire/AlamofireImage.git
 - Click on the `+` button under the "Embedded Binaries" section.
 - You will see two different `AlamofireImage.xcodeproj` folders each with two different versions of the `AlamofireImage.framework` nested inside a `Products` folder.
 
-    > It does not matter which `Products` folder you choose from, but it does matter whether you choose the top or bottom `AlamofireImage.framework`.
+  > It does not matter which `Products` folder you choose from, but it does matter whether you choose the top or bottom `AlamofireImage.framework`.
 
 - Select the top `AlamofireImage.framework` for iOS and the bottom one for OS X.
 
-    > You can verify which one you selected by inspecting the build log for your project. The build target for `AlamofireImage` will be listed as either `AlamofireImage iOS`, `AlamofireImage macOS`, `AlamofireImage tvOS` or `AlamofireImage watchOS`.
+  > You can verify which one you selected by inspecting the build log for your project. The build target for `AlamofireImage` will be listed as either `AlamofireImage iOS`, `AlamofireImage macOS`, `AlamofireImage tvOS` or `AlamofireImage watchOS`.
 
 - And that's it!
 
@@ -139,7 +139,6 @@ AF.request("https://httpbin.org/image/png").responseImage { response in
 ```
 
 The AlamofireImage response image serializers support a wide range of image types including:
-
 
 - `image/png`
 - `image/jpeg`
@@ -434,7 +433,7 @@ Determining the ideal the in-memory and on-disk capacity limits of the `URLCache
 
 > If you do not use image filters, it is advised to set the memory capacity of the `URLCache` to zero. Otherwise, you will be storing the original image data in both the URLCache's in-memory store as well as the AlamofireImage in-memory store.
 
-#### Duplicate Downloads    
+#### Duplicate Downloads
 
 Sometimes application logic can end up attempting to download an image more than once before the initial download request is complete. Most often, this results in the image being downloaded more than once. AlamofireImage handles this case elegantly by merging the duplicate downloads. The image will only be downloaded once, yet both completion handlers will be called.
 
