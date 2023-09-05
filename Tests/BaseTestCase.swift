@@ -70,7 +70,7 @@ class BaseTestCase: XCTestCase {
         let resourceURL = url(forResource: fileName, withExtension: ext)
         let data = try! Data(contentsOf: resourceURL)
 
-        #if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
+        #if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
         let image = Image.af.threadSafeImage(with: data, scale: DataRequest.imageScale)!
         #elseif os(macOS)
         let image = Image(data: data)!

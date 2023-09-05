@@ -25,7 +25,7 @@
 import Alamofire
 import Foundation
 
-#if os(iOS) || os(tvOS) || os(visionOS)
+#if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
 import UIKit
 #elseif os(watchOS)
 import UIKit
@@ -63,7 +63,7 @@ public final class ImageResponseSerializer: ResponseSerializer {
             "image/x-xbitmap"
         ]
 
-        #if os(macOS) || os(iOS) || os(visionOS)// No WebP support on tvOS or watchOS.
+        #if os(macOS) || os(iOS) || (swift(>=5.9) && os(visionOS)) // No WebP support on tvOS or watchOS.
         if #available(macOS 11, iOS 14, *) {
             contentTypes.insert("image/webp")
         }
@@ -125,7 +125,7 @@ public final class ImageResponseSerializer: ResponseSerializer {
             throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
         }
 
-        #if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
+        #if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
         guard let image = UIImage.af.threadSafeImage(with: data, scale: imageScale) else {
             throw AFIError.imageSerializationFailed
         }
@@ -176,7 +176,7 @@ extension DataRequest {
     public class var imageScale: CGFloat {
         #if os(iOS) || os(tvOS)
         return UIScreen.main.scale
-        #elseif os(visionOS)
+        #elseif swift(>=5.9) && os(visionOS)
         return 2
         #elseif os(watchOS)
         return WKInterfaceDevice.current().screenScale
@@ -188,7 +188,7 @@ extension DataRequest {
 
 // MARK: - iOS, tvOS, and watchOS
 
-#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
 
 extension DataRequest {
     /// Adds a response handler to be called once the request has finished.

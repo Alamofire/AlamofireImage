@@ -217,7 +217,7 @@ final class ImageCacheTestCase: BaseTestCase {
         XCTAssertFalse(cachedImageExistsAfterRemoval, "cached image exists after removal should be false")
     }
 
-    #if os(iOS) || os(tvOS) || os(visionOS)
+    #if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
 
     func testThatItRemovesAllImagesFromCacheWhenReceivingMemoryWarningNotification() {
         // Given

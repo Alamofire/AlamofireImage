@@ -43,7 +43,7 @@ private final class ThreadCheckFilter: ImageFilter {
 
 // MARK: -
 
-#if os(iOS) || os(tvOS) || os(visionOS)
+#if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
 
 private final class TestCircleFilter: ImageFilter {
     var filterOperationCompleted = false
@@ -299,7 +299,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isSuccess ?? false, "result should be a success case")
     }
 
-    #if os(iOS) || os(tvOS) || os(visionOS)
+    #if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
 
     // MARK: - Image Download Tests (iOS and tvOS Only)
 
@@ -878,7 +878,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         }
     }
 
-    #if os(iOS) || os(tvOS) || os(visionOS)
+    #if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
 
     func testThatFilteredImageIsStoredInCacheIfCacheIsAvailable() {
         // Given
