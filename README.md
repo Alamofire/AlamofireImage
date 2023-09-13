@@ -54,7 +54,7 @@ AlamofireImage is an image component library for Alamofire.
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'AlamofireImage', '~> 4.1'
+pod 'AlamofireImage', '~> 4.3'
 ```
 
 ### Carthage
@@ -62,7 +62,7 @@ pod 'AlamofireImage', '~> 4.1'
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate AlamofireImage into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/AlamofireImage" ~> 4.1
+github "Alamofire/AlamofireImage" ~> 4.3
 ```
 
 ### Swift Package Manager
@@ -73,7 +73,7 @@ Once you have your Swift package set up, adding AlamofireImage as a dependency i
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMajor(from: "4.2.0"))
+    .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMajor(from: "4.3.0"))
 ]
 ```
 
@@ -126,33 +126,38 @@ import Alamofire
 import AlamofireImage
 
 AF.request("https://httpbin.org/image/png").responseImage { response in
-	debugPrint(response)
+  debugPrint(response)
 
-	print(response.request)
-	print(response.response)
-	debugPrint(response.result)
+  print(response.request)
+  print(response.response)
+  debugPrint(response.result)
 
-    if case .success(let image) = response.result {
-		print("image downloaded: \(image)")
-	}
+  if case .success(let image) = response.result {
+    print("image downloaded: \(image)")
+  }
 }
 ```
 
 The AlamofireImage response image serializers support a wide range of image types including:
 
-- `image/png`
-- `image/jpeg`
-- `image/tiff`
-- `image/gif`
-- `image/ico`
-- `image/x-icon`
+- `application/octet-stream` - As a fallback for things like AWS which provide no real type.
+- `image/avif` - On 2022 OS versions and later, except watchOS.
 - `image/bmp`
+- `image/gif`
+- `image/heic`, `image/heif` - On 2017 OS versions and later.
+- `image/ico`
+- `image/jp2`
+- `image/jpeg`
+- `image/jpg`
+- `image/jxl` - On 2023 OS versions and later.
+- `image/png`
+- `image/tiff`
+- `image/webp` - On 2020 OS versions and later, except tvOS and watchOS.
 - `image/x-bmp`
-- `image/x-xbitmap`
+- `image/x-icon`
 - `image/x-ms-bmp`
 - `image/x-win-bitmap`
-- `image/heic`
-- `application/octet-stream` (added for iOS 13 support)
+- `image/x-xbitmap`
 
 > If the image you are attempting to download is an invalid MIME type not in the list, you can add custom acceptable content types using the `addAcceptableImageContentTypes` extension on the `DataRequest` type.
 

@@ -20,27 +20,27 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          AlamofireImage 4.2.0 Docs
+          AlamofireImage 4.3.0 Docs
         </a>
-         (77% documented)
+         (76% documented)
       </p>
     
-      <p class="header-col--secondary">
+      <div class="header-col--secondary">
         <form role="search" action="search.json">
           <input type="text" placeholder="Search documentation" data-typeahead>
         </form>
-      </p>
+      </div>
     
         <p class="header-col header-col--secondary">
           <a class="header-link" href="https://github.com/Alamofire/AlamofireImage">
-            <img class="header-icon" src="img/gh.png"/>
+            <img class="header-icon" src="img/gh.png" alt="GitHub"/>
             View on GitHub
           </a>
         </p>
     
         <p class="header-col header-col--secondary">
           <a class="header-link" href="dash-feed://https%3A%2F%2Falamofire.github.io%2FAlamofireImage%2Fdocsets%2FAlamofireImage.xml">
-            <img class="header-icon" src="img/dash.png"/>
+            <img class="header-icon" src="img/dash.png" alt="Dash"/>
             Install in Dash
           </a>
         </p>
@@ -48,7 +48,7 @@
 
     <p class="breadcrumbs">
       <a class="breadcrumb" href="index.html">AlamofireImage Reference</a>
-      <img class="carat" src="img/carat.png" />
+      <img class="carat" src="img/carat.png" alt=""/>
       AlamofireImage  Reference
     </p>
 
@@ -233,9 +233,9 @@
 <h2 id='requirements' class='heading'>Requirements</h2>
 
 <ul>
-<li>iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+</li>
-<li>Xcode 11+</li>
-<li>Swift 5.1+</li>
+<li>iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+ / vision OS 1.0+</li>
+<li>Xcode 13+</li>
+<li>Swift 5.5+</li>
 </ul>
 <h2 id='migration-guides' class='heading'>Migration Guides</h2>
 
@@ -247,7 +247,7 @@
 <h2 id='dependencies' class='heading'>Dependencies</h2>
 
 <ul>
-<li><a href="https://github.com/Alamofire/Alamofire">Alamofire 5.1+</a></li>
+<li><a href="https://github.com/Alamofire/Alamofire">Alamofire 5.8+</a></li>
 </ul>
 <h2 id='communication' class='heading'>Communication</h2>
 
@@ -263,12 +263,12 @@
 <h3 id='cocoapods' class='heading'>CocoaPods</h3>
 
 <p><a href="https://cocoapods.org">CocoaPods</a> is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your <code>Podfile</code>:</p>
-<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'AlamofireImage'</span><span class="p">,</span> <span class="s1">'~&gt; 4.1'</span>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'AlamofireImage'</span><span class="p">,</span> <span class="s1">'~&gt; 4.3'</span>
 </code></pre>
 <h3 id='carthage' class='heading'>Carthage</h3>
 
 <p><a href="https://github.com/Carthage/Carthage">Carthage</a> is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate AlamofireImage into your Xcode project using Carthage, specify it in your <code>Cartfile</code>:</p>
-<pre class="highlight plaintext"><code>github "Alamofire/AlamofireImage" ~&gt; 4.1
+<pre class="highlight plaintext"><code>github "Alamofire/AlamofireImage" ~&gt; 4.3
 </code></pre>
 <h3 id='swift-package-manager' class='heading'>Swift Package Manager</h3>
 
@@ -276,7 +276,7 @@
 
 <p>Once you have your Swift package set up, adding AlamofireImage as a dependency is as easy as adding it to the <code>dependencies</code> value of your <code>Package.swift</code>.</p>
 <pre class="highlight swift"><code><span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
-    <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Alamofire/AlamofireImage.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"4.2.0"</span><span class="p">))</span>
+    <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Alamofire/AlamofireImage.git"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"4.3.0"</span><span class="p">))</span>
 <span class="p">]</span>
 </code></pre>
 <h3 id='manually' class='heading'>Manually</h3>
@@ -297,26 +297,35 @@
 </code></pre>
 
 <ul>
-<li><p>Open the new <code>AlamofireImage</code> folder, and drag the <code>AlamofireImage.xcodeproj</code> into the Project Navigator of your application&rsquo;s Xcode project.</p>
+<li>Open the new <code>AlamofireImage</code> folder, and drag the <code>AlamofireImage.xcodeproj</code> into the Project Navigator of your application&rsquo;s Xcode project.</li>
+</ul>
 
 <blockquote>
 <p>It should appear nested underneath your application&rsquo;s blue project icon. Whether it is above or below all the other Xcode groups does not matter.</p>
-</blockquote></li>
-<li><p>Select the <code>AlamofireImage.xcodeproj</code> in the Project Navigator and verify the deployment target matches that of your application target.</p></li>
-<li><p>Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the &ldquo;Targets&rdquo; heading in the sidebar.</p></li>
-<li><p>In the tab bar at the top of that window, open the &ldquo;General&rdquo; panel.</p></li>
-<li><p>Click on the <code>+</code> button under the &ldquo;Embedded Binaries&rdquo; section.</p></li>
-<li><p>You will see two different <code>AlamofireImage.xcodeproj</code> folders each with two different versions of the <code>AlamofireImage.framework</code> nested inside a <code>Products</code> folder.</p>
+</blockquote>
+
+<ul>
+<li>Select the <code>AlamofireImage.xcodeproj</code> in the Project Navigator and verify the deployment target matches that of your application target.</li>
+<li>Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the &ldquo;Targets&rdquo; heading in the sidebar.</li>
+<li>In the tab bar at the top of that window, open the &ldquo;General&rdquo; panel.</li>
+<li>Click on the <code>+</code> button under the &ldquo;Embedded Binaries&rdquo; section.</li>
+<li>You will see two different <code>AlamofireImage.xcodeproj</code> folders each with two different versions of the <code>AlamofireImage.framework</code> nested inside a <code>Products</code> folder.</li>
+</ul>
 
 <blockquote>
 <p>It does not matter which <code>Products</code> folder you choose from, but it does matter whether you choose the top or bottom <code>AlamofireImage.framework</code>.</p>
-</blockquote></li>
-<li><p>Select the top <code>AlamofireImage.framework</code> for iOS and the bottom one for OS X.</p>
+</blockquote>
+
+<ul>
+<li>Select the top <code>AlamofireImage.framework</code> for iOS and the bottom one for OS X.</li>
+</ul>
 
 <blockquote>
 <p>You can verify which one you selected by inspecting the build log for your project. The build target for <code>AlamofireImage</code> will be listed as either <code>AlamofireImage iOS</code>, <code>AlamofireImage macOS</code>, <code>AlamofireImage tvOS</code> or <code>AlamofireImage watchOS</code>.</p>
-</blockquote></li>
-<li><p>And that&rsquo;s it!</p></li>
+</blockquote>
+
+<ul>
+<li>And that&rsquo;s it!</li>
 </ul>
 
 <blockquote>
@@ -329,35 +338,40 @@
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Alamofire</span>
 <span class="kd">import</span> <span class="kt">AlamofireImage</span>
 
-<span class="kt">Alamofire</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="s">"https://httpbin.org/image/png"</span><span class="p">)</span><span class="o">.</span><span class="n">responseImage</span> <span class="p">{</span> <span class="n">response</span> <span class="k">in</span>
-    <span class="nf">debugPrint</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="kt">AF</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="s">"https://httpbin.org/image/png"</span><span class="p">)</span><span class="o">.</span><span class="n">responseImage</span> <span class="p">{</span> <span class="n">response</span> <span class="k">in</span>
+  <span class="nf">debugPrint</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 
-    <span class="nf">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
-    <span class="nf">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
-    <span class="nf">debugPrint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
+  <span class="nf">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+  <span class="nf">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
+  <span class="nf">debugPrint</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">image</span><span class="p">)</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span> <span class="p">{</span>
-        <span class="nf">print</span><span class="p">(</span><span class="s">"image downloaded: </span><span class="se">\(</span><span class="n">image</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
-    <span class="p">}</span>
+  <span class="k">if</span> <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">image</span><span class="p">)</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">result</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"image downloaded: </span><span class="se">\(</span><span class="n">image</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 
 <p>The AlamofireImage response image serializers support a wide range of image types including:</p>
 
 <ul>
-<li><code>image/png</code></li>
-<li><code>image/jpeg</code></li>
-<li><code>image/tiff</code></li>
-<li><code>image/gif</code></li>
-<li><code>image/ico</code></li>
-<li><code>image/x-icon</code></li>
+<li><code>application/octet-stream</code> - As a fallback for things like AWS which provide no real type.</li>
+<li><code>image/avif</code> - On 2022 OS versions and later, except watchOS.</li>
 <li><code>image/bmp</code></li>
+<li><code>image/gif</code></li>
+<li><code>image/heic</code>, <code>image/heif</code> - On 2017 OS versions and later.</li>
+<li><code>image/ico</code></li>
+<li><code>image/jp2</code></li>
+<li><code>image/jpeg</code></li>
+<li><code>image/jpg</code></li>
+<li><code>image/jxl</code> - On 2023 OS versions and later.</li>
+<li><code>image/png</code></li>
+<li><code>image/tiff</code></li>
+<li><code>image/webp</code> - On 2020 OS versions and later, except tvOS and watchOS.</li>
 <li><code>image/x-bmp</code></li>
-<li><code>image/x-xbitmap</code></li>
+<li><code>image/x-icon</code></li>
 <li><code>image/x-ms-bmp</code></li>
 <li><code>image/x-win-bitmap</code></li>
-<li><code>image/heic</code></li>
-<li><code>application/octet-stream</code> (added for iOS 13 support)</li>
+<li><code>image/x-xbitmap</code></li>
 </ul>
 
 <blockquote>
@@ -745,9 +759,8 @@ Any amount you can donate today to help us reach our goal would be greatly appre
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="http://alamofire.org/" target="_blank" rel="external">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2021-04-03)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2023 <a class="link" href="http://alamofire.org/" target="_blank" rel="external noopener">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2023-09-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
-</div>
 </html>

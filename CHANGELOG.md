@@ -1,14 +1,18 @@
 # Change Log
+
 All notable changes to this project will be documented in this file.
 `AlamofireImage` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 4.x Releases
+
+- `4.3.x` Releases - [4.3.0](#430)
 - `4.2.x` Releases - [4.2.0](#420)
 - `4.1.x` Releases - [4.1.0](#410)
 - `4.0.x` Releases - [4.0.0](#400) | [4.0.1](#401) | [4.0.2](#402) | [4.0.3](#403)
 - `4.0.0` Betas - [4.0.0-beta.1](#400-beta1) | [4.0.0-beta.2](#400-beta2) | [4.0.0-beta.3](#400-beta3) | [4.0.0-beta.4](#400-beta4) | [4.0.0-beta.5](#400-beta5) | [4.0.0-beta.6](#400-beta6)
 
 #### 3.x Releases
+
 - `3.6.x` Releases - [3.6.0](#360)
 - `3.5.x` Releases - [3.5.0](#350) | [3.5.1](#351) | [3.5.2](#352)
 - `3.4.x` Releases - [3.4.0](#340) | [3.4.1](#341)
@@ -18,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - `3.0.x` Releases - [3.0.0](#300)
 
 #### 2.x Releases
+
 - `2.5.x` Releases - [2.5.0](#250)
 - `2.4.x` Releases - [2.4.0](#240) | [2.4.1](#241)
 - `2.3.x` Releases - [2.3.0](#230) | [2.3.1](#231)
@@ -27,72 +32,121 @@ All notable changes to this project will be documented in this file.
 - `2.0.0` Betas - [2.0.0-beta.1](#200-beta1) | [2.0.0-beta.2](#200-beta2)
 
 #### 1.x Releases
+
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
 - `1.0.x` Releases - [1.0.0](#100)
 - `1.0.0` Betas - [1.0.0-beta.1](#100-beta1)
 
 ---
 
+## [4.3.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.3.0)
+
+Released on 2023-09-13. All issues associated with this milestone can be found using this
+[filter](https://github.com/Alamofire/AlamofireImage/milestone/42?closed=1).
+
+#### Added
+
+- visionOS support.
+  - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#469](https://github.com/Alamofire/AlamofireImage/pull/469).
+- Swift concurrency support.
+  - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#464](https://github.com/Alamofire/AlamofireImage/pull/464).
+- Combine support.
+  - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#464](https://github.com/Alamofire/AlamofireImage/pull/464).
+- AFIF and JPEG XL image support.
+  - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#464](https://github.com/Alamofire/AlamofireImage/pull/464).
+
+#### Updated
+
+- Project to require Swift 5.5.
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#464](https://github.com/Alamofire/AlamofireImage/pull/464).
+- Testing infrastructure and CI integration.
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#464](https://github.com/Alamofire/AlamofireImage/pull/464).
+- `ImageResponseSerializer` to be `open`.
+  - Updated by [Aleksey Ostapenko](hhttps://github.com/Banannzza) in Pull Request [#452](https://github.com/Alamofire/AlamofireImage/pull/452).
+- `acceptableImageContentTypes` to be publicly visible.
+  - Updated by [Adam Lickel](https://github.com/lickel) in Pull Request [#453](https://github.com/Alamofire/AlamofireImage/pull/453).
+
+#### Fixed
+
+- Documentation example.
+  - Fixed by [Norton](https://github.com/jiangdi0924) in Pull Request [#444](https://github.com/Alamofire/AlamofireImage/pull/444).
+
+---
+
 ## [4.2.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.2.0)
+
 Released on 2021-04-03. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/41?closed=1).
 
 #### Added
+
 - HEIC, JPEG2000, and WebP to `Accept` headers for relevant platforms.
   - Added by [Taylor Paul](https://github.com/taylor-paul) and [Jon Shier](https://github.com/jshier) in Pull Requests [#424](https://github.com/Alamofire/AlamofireImage/pull/424) and [#434](https://github.com/Alamofire/AlamofireImage/pull/434).
 
 #### Updated
+
 - Sort `Accept` headers.
   - Updated by [Junichiro Kasuya](https://github.com/jksy) in Pull Request [#429](https://github.com/Alamofire/AlamofireImage/pull/429).
 
 #### Fixed
+
 - Invalid `URL` to file path conversion in `URLCache` creation.
   - Fixed by [Klaas](https://github.com/klaas) in Pull Request [#421](https://github.com/Alamofire/AlamofireImage/pull/421).
 
 ---
 
 ## [4.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.1.0)
+
 Released on 2020-04-05. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/40?closed=1).
 
 #### Updated
+
 - Project to require Swift 5.1.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#413](https://github.com/Alamofire/AlamofireImage/pull/413).
 
 ---
 
 ## [4.0.3](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.3)
+
 Released on 2020-03-07. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/39?closed=1).
 
 #### Fixed
+
 - Missing `nil` default for `completionHandler` parameter of `download` method.
   - Fixed by [Rob Ryan](https://github.com/robertmryan) in Pull Request [#407](https://github.com/Alamofire/AlamofireImage/pull/407).
 - Swift Package Manager compatibility with local submodules, for real this time.
   - Fixed by [Jon Shier](https://github.com/jshier) in direct commit [35151b1](https://github.com/Alamofire/AlamofireImage/commit/35151b1da85e6c1539a55c8a267850e5fc579def).
 
 ## [4.0.2](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.2)
+
 Released on 2020-02-29. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/38?closed=1).
 
 #### Fixed
+
 - Swift Package Manager compatibility with local submodules.
   - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#403](https://github.com/Alamofire/AlamofireImage/pull/403).
 
 ## [4.0.1](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.1)
+
 Released on 2020-02-23. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/37?closed=1).
 
 #### Fixed
+
 - Swift 5 compatibility.
   - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#401](https://github.com/Alamofire/AlamofireImage/pull/401).
 
 ## [4.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0)
+
 Released on 2020-02-23. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/23?closed=1).
 
 #### Added
-- Custom `cacheKey` support to `ImageDownloader` and `UIImageView` and `UIButton` extensions. 
+
+- Custom `cacheKey` support to `ImageDownloader` and `UIImageView` and `UIButton` extensions.
   - Added by [Måns Severin](https://github.com/graphiclife) in Pull Request [#324](https://github.com/Alamofire/AlamofireImage/pull/324) in regards to Issue [#222](https://github.com/Alamofire/AlamofireImage/issues/222).
 - The `application/octet-stream` to the list of acceptable image content types to support iOS 13.
   - Added by [Rafael Costa](https://github.com/rafaelc0sta) in Pull Request [#390](https://github.com/Alamofire/AlamofireImage/pull/390) in regards to Issues [#370](https://github.com/Alamofire/AlamofireImage/issues/370) and [#378](https://github.com/Alamofire/AlamofireImage/issues/378).
@@ -108,6 +162,7 @@ Released on 2020-02-23. All issues associated with this milestone can be found u
   - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#396](https://github.com/Alamofire/AlamofireImage/pull/396).
 
 #### Updated
+
 - The license section of the README to link to the actual LICENSE file.
   - Updated by [Yunsu Guk](https://github.com/krgoodnews) in Pull Request [#364](https://github.com/Alamofire/AlamofireImage/pull/364).
 - The `ImageDownloader` download image logic by removing variable shadowing to simplify logic flow.
@@ -120,10 +175,12 @@ Released on 2020-02-23. All issues associated with this milestone can be found u
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 #### Deprecated
+
 - The `af_` APIs on `UIImage`, `UIImageView`, and `UIButton` in favor of the new `af.` equivalent APIs. These APIs will be removed in AFI5.
   - Deprecated by [Christian Noon](https://github.com/cnoon) in Pull Request [#394](https://github.com/Alamofire/AlamofireImage/pull/394).
 
 #### Fixed
+
 - Issue in the README where the documentation link was incorrect.
   - Fixed by [Will Jessop](https://github.com/spnkr) in Pull Request [#367](https://github.com/Alamofire/AlamofireImage/pull/367).
 - Issue where `af_setBackgroundImage` was not setting the filter correctly on the image download.
@@ -134,88 +191,108 @@ Released on 2020-02-23. All issues associated with this milestone can be found u
 ---
 
 ## [4.0.0-beta.6](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.6)
+
 Released on 2019-10-27. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/35?closed=1).
 
 #### Fixed
+
 - Thread-safety issue in `AutoPurgingImageCache`.
   - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#387](https://github.com/Alamofire/AlamofireImage/pull/387).
 
 ## [4.0.0-beta.5](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.5)
+
 Released on 2019-09-17. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/34?closed=1).
 
 #### Fixed
+
 - Alamofire API usage after Alamofire 5 RC changes.
-  - Fixed by  [Jon Shier](https://github.com/jshier) in Pull Request [#375](https://github.com/Alamofire/AlamofireImage/pull/375).
+  - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#375](https://github.com/Alamofire/AlamofireImage/pull/375).
 
 ## [4.0.0-beta.4](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.4)
+
 Released on 2019-08-27. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/33?closed=1).
 
 #### Fixed
+
 - Issue where `ImageDownloader` was not dequeuing and cancelling requests correctly in certain race conditions due to Alamofire switching to async request creation.
   - Fixed by [Christian Noon](https://github.com/cnoon) in Pull Requests [#371](https://github.com/Alamofire/AlamofireImage/pull/371) and [#372](https://github.com/Alamofire/AlamofireImage/pull/372).
 
 ## [4.0.0-beta.3](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.3)
+
 Released on 2019-05-04. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/32?closed=1).
 
 #### Fixed
+
 - Issue with AppStore submissions where the pre-release version in the bundle short versions string was being rejected when built with Carthage or as a submodule.
   - Fixed by [xGoPox](https://github.com/xGoPox) in Pull Request [#359](https://github.com/Alamofire/AlamofireImage/pull/359).
 
 ## [4.0.0-beta.2](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.2)
+
 Released on 2019-04-13. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/31?closed=1).
 
 #### Updated
+
 - Project to require Alamofire 5.0.0-beta.5+ as a dependency.
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request [#357](https://github.com/Alamofire/AlamofireImage/pull/357).
 
 ## [4.0.0-beta.1](https://github.com/Alamofire/AlamofireImage/releases/tag/4.0.0-beta.1)
+
 Released on 2019-04-10. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/30?closed=1).
 
 #### Updated
+
 - Project to use Swift 5 only and require Alamofire 5.0.0-beta.4+ as a dependency.
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request [#348](https://github.com/Alamofire/AlamofireImage/pull/348).
 
 ---
 
 ## [3.6.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.6.0)
+
 Released on 2019-10-27. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/36?closed=1).
 
 #### Fixed
+
 - Build for Catalyst platform by updating deprecated API usage.
   - Fixed by [sonique6784](https://github.com/sonique6784) in Pull Request [#365](https://github.com/Alamofire/AlamofireImage/pull/365).
 - Thread-safety issue in `AutoPurgingImageCache`.
   - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#386](https://github.com/Alamofire/AlamofireImage/pull/386).
 
 ## [3.5.2](https://github.com/Alamofire/AlamofireImage/releases/tag/3.5.2)
+
 Released on 2019-03-28. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/29?closed=1).
 
 #### Fixed
+
 - Building using Xcode 9.
   - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request [#350](https://github.com/Alamofire/AlamofireImage/pull/350).
 
 ## [3.5.1](https://github.com/Alamofire/AlamofireImage/releases/tag/3.5.1)
+
 Released on 2019-03-27. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/28?closed=1).
 
 #### Updated
+
 - Project and dependencies for Xcode 10.2.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#344](https://github.com/Alamofire/AlamofireImage/pull/344).
 - SPM support for Swift 4.2 and 5.
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Requests [#345](https://github.com/Alamofire/AlamofireImage/pull/345) and [#346](https://github.com/Alamofire/AlamofireImage/pull/346).
 
 ## [3.5.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.5.0)
+
 Released on 2018-11-27. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/27?closed=1).
 
 #### Updated
+
 - Alamofire Carthage checkout.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#338](https://github.com/Alamofire/AlamofireImage/pull/338).
 - Required Alamofire version to 4.8.
@@ -226,38 +303,46 @@ Released on 2018-11-27. All issues associated with this milestone can be found u
 --
 
 ## [3.4.1](https://github.com/Alamofire/AlamofireImage/releases/tag/3.4.1)
+
 Released on 2018-09-17. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/26?closed=1).
 
 #### Updated
+
 - The Xcode project configuration to use workspace linking instead of nested projects.
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request [#329](https://github.com/Alamofire/AlamofireImage/pull/329).
 
 #### Fixed
+
 - A minor `CIGaussianBlur` typo in one of the README examples.
   - Fixed by [Joe DeCapo](https://github.com/JrGoodle) in Pull Request [#319](https://github.com/Alamofire/AlamofireImage/pull/319).
 
 ## [3.4.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.4.0)
+
 Released on 2018-09-13. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/25?closed=1).
 
 #### Updated
+
 - Project configuration and files for Xcode 10 and Swift 4.2.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#326](https://github.com/Alamofire/AlamofireImage/pull/326).
 
 ---
 
 ## [3.3.1](https://github.com/Alamofire/AlamofireImage/releases/tag/3.3.1)
+
 Released on 2018-03-31. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/24?closed=1).
 
 #### Added
+
 - Jazzy docs and configuration.
   - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#309](https://github.com/Alamofire/AlamofireImage/pull/309).
 - Ruby environment settings that match Alamofire's.
   - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#309](https://github.com/Alamofire/AlamofireImage/pull/309).
 
 #### Updated
+
 - Project configuration and files for Xcode 9.3 and Swift 4.1.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#309](https://github.com/Alamofire/AlamofireImage/pull/309).
 - Copyrights to 2018 for all files.
@@ -266,67 +351,75 @@ Released on 2018-03-31. All issues associated with this milestone can be found u
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#309](https://github.com/Alamofire/AlamofireImage/pull/309).
 
 #### Fixed
+
 - Gravatar API usage in example code.
   - Fixed by [Felipe Plets](https://github.com/felipeplets) in Pull Request [#298](https://github.com/Alamofire/AlamofireImage/pull/298).
 
 ## [3.3.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.3.0)
+
 Released on 2017-09-06. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/21?closed=1).
 
 #### Added
+
 - Gitter badge to the README to direct users to the group.
   - Added by [Christian Noon](https://github.com/cnoon).
 - Optional `queue` parameter to `responseImage` function.
   - Added by [Timur Galimov](https://github.com/timaktimak) in Pull Request
-  [#227](https://github.com/Alamofire/AlamofireImage/pull/227).
+    [#227](https://github.com/Alamofire/AlamofireImage/pull/227).
 - Asserts to scaling functions as well as production fallbacks.
   - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#226](https://github.com/Alamofire/AlamofireImage/issues/226).
+    [#226](https://github.com/Alamofire/AlamofireImage/issues/226).
 - GitHub templates for issues and pull requests.
   - Added by [Jon Shier](https://github.com/jshier).
 
 #### Updated
+
 - Alamofire submodule and dependency to `~> 4.5`.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - The project and codebase to support Swift 3 / 4 simultaneously.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Requests
-  [#269](https://github.com/Alamofire/AlamofireImage/pull/269) and
-  [#283](https://github.com/Alamofire/AlamofireImage/pull/283).
+    [#269](https://github.com/Alamofire/AlamofireImage/pull/269) and
+    [#283](https://github.com/Alamofire/AlamofireImage/pull/283).
 - The README to use the current version throughout the installation section.
   - Updated by [Kim de Vos](https://github.com/kimdv) in Pull Request
-  [#274](https://github.com/Alamofire/AlamofireImage/pull/274).
+    [#274](https://github.com/Alamofire/AlamofireImage/pull/274).
 - Image response serializers code sample in the README to `import Alamofire`.
   - Updated by [Brian Schermerhorn](https://github.com/elderbas) in Pull Request
-  [#276](https://github.com/Alamofire/AlamofireImage/pull/276).
+    [#276](https://github.com/Alamofire/AlamofireImage/pull/276).
 
 #### Fixed
+
 - The Swift Package Manager (SPM) integration by excluding `Tests` folder.
   - Fixed by [Jon Shier](https://github.com/jshier) in Pull Request
-  [#252](https://github.com/Alamofire/AlamofireImage/pull/252).
+    [#252](https://github.com/Alamofire/AlamofireImage/pull/252).
 - Issue in the embedded framework section of the README where `bash` specifier was incorrect.
   - Fixed by [Chris Schepman](https://github.com/cschep) in Pull Request
-  [#253](https://github.com/Alamofire/AlamofireImage/pull/253).
+    [#253](https://github.com/Alamofire/AlamofireImage/pull/253).
 - Various typos throughout the project using `misspell`.
   - Fixed by [Wolfgang Lutz](https://github.com/Lutzifer) in Pull Request
-  [#259](https://github.com/Alamofire/AlamofireImage/pull/259).
+    [#259](https://github.com/Alamofire/AlamofireImage/pull/259).
 
 ---
 
 ## [3.2.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.2.0)
+
 Released on 2016-11-20. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/20?closed=1).
 
 #### Added
+
 - A new `imageResponseSerializer` property to the `ImageDownloader`.
   - Added by [Tapani Saarinen](https://github.com/tapz) in Pull Request.
-  [#208](https://github.com/Alamofire/AlamofireImage/pull/208).
+    [#208](https://github.com/Alamofire/AlamofireImage/pull/208).
 - New embedded framework installation instructions to the README.
   - Added by [Eric Horstmanshof](https://github.com/Erulezz) in Pull Request.
-  [#213](https://github.com/Alamofire/AlamofireImage/pull/213).
+    [#213](https://github.com/Alamofire/AlamofireImage/pull/213).
 - A new iOS 8.1 target to the Travis CI device matrix.
   - Added by [Christian Noon](https://github.com/cnoon).
 
 #### Updated
+
 - The `AutoPurgingImageCache` APIs to an `open` ACL where applicable.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - The `ImageDownloader` and `RequestReceipt` APIs to an `open` ACL where applicable.
@@ -335,77 +428,86 @@ Released on 2016-11-20. All issues associated with this milestone can be found u
   - Updated by [Christian Noon](https://github.com/cnoon).
 - `UIButton` and `UIImageView` completion closures to be called after image is set.
   - Updated by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#209](https://github.com/Alamofire/AlamofireImage/issues/209).
+    [#209](https://github.com/Alamofire/AlamofireImage/issues/209).
 - The deployment targets to iOS 8.0 and macOS 10.10 to match core Alamofire project.
   - Updated by [Christian Noon](https://github.com/cnoon) in regards to Issue.
-  [#216](https://github.com/Alamofire/AlamofireImage/issues/216).
+    [#216](https://github.com/Alamofire/AlamofireImage/issues/216).
 - The Cartfile and pulled in Alamofire 4.2.0 submodule.
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 #### Removed
+
 - CoreImage filters on iOS 8.x due to runtime mapping issue with `CIContext`.
   - Removed by [Christian Noon](https://github.com/cnoon).
 
 ---
 
 ## [3.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.1.0)
+
 Released on 2016-10-01. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/19?closed=1).
 
 #### Added
+
 - New `.swift-version` file to repo and reactivated pod lib lint in Travis file.
   - Added by [Christian Noon](https://github.com/cnoon).
 - The `OS_ACTIVITY_MODE` environment variable to disable excessive logging.
   - Added by [Christian Noon](https://github.com/cnoon).
 - The new `CoreImageFilter` protocol and updated `BlurFilter` to conform to it.
   - Added by [Florian Morello](https://github.com/arsonik) in Pull Request
-  [#101](https://github.com/Alamofire/AlamofireImage/pull/101).
+    [#101](https://github.com/Alamofire/AlamofireImage/pull/101).
 - The ability to the `AutoPurgingImageCache` to remove all images matching a URL request.
   - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#105](https://github.com/Alamofire/AlamofireImage/issues/105).
+    [#105](https://github.com/Alamofire/AlamofireImage/issues/105).
 - `ImageFilter` support to the `UIButton` extension.
   - Added by [gshahbazian](https://github.com/gshahbazian) in Pull Request
-  [#129](https://github.com/Alamofire/AlamofireImage/pull/129).
+    [#129](https://github.com/Alamofire/AlamofireImage/pull/129).
 - MJPEG support to `DataRequest` extension for streaming images.
   - Added by [Robbie Trencheny](https://github.com/robbiet480) in Pull Request
-  [#185](https://github.com/Alamofire/AlamofireImage/pull/185).
+    [#185](https://github.com/Alamofire/AlamofireImage/pull/185).
 - Stream image test for `DataRequest` extension and updated docstrings.
   - Added by [Christian Noon](https://github.com/cnoon).
 
 #### Updated
+
 - The Alamofire submodule to the 4.0.1 release.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - All cases of OSX to macOS throughout the project.
   - Updated by [Justin Jia](https://github.com/JustinJiaDev) in Pull Request
-  [#181](https://github.com/Alamofire/AlamofireImage/issues/181).
+    [#181](https://github.com/Alamofire/AlamofireImage/issues/181).
 - Project settings by removing duplicate settings for individual targets.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - Project and podspec so all files are compiled on all platforms.
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 #### Fixed
+
 - A typo in `placeholderImage` parameter in several UIButton APIs.
   - Fixed by [Christian Noon](https://github.com/cnoon) in regard to Issue
-  [#180](https://github.com/Alamofire/AlamofireImage/issues/180).
+    [#180](https://github.com/Alamofire/AlamofireImage/issues/180).
 - A `CIGuassianBlur` typo in one of the README code samples.
   - Fixed by [Christian Noon](https://github.com/cnoon) in regard to Issue
-  [#189](https://github.com/Alamofire/AlamofireImage/issues/189).
+    [#189](https://github.com/Alamofire/AlamofireImage/issues/189).
 
 #### Upgrade Notes
+
 This release contains a non-backwards compatible change that fixes a typo in the `UIButton` extension where `placeholderImage` was misspelled in two APIs. Rather than push a MAJOR version release for a typo that people are generally getting incorrect, we decided to break semver here and fix the typo for everyone. Please note that we always try to follow semver as strictly as possible. However, this seemed like the best option given that users would continue to struggle with the typo throughout the lifespan of the 3.x releases.
 
 ---
 
 ## [3.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/3.0.0)
+
 Released on 2016-09-11. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/18?closed=1).
 
 #### Added
+
 - An AFI 3.0 Migration Guide and updated the README to match new APIs.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request
-  [#176](https://github.com/Alamofire/AlamofireImage/pull/176).
+    [#176](https://github.com/Alamofire/AlamofireImage/pull/176).
 
 #### Updated
+
 - All source, test and example logic as well as project settings to compile against
   the Xcode 8 beta releases.
   - Updated by [Kevin Harwood](https://github.com/kcharwood),
@@ -420,16 +522,16 @@ Released on 2016-09-11. All issues associated with this milestone can be found u
   - Updated by [Christian Noon](https://github.com/cnoon).
 - Updated the travis yaml file for Xcode 8.
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
-  [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
+    [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
 - All source, test and example APIs to match Swift 3 design guidelines.
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
-  [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
+    [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
 - All docstrings to use new Swift 3 syntax.
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
-  [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
+    [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
 - All `AssociatedKey` names to be lowercased to match Swift 3 guidelines.
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
-  [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
+    [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
 - The podspec for the 3.0.0 release and bumped deployment targets.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - Code signing to now automatic with an empty team.
@@ -438,33 +540,38 @@ Released on 2016-09-11. All issues associated with this milestone can be found u
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 #### Removed
+
 - `DispatchWorkItemFlags` implementation with async flags.
   - Removed by [Christian Noon](https://github.com/cnoon) in Pull Request
-  [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
+    [#154](https://github.com/Alamofire/AlamofireImage/pull/154).
 - `ReleaseTest` configuration by enabling testability in travis yaml file.
   - Removed by [Christian Noon](https://github.com/cnoon).
 - An `NSURL` extension from the test suite that wasn’t used.
   - Removed by [Christian Noon](https://github.com/cnoon).
 
 #### Fixed
+
 - Issue where `removeImage` API on the image cache would not remove the image.
   - Fixed by [Christian Noon](https://github.com/cnoon) in Pull Request
-  [#154](https://github.com/Alamofire/AlamofireImage/pull/154) in regards to Issue
-  [#152](https://github.com/Alamofire/AlamofireImage/issues/152).
+    [#154](https://github.com/Alamofire/AlamofireImage/pull/154) in regards to Issue
+    [#152](https://github.com/Alamofire/AlamofireImage/issues/152).
 - Compilation errors due to `AFError` refactors in Alamofire.
   - Fixed by [Christian Noon](https://github.com/cnoon).
 
 ---
 
 ## [2.5.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.5.0)
+
 Released on 2016-09-08. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/15?closed=1).
 
 #### Added
+
 - Cleanup Whitespace aggregate target and scheme and removed all excess whitespace.
   - Added by [Christian Noon](https://github.com/cnoon).
 
 #### Updated
+
 - The source, test and example code along with project settings to support Swift 2.2
   and Swift 2.3 simultaneously.
   - Updated by [Christian Noon](https://github.com/cnoon).
@@ -478,20 +585,23 @@ Released on 2016-09-08. All issues associated with this milestone can be found u
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 #### Fixed
+
 - Issue where image download cancellation error was thrown in incorrect domain.
   - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#128](https://github.com/Alamofire/AlamofireImage/issues/128).
+    [#128](https://github.com/Alamofire/AlamofireImage/issues/128).
 - Image download cancellation and restart race condition.
   - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#121](https://github.com/Alamofire/AlamofireImage/issues/121).
+    [#121](https://github.com/Alamofire/AlamofireImage/issues/121).
 
 ---
 
 ## [2.4.1](https://github.com/Alamofire/AlamofireImage/releases/tag/2.4.1)
+
 Released on 2016-07-18. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/16?closed=1).
 
 #### Updated
+
 - The dependency requirement in the README to Alamofire 3.3+.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - The Alamofire submodule to the 3.4.1 release.
@@ -500,30 +610,34 @@ Released on 2016-07-18. All issues associated with this milestone can be found u
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 #### Fixed
+
 - Issue where queue names were not using hex formatters properly.
   - Fixed by [消失的旅人](https://github.com/xsdlr) in Pull Request
-  [#119](https://github.com/Alamofire/AlamofireImage/pull/119).
+    [#119](https://github.com/Alamofire/AlamofireImage/pull/119).
 - Deprecation warning from `errorWithCode` usage by switching to explicit `NSError`
   creation logic.
   - Fixed by [Christian Noon](https://github.com/cnoon).
 
 ## [2.4.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.4.0)
+
 Released on 2016-03-23. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.4.0).
 
 #### Added
+
 - The `image/x-ms-bmp` as an acceptable Content-Type.
   - Added by [Guilherme Torres Castro](https://github.com/guitcastro) in Pull Request
-  [#88](https://github.com/Alamofire/AlamofireImage/pull/88).
+    [#88](https://github.com/Alamofire/AlamofireImage/pull/88).
 - The ability to track download progress in the `ImageDownloader` as well as
   the `UIButton` and `UIImageView` extensions.
   - Added by [Anthony Miller](https://github.com/AnthonyMDev) in Pull Request
-  [#91](https://github.com/Alamofire/AlamofireImage/pull/91).
+    [#91](https://github.com/Alamofire/AlamofireImage/pull/91).
 - The `UIButton` extension and tests to the tvOS targets.
   - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#94](https://github.com/Alamofire/AlamofireImage/issues/94).
+    [#94](https://github.com/Alamofire/AlamofireImage/issues/94).
 
 #### Updated
+
 - The Alamofire submodule to the 3.3.0 release along with the Cartfile
   and Podspec dependencies.
   - Updated by [Christian Noon](https://github.com/cnoon).
@@ -539,50 +653,57 @@ Released on 2016-03-23. All issues associated with this milestone can be found u
 ---
 
 ## [2.3.1](https://github.com/Alamofire/AlamofireImage/releases/tag/2.3.1)
+
 Released on 2016-02-07. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.3.1).
 
 #### Added
+
 - Default value to `completion` parameter in `downloadImage` API in `ImageDownloader.
   - Added by [Christian Noon](https://github.com/cnoon).
 
 #### Updated
+
 - The Alamofire submodule to the 3.2.0 release.
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 #### Removed
+
 - Superfluous APIs on `ImageDownloader`, `UIButton` and `UIImageView` extensions and replaced
   with default parameter values.
   - Removed by [Anthony Miller](https://github.com/AnthonyMDev) in Pull Request
-  [#81](https://github.com/Alamofire/AlamofireImage/pull/81).
+    [#81](https://github.com/Alamofire/AlamofireImage/pull/81).
 
 #### Fixed
+
 - Issue in `UIImage` extension where CoreImage filters were using the incorrect output frame.
   - Fixed by [Felipe](https://github.com/fsaint) in Pull Request
-  [#78](https://github.com/Alamofire/AlamofireImage/pull/78).
+    [#78](https://github.com/Alamofire/AlamofireImage/pull/78).
 - All blur filter tests across all devices and OS's.
   - Fixed by [Christian Noon](https://github.com/cnoon).
 - Issue where image response serializer was not thread-safe by switching over to
   thread-safe UIImage initializer.
   - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#75](https://github.com/Alamofire/AlamofireImage/pull/75).
+    [#75](https://github.com/Alamofire/AlamofireImage/pull/75).
 - Build warnings in Xcode 7.3 beta 2 for Swift 2.2.
   - Fixed by [James Barrow](https://github.com/Baza207) in regards to Issue
-  [#77](https://github.com/Alamofire/AlamofireImage/pull/77).
+    [#77](https://github.com/Alamofire/AlamofireImage/pull/77).
 
 ## [2.3.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.3.0)
+
 Released on 2016-01-17. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.3.0).
 
 #### Added
+
 - Alpha properties to `UIImage` extension along with unit tests.
   - Added by [Christian Noon](https://github.com/cnoon).
 - Condition to `UIImageView` test to verify active request receipt is reset.
   - Added by [Jorge Mario Orjuela Gutierrez](https://github.com/jorjuela33) in Pull Request
-  [#62](https://github.com/Alamofire/AlamofireImage/pull/62).
+    [#62](https://github.com/Alamofire/AlamofireImage/pull/62).
 - `UIButton` extension supporting remote image downloads.
   - Added by [Jorge Mario Orjuela Gutierrez](https://github.com/jorjuela33) in Pull Request
-  [#63](https://github.com/Alamofire/AlamofireImage/pull/63).
+    [#63](https://github.com/Alamofire/AlamofireImage/pull/63).
 - Tests verifying `Accept` header is set properly for button image downloads.
   - Added by [Christian Noon](https://github.com/cnoon).
 - `UIButton` extension tests around cancelling and restarting image downloads.
@@ -591,14 +712,15 @@ Released on 2016-01-17. All issues associated with this milestone can be found u
   - Added by [Christian Noon](https://github.com/cnoon).
 - `Carthage/Build` ignore flag to the `.gitignore` file to match Alamofire.
   - Added by [Lars Anderson](https://github.com/larsacus) in Pull Request
-  [#71](https://github.com/Alamofire/AlamofireImage/pull/71).
+    [#71](https://github.com/Alamofire/AlamofireImage/pull/71).
 - `Package.swift` file to support Swift Package Manager (SPM).
   - Added by [Christian Noon](https://github.com/cnoon).
 
 #### Updated
+
 - `UIImage` scaling now uses `af_isOpaque` property where applicable.
   - Updated by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#65](https://github.com/Alamofire/AlamofireImage/issues/65).
+    [#65](https://github.com/Alamofire/AlamofireImage/issues/65).
 - Refactored `UIButton` extension and tests to more closely follow coding standards.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - Simplified `UIImageView` tests replacing KVO by overriding the image property.
@@ -617,56 +739,63 @@ Released on 2016-01-17. All issues associated with this milestone can be found u
 ---
 
 ## [2.2.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.2.0)
+
 Released on 2015-12-16. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.2.0).
 
 #### Added
+
 - Ability for `ImageDownloader` to enqueue multiple image downloads at once.
   - Added by [Jeff Kelley](https://github.com/SlaunchaMan) in Pull Request
-  [#51](https://github.com/Alamofire/AlamofireImage/pull/51).
+    [#51](https://github.com/Alamofire/AlamofireImage/pull/51).
 - Tests to verify image view can cancel and restart the same request.
   - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#55](https://github.com/Alamofire/AlamofireImage/pull/55).
+    [#55](https://github.com/Alamofire/AlamofireImage/pull/55).
 - Precondition to `ImageCache` ensuring memory capacity is GTE preferred usage after purge.
   - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#56](https://github.com/Alamofire/AlamofireImage/pull/56).
+    [#56](https://github.com/Alamofire/AlamofireImage/pull/56).
 - Ability for image transitions to run when image is cached if specified.
   - Added by [Jarrod Robins](https://github.com/jarrodrobins) in Pull Request
-  [#50](https://github.com/Alamofire/AlamofireImage/pull/50).
+    [#50](https://github.com/Alamofire/AlamofireImage/pull/50).
 - Test to verify Accept header is set correctly on `UIImageView` extension.
   - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#60](https://github.com/Alamofire/AlamofireImage/pull/60).
+    [#60](https://github.com/Alamofire/AlamofireImage/pull/60).
 - Added `ReleaseTest` configuration to allow running tests against optimized build.
   - Added by [Christian Noon](https://github.com/cnoon).
 
 #### Updated
+
 - Project to disable testability on release and to only build tests on when testing.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - The Travis-CI configuration to Xcode 7.2, iOS 9.2, tvOS 9.1 and watchOS 2.1.
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 #### Fixed
+
 - Issue where image was not downloaded when cancelled and restarted.
   - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#55](https://github.com/Alamofire/AlamofireImage/pull/55).
+    [#55](https://github.com/Alamofire/AlamofireImage/pull/55).
 - Issue where `af_setImageWithURL` was not using acceptable content types.
   - Fixed by [Branden Russell](https://github.com/brandenr) in Pull Request
-  [#61](https://github.com/Alamofire/AlamofireImage/pull/61).
+    [#61](https://github.com/Alamofire/AlamofireImage/pull/61).
 
 ---
 
 ## [2.1.1](https://github.com/Alamofire/AlamofireImage/releases/tag/2.1.1)
+
 Released on 2015-11-22. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.1.1).
 
 #### Added
+
 - Note to the README about storing a strong ref to image downloaders.
   - Added by [Muhammad Ishaq](https://github.com/ishaq) in Pull Request
-  [#45](https://github.com/Alamofire/AlamofireImage/pull/45).
+    [#45](https://github.com/Alamofire/AlamofireImage/pull/45).
 - Custom `Info.plist` for tvOS setting the `UIRequiredDeviceCapabilities` to `arm64`.
   - Added by [Christian Noon](https://github.com/cnoon).
 
 #### Updated
+
 - The `sessionManager` ACL in the `ImageDownloader` to allow access to the underlying
   session and configuration.
   - Updated by [Christian Noon](https://github.com/cnoon).
@@ -674,10 +803,12 @@ Released on 2015-11-22. All issues associated with this milestone can be found u
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 ## [2.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.1.0)
+
 Released on 2015-10-24. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.1.0).
 
 #### Added
+
 - New tvOS framework and test targets to the project.
   - Added by [Christian Noon](https://github.com/cnoon).
 - The tvOS deployment target to the podspec.
@@ -686,6 +817,7 @@ Released on 2015-10-24. All issues associated with this milestone can be found u
   - Added by [Christian Noon](https://github.com/cnoon).
 
 #### Updated
+
 - The README to include tvOS and bumped the required version of Xcode.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - The default tvOS and watchOS deployment targets in the Xcode project.
@@ -696,48 +828,56 @@ Released on 2015-10-24. All issues associated with this milestone can be found u
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 #### Fixed
+
 - Several typos in the `AutoPurgingImageCache` section of the README.
   - Fixed by [Nate Cook](https://github.com/natecook1000) in Pull Request
-  [#39](https://github.com/Alamofire/AlamofireImage/pull/39).
+    [#39](https://github.com/Alamofire/AlamofireImage/pull/39).
 
 ---
 
 ## [2.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/2.0.0)
+
 Released on 2015-10-17. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.0.0).
 
 #### Updated
+
 - The cocoapods and carthage instructions in the README.
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 ---
 
 ## [2.0.0-beta.2](https://github.com/Alamofire/AlamofireImage/releases/tag/2.0.0-beta.2)
+
 Released on 2015-10-14. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.0.0-beta.2).
 
 #### Added
+
 - Ability to use a custom `ImageDownloader` per `UIImageView` instance.
   - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
-  [#31](https://github.com/Alamofire/AlamofireImage/pull/31).
+    [#31](https://github.com/Alamofire/AlamofireImage/pull/31).
 - New `ImageDownloader` initializer accepting a custom `Manager` instance using dependency injection.
   - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
-  [#32](https://github.com/Alamofire/AlamofireImage/pull/32).
+    [#32](https://github.com/Alamofire/AlamofireImage/pull/32).
 - Ability to add additional acceptable image content types for `Request` validation.
   - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
-  [#33](https://github.com/Alamofire/AlamofireImage/pull/33) to address Issues
-  [#28](https://github.com/Alamofire/AlamofireImage/issues/28) and
-  [#29](https://github.com/Alamofire/AlamofireImage/issues/29).
+    [#33](https://github.com/Alamofire/AlamofireImage/pull/33) to address Issues
+    [#28](https://github.com/Alamofire/AlamofireImage/issues/28) and
+    [#29](https://github.com/Alamofire/AlamofireImage/issues/29).
 
 #### Fixed
+
 - Cancelled request completion closures are now called on the main queue.
   - Fixed by [Christian Noon](https://github.com/cnoon).
 
 ## [2.0.0-beta.1](https://github.com/Alamofire/AlamofireImage/releases/tag/2.0.0-beta.1)
+
 Released on 2015-09-27. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A2.0.0-beta.1).
 
 #### Added
+
 - The AlamofireImage 2.0 Migration Guide and also added to the README.
   - Added by [Christian Noon](https://github.com/cnoon).
 - A new `RequestReceipt` struct to the `ImageDownloader` to improve cancellation reasoning.
@@ -748,6 +888,7 @@ Released on 2015-09-27. All issues associated with this milestone can be found u
   - Added by [Christian Noon](https://github.com/cnoon).
 
 #### Updated
+
 - Cartfile to pick up latest changes from the `master` branch of Alamofire 3.0.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - All source logic to use the Alamofire 3.0 APIs.
@@ -760,103 +901,118 @@ Released on 2015-09-27. All issues associated with this milestone can be found u
 ---
 
 ## [1.1.2](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.2)
+
 Released on 2015-09-26. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.1.2).
 
 #### Added
+
 - Tests verifying response image serializers support file URLs.
   - Added by [Alexander Edge](https://github.com/alexanderedge) in regards to Pull Request
-  [#19](https://github.com/Alamofire/AlamofireImage/pull/19).
+    [#19](https://github.com/Alamofire/AlamofireImage/pull/19).
 - Tests verifying cached image is set on `UIImageView` if completion closure is set.
   - Added by [Kevin Harwood](https://github.com/kcharwood) in Pull Request
-  [#20](https://github.com/Alamofire/AlamofireImage/pull/20).
+    [#20](https://github.com/Alamofire/AlamofireImage/pull/20).
 
 #### Updated
+
 - The `Request` extension to validate file URLs making test mocking easier.
   - Updated by [Alexander Edge](https://github.com/alexanderedge) in Pull Request
-  [#19](https://github.com/Alamofire/AlamofireImage/pull/19).
+    [#19](https://github.com/Alamofire/AlamofireImage/pull/19).
 
 #### Fixed
+
 - Issue where cached image was not set on a `UIImageView` if completion closure was set.
   - Fixed by [Kevin Harwood](https://github.com/kcharwood) in Pull Request
-  [#20](https://github.com/Alamofire/AlamofireImage/pull/20).
+    [#20](https://github.com/Alamofire/AlamofireImage/pull/20).
 
 ## [1.1.1](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.1)
+
 Released on 2015-09-22. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.1.1).
 
 #### Added
+
 - Tests around the UIImageView extension usage with redirect URLs.
   - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#15](https://github.com/Alamofire/AlamofireImage/pull/15).
+    [#15](https://github.com/Alamofire/AlamofireImage/pull/15).
 - Tests around the UIImageView extension usage with duplicate image requests.
   - Added by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#17](https://github.com/Alamofire/AlamofireImage/pull/17).
+    [#17](https://github.com/Alamofire/AlamofireImage/pull/17).
 
 #### Fixed
+
 - Issue where `UIImageView` extension did not support redirect URLs.
   - Fixed by [Robert Payne](https://github.com/robertjpayne) in Pull Request
-  [#16](https://github.com/Alamofire/AlamofireImage/pull/16).
+    [#16](https://github.com/Alamofire/AlamofireImage/pull/16).
 - Issue where duplicate image requests were cancelling the active image download
-in the `UIImageView` extension.
+  in the `UIImageView` extension.
   - Fixed by [Christian Noon](https://github.com/cnoon) in regards to Issue
-  [#17](https://github.com/Alamofire/AlamofireImage/pull/17).
+    [#17](https://github.com/Alamofire/AlamofireImage/pull/17).
 
 ## [1.1.0](https://github.com/Alamofire/AlamofireImage/releases/tag/1.1.0)
+
 Released on 2015-09-19. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.1.0).
 
 #### Added
+
 - Custom image transition to the `UIImageView` extension.
   - Added by [Kevin Harwood](https://github.com/kcharwood) in Pull Request
-  [#9](https://github.com/Alamofire/AlamofireImage/pull/9).
+    [#9](https://github.com/Alamofire/AlamofireImage/pull/9).
 - CompositeImageFilter protocol to construct composite image filters.
   - Added by [Damien Rambout](https://github.com/damienrambout) in Pull Request
-  [#8](https://github.com/Alamofire/AlamofireImage/pull/8).
+    [#8](https://github.com/Alamofire/AlamofireImage/pull/8).
 - `DynamicImageFilter` and `DynamicCompositeImageFilter` structs to make it easy
-to create custom image filters.
+  to create custom image filters.
   - Added by [Damien Rambout](https://github.com/damienrambout) in Pull Request
-  [#14](https://github.com/Alamofire/AlamofireImage/pull/14).
+    [#14](https://github.com/Alamofire/AlamofireImage/pull/14).
 
 #### Updated
+
 - `ImageDownloader` download image completion closures to be optional.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - Completion callback behavior of the `UIImageView` extension methods to be called before
-the image transition occurs.
+  the image transition occurs.
   - Updated by [Kevin Harwood](https://github.com/kcharwood) in Pull Request
-  [#9](https://github.com/Alamofire/AlamofireImage/pull/9).
+    [#9](https://github.com/Alamofire/AlamofireImage/pull/9).
 - Rounded corner radius image filter can now be adjusted by the image scale.
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
-  [#10](https://github.com/Alamofire/AlamofireImage/pull/10).
+    [#10](https://github.com/Alamofire/AlamofireImage/pull/10).
 - Enabled APPLICATION_EXTENSION_API_ONLY in watchOS framework.
   - Updated by [James Barrow](https://github.com/Baza207) in Pull Request
-  [#11](https://github.com/Alamofire/AlamofireImage/pull/11).
+    [#11](https://github.com/Alamofire/AlamofireImage/pull/11).
 - The podspec file to allow all Alamofire 2.x versions.
   - Updated by [Christian Noon](https://github.com/cnoon).
 
 ## [1.0.0](https://github.com/Alamofire/AlamofireImage/releases/tag/1.0.0)
+
 Released on 2015-09-09. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/issues?utf8=✓&q=milestone%3A1.0.0).
 
 #### Updated
+
 - Alamofire dependency to `~> 2.0` for CocoaPods and Carthage.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - Alamofire submodule to 2.0.0 release commit.
   - Updated by [Christian Noon](https://github.com/cnoon).
 - Xcode `APPLICATION_EXTENSION_API_ONLY` to `YES` for iOS and OSX frameworks.
   - Updated by [Matt Delves](https://github.com/mattdelves) in Pull Request
-  [#4](https://github.com/Alamofire/AlamofireImage/pull/4).
+    [#4](https://github.com/Alamofire/AlamofireImage/pull/4).
 
 #### Fixed
+
 - Issue in `ImageDownloader` where the wrong image was being stored in the image cache.
   - Fixed by [Robin Eggenkamp](https://github.com/Edubits) in Pull Request
-  [#3](https://github.com/Alamofire/AlamofireImage/pull/3).
+    [#3](https://github.com/Alamofire/AlamofireImage/pull/3).
 
 ---
 
 ## [1.0.0-beta.1](https://github.com/Alamofire/AlamofireImage/releases/tag/1.0.0-beta.1)
+
 Released on 2015-09-05.
 
 #### Added
+
 - Initial release of AlamofireImage.
   - Added by [Christian Noon](https://github.com/cnoon).
