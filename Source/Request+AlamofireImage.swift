@@ -273,7 +273,7 @@ extension DataRequest {
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 extension DataRequest {
-    public func serializingImage(automaticallyCancelling shouldAutomaticallyCancel: Bool = false,
+    public func serializingImage(automaticallyCancelling shouldAutomaticallyCancel: Bool = true,
                                  imageScale: CGFloat = DataRequest.imageScale,
                                  inflateResponseImage: Bool = true,
                                  emptyResponseCodes: Set<Int> = ImageResponseSerializer.defaultEmptyResponseCodes,
