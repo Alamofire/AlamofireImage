@@ -25,7 +25,7 @@
 import Alamofire
 import Foundation
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
 import UIKit
 #elseif os(macOS)
 import Cocoa

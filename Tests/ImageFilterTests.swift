@@ -33,7 +33,7 @@ import XCTest
 final class ImageFilterTestCase: BaseTestCase {
     let squareSize = CGSize(width: 50, height: 50)
     let largeSquareSize = CGSize(width: 100, height: 100)
-    let scale = DataRequest.imageScale
+    let scale = Int(DataRequest.imageScale)
 
     // MARK: - ImageFilter Protocol Extension Identifiers
 
@@ -109,7 +109,7 @@ final class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(forResource: "pirate-scaled-50x50-@\(Int(scale))x", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "pirate-scaled-50x50-@\(scale)x", withExtension: "png")
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
@@ -126,7 +126,7 @@ final class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(forResource: "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(Int(scale))x",
+        let expectedFilteredImage = self.image(forResource: "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
                                                withExtension: "png")
 
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
@@ -143,7 +143,7 @@ final class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(forResource: "pirate-scaled-50x50-@\(Int(scale))x", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "pirate-scaled-50x50-@\(scale)x", withExtension: "png")
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
@@ -156,7 +156,7 @@ final class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fit-50x50-@\(Int(scale))x", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fit-50x50-@\(scale)x", withExtension: "png")
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
@@ -169,7 +169,7 @@ final class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fill-50x50-@\(Int(scale))x", withExtension: "png")
+        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fill-50x50-@\(scale)x", withExtension: "png")
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
     }
 
@@ -233,7 +233,7 @@ final class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(forResource: "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(Int(scale))x",
+        let expectedFilteredImage = self.image(forResource: "pirate-scaled.to.size.with.rounded.corners-100x100x20-@\(scale)x",
                                                withExtension: "png")
 
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
@@ -249,7 +249,7 @@ final class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@\(Int(scale))x",
+        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@\(scale)x",
                                                withExtension: "png")
 
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
@@ -264,7 +264,7 @@ final class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(forResource: "pirate-scaled.to.size.circle-100x100-@\(Int(scale))x",
+        let expectedFilteredImage = self.image(forResource: "pirate-scaled.to.size.circle-100x100-@\(scale)x",
                                                withExtension: "png")
 
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")
@@ -279,7 +279,7 @@ final class ImageFilterTestCase: BaseTestCase {
         let filteredImage = filter.filter(image)
 
         // Then
-        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fill.size.circle-100x100-@\(Int(scale))x",
+        let expectedFilteredImage = self.image(forResource: "pirate-aspect.scaled.to.fill.size.circle-100x100-@\(scale)x",
                                                withExtension: "png")
 
         XCTAssertTrue(filteredImage.af.isEqualToImage(expectedFilteredImage), "filtered image pixels do not match")

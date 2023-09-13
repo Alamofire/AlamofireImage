@@ -25,7 +25,7 @@
 import Alamofire
 import Foundation
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
 import UIKit
 #elseif os(macOS)
 import Cocoa
@@ -81,7 +81,7 @@ open class AutoPurgingImageCache: ImageRequestCache {
             lastAccessDate = Date()
 
             totalBytes = {
-                #if os(iOS) || os(tvOS) || os(watchOS)
+                #if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
                 let size = CGSize(width: image.size.width * image.scale, height: image.size.height * image.scale)
                 #elseif os(macOS)
                 let size = CGSize(width: image.size.width, height: image.size.height)
@@ -148,7 +148,7 @@ open class AutoPurgingImageCache: ImageRequestCache {
             return DispatchQueue(label: name, attributes: .concurrent)
         }()
 
-        #if os(iOS) || os(tvOS)
+        #if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
         let notification = UIApplication.didReceiveMemoryWarningNotification
 
         NotificationCenter.default.addObserver(self,

@@ -25,7 +25,7 @@
 import Foundation
 import UIKit
 
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     #if swift(>=4.2)

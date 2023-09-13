@@ -24,7 +24,7 @@
 
 import Foundation
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
 import UIKit
 #elseif os(macOS)
 import Cocoa
@@ -150,7 +150,7 @@ public struct DynamicCompositeImageFilter: CompositeImageFilter {
     }
 }
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
 
 // MARK: - Single Pass Image Filters (iOS, tvOS and watchOS only) -
 
@@ -284,7 +284,7 @@ public struct CircleFilter: ImageFilter {
 
 // MARK: -
 
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
 
 /// The `CoreImageFilter` protocol defines `parameters`, `filterName` properties used by CoreImage.
 public protocol CoreImageFilter: ImageFilter {

@@ -150,6 +150,15 @@
 		314EA7F429346A670021C5F4 /* apple-aspect.scaled.to.fill-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872F71B93EFFB00407E58 /* apple-aspect.scaled.to.fill-30x60-@2x.png */; };
 		314EA7F529346A670021C5F4 /* apple-aspect.scaled.to.fill-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872FC1B93EFFB00407E58 /* apple-aspect.scaled.to.fill-60x30-@1x.png */; };
 		314EA7F629346A670021C5F4 /* rainbow-aspect.scaled.to.fill-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873091B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-30x60-@2x.png */; };
+		316A6C432A83DCA400311D98 /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A081AB52BD90004D0B8 /* ImageFilter.swift */; };
+		316A6C442A83DCA400311D98 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96A4771AAE9488008AE0B6 /* ImageDownloader.swift */; };
+		316A6C452A83DCA400311D98 /* UIImageView+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C78EA711AACD28C002C0569 /* UIImageView+AlamofireImage.swift */; };
+		316A6C462A83DCA400311D98 /* AFIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5BCE91D7F9D1E0055E232 /* AFIError.swift */; };
+		316A6C472A83DCA400311D98 /* UIImage+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C53084F1AB561BF0051DBAC /* UIImage+AlamofireImage.swift */; };
+		316A6C482A83DCA400311D98 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC0A051AB4FEC90004D0B8 /* ImageCache.swift */; };
+		316A6C492A83DCA400311D98 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8290791B927CE6005E24C8 /* Image.swift */; };
+		316A6C4A2A83DCA400311D98 /* Request+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE611541AABC8D900D35044 /* Request+AlamofireImage.swift */; };
+		316A6C4B2A83DCA400311D98 /* UIButton+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF411C253CB100904E85 /* UIButton+AlamofireImage.swift */; };
 		317911BD290F9AEE00BF6504 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4D4EC11B92976900C96855 /* AlamofireImage.framework */; };
 		317911C3290F9B3200BF6504 /* RequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0897EA1B93BC0D005125D9 /* RequestTests.swift */; };
 		317911C4290F9B3D00BF6504 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
@@ -159,6 +168,159 @@
 		317911C8290F9B5C00BF6504 /* AFError+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5BCF41D7FBE380055E232 /* AFError+AlamofireImageTests.swift */; };
 		317911C9290F9B5C00BF6504 /* CGSize.ScreenScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */; };
 		317911CA290F9B5C00BF6504 /* UIImage+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */; };
+		31C0641C2AA7A4A100D76648 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31C0641B2AA7A4A100D76648 /* Alamofire.framework */; };
+		31C064252AA7AE2900D76648 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 316A6C3C2A83DC1900311D98 /* AlamofireImage.framework */; };
+		31C0642B2AA7AE5A00D76648 /* CGSize.ScreenScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */; };
+		31C0642C2AA7AE5A00D76648 /* AFResult+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7DD7EE224EC07000249836 /* AFResult+AlamofireImageTests.swift */; };
+		31C0642D2AA7AE5A00D76648 /* UIImage+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */; };
+		31C0642E2AA7AE5A00D76648 /* AFError+AlamofireImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5BCF41D7FBE380055E232 /* AFError+AlamofireImageTests.swift */; };
+		31C0642F2AA7AE5E00D76648 /* ThrowingURLRequestConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30AFF7B23F49CC500883238 /* ThrowingURLRequestConvertible.swift */; };
+		31C064302AA7AE5E00D76648 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D662619207200CEAD2B /* TestHelpers.swift */; };
+		31C064312AA7AE7100D76648 /* apple-aspect.scaled.to.fill-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872F61B93EFFB00407E58 /* apple-aspect.scaled.to.fill-30x60-@1x.png */; };
+		31C064322AA7AE7100D76648 /* apple-aspect.scaled.to.fill-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872F91B93EFFB00407E58 /* apple-aspect.scaled.to.fill-50x50-@1x.png */; };
+		31C064332AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873121B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-30x60-@2x.png */; };
+		31C064342AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873061B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-60x30-@2x.png */; };
+		31C064352AA7AE7100D76648 /* apple-aspect.scaled.to.fill-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872FE1B93EFFB00407E58 /* apple-aspect.scaled.to.fill-60x30-@3x.png */; };
+		31C064362AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873151B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-50x50-@2x.png */; };
+		31C064372AA7AE7100D76648 /* apple-aspect.scaled.to.fill-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872FD1B93EFFB00407E58 /* apple-aspect.scaled.to.fill-60x30-@2x.png */; };
+		31C064382AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873021B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-50x50-@1x.png */; };
+		31C064392AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873051B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-60x30-@1x.png */; };
+		31C0643A2AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58730F1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-60x30-@2x.png */; };
+		31C0643B2AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873041B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-50x50-@3x.png */; };
+		31C0643C2AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873181B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-60x30-@2x.png */; };
+		31C0643D2AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873001B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-30x60-@2x.png */; };
+		31C0643E2AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58730E1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-60x30-@1x.png */; };
+		31C0643F2AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873101B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-60x30-@3x.png */; };
+		31C064402AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873141B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-50x50-@1x.png */; };
+		31C064412AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873191B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-60x30-@3x.png */; };
+		31C064422AA7AE7100D76648 /* apple-aspect.scaled.to.fill-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872F71B93EFFB00407E58 /* apple-aspect.scaled.to.fill-30x60-@2x.png */; };
+		31C064432AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58730D1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-50x50-@3x.png */; };
+		31C064442AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873171B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-60x30-@1x.png */; };
+		31C064452AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872FF1B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-30x60-@1x.png */; };
+		31C064462AA7AE7100D76648 /* apple-aspect.scaled.to.fill-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872FC1B93EFFB00407E58 /* apple-aspect.scaled.to.fill-60x30-@1x.png */; };
+		31C064472AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873031B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-50x50-@2x.png */; };
+		31C064482AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873111B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-30x60-@1x.png */; };
+		31C064492AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873161B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-50x50-@3x.png */; };
+		31C0644A2AA7AE7100D76648 /* apple-aspect.scaled.to.fill-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872F81B93EFFB00407E58 /* apple-aspect.scaled.to.fill-30x60-@3x.png */; };
+		31C0644B2AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58730C1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-50x50-@2x.png */; };
+		31C0644C2AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873011B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-30x60-@3x.png */; };
+		31C0644D2AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873081B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-30x60-@1x.png */; };
+		31C0644E2AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873071B93EFFB00407E58 /* pirate-aspect.scaled.to.fill-60x30-@3x.png */; };
+		31C0644F2AA7AE7100D76648 /* apple-aspect.scaled.to.fill-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872FB1B93EFFB00407E58 /* apple-aspect.scaled.to.fill-50x50-@3x.png */; };
+		31C064502AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873091B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-30x60-@2x.png */; };
+		31C064512AA7AE7100D76648 /* apple-aspect.scaled.to.fill-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5872FA1B93EFFB00407E58 /* apple-aspect.scaled.to.fill-50x50-@2x.png */; };
+		31C064522AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58730B1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-50x50-@1x.png */; };
+		31C064532AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873131B93EFFB00407E58 /* unicorn-aspect.scaled.to.fill-30x60-@3x.png */; };
+		31C064542AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58730A1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fill-30x60-@3x.png */; };
+		31C064552AA7AE7700D76648 /* pirate-aspect.scaled.to.fill.size.circle-100x100-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58731B1B93EFFB00407E58 /* pirate-aspect.scaled.to.fill.size.circle-100x100-@1x.png */; };
+		31C064562AA7AE7700D76648 /* pirate-aspect.scaled.to.fill.size.circle-100x100-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58731D1B93EFFB00407E58 /* pirate-aspect.scaled.to.fill.size.circle-100x100-@3x.png */; };
+		31C064572AA7AE7700D76648 /* pirate-aspect.scaled.to.fill.size.circle-100x100-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58731C1B93EFFB00407E58 /* pirate-aspect.scaled.to.fill.size.circle-100x100-@2x.png */; };
+		31C064582AA7AE7B00D76648 /* pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873201B93EFFB00407E58 /* pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@2x.png */; };
+		31C064592AA7AE7B00D76648 /* pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58731F1B93EFFB00407E58 /* pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@1x.png */; };
+		31C0645A2AA7AE7B00D76648 /* pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873211B93EFFB00407E58 /* pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@3x.png */; };
+		31C0645B2AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58732E1B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-30x60-@3x.png */; };
+		31C0645C2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873441B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-60x30-@1x.png */; };
+		31C0645D2AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873321B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-60x30-@1x.png */; };
+		31C0645E2AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873371B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-30x60-@3x.png */; };
+		31C0645F2AA7AE8100D76648 /* apple-aspect.scaled.to.fit-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873261B93EFFB00407E58 /* apple-aspect.scaled.to.fit-50x50-@1x.png */; };
+		31C064602AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873311B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-50x50-@3x.png */; };
+		31C064612AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873391B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-50x50-@2x.png */; };
+		31C064622AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873301B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-50x50-@2x.png */; };
+		31C064632AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873351B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-30x60-@1x.png */; };
+		31C064642AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58733B1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-60x30-@1x.png */; };
+		31C064652AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873361B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-30x60-@2x.png */; };
+		31C064662AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873381B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-50x50-@1x.png */; };
+		31C064672AA7AE8100D76648 /* apple-aspect.scaled.to.fit-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873271B93EFFB00407E58 /* apple-aspect.scaled.to.fit-50x50-@2x.png */; };
+		31C064682AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58733A1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-50x50-@3x.png */; };
+		31C064692AA7AE8100D76648 /* apple-aspect.scaled.to.fit-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873241B93EFFB00407E58 /* apple-aspect.scaled.to.fit-30x60-@2x.png */; };
+		31C0646A2AA7AE8100D76648 /* apple-aspect.scaled.to.fit-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873291B93EFFB00407E58 /* apple-aspect.scaled.to.fit-60x30-@1x.png */; };
+		31C0646B2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873411B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-50x50-@1x.png */; };
+		31C0646C2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873431B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-50x50-@3x.png */; };
+		31C0646D2AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58733C1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-60x30-@2x.png */; };
+		31C0646E2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873401B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-30x60-@3x.png */; };
+		31C0646F2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873421B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-50x50-@2x.png */; };
+		31C064702AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58733E1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-30x60-@1x.png */; };
+		31C064712AA7AE8100D76648 /* apple-aspect.scaled.to.fit-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873251B93EFFB00407E58 /* apple-aspect.scaled.to.fit-30x60-@3x.png */; };
+		31C064722AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873331B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-60x30-@2x.png */; };
+		31C064732AA7AE8100D76648 /* apple-aspect.scaled.to.fit-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873281B93EFFB00407E58 /* apple-aspect.scaled.to.fit-50x50-@3x.png */; };
+		31C064742AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58732D1B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-30x60-@2x.png */; };
+		31C064752AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873341B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-60x30-@3x.png */; };
+		31C064762AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58732F1B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-50x50-@1x.png */; };
+		31C064772AA7AE8100D76648 /* apple-aspect.scaled.to.fit-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58732B1B93EFFB00407E58 /* apple-aspect.scaled.to.fit-60x30-@3x.png */; };
+		31C064782AA7AE8100D76648 /* apple-aspect.scaled.to.fit-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873231B93EFFB00407E58 /* apple-aspect.scaled.to.fit-30x60-@1x.png */; };
+		31C064792AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58732C1B93EFFB00407E58 /* pirate-aspect.scaled.to.fit-30x60-@1x.png */; };
+		31C0647A2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58733F1B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-30x60-@2x.png */; };
+		31C0647B2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873451B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-60x30-@2x.png */; };
+		31C0647C2AA7AE8100D76648 /* apple-aspect.scaled.to.fit-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58732A1B93EFFB00407E58 /* apple-aspect.scaled.to.fit-60x30-@2x.png */; };
+		31C0647D2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873461B93EFFB00407E58 /* unicorn-aspect.scaled.to.fit-60x30-@3x.png */; };
+		31C0647E2AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58733D1B93EFFB00407E58 /* rainbow-aspect.scaled.to.fit-60x30-@3x.png */; };
+		31C0647F2AA7AE8500D76648 /* pirate-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873491B93EFFB00407E58 /* pirate-circle.png */; };
+		31C064802AA7AE8500D76648 /* rainbow-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734A1B93EFFB00407E58 /* rainbow-circle.png */; };
+		31C064812AA7AE8500D76648 /* unicorn-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734B1B93EFFB00407E58 /* unicorn-circle.png */; };
+		31C064822AA7AE8500D76648 /* apple-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873481B93EFFB00407E58 /* apple-circle.png */; };
+		31C064832AA7AE8A00D76648 /* unicorn-blurred-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEA70E51DE163B000E631C6 /* unicorn-blurred-8.png */; };
+		31C064842AA7AE8A00D76648 /* unicorn-sepia.tone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58734E1B93EFFB00407E58 /* unicorn-sepia.tone.png */; };
+		31C064852AA7AE8A00D76648 /* unicorn-blurred-8-ios-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C38F7C82402F98600C63ECC /* unicorn-blurred-8-ios-13.png */; };
+		31C064862AA7AE8F00D76648 /* pirate-radius-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873511B93EFFB00407E58 /* pirate-radius-20.png */; };
+		31C064872AA7AE8F00D76648 /* unicorn-radius-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873531B93EFFB00407E58 /* unicorn-radius-20.png */; };
+		31C064882AA7AE8F00D76648 /* apple-radius-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873501B93EFFB00407E58 /* apple-radius-20.png */; };
+		31C064892AA7AE8F00D76648 /* rainbow-radius-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873521B93EFFB00407E58 /* rainbow-radius-20.png */; };
+		31C0648A2AA7AE9300D76648 /* rainbow-scaled-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58736C1B93EFFB00407E58 /* rainbow-scaled-50x50-@3x.png */; };
+		31C0648B2AA7AE9300D76648 /* apple-scaled-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58735D1B93EFFB00407E58 /* apple-scaled-60x30-@3x.png */; };
+		31C0648C2AA7AE9300D76648 /* unicorn-scaled-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873711B93EFFB00407E58 /* unicorn-scaled-30x60-@2x.png */; };
+		31C0648D2AA7AE9300D76648 /* apple-scaled-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58735C1B93EFFB00407E58 /* apple-scaled-60x30-@2x.png */; };
+		31C0648E2AA7AE9300D76648 /* apple-scaled-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873581B93EFFB00407E58 /* apple-scaled-50x50-@1x.png */; };
+		31C0648F2AA7AE9300D76648 /* pirate-scaled-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873641B93EFFB00407E58 /* pirate-scaled-60x30-@1x.png */; };
+		31C064902AA7AE9300D76648 /* rainbow-scaled-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58736D1B93EFFB00407E58 /* rainbow-scaled-60x30-@1x.png */; };
+		31C064912AA7AE9300D76648 /* unicorn-scaled-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873721B93EFFB00407E58 /* unicorn-scaled-30x60-@3x.png */; };
+		31C064922AA7AE9300D76648 /* unicorn-scaled-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873781B93EFFB00407E58 /* unicorn-scaled-60x30-@3x.png */; };
+		31C064932AA7AE9300D76648 /* rainbow-scaled-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58736A1B93EFFB00407E58 /* rainbow-scaled-50x50-@1x.png */; };
+		31C064942AA7AE9300D76648 /* unicorn-scaled-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873701B93EFFB00407E58 /* unicorn-scaled-30x60-@1x.png */; };
+		31C064952AA7AE9300D76648 /* pirate-scaled-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873601B93EFFB00407E58 /* pirate-scaled-30x60-@3x.png */; };
+		31C064962AA7AE9300D76648 /* rainbow-scaled-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58736E1B93EFFB00407E58 /* rainbow-scaled-60x30-@2x.png */; };
+		31C064972AA7AE9300D76648 /* unicorn-scaled-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873771B93EFFB00407E58 /* unicorn-scaled-60x30-@2x.png */; };
+		31C064982AA7AE9300D76648 /* unicorn-scaled-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873741B93EFFB00407E58 /* unicorn-scaled-50x50-@2x.png */; };
+		31C064992AA7AE9300D76648 /* apple-scaled-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58735B1B93EFFB00407E58 /* apple-scaled-60x30-@1x.png */; };
+		31C0649A2AA7AE9300D76648 /* pirate-scaled-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58735E1B93EFFB00407E58 /* pirate-scaled-30x60-@1x.png */; };
+		31C0649B2AA7AE9300D76648 /* pirate-scaled-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873611B93EFFB00407E58 /* pirate-scaled-50x50-@1x.png */; };
+		31C0649C2AA7AE9300D76648 /* apple-scaled-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873591B93EFFB00407E58 /* apple-scaled-50x50-@2x.png */; };
+		31C0649D2AA7AE9300D76648 /* rainbow-scaled-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873671B93EFFB00407E58 /* rainbow-scaled-30x60-@1x.png */; };
+		31C0649E2AA7AE9300D76648 /* apple-scaled-30x60-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873551B93EFFB00407E58 /* apple-scaled-30x60-@1x.png */; };
+		31C0649F2AA7AE9300D76648 /* apple-scaled-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58735A1B93EFFB00407E58 /* apple-scaled-50x50-@3x.png */; };
+		31C064A02AA7AE9300D76648 /* pirate-scaled-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873621B93EFFB00407E58 /* pirate-scaled-50x50-@2x.png */; };
+		31C064A12AA7AE9300D76648 /* pirate-scaled-60x30-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873651B93EFFB00407E58 /* pirate-scaled-60x30-@2x.png */; };
+		31C064A22AA7AE9300D76648 /* rainbow-scaled-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58736F1B93EFFB00407E58 /* rainbow-scaled-60x30-@3x.png */; };
+		31C064A32AA7AE9300D76648 /* pirate-scaled-60x30-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873661B93EFFB00407E58 /* pirate-scaled-60x30-@3x.png */; };
+		31C064A42AA7AE9300D76648 /* rainbow-scaled-50x50-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58736B1B93EFFB00407E58 /* rainbow-scaled-50x50-@2x.png */; };
+		31C064A52AA7AE9300D76648 /* pirate-scaled-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58735F1B93EFFB00407E58 /* pirate-scaled-30x60-@2x.png */; };
+		31C064A62AA7AE9300D76648 /* pirate-scaled-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873631B93EFFB00407E58 /* pirate-scaled-50x50-@3x.png */; };
+		31C064A72AA7AE9300D76648 /* unicorn-scaled-60x30-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873761B93EFFB00407E58 /* unicorn-scaled-60x30-@1x.png */; };
+		31C064A82AA7AE9300D76648 /* apple-scaled-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873571B93EFFB00407E58 /* apple-scaled-30x60-@3x.png */; };
+		31C064A92AA7AE9300D76648 /* apple-scaled-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873561B93EFFB00407E58 /* apple-scaled-30x60-@2x.png */; };
+		31C064AA2AA7AE9300D76648 /* rainbow-scaled-30x60-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873691B93EFFB00407E58 /* rainbow-scaled-30x60-@3x.png */; };
+		31C064AB2AA7AE9300D76648 /* unicorn-scaled-50x50-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873751B93EFFB00407E58 /* unicorn-scaled-50x50-@3x.png */; };
+		31C064AC2AA7AE9300D76648 /* rainbow-scaled-30x60-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873681B93EFFB00407E58 /* rainbow-scaled-30x60-@2x.png */; };
+		31C064AD2AA7AE9300D76648 /* unicorn-scaled-50x50-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873731B93EFFB00407E58 /* unicorn-scaled-50x50-@1x.png */; };
+		31C064AE2AA7AE9700D76648 /* pirate-scaled.to.size.circle-100x100-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58737A1B93EFFB00407E58 /* pirate-scaled.to.size.circle-100x100-@1x.png */; };
+		31C064AF2AA7AE9700D76648 /* pirate-scaled.to.size.circle-100x100-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58737C1B93EFFB00407E58 /* pirate-scaled.to.size.circle-100x100-@3x.png */; };
+		31C064B02AA7AE9700D76648 /* pirate-scaled.to.size.circle-100x100-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58737B1B93EFFB00407E58 /* pirate-scaled.to.size.circle-100x100-@2x.png */; };
+		31C064B12AA7AE9A00D76648 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5873801B93EFFB00407E58 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@3x.png */; };
+		31C064B22AA7AE9A00D76648 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58737E1B93EFFB00407E58 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@1x.png */; };
+		31C064B32AA7AE9A00D76648 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C58737F1B93EFFB00407E58 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@2x.png */; };
+		31C064B42AA7AE9F00D76648 /* apple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894501B9382EB005125D9 /* apple.jpg */; };
+		31C064B52AA7AE9F00D76648 /* huge_map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0897E71B93B0FB005125D9 /* huge_map.jpg */; };
+		31C064B62AA7AE9F00D76648 /* pirate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894511B9382EB005125D9 /* pirate.jpg */; };
+		31C064B72AA7AE9F00D76648 /* rainbow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894521B9382EB005125D9 /* rainbow.jpg */; };
+		31C064B82AA7AE9F00D76648 /* unicorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0894531B9382EB005125D9 /* unicorn.png */; };
+		31C064B92AA7AEA900D76648 /* ImageDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5874851B93F81800407E58 /* ImageDownloaderTests.swift */; };
+		31C064BA2AA7AEA900D76648 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1624841AABE8E600A0385D /* BaseTestCase.swift */; };
+		31C064BB2AA7AEA900D76648 /* UIButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF24CF3C1C253CA000904E85 /* UIButtonTests.swift */; };
+		31C064BC2AA7AEA900D76648 /* UIImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C62D30F1B96C1500011B036 /* UIImageViewTests.swift */; };
+		31C064BD2AA7AEA900D76648 /* ImageFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5872C91B93DEAC00407E58 /* ImageFilterTests.swift */; };
+		31C064BE2AA7AEA900D76648 /* RequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0897EA1B93BC0D005125D9 /* RequestTests.swift */; };
+		31C064BF2AA7AEA900D76648 /* ImageCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBB53F1B93C622001391DE /* ImageCacheTests.swift */; };
+		31C064C02AA7AEA900D76648 /* UIImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0893F41B937404005125D9 /* UIImageTests.swift */; };
+		31C064C12AA7AEAC00D76648 /* ImageDownloaderStressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE8FB62316008300782A2E /* ImageDownloaderStressTests.swift */; };
 		31FA4D672619207200CEAD2B /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D662619207200CEAD2B /* TestHelpers.swift */; };
 		31FA4D682619207200CEAD2B /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D662619207200CEAD2B /* TestHelpers.swift */; };
 		31FA4D692619207200CEAD2B /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FA4D662619207200CEAD2B /* TestHelpers.swift */; };
@@ -676,6 +838,13 @@
 			remoteGlobalIDString = 4C4D4EC01B92976900C96855;
 			remoteInfo = "AlamofireImage watchOS";
 		};
+		31C064262AA7AE2900D76648 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C90436E1AABBFC5001B4E60 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 316A6C3B2A83DC1900311D98;
+			remoteInfo = "AlamofireImage visionOS";
+		};
 		4C11833821505288007A8298 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4C90436E1AABBFC5001B4E60 /* Project object */;
@@ -737,7 +906,13 @@
 		314EA7F829346AB00021C5F4 /* watchOS-NoTS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "watchOS-NoTS.xctestplan"; sourceTree = "<group>"; };
 		314EA7F929346B640021C5F4 /* tvOS-Old.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "tvOS-Old.xctestplan"; sourceTree = "<group>"; };
 		314EA7FA29346B670021C5F4 /* iOS-Old.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iOS-Old.xctestplan"; sourceTree = "<group>"; };
+		316A6C3C2A83DC1900311D98 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		317911B9290F9AEE00BF6504 /* AlamofireImage watchOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage watchOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		31C064192AA7A48C00D76648 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31C0641B2AA7A4A100D76648 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31C064212AA7AE2900D76648 /* AlamofireImage visionOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage visionOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		31C064C22AA7AF2300D76648 /* visionOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = visionOS.xctestplan; sourceTree = "<group>"; };
+		31C064C32AA7AF5300D76648 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31FA4D662619207200CEAD2B /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		31FA4D7826192E4500CEAD2B /* CGSize.ScreenScaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.ScreenScaling.swift; sourceTree = "<group>"; };
 		4C0893EB1B936A7A005125D9 /* UIImage+AlamofireImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AlamofireImageTests.swift"; sourceTree = "<group>"; };
@@ -931,11 +1106,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		316A6C392A83DC1900311D98 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31C0641C2AA7A4A100D76648 /* Alamofire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		317911B6290F9AEE00BF6504 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				317911BD290F9AEE00BF6504 /* AlamofireImage.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31C0641E2AA7AE2900D76648 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31C064252AA7AE2900D76648 /* AlamofireImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1023,6 +1214,9 @@
 		31B73C0920F2E71E006DE004 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31C064C32AA7AF5300D76648 /* Alamofire.framework */,
+				31C0641B2AA7A4A100D76648 /* Alamofire.framework */,
+				31C064192AA7A48C00D76648 /* Alamofire.framework */,
 				4C1182ED21505026007A8298 /* Alamofire.framework */,
 				4C1182EB2150501F007A8298 /* Alamofire.framework */,
 				4C1182E92150500D007A8298 /* Alamofire.framework */,
@@ -1042,6 +1236,7 @@
 				314EA7672934687E0021C5F4 /* tvOS-NoTS.xctestplan */,
 				314EA7F929346B640021C5F4 /* tvOS-Old.xctestplan */,
 				314EA7662934684F0021C5F4 /* tvOS.xctestplan */,
+				31C064C22AA7AF2300D76648 /* visionOS.xctestplan */,
 				314EA7F829346AB00021C5F4 /* watchOS-NoTS.xctestplan */,
 				314EA7F729346A910021C5F4 /* watchOS.xctestplan */,
 			);
@@ -1425,6 +1620,8 @@
 				4C16B3861BA9399500A66EF0 /* AlamofireImage tvOS Tests.xctest */,
 				4C11830B2150517E007A8298 /* iOS Example.app */,
 				317911B9290F9AEE00BF6504 /* AlamofireImage watchOS Tests.xctest */,
+				316A6C3C2A83DC1900311D98 /* AlamofireImage.framework */,
+				31C064212AA7AE2900D76648 /* AlamofireImage visionOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1494,6 +1691,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		316A6C3B2A83DC1900311D98 /* AlamofireImage visionOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 316A6C422A83DC1900311D98 /* Build configuration list for PBXNativeTarget "AlamofireImage visionOS" */;
+			buildPhases = (
+				316A6C382A83DC1900311D98 /* Sources */,
+				316A6C392A83DC1900311D98 /* Frameworks */,
+				316A6C3A2A83DC1900311D98 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AlamofireImage visionOS";
+			productName = "AlamofireImage visionOS";
+			productReference = 316A6C3C2A83DC1900311D98 /* AlamofireImage.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		317911B8290F9AEE00BF6504 /* AlamofireImage watchOS Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 317911C2290F9AEE00BF6504 /* Build configuration list for PBXNativeTarget "AlamofireImage watchOS Tests" */;
@@ -1510,6 +1724,24 @@
 			name = "AlamofireImage watchOS Tests";
 			productName = "AlamofireImage watchOS Tests";
 			productReference = 317911B9290F9AEE00BF6504 /* AlamofireImage watchOS Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		31C064202AA7AE2900D76648 /* AlamofireImage visionOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 31C064282AA7AE2900D76648 /* Build configuration list for PBXNativeTarget "AlamofireImage visionOS Tests" */;
+			buildPhases = (
+				31C0641D2AA7AE2900D76648 /* Sources */,
+				31C0641E2AA7AE2900D76648 /* Frameworks */,
+				31C0641F2AA7AE2900D76648 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				31C064272AA7AE2900D76648 /* PBXTargetDependency */,
+			);
+			name = "AlamofireImage visionOS Tests";
+			productName = "AlamofireImage visionOS Tests";
+			productReference = 31C064212AA7AE2900D76648 /* AlamofireImage visionOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		4C11830A2150517E007A8298 /* iOS Example */ = {
@@ -1661,13 +1893,19 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = Alamofire;
 				TargetAttributes = {
+					316A6C3B2A83DC1900311D98 = {
+						CreatedOnToolsVersion = 15.0;
+					};
 					317911B8290F9AEE00BF6504 = {
 						CreatedOnToolsVersion = 14.1;
 						ProvisioningStyle = Automatic;
+					};
+					31C064202AA7AE2900D76648 = {
+						CreatedOnToolsVersion = 15.0;
 					};
 					4C11830A2150517E007A8298 = {
 						CreatedOnToolsVersion = 10.0;
@@ -1709,7 +1947,7 @@
 				};
 			};
 			buildConfigurationList = 4C9043711AABBFC5001B4E60 /* Build configuration list for PBXProject "AlamofireImage" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1727,6 +1965,8 @@
 				4CE611461AABC5C900D35044 /* AlamofireImage macOS Tests */,
 				4C16B37C1BA9399500A66EF0 /* AlamofireImage tvOS */,
 				4C16B3851BA9399500A66EF0 /* AlamofireImage tvOS Tests */,
+				316A6C3B2A83DC1900311D98 /* AlamofireImage visionOS */,
+				31C064202AA7AE2900D76648 /* AlamofireImage visionOS Tests */,
 				4C4D4EC01B92976900C96855 /* AlamofireImage watchOS */,
 				317911B8290F9AEE00BF6504 /* AlamofireImage watchOS Tests */,
 				4C11830A2150517E007A8298 /* iOS Example */,
@@ -1735,6 +1975,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		316A6C3A2A83DC1900311D98 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		317911B7290F9AEE00BF6504 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1875,6 +2122,149 @@
 				314EA7B429346A5A0021C5F4 /* rainbow-aspect.scaled.to.fit-30x60-@1x.png in Resources */,
 				314EA7CC29346A5A0021C5F4 /* apple-aspect.scaled.to.fit-50x50-@2x.png in Resources */,
 				314EA77A29346A480021C5F4 /* rainbow-scaled-60x30-@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31C0641F2AA7AE2900D76648 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31C064642AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-60x30-@1x.png in Resources */,
+				31C0648A2AA7AE9300D76648 /* rainbow-scaled-50x50-@3x.png in Resources */,
+				31C064372AA7AE7100D76648 /* apple-aspect.scaled.to.fill-60x30-@2x.png in Resources */,
+				31C064392AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
+				31C064982AA7AE9300D76648 /* unicorn-scaled-50x50-@2x.png in Resources */,
+				31C0647C2AA7AE8100D76648 /* apple-aspect.scaled.to.fit-60x30-@2x.png in Resources */,
+				31C064A82AA7AE9300D76648 /* apple-scaled-30x60-@3x.png in Resources */,
+				31C064752AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-60x30-@3x.png in Resources */,
+				31C0648F2AA7AE9300D76648 /* pirate-scaled-60x30-@1x.png in Resources */,
+				31C064622AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-50x50-@2x.png in Resources */,
+				31C064B32AA7AE9A00D76648 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@2x.png in Resources */,
+				31C064582AA7AE7B00D76648 /* pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@2x.png in Resources */,
+				31C064502AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-30x60-@2x.png in Resources */,
+				31C064A12AA7AE9300D76648 /* pirate-scaled-60x30-@2x.png in Resources */,
+				31C064A42AA7AE9300D76648 /* rainbow-scaled-50x50-@2x.png in Resources */,
+				31C0645F2AA7AE8100D76648 /* apple-aspect.scaled.to.fit-50x50-@1x.png in Resources */,
+				31C0643B2AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-50x50-@3x.png in Resources */,
+				31C0647E2AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-60x30-@3x.png in Resources */,
+				31C064352AA7AE7100D76648 /* apple-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
+				31C064362AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
+				31C0643E2AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
+				31C0647F2AA7AE8500D76648 /* pirate-circle.png in Resources */,
+				31C064492AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-50x50-@3x.png in Resources */,
+				31C064862AA7AE8F00D76648 /* pirate-radius-20.png in Resources */,
+				31C064932AA7AE9300D76648 /* rainbow-scaled-50x50-@1x.png in Resources */,
+				31C0644A2AA7AE7100D76648 /* apple-aspect.scaled.to.fill-30x60-@3x.png in Resources */,
+				31C064342AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-60x30-@2x.png in Resources */,
+				31C0649B2AA7AE9300D76648 /* pirate-scaled-50x50-@1x.png in Resources */,
+				31C0649E2AA7AE9300D76648 /* apple-scaled-30x60-@1x.png in Resources */,
+				31C064992AA7AE9300D76648 /* apple-scaled-60x30-@1x.png in Resources */,
+				31C064382AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
+				31C0646C2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-50x50-@3x.png in Resources */,
+				31C064332AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-30x60-@2x.png in Resources */,
+				31C064612AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-50x50-@2x.png in Resources */,
+				31C064802AA7AE8500D76648 /* rainbow-circle.png in Resources */,
+				31C0646E2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
+				31C064972AA7AE9300D76648 /* unicorn-scaled-60x30-@2x.png in Resources */,
+				31C064322AA7AE7100D76648 /* apple-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
+				31C064A02AA7AE9300D76648 /* pirate-scaled-50x50-@2x.png in Resources */,
+				31C064912AA7AE9300D76648 /* unicorn-scaled-30x60-@3x.png in Resources */,
+				31C064AC2AA7AE9300D76648 /* rainbow-scaled-30x60-@2x.png in Resources */,
+				31C0645E2AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
+				31C064922AA7AE9300D76648 /* unicorn-scaled-60x30-@3x.png in Resources */,
+				31C064452AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-30x60-@1x.png in Resources */,
+				31C064692AA7AE8100D76648 /* apple-aspect.scaled.to.fit-30x60-@2x.png in Resources */,
+				31C064B22AA7AE9A00D76648 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@1x.png in Resources */,
+				31C064AB2AA7AE9300D76648 /* unicorn-scaled-50x50-@3x.png in Resources */,
+				31C0646D2AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-60x30-@2x.png in Resources */,
+				31C064602AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-50x50-@3x.png in Resources */,
+				31C064782AA7AE8100D76648 /* apple-aspect.scaled.to.fit-30x60-@1x.png in Resources */,
+				31C0643A2AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-60x30-@2x.png in Resources */,
+				31C064712AA7AE8100D76648 /* apple-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
+				31C0645C2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-60x30-@1x.png in Resources */,
+				31C064682AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-50x50-@3x.png in Resources */,
+				31C064AF2AA7AE9700D76648 /* pirate-scaled.to.size.circle-100x100-@3x.png in Resources */,
+				31C064B02AA7AE9700D76648 /* pirate-scaled.to.size.circle-100x100-@2x.png in Resources */,
+				31C064962AA7AE9300D76648 /* rainbow-scaled-60x30-@2x.png in Resources */,
+				31C064542AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-30x60-@3x.png in Resources */,
+				31C064B42AA7AE9F00D76648 /* apple.jpg in Resources */,
+				31C064432AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-50x50-@3x.png in Resources */,
+				31C064462AA7AE7100D76648 /* apple-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
+				31C0647B2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-60x30-@2x.png in Resources */,
+				31C064532AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-30x60-@3x.png in Resources */,
+				31C0645D2AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-60x30-@1x.png in Resources */,
+				31C064AD2AA7AE9300D76648 /* unicorn-scaled-50x50-@1x.png in Resources */,
+				31C064512AA7AE7100D76648 /* apple-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
+				31C064A92AA7AE9300D76648 /* apple-scaled-30x60-@2x.png in Resources */,
+				31C064B72AA7AE9F00D76648 /* rainbow.jpg in Resources */,
+				31C064852AA7AE8A00D76648 /* unicorn-blurred-8-ios-13.png in Resources */,
+				31C064882AA7AE8F00D76648 /* apple-radius-20.png in Resources */,
+				31C064822AA7AE8500D76648 /* apple-circle.png in Resources */,
+				31C0643F2AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
+				31C064762AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-50x50-@1x.png in Resources */,
+				31C064592AA7AE7B00D76648 /* pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@1x.png in Resources */,
+				31C0644B2AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
+				31C064422AA7AE7100D76648 /* apple-aspect.scaled.to.fill-30x60-@2x.png in Resources */,
+				31C064A62AA7AE9300D76648 /* pirate-scaled-50x50-@3x.png in Resources */,
+				31C064732AA7AE8100D76648 /* apple-aspect.scaled.to.fit-50x50-@3x.png in Resources */,
+				31C064562AA7AE7700D76648 /* pirate-aspect.scaled.to.fill.size.circle-100x100-@3x.png in Resources */,
+				31C064572AA7AE7700D76648 /* pirate-aspect.scaled.to.fill.size.circle-100x100-@2x.png in Resources */,
+				31C064702AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-30x60-@1x.png in Resources */,
+				31C064672AA7AE8100D76648 /* apple-aspect.scaled.to.fit-50x50-@2x.png in Resources */,
+				31C064B12AA7AE9A00D76648 /* pirate-scaled.to.size.with.rounded.corners-100x100x20-@3x.png in Resources */,
+				31C0646A2AA7AE8100D76648 /* apple-aspect.scaled.to.fit-60x30-@1x.png in Resources */,
+				31C064A32AA7AE9300D76648 /* pirate-scaled-60x30-@3x.png in Resources */,
+				31C0645A2AA7AE7B00D76648 /* pirate-aspect.scaled.to.fill.size.with.rounded.corners-100x100x20-@3x.png in Resources */,
+				31C064632AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-30x60-@1x.png in Resources */,
+				31C0643C2AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-60x30-@2x.png in Resources */,
+				31C064902AA7AE9300D76648 /* rainbow-scaled-60x30-@1x.png in Resources */,
+				31C0647D2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-60x30-@3x.png in Resources */,
+				31C064842AA7AE8A00D76648 /* unicorn-sepia.tone.png in Resources */,
+				31C0643D2AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-30x60-@2x.png in Resources */,
+				31C0644C2AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-30x60-@3x.png in Resources */,
+				31C0648D2AA7AE9300D76648 /* apple-scaled-60x30-@2x.png in Resources */,
+				31C064812AA7AE8500D76648 /* unicorn-circle.png in Resources */,
+				31C064952AA7AE9300D76648 /* pirate-scaled-30x60-@3x.png in Resources */,
+				31C0649F2AA7AE9300D76648 /* apple-scaled-50x50-@3x.png in Resources */,
+				31C0647A2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-30x60-@2x.png in Resources */,
+				31C064522AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
+				31C064892AA7AE8F00D76648 /* rainbow-radius-20.png in Resources */,
+				31C064B82AA7AE9F00D76648 /* unicorn.png in Resources */,
+				31C064792AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-30x60-@1x.png in Resources */,
+				31C064742AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-30x60-@2x.png in Resources */,
+				31C064AA2AA7AE9300D76648 /* rainbow-scaled-30x60-@3x.png in Resources */,
+				31C064A72AA7AE9300D76648 /* unicorn-scaled-60x30-@1x.png in Resources */,
+				31C064662AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-50x50-@1x.png in Resources */,
+				31C064552AA7AE7700D76648 /* pirate-aspect.scaled.to.fill.size.circle-100x100-@1x.png in Resources */,
+				31C0646F2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-50x50-@2x.png in Resources */,
+				31C064772AA7AE8100D76648 /* apple-aspect.scaled.to.fit-60x30-@3x.png in Resources */,
+				31C064472AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-50x50-@2x.png in Resources */,
+				31C064402AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-50x50-@1x.png in Resources */,
+				31C064442AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-60x30-@1x.png in Resources */,
+				31C064A52AA7AE9300D76648 /* pirate-scaled-30x60-@2x.png in Resources */,
+				31C064652AA7AE8100D76648 /* rainbow-aspect.scaled.to.fit-30x60-@2x.png in Resources */,
+				31C0648C2AA7AE9300D76648 /* unicorn-scaled-30x60-@2x.png in Resources */,
+				31C064722AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-60x30-@2x.png in Resources */,
+				31C0649A2AA7AE9300D76648 /* pirate-scaled-30x60-@1x.png in Resources */,
+				31C0649D2AA7AE9300D76648 /* rainbow-scaled-30x60-@1x.png in Resources */,
+				31C0649C2AA7AE9300D76648 /* apple-scaled-50x50-@2x.png in Resources */,
+				31C064A22AA7AE9300D76648 /* rainbow-scaled-60x30-@3x.png in Resources */,
+				31C064AE2AA7AE9700D76648 /* pirate-scaled.to.size.circle-100x100-@1x.png in Resources */,
+				31C0644D2AA7AE7100D76648 /* rainbow-aspect.scaled.to.fill-30x60-@1x.png in Resources */,
+				31C0648E2AA7AE9300D76648 /* apple-scaled-50x50-@1x.png in Resources */,
+				31C0645B2AA7AE8100D76648 /* pirate-aspect.scaled.to.fit-30x60-@3x.png in Resources */,
+				31C0646B2AA7AE8100D76648 /* unicorn-aspect.scaled.to.fit-50x50-@1x.png in Resources */,
+				31C064872AA7AE8F00D76648 /* unicorn-radius-20.png in Resources */,
+				31C064482AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-30x60-@1x.png in Resources */,
+				31C064832AA7AE8A00D76648 /* unicorn-blurred-8.png in Resources */,
+				31C0648B2AA7AE9300D76648 /* apple-scaled-60x30-@3x.png in Resources */,
+				31C064B52AA7AE9F00D76648 /* huge_map.jpg in Resources */,
+				31C0644E2AA7AE7100D76648 /* pirate-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
+				31C0644F2AA7AE7100D76648 /* apple-aspect.scaled.to.fill-50x50-@3x.png in Resources */,
+				31C064412AA7AE7100D76648 /* unicorn-aspect.scaled.to.fill-60x30-@3x.png in Resources */,
+				31C064942AA7AE9300D76648 /* unicorn-scaled-30x60-@1x.png in Resources */,
+				31C064B62AA7AE9F00D76648 /* pirate.jpg in Resources */,
+				31C064312AA7AE7100D76648 /* apple-aspect.scaled.to.fill-30x60-@1x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2347,6 +2737,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		316A6C382A83DC1900311D98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				316A6C492A83DCA400311D98 /* Image.swift in Sources */,
+				316A6C482A83DCA400311D98 /* ImageCache.swift in Sources */,
+				316A6C452A83DCA400311D98 /* UIImageView+AlamofireImage.swift in Sources */,
+				316A6C442A83DCA400311D98 /* ImageDownloader.swift in Sources */,
+				316A6C4B2A83DCA400311D98 /* UIButton+AlamofireImage.swift in Sources */,
+				316A6C432A83DCA400311D98 /* ImageFilter.swift in Sources */,
+				316A6C472A83DCA400311D98 /* UIImage+AlamofireImage.swift in Sources */,
+				316A6C4A2A83DCA400311D98 /* Request+AlamofireImage.swift in Sources */,
+				316A6C462A83DCA400311D98 /* AFIError.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		317911B5290F9AEE00BF6504 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2366,6 +2772,28 @@
 				314EA7682934691A0021C5F4 /* ImageCacheTests.swift in Sources */,
 				314EA7692934691C0021C5F4 /* ImageDownloaderTests.swift in Sources */,
 				317911C8290F9B5C00BF6504 /* AFError+AlamofireImageTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31C0641D2AA7AE2900D76648 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31C064BC2AA7AEA900D76648 /* UIImageViewTests.swift in Sources */,
+				31C0642D2AA7AE5A00D76648 /* UIImage+AlamofireImageTests.swift in Sources */,
+				31C064C12AA7AEAC00D76648 /* ImageDownloaderStressTests.swift in Sources */,
+				31C064BD2AA7AEA900D76648 /* ImageFilterTests.swift in Sources */,
+				31C064BF2AA7AEA900D76648 /* ImageCacheTests.swift in Sources */,
+				31C064BB2AA7AEA900D76648 /* UIButtonTests.swift in Sources */,
+				31C064C02AA7AEA900D76648 /* UIImageTests.swift in Sources */,
+				31C0642F2AA7AE5E00D76648 /* ThrowingURLRequestConvertible.swift in Sources */,
+				31C0642C2AA7AE5A00D76648 /* AFResult+AlamofireImageTests.swift in Sources */,
+				31C0642E2AA7AE5A00D76648 /* AFError+AlamofireImageTests.swift in Sources */,
+				31C064BA2AA7AEA900D76648 /* BaseTestCase.swift in Sources */,
+				31C0642B2AA7AE5A00D76648 /* CGSize.ScreenScaling.swift in Sources */,
+				31C064BE2AA7AEA900D76648 /* RequestTests.swift in Sources */,
+				31C064302AA7AE5E00D76648 /* TestHelpers.swift in Sources */,
+				31C064B92AA7AEA900D76648 /* ImageDownloaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2519,6 +2947,11 @@
 			target = 4C4D4EC01B92976900C96855 /* AlamofireImage watchOS */;
 			targetProxy = 317911BE290F9AEE00BF6504 /* PBXContainerItemProxy */;
 		};
+		31C064272AA7AE2900D76648 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 316A6C3B2A83DC1900311D98 /* AlamofireImage visionOS */;
+			targetProxy = 31C064262AA7AE2900D76648 /* PBXContainerItemProxy */;
+		};
 		4C11833921505288007A8298 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4C9043761AABBFC5001B4E60 /* AlamofireImage iOS */;
@@ -2553,6 +2986,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		316A6C402A83DC1900311D98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				SDKROOT = xros;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				TARGETED_DEVICE_FAMILY = 7;
+			};
+			name = Debug;
+		};
+		316A6C412A83DC1900311D98 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				SDKROOT = xros;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				TARGETED_DEVICE_FAMILY = 7;
+			};
+			name = Release;
+		};
 		317911C0290F9AEE00BF6504 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2602,6 +3077,30 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Release;
+		};
+		31C064292AA7AE2900D76648 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Tests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.alamofire.AlamofireImage-visionOS-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xrsimulator xros";
+				TARGETED_DEVICE_FAMILY = 7;
+			};
+			name = Debug;
+		};
+		31C0642A2AA7AE2900D76648 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Tests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.alamofire.AlamofireImage-visionOS-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xrsimulator xros";
+				TARGETED_DEVICE_FAMILY = 7;
 			};
 			name = Release;
 		};
@@ -2671,10 +3170,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2684,8 +3180,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_NAME = AlamofireImage;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -2696,10 +3190,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2709,8 +3200,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_NAME = AlamofireImage;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -2753,10 +3242,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2767,8 +3253,6 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.alamofire.AlamofireImage.watchOS;
-				PRODUCT_NAME = AlamofireImage;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2779,10 +3263,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2793,8 +3274,6 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.alamofire.AlamofireImage.watchOS;
-				PRODUCT_NAME = AlamofireImage;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2806,8 +3285,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -2828,15 +3306,18 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_CODE_COVERAGE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2855,17 +3336,18 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 4.2.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.alamofire.AlamofireImage;
+				PRODUCT_NAME = AlamofireImage;
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Debug;
 		};
@@ -2874,8 +3356,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -2896,16 +3377,19 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_CODE_COVERAGE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -2917,18 +3401,18 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 4.2.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.alamofire.AlamofireImage;
+				PRODUCT_NAME = AlamofireImage;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
 		};
@@ -2936,11 +3420,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2950,9 +3430,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_NAME = AlamofireImage;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -2962,11 +3439,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2976,9 +3449,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_NAME = AlamofireImage;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -3020,12 +3490,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3035,8 +3501,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_NAME = AlamofireImage;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -3046,12 +3510,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3061,8 +3521,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_NAME = AlamofireImage;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -3113,11 +3571,29 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		316A6C422A83DC1900311D98 /* Build configuration list for PBXNativeTarget "AlamofireImage visionOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				316A6C402A83DC1900311D98 /* Debug */,
+				316A6C412A83DC1900311D98 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		317911C2290F9AEE00BF6504 /* Build configuration list for PBXNativeTarget "AlamofireImage watchOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				317911C0290F9AEE00BF6504 /* Debug */,
 				317911C1290F9AEE00BF6504 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		31C064282AA7AE2900D76648 /* Build configuration list for PBXNativeTarget "AlamofireImage visionOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31C064292AA7AE2900D76648 /* Debug */,
+				31C0642A2AA7AE2900D76648 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
