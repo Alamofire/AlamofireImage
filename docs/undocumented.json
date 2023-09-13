@@ -79,30 +79,51 @@
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 80,
+      "line": 47,
+      "symbol": "ImageResponseSerializer.acceptableImageContentTypes",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 93,
       "symbol": "ImageResponseSerializer.init(imageScale:inflateResponseImage:emptyResponseCodes:emptyRequestMethods:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 110,
+      "line": 123,
       "symbol": "ImageResponseSerializer.serializeImage(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 142,
+      "line": 155,
       "symbol": "ImageResponseSerializer.validateContentType(for:response:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
-      "line": 163,
+      "line": 176,
       "symbol": "DataRequest.imageScale",
       "symbol_kind": "source.lang.swift.decl.var.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 257,
+      "symbol": "DataRequest.publishImage(queue:imageScale:inflateResponseImage:emptyResponseCodes:emptyRequestMethods:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/Request+AlamofireImage.swift",
+      "line": 276,
+      "symbol": "DataRequest.serializingImage(automaticallyCancelling:imageScale:inflateResponseImage:emptyResponseCodes:emptyRequestMethods:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -184,56 +205,56 @@
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
-      "line": 150,
+      "line": 149,
       "symbol": "UIImage.af_containsAlphaComponent",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
-      "line": 153,
+      "line": 152,
       "symbol": "UIImage.af_isOpaque",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
-      "line": 254,
+      "line": 253,
       "symbol": "UIImage.af_imageScaled(to:scale:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
-      "line": 259,
+      "line": 258,
       "symbol": "UIImage.af_imageAspectScaled(toFit:scale:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
-      "line": 264,
+      "line": 263,
       "symbol": "UIImage.af_imageAspectScaled(toFill:scale:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
-      "line": 333,
+      "line": 332,
       "symbol": "UIImage.af_imageRounded(withCornerRadius:divideRadiusByImageScale:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
-      "line": 338,
+      "line": 337,
       "symbol": "UIImage.af_imageRoundedIntoCircle()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jshier/Desktop/Code/AlamofireImage/Source/UIImage+AlamofireImage.swift",
-      "line": 384,
+      "line": 383,
       "symbol": "UIImage.af_imageFiltered(withCoreImageFilter:parameters:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
