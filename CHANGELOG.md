@@ -52,7 +52,7 @@ Released on 2023-09-13. All issues associated with this milestone can be found u
   - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#464](https://github.com/Alamofire/AlamofireImage/pull/464).
 - Combine support.
   - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#464](https://github.com/Alamofire/AlamofireImage/pull/464).
-- AFIF and JPEG XL image support.
+- AVIF and JPEG XL image support.
   - Added by [Jon Shier](https://github.com/jshier) in Pull Request [#464](https://github.com/Alamofire/AlamofireImage/pull/464).
 
 #### Updated
@@ -62,7 +62,7 @@ Released on 2023-09-13. All issues associated with this milestone can be found u
 - Testing infrastructure and CI integration.
   - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#464](https://github.com/Alamofire/AlamofireImage/pull/464).
 - `ImageResponseSerializer` to be `open`.
-  - Updated by [Aleksey Ostapenko](hhttps://github.com/Banannzza) in Pull Request [#452](https://github.com/Alamofire/AlamofireImage/pull/452).
+  - Updated by [Aleksey Ostapenko](https://github.com/Banannzza) in Pull Request [#452](https://github.com/Alamofire/AlamofireImage/pull/452).
 - `acceptableImageContentTypes` to be publicly visible.
   - Updated by [Adam Lickel](https://github.com/lickel) in Pull Request [#453](https://github.com/Alamofire/AlamofireImage/pull/453).
 
