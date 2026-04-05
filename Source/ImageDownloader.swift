@@ -298,12 +298,10 @@ open class ImageDownloader {
             if let nonNilURLRequest = urlRequest.urlRequest {
                 switch nonNilURLRequest.cachePolicy {
                 case .useProtocolCachePolicy, .returnCacheDataElseLoad, .returnCacheDataDontLoad:
-                    let cachedImage: Image?
-
-                    if let cacheKey = cacheKey {
-                        cachedImage = self.imageCache?.image(withIdentifier: cacheKey)
+                    let cachedImage: Image? = if let cacheKey {
+                        self.imageCache?.image(withIdentifier: cacheKey)
                     } else {
-                        cachedImage = self.imageCache?.image(for: nonNilURLRequest, withIdentifier: filter?.identifier)
+                        self.imageCache?.image(for: nonNilURLRequest, withIdentifier: filter?.identifier)
                     }
 
                     if let image = cachedImage {
@@ -335,7 +333,7 @@ open class ImageDownloader {
 
             request.validate()
 
-            if let progress = progress {
+            if let progress {
                 request.downloadProgress(queue: progressQueue, closure: progress)
             }
 
@@ -366,7 +364,7 @@ open class ImageDownloader {
                                      for (_, filter, completion) in responseHandler.operations {
                                          var filteredImage: Image
 
-                                         if let filter = filter {
+                                         if let filter {
                                              if let alreadyFilteredImage = filteredImages[filter.identifier] {
                                                  filteredImage = alreadyFilteredImage
                                              } else {
@@ -377,7 +375,7 @@ open class ImageDownloader {
                                              filteredImage = image
                                          }
 
-                                         if let cacheKey = cacheKey {
+                                         if let cacheKey {
                                              self.imageCache?.add(filteredImage, withIdentifier: cacheKey)
                                          } else if let request = response.request {
                                              self.imageCache?.add(filteredImage, for: request, withIdentifier: filter?.identifier)
@@ -470,7 +468,7 @@ open class ImageDownloader {
 
             let index = responseHandler.operations.firstIndex { $0.receiptID == requestReceipt.receiptID }
 
-            if let index = index {
+            if let index {
                 let operation = responseHandler.operations.remove(at: index)
 
                 let response: AFIDataResponse<Image> = {

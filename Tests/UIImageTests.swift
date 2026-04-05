@@ -350,7 +350,7 @@ class UIImageTestCase: BaseTestCase {
         let blurredImage = unicornImage.af.imageFiltered(withCoreImageFilter: "CIGaussianBlur", parameters: parameters)
 
         // Then
-        if let blurredImage = blurredImage {
+        if let blurredImage {
             var expectedResource = "unicorn-blurred-8"
             if #available(iOS 13.0, macOS 10.15, tvOS 13.0, *) { expectedResource.append("-ios-13") }
             let expectedBlurredImage = image(forResource: expectedResource, withExtension: "png")
@@ -368,7 +368,7 @@ class UIImageTestCase: BaseTestCase {
         let sepiaImage = unicornImage.af.imageFiltered(withCoreImageFilter: "CISepiaTone")
 
         // Then
-        if let sepiaImage = sepiaImage {
+        if let sepiaImage {
             let expectedSepiaImage = image(forResource: "unicorn-sepia.tone", withExtension: "png")
             XCTAssertTrue(sepiaImage.af.isEqualToImage(expectedSepiaImage), "sepia image pixels do not match")
         } else {

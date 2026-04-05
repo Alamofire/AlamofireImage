@@ -30,10 +30,7 @@ import UIKit
 class ImagesViewController: UIViewController {
     lazy var gravatars: [Gravatar] = []
 
-    lazy var placeholderImage: UIImage = {
-        let image = UIImage(named: "Placeholder Image")!
-        return image
-    }()
+    lazy var placeholderImage: UIImage = .init(named: "Placeholder Image")!
 
     var collectionView: UICollectionView!
 

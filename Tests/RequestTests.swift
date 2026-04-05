@@ -46,7 +46,7 @@ final class DataRequestTestCase: BaseTestCase {
 
     func testThatAddingAcceptableImageContentTypesInsertsThemIntoTheGlobalList() {
         // Given
-        let contentTypes: Set<String> = ["binary/octet-stream"]
+        let contentTypes: Set = ["binary/octet-stream"]
 
         // When
         let beforeCount = ImageResponseSerializer.acceptableImageContentTypes.count

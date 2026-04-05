@@ -121,9 +121,7 @@ extension AlamofireExtension where ExtendedType: UIImage {
      */
     func imageWithPNGRepresentation() -> UIImage {
         let data = type.pngData()!
-        let image = UIImage(data: data, scale: DataRequest.imageScale)!
-
-        return image
+        return UIImage(data: data, scale: DataRequest.imageScale)!
     }
 }
 

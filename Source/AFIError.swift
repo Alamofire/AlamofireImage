@@ -62,11 +62,11 @@ extension AFIError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .requestCancelled:
-            return "The request was explicitly cancelled."
+            "The request was explicitly cancelled."
         case .imageSerializationFailed:
-            return "Response data could not be serialized into an image."
+            "Response data could not be serialized into an image."
         case let .alamofireError(error):
-            return "Request failed due to an underlying Alamofire error: \(error.localizedDescription)"
+            "Request failed due to an underlying Alamofire error: \(error.localizedDescription)"
         }
     }
 }

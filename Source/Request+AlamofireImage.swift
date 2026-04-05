@@ -41,7 +41,7 @@ open class ImageResponseSerializer: ResponseSerializer, Sendable {
 
     public internal(set) static var acceptableImageContentTypes: Set<String> = {
         // Universally supported image types.
-        var contentTypes: Set<String> = [
+        var contentTypes: Set = [
             "application/octet-stream", // As a fallback for things like AWS which provide no real type.
             "image/bmp",
             "image/gif",
@@ -105,7 +105,7 @@ open class ImageResponseSerializer: ResponseSerializer, Sendable {
     open func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) throws -> Image {
         guard error == nil else { throw error! }
 
-        guard let data = data, !data.isEmpty else {
+        guard let data, !data.isEmpty else {
             guard emptyResponseAllowed(forRequest: request, response: response) else {
                 throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
             }
@@ -115,9 +115,7 @@ open class ImageResponseSerializer: ResponseSerializer, Sendable {
         }
 
         try validateContentType(for: request, response: response)
-        let image = try serializeImage(from: data)
-
-        return image
+        return try serializeImage(from: data)
     }
 
     open func serializeImage(from data: Data) throws -> Image {

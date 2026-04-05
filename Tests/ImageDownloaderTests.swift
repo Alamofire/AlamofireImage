@@ -24,7 +24,6 @@
 
 @testable import Alamofire
 @testable import AlamofireImage
-
 import Foundation
 import XCTest
 
@@ -277,8 +276,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
                 return configuration
             }()
 
-            let downloader = ImageDownloader(configuration: configuration)
-            return downloader
+            return ImageDownloader(configuration: configuration)
         }()
 
         let expectation = expectation(description: "image download should succeed")
@@ -581,7 +579,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
                 }
             })
 
-            if let receipt = receipt {
+            if let receipt {
                 downloader.cancelRequest(with: receipt)
             }
         }
