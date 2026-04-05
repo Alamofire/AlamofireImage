@@ -25,13 +25,13 @@
 import Alamofire
 import Foundation
 
-#if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+#if os(iOS) || os(tvOS) || os(visionOS)
 
 import UIKit
 
 public typealias ControlState = UIControl.State
 
-extension UIButton: AlamofireExtended {}
+extension UIButton: @retroactive AlamofireExtended {}
 extension AlamofireExtension where ExtendedType: UIButton {
     // MARK: - Properties
 
@@ -217,7 +217,11 @@ extension AlamofireExtension where ExtendedType: UIButton {
         let downloadID = UUID().uuidString
 
         // Weakify the button to allow it to go out-of-memory while download is running if deallocated
+        #if swift(>=6.3)
+        weak let button = type
+        #else
         weak var button = type
+        #endif
 
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(urlRequest,
@@ -386,7 +390,11 @@ extension AlamofireExtension where ExtendedType: UIButton {
         let downloadID = UUID().uuidString
 
         // Weakify the button to allow it to go out-of-memory while download is running if deallocated
+        #if swift(>=6.3)
+        weak let button = type
+        #else
         weak var button = type
+        #endif
 
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(urlRequest,

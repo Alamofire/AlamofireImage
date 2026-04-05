@@ -1,11 +1,11 @@
 # AlamofireImage
 
-[![Build Status](https://travis-ci.org/Alamofire/AlamofireImage.svg?branch=master)](https://travis-ci.org/Alamofire/AlamofireImage)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/AlamofireImage.svg)](https://img.shields.io/cocoapods/v/AlamofireImage.svg)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Platform](https://img.shields.io/cocoapods/p/AlamofireImage.svg?style=flat)](http://cocoadocs.org/docsets/AlamofireImage)
-[![Twitter](https://img.shields.io/badge/twitter-@AlamofireSF-blue.svg?style=flat)](http://twitter.com/AlamofireSF)
-[![Gitter](https://badges.gitter.im/Alamofire/Alamofire.svg)](https://gitter.im/Alamofire/Alamofire?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Swift](https://img.shields.io/badge/Swift-6.0_6.1_6.2_6.3-orange?style=flat-square)](https://img.shields.io/badge/Swift-6.0_6.1_6.2_6.3-orange?style=flat-square)
+[![Platforms](https://img.shields.io/badge/Platforms-macOS_iOS_tvOS_watchOS_visionOS-yellowgreen?style=flat-square)](https://img.shields.io/badge/Platforms-macOS_iOS_tvOS_watchOS_visionOS-Green?style=flat-square)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/AlamofireImage.svg?style=flat-square)](https://img.shields.io/cocoapods/v/AlamofireImage.svg)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)
+[![Swift Forums](https://img.shields.io/badge/Swift_Forums-Alamofire-orange?style=flat-square)](https://forums.swift.org/c/related-projects/alamofire/37)
 
 AlamofireImage is an image component library for Alamofire.
 
@@ -24,9 +24,9 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Requirements
 
-- iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+ / vision OS 1.0+
-- Xcode 13+
-- Swift 5.5+
+- iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+ / visionOS 1.0+
+- Xcode 16+
+- Swift 6.0+
 
 ## Migration Guides
 
@@ -36,7 +36,7 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Dependencies
 
-- [Alamofire 5.8+](https://github.com/Alamofire/Alamofire)
+- [Alamofire 5.11+](https://github.com/Alamofire/Alamofire)
 
 ## Communication
 
@@ -54,7 +54,7 @@ AlamofireImage is an image component library for Alamofire.
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'AlamofireImage', '~> 4.3'
+pod 'AlamofireImage', '~> 4.4'
 ```
 
 ### Carthage
@@ -62,18 +62,18 @@ pod 'AlamofireImage', '~> 4.3'
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate AlamofireImage into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/AlamofireImage" ~> 4.3
+github "Alamofire/AlamofireImage" ~> 4.4
 ```
 
 ### Swift Package Manager
 
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but AlamofireImage does support its use on supported platforms.
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. AlamofireImage supports its use on all supported platforms.
 
 Once you have your Swift package set up, adding AlamofireImage as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMajor(from: "4.3.0"))
+    .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMajor(from: "4.4.0"))
 ]
 ```
 
@@ -222,7 +222,7 @@ The `ImageFilter` protocol was designed to make it easy to apply a filter operat
 
 ```swift
 public protocol ImageFilter {
-    var filter: Image -> Image { get }
+    var filter: (Image) -> Image { get }
     var identifier: String { get }
 }
 ```
@@ -249,7 +249,7 @@ The current list of single pass image filters includes:
 - `CircleFilter` - Rounds the corners of an image into a circle.
 - `BlurFilter` - Blurs an image using a `CIGaussianBlur` filter with the specified blur radius.
 
-> Each image filter is built ontop of the `UIImage` extensions.
+> Each image filter is built on top of the `UIImage` extensions.
 
 #### Multi-Pass
 
@@ -332,7 +332,7 @@ let avatar = imageCache.image(withIdentifier: "avatar")
 let circularAvatar = imageCache.image(for: urlRequest, withIdentifier: "circle")
 ```
 
-By updating the last access date for each image, the image cache can make more informed decisions about which images to purge when the memory capacity is reached. The `AutoPurgingImageCache` automatically evicts images from the cache in order from oldest last access date to newest until the memory capacity drops below the `preferredMemoryCapacityAfterPurge`.
+By updating the last access date for each image, the image cache can make more informed decisions about which images to purge when the memory capacity is reached. The `AutoPurgingImageCache` automatically evicts images from the cache in order from oldest last access date to newest until the memory capacity drops below the `preferredMemoryUsageAfterPurge`.
 
 > It is important to set reasonable default values for the `memoryCapacity` and `preferredMemoryCapacityAfterPurge` when you are initializing your image cache. By default, the `memoryCapacity` equals 100 MB and the `preferredMemoryCapacityAfterPurge` equals 60 MB.
 
@@ -342,7 +342,7 @@ The `AutoPurgingImageCache` also listens for memory warnings from your applicati
 
 ### Image Downloader
 
-The `ImageDownloader` class is responsible for downloading images in parallel on a prioritized queue. It uses an internal Alamofire `SessionManager` instance to handle all the downloading and response image serialization. By default, the initialization of an `ImageDownloader` uses a default `URLSessionConfiguration` with the most common parameter values.
+The `ImageDownloader` class is responsible for downloading images in parallel on a prioritized queue. It uses an internal Alamofire `Session` instance to handle all the downloading and response image serialization. By default, the initialization of an `ImageDownloader` uses a default `URLSessionConfiguration` with the most common parameter values.
 
 ```swift
 let imageDownloader = ImageDownloader(
@@ -550,7 +550,7 @@ ImageDownloader.default.addAuthentication(user: "user", password: "password")
 
 ## Credits
 
-Alamofire is owned and maintained by the [Alamofire Software Foundation](http://alamofire.org). You can follow them on Twitter at [@AlamofireSF](https://twitter.com/AlamofireSF) for project updates and releases.
+Alamofire is owned and maintained by the [Alamofire Software Foundation](http://alamofire.org).
 
 ### Security Disclosure
 

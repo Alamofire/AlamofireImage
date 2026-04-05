@@ -25,7 +25,7 @@
 import Alamofire
 import Foundation
 
-#if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+#if os(iOS) || os(tvOS) || os(visionOS)
 
 import UIKit
 
@@ -119,7 +119,7 @@ extension UIImageView {
 
 // MARK: -
 
-extension UIImageView: AlamofireExtended {}
+extension UIImageView: @retroactive AlamofireExtended {}
 extension AlamofireExtension where ExtendedType: UIImageView {
     // MARK: - Properties
 
@@ -333,7 +333,11 @@ extension AlamofireExtension where ExtendedType: UIImageView {
         let downloadID = UUID().uuidString
 
         // Weakify the image view to allow it to go out-of-memory while download is running if deallocated
+        #if swift(>=6.3)
+        weak let imageView = type
+        #else
         weak var imageView = type
+        #endif
 
         // Download the image, then run the image transition or completion handler
         let requestReceipt = imageDownloader.download(urlRequest,

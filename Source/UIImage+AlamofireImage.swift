@@ -22,7 +22,7 @@
 //  THE SOFTWARE.
 //
 
-#if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 import Alamofire
 import CoreGraphics
@@ -33,7 +33,7 @@ import UIKit
 
 private let lock = NSLock()
 
-extension UIImage: AlamofireExtended {}
+extension UIImage: @retroactive AlamofireExtended {}
 extension AlamofireExtension where ExtendedType: UIImage {
     /// Initializes and returns the image object with the specified data in a thread-safe manner.
     ///
@@ -341,7 +341,7 @@ extension UIImage {
 
 #endif
 
-#if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+#if os(iOS) || os(tvOS) || os(visionOS)
 
 import CoreImage
 
