@@ -69,7 +69,10 @@ final class DataRequestTestCase: BaseTestCase {
             XCTAssertEqual(afterCount, 17, "after count should be 17")
         }
         #elseif os(tvOS)
-        if #available(tvOS 16, *) {
+        if #available(tvOS 17, *) {
+            XCTAssertEqual(beforeCount, 18, "before count should be 17")
+            XCTAssertEqual(afterCount, 19, "after count should be 18")
+        } else if #available(tvOS 16, *) {
             XCTAssertEqual(beforeCount, 17, "before count should be 17")
             XCTAssertEqual(afterCount, 18, "after count should be 18")
         } else {

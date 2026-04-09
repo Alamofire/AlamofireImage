@@ -62,7 +62,11 @@ class BaseTestCase: XCTestCase {
     // MARK: - Resources
 
     func url(forResource fileName: String, withExtension ext: String) -> URL {
-        let bundle = Bundle(for: BaseTestCase.self)
+        #if swift(>=6.2)
+        let bundle = #bundle
+        #else
+        let bundle = Bundle(for: Self.self)
+        #endif
         return bundle.url(forResource: fileName, withExtension: ext)!
     }
 
