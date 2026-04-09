@@ -62,12 +62,26 @@ class BaseTestCase: XCTestCase {
     // MARK: - Resources
 
     func url(forResource fileName: String, withExtension ext: String) -> URL {
-        #if swift(>=6.2)
-        let bundle = #bundle
-        #else
-        let bundle = Bundle(for: Self.self)
+        var possibleBundles: [Bundle] = [
+            Bundle(for: Self.self),
+            Bundle.main
+        ]
+
+        #if SWIFT_PACKAGE
+        possibleBundles.append(Bundle.module)
         #endif
-        return bundle.url(forResource: fileName, withExtension: ext)!
+
+        #if swift(>=6.2)
+        possibleBundles.append(#bundle)
+        #endif
+
+        for bundle in possibleBundles {
+            if let url = bundle.url(forResource: fileName, withExtension: ext) {
+                return url
+            }
+        }
+
+        fatalError("No bundle could find \(fileName).\(ext)")
     }
 
     func image(forResource fileName: String, withExtension ext: String) -> Image {
