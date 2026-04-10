@@ -42,17 +42,17 @@ All notable changes to this project will be documented in this file.
 
 ## [4.4.0](https://github.com/Alamofire/AlamofireImage/releases/tag/4.4.0)
 
-Released on 2026-04-05. All issues associated with this milestone can be found using this
+Released on 2026-04-09. All issues associated with this milestone can be found using this
 [filter](https://github.com/Alamofire/AlamofireImage/milestone/43?closed=1).
 
 #### Updated
 
 - Minimum required Alamofire version to 5.11.
-  - Updated by [Jon Shier](https://github.com/jshier).
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#486](https://github.com/Alamofire/AlamofireImage/pull/486).
 - CI infrastructure to test on modern Xcode and OS versions.
-  - Updated by [Jon Shier](https://github.com/jshier).
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#486](https://github.com/Alamofire/AlamofireImage/pull/486).
 - Package manifests to require Swift 6.0+ tools.
-  - Updated by [Jon Shier](https://github.com/jshier).
+  - Updated by [Jon Shier](https://github.com/jshier) in Pull Request [#486](https://github.com/Alamofire/AlamofireImage/pull/486).
 
 ---
 
