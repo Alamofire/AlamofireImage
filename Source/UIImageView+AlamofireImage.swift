@@ -25,7 +25,7 @@
 import Alamofire
 import Foundation
 
-#if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+#if os(iOS) || os(tvOS) || os(visionOS)
 
 import UIKit
 
@@ -51,23 +51,23 @@ extension UIImageView {
         public var duration: TimeInterval {
             switch self {
             case .noTransition:
-                return 0.0
+                0.0
             case let .crossDissolve(duration):
-                return duration
+                duration
             case let .curlDown(duration):
-                return duration
+                duration
             case let .curlUp(duration):
-                return duration
+                duration
             case let .flipFromBottom(duration):
-                return duration
+                duration
             case let .flipFromLeft(duration):
-                return duration
+                duration
             case let .flipFromRight(duration):
-                return duration
+                duration
             case let .flipFromTop(duration):
-                return duration
+                duration
             case let .custom(duration, _, _, _):
-                return duration
+                duration
             }
         }
 
@@ -75,23 +75,23 @@ extension UIImageView {
         public var animationOptions: AnimationOptions {
             switch self {
             case .noTransition:
-                return []
+                []
             case .crossDissolve:
-                return .transitionCrossDissolve
+                .transitionCrossDissolve
             case .curlDown:
-                return .transitionCurlDown
+                .transitionCurlDown
             case .curlUp:
-                return .transitionCurlUp
+                .transitionCurlUp
             case .flipFromBottom:
-                return .transitionFlipFromBottom
+                .transitionFlipFromBottom
             case .flipFromLeft:
-                return .transitionFlipFromLeft
+                .transitionFlipFromLeft
             case .flipFromRight:
-                return .transitionFlipFromRight
+                .transitionFlipFromRight
             case .flipFromTop:
-                return .transitionFlipFromTop
+                .transitionFlipFromTop
             case let .custom(_, animationOptions, _, _):
-                return animationOptions
+                animationOptions
             }
         }
 
@@ -99,9 +99,9 @@ extension UIImageView {
         public var animations: (UIImageView, Image) -> Void {
             switch self {
             case let .custom(_, _, animations, _):
-                return animations
+                animations
             default:
-                return { $0.image = $1 }
+                { $0.image = $1 }
             }
         }
 
@@ -109,9 +109,9 @@ extension UIImageView {
         public var completion: ((Bool) -> Void)? {
             switch self {
             case let .custom(_, _, _, completion):
-                return completion
+                completion
             default:
-                return nil
+                nil
             }
         }
     }
@@ -119,7 +119,7 @@ extension UIImageView {
 
 // MARK: -
 
-extension UIImageView: AlamofireExtended {}
+extension UIImageView: @retroactive AlamofireExtended {}
 extension AlamofireExtension where ExtendedType: UIImageView {
     // MARK: - Properties
 
@@ -142,9 +142,9 @@ extension AlamofireExtension where ExtendedType: UIImageView {
     public static var sharedImageDownloader: ImageDownloader {
         get {
             if let downloader = objc_getAssociatedObject(UIImageView.self, &AssociatedKeys.sharedImageDownloader) as? ImageDownloader {
-                return downloader
+                downloader
             } else {
-                return ImageDownloader.default
+                ImageDownloader.default
             }
         }
         set {
@@ -287,12 +287,10 @@ extension AlamofireExtension where ExtendedType: UIImageView {
 
         // Use the image from the image cache if it exists
         if let request = urlRequest.urlRequest {
-            let cachedImage: Image?
-
-            if let cacheKey = cacheKey {
-                cachedImage = imageCache?.image(withIdentifier: cacheKey)
+            let cachedImage: Image? = if let cacheKey {
+                imageCache?.image(withIdentifier: cacheKey)
             } else {
-                cachedImage = imageCache?.image(for: request, withIdentifier: filter?.identifier)
+                imageCache?.image(for: request, withIdentifier: filter?.identifier)
             }
 
             if let image = cachedImage {
@@ -307,7 +305,7 @@ extension AlamofireExtension where ExtendedType: UIImageView {
                     // It's important to display the placeholder image again otherwise you have some odd disparity
                     // between the request loading from the cache and those that download. It's important to keep
                     // the same behavior between both, otherwise the user can actually see the difference.
-                    if let placeholderImage = placeholderImage { type.image = placeholderImage }
+                    if let placeholderImage { type.image = placeholderImage }
 
                     // Need to let the runloop cycle for the placeholder image to take affect
                     DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
@@ -327,13 +325,17 @@ extension AlamofireExtension where ExtendedType: UIImageView {
         }
 
         // Set the placeholder since we're going to have to download
-        if let placeholderImage = placeholderImage { type.image = placeholderImage }
+        if let placeholderImage { type.image = placeholderImage }
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
         // Weakify the image view to allow it to go out-of-memory while download is running if deallocated
+        #if swift(>=6.3)
+        weak let imageView = type
+        #else
         weak var imageView = type
+        #endif
 
         // Download the image, then run the image transition or completion handler
         let requestReceipt = imageDownloader.download(urlRequest,
@@ -369,7 +371,7 @@ extension AlamofireExtension where ExtendedType: UIImageView {
 
     /// Cancels the active download request, if one exists.
     public func cancelImageRequest() {
-        guard let activeRequestReceipt = activeRequestReceipt else { return }
+        guard let activeRequestReceipt else { return }
 
         let imageDownloader = imageDownloader ?? UIImageView.af.sharedImageDownloader
         imageDownloader.cancelRequest(with: activeRequestReceipt)

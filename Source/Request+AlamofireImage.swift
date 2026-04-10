@@ -25,7 +25,7 @@
 import Alamofire
 import Foundation
 
-#if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+#if os(iOS) || os(tvOS) || os(visionOS)
 import UIKit
 #elseif os(watchOS)
 import UIKit
@@ -34,19 +34,14 @@ import WatchKit
 import Cocoa
 #endif
 
-open class ImageResponseSerializer: ResponseSerializer {
+open class ImageResponseSerializer: ResponseSerializer, Sendable {
     // MARK: Properties
 
     public static var deviceScreenScale: CGFloat { DataRequest.imageScale }
 
-    public let imageScale: CGFloat
-    public let inflateResponseImage: Bool
-    public let emptyResponseCodes: Set<Int>
-    public let emptyRequestMethods: Set<HTTPMethod>
-
     public internal(set) static var acceptableImageContentTypes: Set<String> = {
         // Universally supported image types.
-        var contentTypes: Set<String> = [
+        var contentTypes: Set = [
             "application/octet-stream", // As a fallback for things like AWS which provide no real type.
             "image/bmp",
             "image/gif",
@@ -63,7 +58,7 @@ open class ImageResponseSerializer: ResponseSerializer {
             "image/x-xbitmap"
         ]
 
-        #if os(macOS) || os(iOS) || (swift(>=5.9) && os(visionOS)) // No WebP support on tvOS or watchOS.
+        #if os(macOS) || os(iOS) || os(visionOS) // No WebP support on tvOS or watchOS.
         if #available(macOS 11, iOS 14, *) {
             contentTypes.insert("image/webp")
         }
@@ -88,6 +83,11 @@ open class ImageResponseSerializer: ResponseSerializer {
 
     static let streamImageInitialBytePattern = Data([255, 216]) // 0xffd8
 
+    public let imageScale: CGFloat
+    public let inflateResponseImage: Bool
+    public let emptyResponseCodes: Set<Int>
+    public let emptyRequestMethods: Set<HTTPMethod>
+
     // MARK: Initialization
 
     public init(imageScale: CGFloat = ImageResponseSerializer.deviceScreenScale,
@@ -105,7 +105,7 @@ open class ImageResponseSerializer: ResponseSerializer {
     open func serialize(request: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) throws -> Image {
         guard error == nil else { throw error! }
 
-        guard let data = data, !data.isEmpty else {
+        guard let data, !data.isEmpty else {
             guard emptyResponseAllowed(forRequest: request, response: response) else {
                 throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
             }
@@ -115,9 +115,7 @@ open class ImageResponseSerializer: ResponseSerializer {
         }
 
         try validateContentType(for: request, response: response)
-        let image = try serializeImage(from: data)
-
-        return image
+        return try serializeImage(from: data)
     }
 
     open func serializeImage(from data: Data) throws -> Image {
@@ -125,7 +123,7 @@ open class ImageResponseSerializer: ResponseSerializer {
             throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
         }
 
-        #if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
+        #if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
         guard let image = UIImage.af.threadSafeImage(with: data, scale: imageScale) else {
             throw AFIError.imageSerializationFailed
         }
@@ -176,7 +174,7 @@ extension DataRequest {
     public class var imageScale: CGFloat {
         #if os(iOS) || os(tvOS)
         return UIScreen.main.scale
-        #elseif swift(>=5.9) && os(visionOS)
+        #elseif os(visionOS)
         return 2
         #elseif os(watchOS)
         return WKInterfaceDevice.current().screenScale
@@ -188,7 +186,7 @@ extension DataRequest {
 
 // MARK: - iOS, tvOS, and watchOS
 
-#if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 extension DataRequest {
     /// Adds a response handler to be called once the request has finished.
@@ -269,7 +267,7 @@ extension DataRequest {
 
 #endif
 
-#if compiler(>=5.6.0) && canImport(_Concurrency)
+#if canImport(_Concurrency)
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 extension DataRequest {

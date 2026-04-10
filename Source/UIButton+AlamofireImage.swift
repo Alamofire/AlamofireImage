@@ -25,13 +25,13 @@
 import Alamofire
 import Foundation
 
-#if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+#if os(iOS) || os(tvOS) || os(visionOS)
 
 import UIKit
 
 public typealias ControlState = UIControl.State
 
-extension UIButton: AlamofireExtended {}
+extension UIButton: @retroactive AlamofireExtended {}
 extension AlamofireExtension where ExtendedType: UIButton {
     // MARK: - Properties
 
@@ -187,12 +187,10 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
         // Use the image from the image cache if it exists
         if let request = urlRequest.urlRequest {
-            let cachedImage: Image?
-
-            if let cacheKey = cacheKey {
-                cachedImage = imageCache?.image(withIdentifier: cacheKey)
+            let cachedImage: Image? = if let cacheKey {
+                imageCache?.image(withIdentifier: cacheKey)
             } else {
-                cachedImage = imageCache?.image(for: request, withIdentifier: filter?.identifier)
+                imageCache?.image(for: request, withIdentifier: filter?.identifier)
             }
 
             if let image = cachedImage {
@@ -211,13 +209,17 @@ extension AlamofireExtension where ExtendedType: UIButton {
         }
 
         // Set the placeholder since we're going to have to download
-        if let placeholderImage = placeholderImage { type.setImage(placeholderImage, for: state) }
+        if let placeholderImage { type.setImage(placeholderImage, for: state) }
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
         // Weakify the button to allow it to go out-of-memory while download is running if deallocated
+        #if swift(>=6.3)
+        weak let button = type
+        #else
         weak var button = type
+        #endif
 
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(urlRequest,
@@ -356,12 +358,10 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
         // Use the image from the image cache if it exists
         if let request = urlRequest.urlRequest {
-            let cachedImage: Image?
-
-            if let cacheKey = cacheKey {
-                cachedImage = imageCache?.image(withIdentifier: cacheKey)
+            let cachedImage: Image? = if let cacheKey {
+                imageCache?.image(withIdentifier: cacheKey)
             } else {
-                cachedImage = imageCache?.image(for: request, withIdentifier: filter?.identifier)
+                imageCache?.image(for: request, withIdentifier: filter?.identifier)
             }
 
             if let image = cachedImage {
@@ -380,13 +380,17 @@ extension AlamofireExtension where ExtendedType: UIButton {
         }
 
         // Set the placeholder since we're going to have to download
-        if let placeholderImage = placeholderImage { type.setBackgroundImage(placeholderImage, for: state) }
+        if let placeholderImage { type.setBackgroundImage(placeholderImage, for: state) }
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
         // Weakify the button to allow it to go out-of-memory while download is running if deallocated
+        #if swift(>=6.3)
+        weak let button = type
+        #else
         weak var button = type
+        #endif
 
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(urlRequest,

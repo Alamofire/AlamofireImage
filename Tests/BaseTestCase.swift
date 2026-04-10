@@ -62,15 +62,33 @@ class BaseTestCase: XCTestCase {
     // MARK: - Resources
 
     func url(forResource fileName: String, withExtension ext: String) -> URL {
-        let bundle = Bundle(for: BaseTestCase.self)
-        return bundle.url(forResource: fileName, withExtension: ext)!
+        var possibleBundles: [Bundle] = [
+            Bundle(for: Self.self),
+            Bundle.main
+        ]
+
+        #if SWIFT_PACKAGE
+        possibleBundles.append(Bundle.module)
+        #endif
+
+        #if swift(>=6.2)
+        possibleBundles.append(#bundle)
+        #endif
+
+        for bundle in possibleBundles {
+            if let url = bundle.url(forResource: fileName, withExtension: ext) {
+                return url
+            }
+        }
+
+        fatalError("No bundle could find \(fileName).\(ext)")
     }
 
     func image(forResource fileName: String, withExtension ext: String) -> Image {
         let resourceURL = url(forResource: fileName, withExtension: ext)
         let data = try! Data(contentsOf: resourceURL)
 
-        #if os(iOS) || os(tvOS) || os(watchOS) || (swift(>=5.9) && os(visionOS))
+        #if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
         let image = Image.af.threadSafeImage(with: data, scale: DataRequest.imageScale)!
         #elseif os(macOS)
         let image = Image(data: data)!

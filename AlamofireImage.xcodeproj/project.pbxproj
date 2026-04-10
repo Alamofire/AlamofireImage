@@ -896,16 +896,10 @@
 		3143544B1F4A16FE00266E5F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3143544C1F4A16FE00266E5F /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		314354501F4A16FE00266E5F /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
-		314EA76129345F4B0021C5F4 /* macOS-NoTS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "macOS-NoTS.xctestplan"; sourceTree = "<group>"; };
 		314EA76229345F4B0021C5F4 /* macOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = macOS.xctestplan; sourceTree = "<group>"; };
 		314EA764293464920021C5F4 /* iOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = iOS.xctestplan; sourceTree = "<group>"; };
-		314EA765293464AA0021C5F4 /* iOS-NoTS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iOS-NoTS.xctestplan"; sourceTree = "<group>"; };
 		314EA7662934684F0021C5F4 /* tvOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = tvOS.xctestplan; sourceTree = "<group>"; };
-		314EA7672934687E0021C5F4 /* tvOS-NoTS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "tvOS-NoTS.xctestplan"; sourceTree = "<group>"; };
 		314EA7F729346A910021C5F4 /* watchOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = watchOS.xctestplan; sourceTree = "<group>"; };
-		314EA7F829346AB00021C5F4 /* watchOS-NoTS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "watchOS-NoTS.xctestplan"; sourceTree = "<group>"; };
-		314EA7F929346B640021C5F4 /* tvOS-Old.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "tvOS-Old.xctestplan"; sourceTree = "<group>"; };
-		314EA7FA29346B670021C5F4 /* iOS-Old.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "iOS-Old.xctestplan"; sourceTree = "<group>"; };
 		316A6C3C2A83DC1900311D98 /* AlamofireImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AlamofireImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		317911B9290F9AEE00BF6504 /* AlamofireImage watchOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AlamofireImage watchOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31C064192AA7A48C00D76648 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1228,16 +1222,10 @@
 		31CFF7A028F355370087D7D3 /* Test Plans */ = {
 			isa = PBXGroup;
 			children = (
-				314EA765293464AA0021C5F4 /* iOS-NoTS.xctestplan */,
-				314EA7FA29346B670021C5F4 /* iOS-Old.xctestplan */,
 				314EA764293464920021C5F4 /* iOS.xctestplan */,
-				314EA76129345F4B0021C5F4 /* macOS-NoTS.xctestplan */,
 				314EA76229345F4B0021C5F4 /* macOS.xctestplan */,
-				314EA7672934687E0021C5F4 /* tvOS-NoTS.xctestplan */,
-				314EA7F929346B640021C5F4 /* tvOS-Old.xctestplan */,
 				314EA7662934684F0021C5F4 /* tvOS.xctestplan */,
 				31C064C22AA7AF2300D76648 /* visionOS.xctestplan */,
-				314EA7F829346AB00021C5F4 /* watchOS-NoTS.xctestplan */,
 				314EA7F729346A910021C5F4 /* watchOS.xctestplan */,
 			);
 			path = "Test Plans";
@@ -1894,7 +1882,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2640;
 				ORGANIZATIONNAME = Alamofire;
 				TargetAttributes = {
 					316A6C3B2A83DC1900311D98 = {
@@ -2990,6 +2978,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3011,6 +3000,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3042,7 +3032,6 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.alamofire.AlamofireImage-watchOS-Tests";
@@ -3069,7 +3058,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.alamofire.AlamofireImage-watchOS-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3107,7 +3095,6 @@
 		4C11831B21505180007A8298 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -3139,7 +3126,6 @@
 		4C11831C21505180007A8298 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -3170,6 +3156,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3190,6 +3177,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3242,6 +3230,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3263,6 +3252,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3335,7 +3325,7 @@
 				INFOPLIST_FILE = Source/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 4.3.0;
+				MARKETING_VERSION = 4.4.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.alamofire.AlamofireImage;
 				PRODUCT_NAME = AlamofireImage;
@@ -3400,7 +3390,7 @@
 				INFOPLIST_FILE = Source/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 4.3.0;
+				MARKETING_VERSION = 4.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.alamofire.AlamofireImage;
 				PRODUCT_NAME = AlamofireImage;
 				SDKROOT = iphoneos;
@@ -3420,6 +3410,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3439,6 +3430,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3490,6 +3482,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3510,6 +3503,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

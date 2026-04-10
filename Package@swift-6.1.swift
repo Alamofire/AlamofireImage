@@ -1,8 +1,8 @@
-// swift-tools-version:5.7
+// swift-tools-version: 6.1
 //
-//  Package@swift-5.7.swift
+//  Package.swift
 //
-//  Copyright (c) 2023 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2025 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,13 +26,13 @@
 import PackageDescription
 
 let package = Package(name: "AlamofireImage",
-                      platforms: [.iOS(.v11),
-                                  .macOS(.v10_13),
-                                  .tvOS(.v11),
+                      platforms: [.macOS(.v10_13),
+                                  .iOS(.v12),
+                                  .tvOS(.v12),
                                   .watchOS(.v4)],
                       products: [.library(name: "AlamofireImage", targets: ["AlamofireImage"])],
                       dependencies: [.package(url: "https://github.com/Alamofire/Alamofire.git",
-                                              from: "5.8.0")],
+                                              from: "5.11.0")],
                       targets: [.target(name: "AlamofireImage",
                                         dependencies: ["Alamofire"],
                                         path: "Source",
@@ -42,4 +42,4 @@ let package = Package(name: "AlamofireImage",
                                             path: "Tests",
                                             exclude: ["Info.plist", "Test Plans"],
                                             resources: [.process("Resources")])],
-                      swiftLanguageVersions: [.v5])
+                      swiftLanguageModes: [.v5])

@@ -24,7 +24,6 @@
 
 @testable import Alamofire
 @testable import AlamofireImage
-
 import Foundation
 import XCTest
 
@@ -43,7 +42,7 @@ private final class ThreadCheckFilter: ImageFilter {
 
 // MARK: -
 
-#if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+#if os(iOS) || os(tvOS) || os(visionOS)
 
 private final class TestCircleFilter: ImageFilter {
     var filterOperationCompleted = false
@@ -277,8 +276,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
                 return configuration
             }()
 
-            let downloader = ImageDownloader(configuration: configuration)
-            return downloader
+            return ImageDownloader(configuration: configuration)
         }()
 
         let expectation = expectation(description: "image download should succeed")
@@ -299,7 +297,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         XCTAssertTrue(response?.result.isSuccess ?? false, "result should be a success case")
     }
 
-    #if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+    #if os(iOS) || os(tvOS) || os(visionOS)
 
     // MARK: - Image Download Tests (iOS and tvOS Only)
 
@@ -581,7 +579,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
                 }
             })
 
-            if let receipt = receipt {
+            if let receipt {
                 downloader.cancelRequest(with: receipt)
             }
         }
@@ -878,7 +876,7 @@ final class ImageDownloaderTestCase: BaseTestCase {
         }
     }
 
-    #if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+    #if os(iOS) || os(tvOS) || os(visionOS)
 
     func testThatFilteredImageIsStoredInCacheIfCacheIsAvailable() {
         // Given

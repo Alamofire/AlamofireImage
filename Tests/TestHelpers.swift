@@ -41,8 +41,8 @@ struct Endpoint {
 
         var port: Int {
             switch self {
-            case .http: return 80
-            case .https: return 443
+            case .http: 80
+            case .https: 443
             }
         }
     }
@@ -55,8 +55,8 @@ struct Endpoint {
 
         func port(for scheme: Scheme) -> Int {
             switch self {
-            case .localhost: return 8080
-            case .gravatar, .httpBin, .nonexistent: return scheme.port
+            case .localhost: 8080
+            case .gravatar, .httpBin, .nonexistent: scheme.port
             }
         }
     }
@@ -86,45 +86,45 @@ struct Endpoint {
         var string: String {
             switch self {
             case let .basicAuth(username: username, password: password):
-                return "/basic-auth/\(username)/\(password)"
+                "/basic-auth/\(username)/\(password)"
             case let .bytes(count):
-                return "/bytes/\(count)"
+                "/bytes/\(count)"
             case let .chunked(count):
-                return "/chunked/\(count)"
+                "/chunked/\(count)"
             case let .compression(compression):
-                return "/\(compression.rawValue)"
+                "/\(compression.rawValue)"
             case let .delay(interval):
-                return "/delay/\(interval)"
+                "/delay/\(interval)"
             case let .digestAuth(qop, username, password):
-                return "/digest-auth/\(qop)/\(username)/\(password)"
+                "/digest-auth/\(qop)/\(username)/\(password)"
             case let .download(count):
-                return "/download/\(count)"
+                "/download/\(count)"
             case let .gravatar(id):
-                return "/avatar/\(id)"
+                "/avatar/\(id)"
             case let .hiddenBasicAuth(username, password):
-                return "/hidden-basic-auth/\(username)/\(password)"
+                "/hidden-basic-auth/\(username)/\(password)"
             case let .image(type):
-                return "/image/\(type.rawValue)"
+                "/image/\(type.rawValue)"
             case .ip:
-                return "/ip"
+                "/ip"
             case let .method(method):
-                return "/\(method.rawValue.lowercased())"
+                "/\(method.rawValue.lowercased())"
             case .none:
-                return ""
+                ""
             case let .payloads(count):
-                return "/payloads/\(count)"
+                "/payloads/\(count)"
             case let .redirect(count):
-                return "/redirect/\(count)"
+                "/redirect/\(count)"
             case .redirectTo:
-                return "/redirect-to"
+                "/redirect-to"
             case .responseHeaders:
-                return "/response-headers"
+                "/response-headers"
             case let .status(code):
-                return "/status/\(code)"
+                "/status/\(code)"
             case let .stream(count):
-                return "/stream/\(count)"
+                "/stream/\(count)"
             case .xml:
-                return "/xml"
+                "/xml"
             }
         }
     }
@@ -145,13 +145,13 @@ struct Endpoint {
         var expectedSize: CGSize {
             switch self {
             case .bmp, .jp2, .jpeg, .gif, .pdf, .png, .webp:
-                return .init(width: 1, height: 1)
+                .init(width: 1, height: 1)
             case .heic, .heif:
-                return .init(width: 64, height: 64)
+                .init(width: 64, height: 64)
             case .avif:
-                return .init(width: 2, height: 2)
+                .init(width: 2, height: 2)
             case .jxl:
-                return .init(width: 1000, height: 1000)
+                .init(width: 1000, height: 1000)
             }
         }
     }

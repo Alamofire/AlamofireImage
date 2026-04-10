@@ -1,16 +1,15 @@
 {
-  "object" : {
-    "pins" : [
-      {
-        "package" : "Alamofire",
-        "repositoryURL" : "https://github.com/Alamofire/Alamofire.git",
-        "state" : {
-          "branch" : null,
-          "revision" : "b2fa556e4e48cbf06cf8c63def138c98f4b811fa",
-          "version" : "5.8.0"
-        }
+  "originHash" : "a6c768aa46cdbc372c0783a093600399b78ce31c752220c7b48572eed0312057",
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "e938f8c66708e7352fc7e3512647fa54255b267a",
+        "version" : "5.11.2"
       }
-    ]
-  },
-  "version" : 1
+    }
+  ],
+  "version" : 3
 }

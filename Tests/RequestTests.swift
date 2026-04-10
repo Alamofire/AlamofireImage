@@ -46,7 +46,7 @@ final class DataRequestTestCase: BaseTestCase {
 
     func testThatAddingAcceptableImageContentTypesInsertsThemIntoTheGlobalList() {
         // Given
-        let contentTypes: Set<String> = ["binary/octet-stream"]
+        let contentTypes: Set = ["binary/octet-stream"]
 
         // When
         let beforeCount = ImageResponseSerializer.acceptableImageContentTypes.count
@@ -54,7 +54,7 @@ final class DataRequestTestCase: BaseTestCase {
         let afterCount = ImageResponseSerializer.acceptableImageContentTypes.count
 
         // Then
-        #if os(iOS) || os(macOS) || (swift(>=5.9) && os(visionOS))
+        #if os(iOS) || os(macOS) || os(visionOS)
         if #available(macOS 14, iOS 17, *) {
             XCTAssertEqual(beforeCount, 19, "before count should be 19")
             XCTAssertEqual(afterCount, 20, "after count should be 20")
@@ -69,7 +69,10 @@ final class DataRequestTestCase: BaseTestCase {
             XCTAssertEqual(afterCount, 17, "after count should be 17")
         }
         #elseif os(tvOS)
-        if #available(tvOS 16, *) {
+        if #available(tvOS 17, *) {
+            XCTAssertEqual(beforeCount, 18, "before count should be 17")
+            XCTAssertEqual(afterCount, 19, "after count should be 18")
+        } else if #available(tvOS 16, *) {
             XCTAssertEqual(beforeCount, 17, "before count should be 17")
             XCTAssertEqual(afterCount, 18, "after count should be 18")
         } else {
@@ -109,7 +112,7 @@ final class DataRequestTestCase: BaseTestCase {
             }
 
             let expectedSize = imageType.expectedSize
-            #if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+            #if os(iOS) || os(tvOS) || os(visionOS)
             XCTAssertEqual(image.size, expectedSize.scaledToScreen, "image size does not match expected value")
             XCTAssertTrue(image.isScaledToScreen, "image scale does not match expected value")
             #elseif os(macOS)
@@ -190,7 +193,7 @@ final class DataRequestTestCase: BaseTestCase {
         }
 
         let expectedSize = Endpoint.Image.avif.expectedSize
-        #if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+        #if os(iOS) || os(tvOS) || os(visionOS)
         XCTAssertEqual(image.size, expectedSize.scaledToScreen, "image size does not match expected value")
         XCTAssertTrue(image.isScaledToScreen, "image scale does not match expected value")
         #elseif os(macOS)
@@ -228,7 +231,7 @@ final class DataRequestTestCase: BaseTestCase {
         }
 
         let expectedSize = Endpoint.Image.jxl.expectedSize
-        #if os(iOS) || os(tvOS) || (swift(>=5.9) && os(visionOS))
+        #if os(iOS) || os(tvOS) || os(visionOS)
         XCTAssertEqual(image.size, expectedSize.scaledToScreen, "image size does not match expected value")
         XCTAssertTrue(image.isScaledToScreen, "image scale does not match expected value")
         #elseif os(macOS)
